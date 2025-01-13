@@ -11,17 +11,23 @@ public class Login {
     
     private int idusuario;
     private String nombre;
+    private String APaterno;
+    private String AMaterno;
     private String pass;
-    private String vig;
+    private int idperfil;
+    private String tipo_perfil;
 
     public Login() {
     }
 
-    public Login(int idusuario, String nombre, String pass, String vig) {
+    public Login(int idusuario, String nombre, String APaterno, String AMaterno, String pass, int idperfil, String tipo_perfil) {
         this.idusuario = idusuario;
         this.nombre = nombre;
+        this.APaterno = APaterno;
+        this.AMaterno = AMaterno;
         this.pass = pass;
-        this.vig = vig;
+        this.idperfil = idperfil;
+        this.tipo_perfil = tipo_perfil;
     }
 
     public int getIdusuario() {
@@ -40,6 +46,22 @@ public class Login {
         this.nombre = nombre;
     }
 
+    public String getAPaterno() {
+        return APaterno;
+    }
+
+    public void setAPaterno(String APaterno) {
+        this.APaterno = APaterno;
+    }
+
+    public String getAMaterno() {
+        return AMaterno;
+    }
+
+    public void setAMaterno(String AMaterno) {
+        this.AMaterno = AMaterno;
+    }
+
     public String getPass() {
         return pass;
     }
@@ -48,13 +70,23 @@ public class Login {
         this.pass = pass;
     }
 
-    public String getVig() {
-        return vig;
+    public int getIdperfil() {
+        return idperfil;
     }
 
-    public void setVig(String vig) {
-        this.vig = vig;
+    public void setIdperfil(int idperfil) {
+        this.idperfil = idperfil;
     }
+
+    public String getTipo_perfil() {
+        return tipo_perfil;
+    }
+
+    public void setTipo_perfil(String tipo_perfil) {
+        this.tipo_perfil = tipo_perfil;
+    }
+
+    
     
     
     

@@ -1,44 +1,50 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Vista;
 
 import Modelo.Login;
+
 /**
  *
- * @author Eduardo´s
+ * @author Practicas1
  */
-public class frmHome extends javax.swing.JFrame {
+public class frmAdmin extends javax.swing.JFrame {
 
-    //LoginData lg = new LoginData();
-
-    public frmHome() {
+    /**
+     * Creates new form frmAdmin
+     */
+    public frmAdmin() {
         initComponents();
     }
-    
+
     
     public void mostrarNombreUsuario(Login lg) {
         if (lg != null) {
-            lblUsuario.setText("Bienvenido, " + lg.getNombre() +" "+ lg.getAPaterno()+" "+ lg.getAMaterno()); // Actualiza el texto del JLabel
+            lbNombre.setText("Bienvenido, " + lg.getNombre() +" "+ lg.getAPaterno()+" "+ lg.getAMaterno()); // Actualiza el texto del JLabel
         }
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblUsuario = new javax.swing.JLabel();
+        lbNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Empleado");
+        setTitle("Administrador");
 
-        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblUsuario.setText("Dato");
+        lbNombre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbNombre.setText("ADMIN");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("EMPLEADO");
+        jLabel1.setText("ADMINISTRADOR");
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -55,21 +61,21 @@ public class frmHome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(lblUsuario))
+                        .addGap(55, 55, 55)
+                        .addComponent(lbNombre))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
+                        .addGap(218, 218, 218)
                         .addComponent(jLabel1)))
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                .addComponent(lblUsuario)
-                .addGap(217, 217, 217))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addComponent(lbNombre)
+                .addGap(201, 201, 201))
         );
 
         pack();
@@ -92,20 +98,20 @@ public class frmHome extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmHome().setVisible(true);
+                new frmAdmin().setVisible(true);
             }
         });
     }
@@ -115,6 +121,6 @@ public class frmHome extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lbNombre;
     // End of variables declaration//GEN-END:variables
 }

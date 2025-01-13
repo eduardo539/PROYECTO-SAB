@@ -20,11 +20,13 @@ public class frmLogin extends javax.swing.JFrame {
     public void Entrar(){
         String usuario = txtUsuario.getText();
         String pass = String.valueOf(txtPassword.getPassword());
+        String rol = boxPerfil.getSelectedItem().toString();
         
-        if (!"".equals(usuario) || !"".equals(pass)) {
+        if (!"".equals(rol) || !"".equals(usuario) || !"".equals(pass)) {
             
-            lg = login.log(usuario, pass);
+            lg = login.log(rol ,usuario, pass);
             
+            /*
             if (lg.getNombre()!= null && lg.getPass() != null) {
                 // Si el login es válido, se abre la ventana siguiente
                 frmHome home = new frmHome();
@@ -33,8 +35,25 @@ public class frmLogin extends javax.swing.JFrame {
                 home.setVisible(true);  // Muestra la ventana principal
                 // Cerrar la ventana de login si es necesario
                 this.dispose(); // Si deseas cerrar la ventana de login después de abrir la principal
-            }else{
-                JOptionPane.showMessageDialog(null, "Correo o Contraseña incorrecta o el Usuario ingresado no esta registrado");
+            }
+            */
+            if("Administrador".equals(lg.getTipo_perfil())){
+                frmAdmin admin = new frmAdmin();
+                admin.mostrarNombreUsuario(lg);
+                admin.setVisible(true);
+                this.dispose();
+            }
+            else if("Empleado".equals(lg.getTipo_perfil())){
+                // Si el login es válido, se abre la ventana siguiente
+                frmHome home = new frmHome();
+                home.mostrarNombreUsuario(lg); // Pasar el objeto Usuario completo
+                //home.setValue(true);  // Establece el valor necesario en la siguiente ventana
+                home.setVisible(true);  // Muestra la ventana principal
+                // Cerrar la ventana de login si es necesario
+                this.dispose(); // Si deseas cerrar la ventana de login después de abrir la principal
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Correo, Contraseña o Perfil incorrectos, vuelve a intentar");
             }
         }
         else{
@@ -160,7 +179,12 @@ public class frmLogin extends javax.swing.JFrame {
 
         jButton1.setText("Recuperar");
 
-        boxPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Admin", "Socio" }));
+        boxPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Empleado" }));
+        boxPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxPerfilActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,6 +259,13 @@ public class frmLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         Entrar();
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void boxPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxPerfilActionPerformed
+        //objetoLogin.validarUsuario(txtUsuario, txtContrasenia);
+        
+        //String usuario = Usuario.getSelectedItem().toString();
+        //System.out.println("TIPO DE USUARIO: " + usuario);
+    }//GEN-LAST:event_boxPerfilActionPerformed
 
     /**
      * @param args the command line arguments
