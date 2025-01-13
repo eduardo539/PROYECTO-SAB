@@ -1,0 +1,11 @@
+# Archivos y carpetas del IDE
+*.class
+*.log
+*.iml
+.idea/
+nbproject/private/
+
+# Carpetas de compilación
+/bin/
+/build/
+/dist/
