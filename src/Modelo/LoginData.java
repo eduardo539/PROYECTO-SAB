@@ -21,6 +21,7 @@ public class LoginData {
     
     public Login log(String idusuario, String password){
         
+        //Se crea un nuevo objeto para realizar la consulta
         Login l = Login.getInstancia();
         String sql = "SELECT tbl_usuarios.id_usuario, tbl_usuarios.Nombre, tbl_usuarios.APaterno, " +
                         "tbl_usuarios.AMaterno, tbl_usuarios.vchPass, tbl_usuarios.id_perfil, " +
@@ -28,7 +29,7 @@ public class LoginData {
                         "FROM tbl_usuarios " +
                         "JOIN tbl_perfil ON tbl_usuarios.id_perfil = tbl_perfil.id_perfil " +
                         "AND tbl_usuarios.id_usuario = ? " +
-                        "AND tbl_usuarios.vchPass = ?;";
+                        "AND tbl_usuarios.vchPass = MD5(?);";
         
         try {
             con = cn.getConnection();
@@ -45,7 +46,7 @@ public class LoginData {
                 l.setPass(rs.getString("vchPass"));
                 l.setIdperfil(rs.getInt("id_perfil"));
                 l.setTipo_perfil(rs.getString("tipo_perfil"));
-                
+                //Se almacenan los datos en variables
             }
         } catch (SQLException e) {
             System.out.println(e.toString());

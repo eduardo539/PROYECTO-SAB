@@ -5,19 +5,20 @@ import Modelo.Login;
  *
  * @author Eduardo´s
  */
-public class frmHome extends javax.swing.JFrame {
+public final class frmHome extends javax.swing.JFrame {
 
-    //LoginData lg = new LoginData();
+    Login lg = Login.getInstancia();
 
     public frmHome() {
         initComponents();
+        
+        mostrarNombreUsuario();
     }
     
     
-    public void mostrarNombreUsuario(Login lg) {
-        if (lg != null) {
-            lblUsuario.setText("Bienvenido, " + lg.getNombre() +" "+ lg.getAPaterno()+" "+ lg.getAMaterno()); // Actualiza el texto del JLabel
-        }
+    public void mostrarNombreUsuario(){
+        
+        lblUsuario.setText("Bienvenido, " + lg.getNombre() +" "+ lg.getAPaterno()+" "+ lg.getAMaterno()); // Actualiza el texto del JLabel
     }
 
     

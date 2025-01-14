@@ -100,7 +100,15 @@ public class Login {
     }
 
     
-    
+    public void limpiarDatos() {
+        this.idusuario = 0;
+        this.nombre = null;
+        this.APaterno = null;
+        this.AMaterno = null;
+        this.pass = null;
+        this.idperfil = 0;
+        this.tipo_perfil = null;
+    }
     
     
     

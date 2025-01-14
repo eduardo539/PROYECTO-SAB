@@ -3,6 +3,7 @@ package Vista;
 import javax.swing.JOptionPane;
 import Modelo.Login;
 import Modelo.LoginData;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,38 +19,56 @@ public class frmLogin extends javax.swing.JFrame {
     }
 
     public void Entrar(){
-        String usuario = txtUsuario.getText();
-        String pass = String.valueOf(txtPassword.getPassword());
-        
-        if (!"".equals(usuario) || !"".equals(pass)) {
-            
-            lg = login.log(usuario, pass);
-            
-            if("Administrador".equals(lg.getTipo_perfil())){
-                frmAdmin admin = new frmAdmin();
-                admin.mostrarNombreUsuario(lg);
-                admin.setLocationRelativeTo(null);
-                admin.setVisible(true);
-                this.dispose();
-            }
-            else if("Empleado".equals(lg.getTipo_perfil())){
-                // Si el login es válido, se abre la ventana siguiente
-                frmHome home = new frmHome();
-                home.mostrarNombreUsuario(lg); // Pasar el objeto Usuario completo
-                home.setLocationRelativeTo(null);
-                //home.setValue(true);  // Establece el valor necesario en la siguiente ventana
-                home.setVisible(true);  // Muestra la ventana principal
-                // Cerrar la ventana de login si es necesario
-                this.dispose(); // Si deseas cerrar la ventana de login después de abrir la principal
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Correo o Contraseña incorrectos, vuelve a intentar");
-            }
+        String usuario = txtUsuario.getText().trim();
+        String pass = new String(txtPassword.getPassword()).trim();
+
+        // Validación inicial: datos no vacíos
+        if (usuario.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, llena los datos solicitados.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Llena los datos solicitados");
+
+        try {
+            // Consultar el inicio de sesión
+            lg = login.log(usuario, pass);
+
+            if (lg != null && lg.getTipo_perfil() != null) {
+                // Redirige según el tipo de perfil
+                switch (lg.getTipo_perfil()) {
+                    case "Administrador":
+                        abrirVentana(new frmAdmin(), "Administrador");
+                        break;
+                    case "Empleado":
+                        abrirVentana(new frmHome(), "Empleado");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                }
+            } else {
+                // Credenciales incorrectas
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            // Manejo de errores
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al iniciar sesión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
+    
+    
+    /**
+    * Método para abrir una ventana y cerrar la actual.
+    *
+    * @param ventana La ventana que se desea abrir.
+    * @param perfil El perfil del usuario (para registro o depuración).
+    */
+   private void abrirVentana(JFrame ventana, String perfil) {
+       ventana.setLocationRelativeTo(null); // Centrar ventana
+       ventana.setVisible(true);           // Mostrar ventana
+       this.dispose();                     // Cerrar la ventana actual
+       System.out.println("Sesión iniciada como: " + perfil); // Log (opcional)
+   }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -175,26 +194,24 @@ public class frmLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(159, 159, 159))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel10)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(15, 15, 15)
-                                            .addComponent(jLabel7))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addComponent(jLabel7))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(66, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +219,7 @@ public class frmLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
