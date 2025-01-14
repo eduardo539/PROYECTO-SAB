@@ -6,7 +6,6 @@ import Modelo.LoginData;
 import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JButton;
 
 /**
  *
@@ -23,7 +22,7 @@ public class frmLogin extends javax.swing.JFrame {
     }
     
     
-    // Código dentro de tu clase principal del formulario
+    // Código para usar la tecla ENTER del teclado
     private void initialize() {
         // Asignar un KeyListener al campo de texto de la contraseña
         txtPassword.addKeyListener(new KeyListener() {
@@ -83,10 +82,10 @@ public class frmLogin extends javax.swing.JFrame {
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) {
                     case "Administrador":
-                        abrirVentana(new frmAdmin(), "Administrador");
+                        abrirVentana(new frmEmpleado(), "Administrador");
                         break;
                     case "Empleado":
-                        abrirVentana(new frmHome(), "Empleado");
+                        abrirVentana(new frmEmpleado(), "Empleado");
                         break;
                     default:
                         JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);
