@@ -47,6 +47,8 @@ public class LoginData {
                 l.setIdperfil(rs.getInt("id_perfil"));
                 l.setTipo_perfil(rs.getString("tipo_perfil"));
                 //Se almacenan los datos en variables
+                
+                //cn.closeConnection();
             }
         } catch (SQLException e) {
             System.out.println(e.toString());

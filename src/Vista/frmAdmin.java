@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Login;
+import Modelo.Conexion;
 import java.awt.*;
 import javax.swing.*;
 
@@ -11,6 +12,7 @@ import javax.swing.*;
 public final class frmAdmin extends javax.swing.JFrame {
     
     Login lg = Login.getInstancia();
+    Conexion cn = new Conexion();
     
     public frmAdmin() {
         initComponents();
@@ -27,10 +29,6 @@ public final class frmAdmin extends javax.swing.JFrame {
         lblVersionJava = new javax.swing.JLabel();
         lblVersionOS = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
-        
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Formulario con Barra de Estado");
 
         // Configurar la barra de estado
         barraEstado.setBorder(BorderFactory.createEtchedBorder());
@@ -43,12 +41,11 @@ public final class frmAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    
-    
-    
     public void mostrarNombreUsuario() {
         lbNombre.setText("Bienvenido, " + lg.getNombre() +" "+ lg.getAPaterno()+" "+ lg.getAMaterno()); // Actualiza el texto del JLabel
     }
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -136,11 +133,11 @@ public final class frmAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(lbNombre))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(218, 218, 218)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(lbNombre)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -148,9 +145,9 @@ public final class frmAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(lbNombre)
-                .addGap(250, 250, 250)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
                 .addComponent(barraEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );

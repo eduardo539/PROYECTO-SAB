@@ -9,30 +9,52 @@ import java.sql.SQLException;
  * @author Practicas1
  */
 public class Conexion {
-    Connection con;
-    
-    // Datos de la conexión a la base de datos
-    String url = "jdbc:mysql://localhost:3306/";
-    String database = "prueba_sab";
-    String user = "root";
-    String password = "";
+    private Connection con;
 
-    public Connection getConnection(){
+    // Datos de conexión a la base de datos
+    private static final String URL = "jdbc:mysql://localhost:3306/";
+    private static final String DATABASE = "prueba_sab";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
+
+    // Tiempo de espera para la conexión
+    private static final int TIMEOUT_SECONDS = 10;
+
+    /**
+     * Obtiene una conexión a la base de datos.
+     * @return La conexión establecida o null si hay un error.
+     */
+    public Connection getConnection() {
         try {
-            
-            // URL completa
-            String myBD = url + database;
-            
+            // Configura el tiempo de espera para la conexión
+            DriverManager.setLoginTimeout(TIMEOUT_SECONDS);
+
+            // Construye la URL completa
+            String dbURL = URL + DATABASE + "?useSSL=false&serverTimezone=UTC";
+
             // Establece la conexión
-            con = DriverManager.getConnection(myBD, user, password);
+            con = DriverManager.getConnection(dbURL, USER, PASSWORD);
+
+            System.out.println("Conexión exitosa a la base de datos: " + DATABASE);
             return con;
-            
         } catch (SQLException e) {
-            
-            // Mensaje mostrado en caso de algun error de conexión
-            System.out.println("Error al conectar con la base de datos: " + e.getMessage());
-            
+            // Log de errores (se puede reemplazar con un sistema de logging como Log4j o SLF4J)
+            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
         }
         return null;
+    }
+
+    /**
+     * Cierra la conexión a la base de datos.
+     */
+    public void closeConnection() {
+        if (con != null) {
+            try {
+                con.close();
+                System.out.println("Conexión cerrada correctamente.");
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
     }
 }
