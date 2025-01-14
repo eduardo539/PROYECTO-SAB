@@ -9,6 +9,9 @@ import java.sql.Date;
  */
 public class Login {
     
+    private static Login instancia; // Instancia única de la clase
+    
+    
     private int idusuario;
     private String nombre;
     private String APaterno;
@@ -17,9 +20,18 @@ public class Login {
     private int idperfil;
     private String tipo_perfil;
 
-    public Login() {
+    private Login() {
     }
-
+    
+    // Método para obtener la instancia única de la clase
+    public static Login getInstancia() {
+        if (instancia == null) {
+            instancia = new Login();
+        }
+        return instancia;
+    }
+    
+    
     public Login(int idusuario, String nombre, String APaterno, String AMaterno, String pass, int idperfil, String tipo_perfil) {
         this.idusuario = idusuario;
         this.nombre = nombre;
@@ -29,6 +41,7 @@ public class Login {
         this.idperfil = idperfil;
         this.tipo_perfil = tipo_perfil;
     }
+    
 
     public int getIdusuario() {
         return idusuario;

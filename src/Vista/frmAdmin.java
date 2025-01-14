@@ -1,25 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista;
 
 import Modelo.Login;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
  * @author Practicas1
  */
 public class frmAdmin extends javax.swing.JFrame {
-
-    /**
-     * Creates new form frmAdmin
-     */
+    
+    Login lg = Login.getInstancia();
+    
     public frmAdmin() {
         initComponents();
-    }
+        
+        // Inicializar datos dinámicos en la barra de estado
+        lblEstado.setText("Estado: Listo" + " | ");
+        lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
+        lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
+        lblId.setText("Usuario: " + lg.getIdusuario());
+        
+        
+        barraEstado = new javax.swing.JPanel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
+        
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Formulario con Barra de Estado");
+
+        // Configurar la barra de estado
+        barraEstado.setBorder(BorderFactory.createEtchedBorder());
+        barraEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        // Añadir la barra de estado a la ventana
+        getContentPane().add(barraEstado, BorderLayout.SOUTH);
+
+        pack();
+        setLocationRelativeTo(null);
+    }
+    
+    
+    
     
     public void mostrarNombreUsuario(Login lg) {
         if (lg != null) {
@@ -33,6 +57,11 @@ public class frmAdmin extends javax.swing.JFrame {
 
         lbNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        barraEstado = new javax.swing.JPanel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -46,6 +75,42 @@ public class frmAdmin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("ADMINISTRADOR");
 
+        barraEstado.setBackground(new java.awt.Color(204, 204, 204));
+
+        lblVersionJava.setText("jLabel2");
+
+        lblVersionOS.setText("jLabel2");
+
+        lblId.setText("jLabel2");
+
+        lblEstado.setText("jLabel2");
+
+        javax.swing.GroupLayout barraEstadoLayout = new javax.swing.GroupLayout(barraEstado);
+        barraEstado.setLayout(barraEstadoLayout);
+        barraEstadoLayout.setHorizontalGroup(
+            barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barraEstadoLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 218, Short.MAX_VALUE))
+        );
+        barraEstadoLayout.setVerticalGroup(
+            barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraEstadoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVersionJava)
+                    .addComponent(lblVersionOS)
+                    .addComponent(lblId)
+                    .addComponent(lblEstado)))
+        );
+
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
@@ -58,6 +123,7 @@ public class frmAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(barraEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -66,16 +132,18 @@ public class frmAdmin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(218, 218, 218)
                         .addComponent(jLabel1)))
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbNombre)
-                .addGap(201, 201, 201))
+                .addGap(250, 250, 250)
+                .addComponent(barraEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -117,10 +185,15 @@ public class frmAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel barraEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lbNombre;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblVersionJava;
+    private javax.swing.JLabel lblVersionOS;
     // End of variables declaration//GEN-END:variables
 }

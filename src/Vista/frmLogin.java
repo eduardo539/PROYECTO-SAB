@@ -10,7 +10,7 @@ import Modelo.LoginData;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-    Login lg = new Login();
+    Login lg = Login.getInstancia();
     LoginData login = new LoginData();
     
     public frmLogin() {
@@ -20,26 +20,15 @@ public class frmLogin extends javax.swing.JFrame {
     public void Entrar(){
         String usuario = txtUsuario.getText();
         String pass = String.valueOf(txtPassword.getPassword());
-        String rol = boxPerfil.getSelectedItem().toString();
         
-        if (!"".equals(rol) || !"".equals(usuario) || !"".equals(pass)) {
+        if (!"".equals(usuario) || !"".equals(pass)) {
             
-            lg = login.log(rol ,usuario, pass);
+            lg = login.log(usuario, pass);
             
-            /*
-            if (lg.getNombre()!= null && lg.getPass() != null) {
-                // Si el login es válido, se abre la ventana siguiente
-                frmHome home = new frmHome();
-                home.mostrarNombreUsuario(lg); // Pasar el objeto Usuario completo
-                //home.setValue(true);  // Establece el valor necesario en la siguiente ventana
-                home.setVisible(true);  // Muestra la ventana principal
-                // Cerrar la ventana de login si es necesario
-                this.dispose(); // Si deseas cerrar la ventana de login después de abrir la principal
-            }
-            */
             if("Administrador".equals(lg.getTipo_perfil())){
                 frmAdmin admin = new frmAdmin();
                 admin.mostrarNombreUsuario(lg);
+                admin.setLocationRelativeTo(null);
                 admin.setVisible(true);
                 this.dispose();
             }
@@ -47,13 +36,14 @@ public class frmLogin extends javax.swing.JFrame {
                 // Si el login es válido, se abre la ventana siguiente
                 frmHome home = new frmHome();
                 home.mostrarNombreUsuario(lg); // Pasar el objeto Usuario completo
+                home.setLocationRelativeTo(null);
                 //home.setValue(true);  // Establece el valor necesario en la siguiente ventana
                 home.setVisible(true);  // Muestra la ventana principal
                 // Cerrar la ventana de login si es necesario
                 this.dispose(); // Si deseas cerrar la ventana de login después de abrir la principal
             }
             else{
-                JOptionPane.showMessageDialog(null, "Correo, Contraseña o Perfil incorrectos, vuelve a intentar");
+                JOptionPane.showMessageDialog(null, "Correo o Contraseña incorrectos, vuelve a intentar");
             }
         }
         else{
@@ -80,9 +70,6 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        boxPerfil = new javax.swing.JComboBox();
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -154,7 +141,7 @@ public class frmLogin extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnEntrar.setBackground(new java.awt.Color(153, 255, 153));
@@ -175,17 +162,6 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Key.png"))); // NOI18N
 
-        jLabel11.setText("Olvidaste tu contraseña?");
-
-        jButton1.setText("Recuperar");
-
-        boxPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Empleado" }));
-        boxPerfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxPerfilActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,16 +173,12 @@ public class frmLogin extends javax.swing.JFrame {
                         .addGap(142, 142, 142)
                         .addComponent(jLabel8))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel6)
-                                    .addComponent(boxPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(159, 159, 159))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel10)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +194,7 @@ public class frmLogin extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,8 +202,6 @@ public class frmLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(boxPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,11 +216,7 @@ public class frmLogin extends javax.swing.JFrame {
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnEntrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jButton1))
-                .addGap(26, 26, 26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -259,13 +225,6 @@ public class frmLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         Entrar();
     }//GEN-LAST:event_btnEntrarActionPerformed
-
-    private void boxPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxPerfilActionPerformed
-        //objetoLogin.validarUsuario(txtUsuario, txtContrasenia);
-        
-        //String usuario = Usuario.getSelectedItem().toString();
-        //System.out.println("TIPO DE USUARIO: " + usuario);
-    }//GEN-LAST:event_boxPerfilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,12 +262,9 @@ public class frmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox boxPerfil;
     private javax.swing.JButton btnEntrar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
