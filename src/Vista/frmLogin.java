@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Eduardo´s
+ * @author Eduardo´s SAB
  */
 public class frmLogin extends javax.swing.JFrame {
 
