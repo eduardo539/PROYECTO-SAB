@@ -83,10 +83,10 @@ public class frmLogin extends javax.swing.JFrame {
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) {
                     case "Administrador":
-                        abrirVentana(new frmAdmin(), "Administrador");
+                        abrirVentana(new formMenuAdmin(), "Administrador");
                         break;
                     case "Empleado":
-                        abrirVentana(new frmHome(), "Empleado");
+                        abrirVentana(new formMenuAdmin(), "Empleado");
                         break;
                     default:
                         JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);
