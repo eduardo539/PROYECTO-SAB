@@ -18,50 +18,8 @@ public class frmLogin extends javax.swing.JFrame {
     
     public frmLogin() {
         initComponents();
-        initialize();
+        
     }
-    
-    
-    // Código para usar la tecla ENTER del teclado
-    private void initialize() {
-        // Asignar un KeyListener al campo de texto de la contraseña
-        txtPassword.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Verificar si se presiona la tecla Enter
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    Entrar(); // Llamar al método de inicio de sesión
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-
-        // Asignar un KeyListener al campo de texto de usuario
-        txtUsuario.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Verificar si se presiona la tecla Enter
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    Entrar(); // Llamar al método de inicio de sesión
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-
-        // Configuración del botón para el inicio de sesión
-        btnEntrar.addActionListener(evt -> Entrar());
-    }
-
 
     public void Entrar(){
 
@@ -82,10 +40,10 @@ public class frmLogin extends javax.swing.JFrame {
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) {
                     case "Administrador":
-                        abrirVentana(new frmEmpleado(), "Administrador");
+                        abrirVentana(new formMenuAdmin(), "Administrador");
                         break;
-                    case "Empleado":
-                        abrirVentana(new frmEmpleado(), "Empleado");
+                    case "Cajero":
+                        abrirVentana(new frmCajero(), "Cajero");
                         break;
                     default:
                         JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);
