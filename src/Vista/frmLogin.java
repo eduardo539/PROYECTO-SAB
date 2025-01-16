@@ -6,7 +6,6 @@ import Modelo.LoginData;
 import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JButton;
 
 /**
  *
@@ -19,50 +18,8 @@ public class frmLogin extends javax.swing.JFrame {
     
     public frmLogin() {
         initComponents();
-        initialize();
+        
     }
-    
-    
-    // Código dentro de tu clase principal del formulario
-    private void initialize() {
-        // Asignar un KeyListener al campo de texto de la contraseña
-        txtPassword.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Verificar si se presiona la tecla Enter
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    Entrar(); // Llamar al método de inicio de sesión
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-
-        // Asignar un KeyListener al campo de texto de usuario
-        txtUsuario.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Verificar si se presiona la tecla Enter
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    Entrar(); // Llamar al método de inicio de sesión
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-
-        // Configuración del botón para el inicio de sesión
-        btnEntrar.addActionListener(evt -> Entrar());
-    }
-
 
     public void Entrar(){
 
@@ -83,10 +40,10 @@ public class frmLogin extends javax.swing.JFrame {
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) {
                     case "Administrador":
-                        abrirVentana(new frmAdmin(), "Administrador");
+                        abrirVentana(new formMenuAdmin(), "Administrador");
                         break;
-                    case "Empleado":
-                        abrirVentana(new frmHome(), "Empleado");
+                    case "Cajero":
+                        abrirVentana(new frmCajero(), "Cajero");
                         break;
                     default:
                         JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -191,7 +148,9 @@ public class frmLogin extends javax.swing.JFrame {
                         .addGap(89, 89, 89)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -245,9 +204,9 @@ public class frmLogin extends javax.swing.JFrame {
                         .addGap(61, 61, 61)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jLabel9)
@@ -276,9 +235,9 @@ public class frmLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEntrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
