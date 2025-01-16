@@ -276,6 +276,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE
             );
 
+            
+            
             // Actualizar los datos en la tabla y limpiar los campos del formulario
             mostrarDatos();
             limpiarEntradas();
