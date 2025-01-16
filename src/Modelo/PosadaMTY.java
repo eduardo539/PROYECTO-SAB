@@ -9,8 +9,7 @@ public class PosadaMTY {
     private static PosadaMTY instancia; // Instancia única de la clase
     
     private int idMesa;
-    private String descripcion;
-    private int idEstadoMesa;
+    private String descMesa;
     private String EstatusMesa;
 
     public PosadaMTY() {
@@ -24,10 +23,9 @@ public class PosadaMTY {
         return instancia;
     }
 
-    public PosadaMTY(int idMesa, String descripcion, int idEstadoMesa, String EstatusMesa) {
+    public PosadaMTY(int idMesa, String descMesa, String EstatusMesa) {
         this.idMesa = idMesa;
-        this.descripcion = descripcion;
-        this.idEstadoMesa = idEstadoMesa;
+        this.descMesa = descMesa;
         this.EstatusMesa = EstatusMesa;
     }
 
@@ -39,20 +37,12 @@ public class PosadaMTY {
         this.idMesa = idMesa;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescMesa() {
+        return descMesa;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getIdEstadoMesa() {
-        return idEstadoMesa;
-    }
-
-    public void setIdEstadoMesa(int idEstadoMesa) {
-        this.idEstadoMesa = idEstadoMesa;
+    public void setDescMesa(String descMesa) {
+        this.descMesa = descMesa;
     }
 
     public String getEstatusMesa() {
@@ -65,7 +55,11 @@ public class PosadaMTY {
     
     
     
-    
+    public void limpiarDatos() {
+        this.idMesa = 0;
+        this.descMesa = null;
+        this.EstatusMesa = null;
+    }
     
     
 }

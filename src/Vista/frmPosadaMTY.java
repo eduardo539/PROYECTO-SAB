@@ -46,6 +46,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                             "Estado de la Mesa", 
                             JOptionPane.WARNING_MESSAGE
                         );
+                        ps.limpiarDatos();
                         break;
 
                     default:
@@ -71,7 +72,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
             // Manejo de errores generales
             JOptionPane.showMessageDialog(
                 this, 
-                "Ocurrió un error al realizar la consulta: " + e.getMessage(), 
+                "No se encontró informacion en la base de datos: " + e.getMessage(), 
                 "Error", 
                 JOptionPane.ERROR_MESSAGE
             );

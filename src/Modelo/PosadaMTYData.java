@@ -21,10 +21,8 @@ public class PosadaMTYData {
         
         //Se crea un nuevo objeto para realizar la consulta
         PosadaMTY psMTY = PosadaMTY.getInstancia();
-        String sql = "SELECT tbl_mesas.idMesa, tbl_mesas.Descripcion, " +
-                        "tbl_estadoMesas.idEstadoMesa, tbl_estadoMesas.DescripcionEstatus " +
+        String sql = "SELECT * " +
                         "FROM tbl_mesas " +
-                        "INNER JOIN tbl_estadoMesas ON tbl_mesas.idEstadoMesa = tbl_estadoMesas.idEstadoMesa " +
                         "WHERE tbl_mesas.idMesa = ?";
         
         try {
@@ -35,9 +33,8 @@ public class PosadaMTYData {
             if (rs.next()) {
                 psMTY = PosadaMTY.getInstancia(); // Inicializar solo si se encutra la consulta
                 psMTY.setIdMesa(rs.getInt("idMesa"));
-                psMTY.setDescripcion(rs.getString("Descripcion"));
-                psMTY.setIdEstadoMesa(rs.getInt("idEstadoMesa"));
-                psMTY.setEstatusMesa(rs.getString("DescripcionEstatus"));
+                psMTY.setDescMesa(rs.getString("DescMesa"));
+                psMTY.setEstatusMesa(rs.getString("Estatus"));
                 //Se almacenan los datos en variables
                 
                 //cn.closeConnection();
