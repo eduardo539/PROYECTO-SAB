@@ -55,5 +55,4 @@ public class LoginData {
         }
         return l;
     }
-    
 }

@@ -1,6 +1,8 @@
 package Vista;
 
 import Modelo.Conexion;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +41,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtContrasenia = new javax.swing.JPasswordField();
         btnRegistrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaDatos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -71,6 +74,18 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
 
         btnActualizar.setText("Editar Usuario");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setText("LimpiarCampos");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,15 +99,23 @@ public class formMenuAdmin extends javax.swing.JFrame {
             .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLimpiar)
+                .addGap(32, 32, 32))
             .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btnLimpiar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,6 +142,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaDatosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablaDatos);
 
         jMenu1.setText("Menu");
@@ -172,7 +200,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 return; // Detener el proceso si la contraseña es inválida (el mensaje ya está dentro de validarContrasenia)
             }
 
-            // si pasa la validacion sigue con la inserccion
+            // Encriptar la contraseña con MD5
+            String contraseniaEncriptada = encriptarMD5(contrasenia);
+
+            // Si pasa la validación, sigue la inserccion en la bd
             PreparedStatement ps = cn.prepareStatement(
                 "INSERT INTO tbl_usuarios (Nombre, APaterno, AMaterno, vchPass, id_perfil) VALUES (?,?,?,?,?)"
             );
@@ -180,26 +211,59 @@ public class formMenuAdmin extends javax.swing.JFrame {
             ps.setString(1, txtNombre.getText());
             ps.setString(2, txtAPaterno.getText());
             ps.setString(3, txtAMaterno.getText());
-            ps.setString(4, new String(txtContrasenia.getPassword()));
+            ps.setString(4, contraseniaEncriptada);  // Contra con MD5
 
-            // Se obtiene el valor en numero del perfil
+            // valor del numero del perfil del usuario
             String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
             int idPerfil = perfilSeleccionado.equals("Administrador") ? 1 : 2;
 
-            ps.setInt(5, idPerfil);// aqui ya se la asigna el valor para el campo de perfil
+            ps.setInt(5, idPerfil); // Se le asigna el valor para el campo de perfil
 
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "DATOS GUARDADOS EXITOSAMENTE");
 
-            //actualiza los datos mandando a llamar el metodo de mostrar datos
-            // limpia todo los campos asi mismo con el combo box
+            // Actualiza los datos mandando a llamar el método de mostrar datos y la otra funcion limpia los campos
             mostrarDatos();
             limpiarEntradas();
-            
+
         } catch (SQLException e) {
-            System.out.println("Error el intentar registrar usuario" + e);
+            System.out.println("Error al registrar usuario: " + e);
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void jTablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaDatosMouseClicked
+        int fila = this.jTablaDatos.getSelectedRow();
+        
+        this.txtid_usuario.setText(this.jTablaDatos.getValueAt(fila, 0).toString());
+        this.txtNombre.setText(this.jTablaDatos.getValueAt(fila, 1).toString());
+        this.txtAPaterno.setText(this.jTablaDatos.getValueAt(fila, 2).toString());
+        this.txtAMaterno.setText(this.jTablaDatos.getValueAt(fila, 3).toString());
+        this.ComboPerfil.setSelectedItem(this.jTablaDatos.getValueAt(fila, 4).toString());
+        this.txtContrasenia.setText(this.jTablaDatos.getValueAt(fila, 5).toString());
+    }//GEN-LAST:event_jTablaDatosMouseClicked
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        /* try {
+            PreparedStatement ps = cn.prepareStatement ("UPDATE tbl_usuarios SET " + "Nombre='" + txtNombre.getText() + "', " + "APaterno='" + txtAPaterno.getText() + "', " + "AMaterno='" + txtAMaterno.getText() + "', " + "id_perfil='" + ComboPerfil.getSelectedItem().toString() + "', " + "vchPass='" + txtContrasenia.getText() + "' " + "WHERE id_usuario='" + txtid_usuario.getText() + "'");
+
+            int indice = ps.executeUpdate();
+            
+            if(indice>0) {
+                JOptionPane.showMessageDialog(rootPane, "Datos Actualizados Correctamente");
+                mostrarDatos();
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No se Selecciono Fila");
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("ERROR AL ACTUALIZAR DATOS" + e);
+        } */
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarEntradas();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -212,6 +276,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboPerfil;
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -298,26 +363,52 @@ public class formMenuAdmin extends javax.swing.JFrame {
     }
 
     private boolean validarContrasenia(String contrasenia) {
-        // Regex para validar la contraseña:
-        // - Al menos una letra mayúscula
-        // - Al menos una letra minúscula
-        // - Al menos un número
-        // - Al menos un carácter especial
-        // - Mínimo 8 caracteres, sin límite máximo
-        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        // Elimina espacios en blanco al principio y al final
+        contrasenia = contrasenia.trim();
 
-        // Verificar si la contraseña cumple el patrón
+       
+        System.out.println("Contraseña ingresada: " + contrasenia);
+
+        // Regex para validar la contraseña
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&#]).{8,}$";
+
+        // Verifica si la contraseña cumple con el patrón definid
         if (!contrasenia.matches(regex)) {
-            // Mostrar mensaje de advertencia
+            // Se muestra en caso de warning
             JOptionPane.showMessageDialog(
                 null,
-                "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.",
+                "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial @$!%*?&#.",
                 "Contraseña no válida",
                 JOptionPane.WARNING_MESSAGE
             );
             return false;
         }
+        return true; // PASA
+    }
 
-        return true; // La contraseña es válida
+    private String encriptarMD5(String contrasenia) {
+        try {
+            // Obtiene la instancia de MessageDigest en MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            //hash de la contra
+            byte[] hashBytes = md.digest(contrasenia.getBytes());
+            
+            //array de bytes a una cadena hexadecimal
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            // retunr de la contraseña encriptada en formato hexad.
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error en la encriptación MD5: " + e.getMessage());
+        }
     }
 }
