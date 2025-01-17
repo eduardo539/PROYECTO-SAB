@@ -257,7 +257,7 @@ public class frmEmpleado extends javax.swing.JFrame {
        sesion.setNombre(null);
        sesion.setAPaterno(null);
        sesion.setAMaterno(null);
-       sesion.setPass(null);
+       //sesion.setPass(null);
        sesion.setIdperfil(0);
        sesion.setTipo_perfil(null);
 
