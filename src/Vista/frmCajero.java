@@ -1,7 +1,7 @@
 package Vista;
 
-import Modelo.Conexion;
-import Modelo.Login;
+import Modelo.*;
+import Modelo.MesasData;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
@@ -15,8 +15,15 @@ public class frmCajero extends javax.swing.JFrame {
     Login lg = Login.getInstancia();
     Conexion cn = new Conexion();
     
+    
+    Mesas ms = Mesas.getInstancia();
+    MesasData mesa = new MesasData();
+
+    
     public frmCajero() {
         initComponents();
+        
+        consultaEstadoMesas();
         
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("ID: " + lg.getIdusuario());
@@ -63,6 +70,9 @@ public class frmCajero extends javax.swing.JFrame {
        
     }
 
+    public void consultaEstadoMesas(){
+        ms = mesa.m();
+    }
 
 
     /**
@@ -404,7 +414,7 @@ public class frmCajero extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCerrarSesionActionPerformed
 
     private void btnPosadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPosadaActionPerformed
-        
+
         frmPosadaMTY posada = new frmPosadaMTY();
         posada.setLocationRelativeTo(null);
         posada.setVisible(true);
@@ -412,6 +422,7 @@ public class frmCajero extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnPosadaActionPerformed
 
+    
     /**
     * Método para limpiar los datos de la sesión del usuario.
     */
