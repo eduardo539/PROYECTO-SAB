@@ -24,8 +24,8 @@ public class LoginData {
         //Se crea un nuevo objeto para realizar la consulta
         Login l = Login.getInstancia();
         String sql = "SELECT tbl_usuarios.id_usuario, tbl_usuarios.Nombre, tbl_usuarios.APaterno, " +
-                        "tbl_usuarios.AMaterno, tbl_usuarios.vchPass, tbl_usuarios.id_perfil, " +
-                        "tbl_perfil.tipo_perfil " +
+                        "tbl_usuarios.AMaterno, tbl_usuarios.vchSucursal, tbl_usuarios.dtVigencia, " +
+                        "tbl_usuarios.vchPass, tbl_usuarios.id_perfil, tbl_perfil.tipo_perfil " +
                         "FROM tbl_usuarios " +
                         "JOIN tbl_perfil ON tbl_usuarios.id_perfil = tbl_perfil.id_perfil " +
                         "AND tbl_usuarios.id_usuario = ? " +
@@ -43,7 +43,8 @@ public class LoginData {
                 l.setNombre(rs.getString("Nombre"));
                 l.setAPaterno(rs.getString("APaterno"));
                 l.setAMaterno(rs.getString("AMaterno"));
-                l.setPass(rs.getString("vchPass"));
+                l.setSucursal(rs.getString("vchSucursal"));
+                l.setVigencia(rs.getDate("dtVigencia"));
                 l.setIdperfil(rs.getInt("id_perfil"));
                 l.setTipo_perfil(rs.getString("tipo_perfil"));
                 //Se almacenan los datos en variables
