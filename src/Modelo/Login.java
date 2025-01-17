@@ -16,7 +16,8 @@ public class Login {
     private String nombre;
     private String APaterno;
     private String AMaterno;
-    private String pass;
+    private String Sucursal;
+    private Date vigencia;
     private int idperfil;
     private String tipo_perfil;
 
@@ -30,18 +31,17 @@ public class Login {
         }
         return instancia;
     }
-    
-    
-    public Login(int idusuario, String nombre, String APaterno, String AMaterno, String pass, int idperfil, String tipo_perfil) {
+
+    public Login(int idusuario, String nombre, String APaterno, String AMaterno, int idperfil, String Sucursal, Date vigencia, String tipo_perfil) {
         this.idusuario = idusuario;
         this.nombre = nombre;
         this.APaterno = APaterno;
         this.AMaterno = AMaterno;
-        this.pass = pass;
         this.idperfil = idperfil;
+        this.Sucursal = Sucursal;
+        this.vigencia = vigencia;
         this.tipo_perfil = tipo_perfil;
     }
-    
 
     public int getIdusuario() {
         return idusuario;
@@ -75,20 +75,28 @@ public class Login {
         this.AMaterno = AMaterno;
     }
 
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
     public int getIdperfil() {
         return idperfil;
     }
 
     public void setIdperfil(int idperfil) {
         this.idperfil = idperfil;
+    }
+
+    public String getSucursal() {
+        return Sucursal;
+    }
+
+    public void setSucursal(String Sucursal) {
+        this.Sucursal = Sucursal;
+    }
+
+    public Date getVigencia() {
+        return vigencia;
+    }
+
+    public void setVigencia(Date vigencia) {
+        this.vigencia = vigencia;
     }
 
     public String getTipo_perfil() {
@@ -98,15 +106,16 @@ public class Login {
     public void setTipo_perfil(String tipo_perfil) {
         this.tipo_perfil = tipo_perfil;
     }
-
+    
     
     public void limpiarDatos() {
         this.idusuario = 0;
         this.nombre = null;
         this.APaterno = null;
         this.AMaterno = null;
-        this.pass = null;
         this.idperfil = 0;
+        this.Sucursal = null;
+        this.vigencia = null;
         this.tipo_perfil = null;
     }
     
