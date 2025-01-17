@@ -45,6 +45,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jTablaDatos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jmiCerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
@@ -153,6 +154,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTablaDatos);
 
         jMenu1.setText("Menu");
+
+        jmiCerrarSesion.setText("Cerrar Sesión");
+        jMenu1.add(jmiCerrarSesion);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -457,6 +462,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaDatos;
+    private javax.swing.JMenuItem jmiCerrarSesion;
     private javax.swing.JTextField txtAMaterno;
     private javax.swing.JTextField txtAPaterno;
     private javax.swing.JTextField txtNombre;
