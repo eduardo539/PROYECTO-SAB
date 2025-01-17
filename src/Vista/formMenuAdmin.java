@@ -186,6 +186,18 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
+
+            // Validación general del formulario
+            if (!validarFormulario()) { 
+                JOptionPane.showMessageDialog( 
+                    null,
+                    "Datos faltantes. Por favor, complete bien el formulario.",
+                    "¡Advertencia!",
+                    JOptionPane.WARNING_MESSAGE
+                ); 
+                return; // Se detiene el proceso si la validación falla
+            }
+            
             // Mostrar cuadro de confirmación antes de registrar el usuario
             int confirmacion = JOptionPane.showConfirmDialog(
                 null,
@@ -198,17 +210,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
             if (confirmacion != JOptionPane.YES_OPTION) {
                 return; // Salir y no hacer nada
             }
-
-            // Validación general del formulario
-            if (!validarFormulario()) { 
-                JOptionPane.showMessageDialog( 
-                    null,
-                    "Datos faltantes. Por favor, complete bien el formulario.",
-                    "¡Advertencia!",
-                    JOptionPane.WARNING_MESSAGE
-                ); 
-                return; // Se detiene el proceso si la validación falla
-            } 
 
             // Obtener los datos ingresados
             String nombre = txtNombre.getText();
