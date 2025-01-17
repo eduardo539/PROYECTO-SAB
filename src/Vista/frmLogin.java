@@ -1,11 +1,18 @@
 package Vista;
 
+import Modelo.Conexion;
 import javax.swing.JOptionPane;
 import Modelo.Login;
 import Modelo.LoginData;
 import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import Vista.frmActualizarContra;
 
 /**
  *
@@ -22,10 +29,9 @@ public class frmLogin extends javax.swing.JFrame {
     }
 
     public void Entrar(){
-
         String usuario = txtUsuario.getText().trim();
         String pass = new String(txtPassword.getPassword()).trim();
-        
+
         // Validación inicial: datos no vacíos
         if (usuario.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, llena los datos solicitados.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -37,6 +43,34 @@ public class frmLogin extends javax.swing.JFrame {
             lg = login.log(usuario, pass);
 
             if (lg != null && lg.getTipo_perfil() != null) {
+                
+                
+                
+                int idUsuario;
+
+                
+                try {
+                    idUsuario = Integer.parseInt(usuario); // Convertir texto a entero
+                    
+                // Imprimir el ID del usuario en la consola
+                System.out.println("ID DEL USUARIO: " + idUsuario);
+                
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "El ID del usuario debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Verificar si el usuario tiene la contraseña predeterminada
+                if (tieneContrasenaPredeterminada(idUsuario)) {
+                     System.out.println("dentro de tiene contrasena determinada: " + idUsuario); // Log (opcional)
+                     
+                    // Redirigir al formulario de actualización de contraseña
+                    new frmActualizarContra(idUsuario).setVisible(true);
+                    limpiarEntradas();
+                    return; // Terminar el flujo hasta que la contraseña se actualice
+  
+                }
+
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) {
                     case "Administrador":
@@ -49,30 +83,61 @@ public class frmLogin extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                 }
+                
             } else {
                 // Credenciales incorrectas
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            
         } catch (Exception e) {
             // Manejo de errores
             JOptionPane.showMessageDialog(this, "Ocurrió un error al iniciar sesión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+        
     }
     
+    private void limpiarEntradas() {
+        txtUsuario.setText("");
+        txtPassword.setText("");
+    }
     
-    /**
-    * Método para abrir una ventana y cerrar la actual.
-    *
-    * @param ventana La ventana que se desea abrir.
-    * @param perfil El perfil del usuario (para registro o depuración).
-    */
-   private void abrirVentana(JFrame ventana, String perfil) {
-       ventana.setLocationRelativeTo(null); // Centrar ventana
-       ventana.setVisible(true);           // Mostrar ventana
-       this.dispose();                     // Cerrar la ventana actual
-       System.out.println("Sesión iniciada como: " + perfil); // Log (opcional)
-   }
+    private boolean tieneContrasenaPredeterminada(int idUsuario) {
+        // Crear instancia de la clase Conexion
+        Conexion conexion = new Conexion();
+        Connection connection = null;
+
+        try {
+            // Obtener la conexión
+            connection = conexion.getConnection();
+            if (connection == null) {
+                JOptionPane.showMessageDialog(this, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            // Query para verificar la contraseña predeterminada
+            String query = "SELECT COUNT(*) FROM tbl_usuarios WHERE id_usuario = ? AND vchPass = MD5('cambio')";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Devuelve true si tiene la contraseña predeterminada
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al verificar la contraseña: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        return false;
+    }   
+
+ 
+    private void abrirVentana(JFrame ventana, String perfil) {
+        ventana.setLocationRelativeTo(null); // Centrar ventana
+        ventana.setVisible(true);            // Mostrar ventana
+        this.dispose();                      // Cerrar la ventana actual
+        System.out.println("Sesión iniciada como: " + perfil); // Log (opcional)
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -194,34 +259,7 @@ public class frmLogin extends javax.swing.JFrame {
         Entrar();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmLogin().setVisible(true);
@@ -241,4 +279,5 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
 }

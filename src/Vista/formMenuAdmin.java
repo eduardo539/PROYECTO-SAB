@@ -191,18 +191,17 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
-
             // Validación general del formulario
-            if (!validarFormulario()) { 
-                JOptionPane.showMessageDialog( 
+            if (!validarFormulario()) {
+                JOptionPane.showMessageDialog(
                     null,
                     "Datos faltantes. Por favor, complete bien el formulario.",
                     "¡Advertencia!",
                     JOptionPane.WARNING_MESSAGE
-                ); 
-                return; // Se detiene el proceso si la validación falla
+                );
+                return; // Detener el proceso si la validación falla
             }
-            
+
             // Mostrar cuadro de confirmación antes de registrar el usuario
             int confirmacion = JOptionPane.showConfirmDialog(
                 null,
@@ -223,27 +222,27 @@ public class formMenuAdmin extends javax.swing.JFrame {
             String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
             int idPerfil;
 
-            switch (perfilSeleccionado) { 
-                case "Sistemas": 
-                    idPerfil = 1; 
-                    break; 
-                case "Operaciones": 
-                    idPerfil = 2; 
-                    break; 
-                case "Gerente": 
-                    idPerfil = 3; 
-                    break; 
-                case "Cajero": 
-                    idPerfil = 4; 
-                    break; 
-                default: 
-                    JOptionPane.showMessageDialog( 
-                        null, 
-                        "Por favor seleccione un perfil válido", 
-                        "¡Advertencia!", 
+            switch (perfilSeleccionado) {
+                case "Sistemas":
+                    idPerfil = 1;
+                    break;
+                case "Operaciones":
+                    idPerfil = 2;
+                    break;
+                case "Gerente":
+                    idPerfil = 3;
+                    break;
+                case "Cajero":
+                    idPerfil = 4;
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Por favor seleccione un perfil válido",
+                        "¡Advertencia!",
                         JOptionPane.WARNING_MESSAGE
-                    ); 
-                    return; // Detener si no se seleccionó un perfil válido 
+                    );
+                    return; // Detener si no se seleccionó un perfil válido
             }
 
             // Verificar si el usuario ya existe en la base de datos
@@ -257,21 +256,19 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 return; // Detener el proceso si el usuario ya existe
             }
 
-            // La contraseña será siempre la palabra "cambio"
             String contrasenia = "cambio";
-
-            // Se encripta la contraseña "cambio" con MD5
             String contraseniaEncriptada = encriptarMD5(contrasenia);
 
-            PreparedStatement ps = cn.prepareStatement( 
-                "INSERT INTO tbl_usuarios (Nombre, APaterno, AMaterno, vchPass, id_perfil) VALUES (?,?,?,?,?)"
-            ); 
+            // Consulta para insertar los datos, incluyendo vchSucursal y dtVigencia
+            String query = "INSERT INTO tbl_usuarios (Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, ?, NOW(), ?)";
+            PreparedStatement ps = cn.prepareStatement(query);
 
-            ps.setString(1, nombre); 
-            ps.setString(2, aPaterno); 
-            ps.setString(3, aMaterno); 
-            ps.setString(4, contraseniaEncriptada);  // Contraseña encriptada con MD5
-            ps.setInt(5, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
+            ps.setString(1, nombre);
+            ps.setString(2, aPaterno);
+            ps.setString(3, aMaterno);
+            ps.setString(4, contraseniaEncriptada); // Contraseña encriptada con MD5
+            ps.setString(5, "cambio"); // Valor fijo para vchSucursal
+            ps.setInt(6, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
 
             // Ejecutar la consulta para insertar los datos en la base de datos
             ps.executeUpdate();
@@ -568,38 +565,23 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private String encriptarMD5(String contrasenia) {
         try {
-            // Generar un salt aleatorio de 8 bytes
-            byte[] salt = new byte[8];
-            SecureRandom.getInstanceStrong().nextBytes(salt);
+            // Crear el objeto MessageDigest para MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
 
-            // Convertir el salt a formato hexadecimal 
-            StringBuilder saltHex = new StringBuilder(); 
-            for (byte b : salt) { 
-                String hex = Integer.toHexString(0xff & b); 
-                if (hex.length() == 1) { 
-                    saltHex.append('0'); 
-                } 
-                saltHex.append(hex); 
-            } 
+            // Convertir la contraseña en bytes y calcular el hash
+            byte[] hashBytes = md.digest(contrasenia.getBytes());
 
-            // Combinar la contraseña con el salt 
-            String contraseniaConSalt = contrasenia + saltHex.toString(); 
+            // Convertir el hash a formato hexadecimal
+            StringBuilder hashHex = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b); // Convertir byte a hex
+                if (hex.length() == 1) {
+                    hashHex.append('0'); // Asegurar que siempre sean dos dígitos
+                }
+                hashHex.append(hex);
+            }
 
-            // Crear el hash MD5 
-            MessageDigest md = MessageDigest.getInstance("MD5"); 
-            byte[] hashBytes = md.digest(contraseniaConSalt.getBytes()); 
-
-            // Convertir el hash a formato hexadecimal 
-            StringBuilder hashHex = new StringBuilder(); 
-            for (byte b : hashBytes) { 
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) { 
-                    hashHex.append('0'); 
-                } 
-                hashHex.append(hex); 
-            } 
-
-            // Retornar solo el hash (32 caracteres, formato esperado de MD5)
+            // Devolver el hash en formato hexadecimal
             return hashHex.toString();
         } catch (Exception e) {
             e.printStackTrace();
