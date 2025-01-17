@@ -16,7 +16,8 @@ public class SAB {
         
         frmLogin iniciar = new frmLogin();
         //frmCajero iniciar = new frmCajero();
-        //frmPosadaMTY iniciar = new frmPosadaMTY();
+        
+        //formMenuAdmin iniciar = new formMenuAdmin();
         
         iniciar.setLocationRelativeTo(null); // Centra la ventana en la pantalla
         //Se inicia la ventana de login
