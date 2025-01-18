@@ -254,7 +254,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiVolverInicio = new javax.swing.JMenuItem();
-        jmActualizar = new javax.swing.JMenu();
         jmiActualizar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1423,7 +1422,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 650));
 
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu1.setText("Salir");
+        jMenu1.setText("MENU");
 
         jmiVolverInicio.setText("Volver a Inicio");
         jmiVolverInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -1433,20 +1432,15 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         });
         jMenu1.add(jmiVolverInicio);
 
-        jMenuBar1.add(jMenu1);
-
-        jmActualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jmActualizar.setText("Actualizar");
-
         jmiActualizar.setText("Actualizar datos");
         jmiActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiActualizarActionPerformed(evt);
             }
         });
-        jmActualizar.add(jmiActualizar);
+        jMenu1.add(jmiActualizar);
 
-        jMenuBar1.add(jmActualizar);
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -1928,7 +1922,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenu jmActualizar;
     private javax.swing.JMenuItem jmiActualizar;
     private javax.swing.JMenuItem jmiVolverInicio;
     private javax.swing.JLabel lblDato1;
