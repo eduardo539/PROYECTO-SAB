@@ -208,6 +208,9 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -1343,24 +1346,37 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 40, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 40, 40));
 
         jButton2.setBackground(new java.awt.Color(0, 255, 0));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, 40, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 40, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Mesas Ocupadas");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Mesas disponibles");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Zona A1 y A2 = $560.00 M.N.");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 40, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Zona C1 y C2 = $360.00 M.N.");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setText("Zona B1 y B2 = $460.00 M.N.");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/plano7.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 640));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 650));
 
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setText("Salir");
 
         jmiVolverInicio.setText("Volver a Inicio");
@@ -1839,6 +1855,9 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
