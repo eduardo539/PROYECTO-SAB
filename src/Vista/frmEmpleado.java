@@ -241,7 +241,6 @@ public class frmEmpleado extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-        
     }//GEN-LAST:event_cerrarsesionActionPerformed
 
     /**

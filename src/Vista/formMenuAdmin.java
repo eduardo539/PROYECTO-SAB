@@ -41,6 +41,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaDatos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -58,6 +59,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jPopupMenu2.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(220, 231, 237));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -67,7 +69,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese los siguientes datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 13))); // NOI18N
+        jPanel1.setForeground(new java.awt.Color(240, 240, 240));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
@@ -83,22 +85,36 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtid_usuario.setEnabled(false);
 
         txtAMaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Materno"));
+        txtAMaterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAMaternoActionPerformed(evt);
+            }
+        });
 
-        txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
+        txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre Completo"));
 
+        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar Usuario");
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
             }
         });
 
+        btnActualizar.setBackground(new java.awt.Color(76, 175, 80));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar Usuario");
+        btnActualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel1.setText("Crear y Actualizar Usuarios");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,31 +125,38 @@ public class formMenuAdmin extends javax.swing.JFrame {
             .addComponent(txtNombre)
             .addComponent(txtAPaterno)
             .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(72, 72, 72)
                 .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -170,10 +193,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(28, 28, 28)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,8 +204,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -191,6 +214,17 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
+            // Validación general del formulario
+            if (!validarFormulario()) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Datos faltantes. Por favor, complete bien el formulario.",
+                    "¡Advertencia!",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si la validación falla
+            }
+
             // Mostrar cuadro de confirmación antes de registrar el usuario
             int confirmacion = JOptionPane.showConfirmDialog(
                 null,
@@ -204,17 +238,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 return; // Salir y no hacer nada
             }
 
-            // Validación general del formulario
-            if (!validarFormulario()) { 
-                JOptionPane.showMessageDialog( 
-                    null,
-                    "Datos faltantes. Por favor, complete bien el formulario.",
-                    "¡Advertencia!",
-                    JOptionPane.WARNING_MESSAGE
-                ); 
-                return; // Se detiene el proceso si la validación falla
-            } 
-
             // Obtener los datos ingresados
             String nombre = txtNombre.getText();
             String aPaterno = txtAPaterno.getText();
@@ -222,27 +245,27 @@ public class formMenuAdmin extends javax.swing.JFrame {
             String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
             int idPerfil;
 
-            switch (perfilSeleccionado) { 
-                case "Sistemas": 
-                    idPerfil = 1; 
-                    break; 
-                case "Operaciones": 
-                    idPerfil = 2; 
-                    break; 
-                case "Gerente": 
-                    idPerfil = 3; 
-                    break; 
-                case "Cajero": 
-                    idPerfil = 4; 
-                    break; 
-                default: 
-                    JOptionPane.showMessageDialog( 
-                        null, 
-                        "Por favor seleccione un perfil válido", 
-                        "¡Advertencia!", 
+            switch (perfilSeleccionado) {
+                case "Sistemas":
+                    idPerfil = 1;
+                    break;
+                case "Operaciones":
+                    idPerfil = 2;
+                    break;
+                case "Gerente":
+                    idPerfil = 3;
+                    break;
+                case "Cajero":
+                    idPerfil = 4;
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Por favor seleccione un perfil válido",
+                        "¡Advertencia!",
                         JOptionPane.WARNING_MESSAGE
-                    ); 
-                    return; // Detener si no se seleccionó un perfil válido 
+                    );
+                    return; // Detener si no se seleccionó un perfil válido
             }
 
             // Verificar si el usuario ya existe en la base de datos
@@ -256,21 +279,19 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 return; // Detener el proceso si el usuario ya existe
             }
 
-            // La contraseña será siempre la palabra "cambio"
             String contrasenia = "cambio";
-
-            // Se encripta la contraseña "cambio" con MD5
             String contraseniaEncriptada = encriptarMD5(contrasenia);
 
-            PreparedStatement ps = cn.prepareStatement( 
-                "INSERT INTO tbl_usuarios (Nombre, APaterno, AMaterno, vchPass, id_perfil) VALUES (?,?,?,?,?)"
-            ); 
+            // Consulta para insertar los datos, incluyendo vchSucursal y dtVigencia
+            String query = "INSERT INTO tbl_usuarios (Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, ?, NOW(), ?)";
+            PreparedStatement ps = cn.prepareStatement(query);
 
-            ps.setString(1, nombre); 
-            ps.setString(2, aPaterno); 
-            ps.setString(3, aMaterno); 
-            ps.setString(4, contraseniaEncriptada);  // Contraseña encriptada con MD5
-            ps.setInt(5, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
+            ps.setString(1, nombre);
+            ps.setString(2, aPaterno);
+            ps.setString(3, aMaterno);
+            ps.setString(4, contraseniaEncriptada); // Contraseña encriptada con MD5
+            ps.setString(5, "cambio"); // Valor fijo para vchSucursal
+            ps.setInt(6, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
 
             // Ejecutar la consulta para insertar los datos en la base de datos
             ps.executeUpdate();
@@ -442,6 +463,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formMouseEntered
 
+    private void txtAMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAMaternoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAMaternoActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -454,6 +479,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboPerfil;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -469,7 +495,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtid_usuario;
     // End of variables declaration//GEN-END:variables
 
-    private void mostrarDatos() {
+    void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
 
         modelo.addColumn("ID");
@@ -567,38 +593,23 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private String encriptarMD5(String contrasenia) {
         try {
-            // Generar un salt aleatorio de 8 bytes
-            byte[] salt = new byte[8];
-            SecureRandom.getInstanceStrong().nextBytes(salt);
+            // Crear el objeto MessageDigest para MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
 
-            // Convertir el salt a formato hexadecimal 
-            StringBuilder saltHex = new StringBuilder(); 
-            for (byte b : salt) { 
-                String hex = Integer.toHexString(0xff & b); 
-                if (hex.length() == 1) { 
-                    saltHex.append('0'); 
-                } 
-                saltHex.append(hex); 
-            } 
+            // Convertir la contraseña en bytes y calcular el hash
+            byte[] hashBytes = md.digest(contrasenia.getBytes());
 
-            // Combinar la contraseña con el salt 
-            String contraseniaConSalt = contrasenia + saltHex.toString(); 
+            // Convertir el hash a formato hexadecimal
+            StringBuilder hashHex = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b); // Convertir byte a hex
+                if (hex.length() == 1) {
+                    hashHex.append('0'); // Asegurar que siempre sean dos dígitos
+                }
+                hashHex.append(hex);
+            }
 
-            // Crear el hash MD5 
-            MessageDigest md = MessageDigest.getInstance("MD5"); 
-            byte[] hashBytes = md.digest(contraseniaConSalt.getBytes()); 
-
-            // Convertir el hash a formato hexadecimal 
-            StringBuilder hashHex = new StringBuilder(); 
-            for (byte b : hashBytes) { 
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) { 
-                    hashHex.append('0'); 
-                } 
-                hashHex.append(hex); 
-            } 
-
-            // Retornar solo el hash (32 caracteres, formato esperado de MD5)
+            // Devolver el hash en formato hexadecimal
             return hashHex.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -627,4 +638,3 @@ public class formMenuAdmin extends javax.swing.JFrame {
     }
     
 }
-
