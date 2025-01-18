@@ -39,8 +39,8 @@ public class frmLogin extends javax.swing.JFrame {
             if (lg != null && lg.getTipo_perfil() != null) {
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) {
-                    case "Administrador":
-                        abrirVentana(new formMenuAdmin(), "Administrador");
+                    case "Sistemas":
+                        abrirVentana(new formMenuAdmin(), "Sistemas");
                         break;
                     case "Cajero":
                         abrirVentana(new frmCajero(), "Cajero");
