@@ -12,13 +12,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import Vista.frmActualizarContra;
-
 /**
  *
  * @author Eduardo´s SAB
  */
 public class frmLogin extends javax.swing.JFrame {
+
+    static void traerDatos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
@@ -39,22 +41,15 @@ public class frmLogin extends javax.swing.JFrame {
         }
 
         try {
-            // Consultar el inicio de sesión
             lg = login.log(usuario, pass);
 
             if (lg != null && lg.getTipo_perfil() != null) {
-                
-                
-                
+           
                 int idUsuario;
 
-                
                 try {
                     idUsuario = Integer.parseInt(usuario); // Convertir texto a entero
-                    
-                // Imprimir el ID del usuario en la consola
-                System.out.println("ID DEL USUARIO: " + idUsuario);
-                
+        
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "El ID del usuario debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -63,18 +58,22 @@ public class frmLogin extends javax.swing.JFrame {
                 // Verificar si el usuario tiene la contraseña predeterminada
                 if (tieneContrasenaPredeterminada(idUsuario)) {
                      System.out.println("dentro de tiene contrasena determinada: " + idUsuario); // Log (opcional)
-                     
+                    
                     // Redirigir al formulario de actualización de contraseña
-                    new frmActualizarContra(idUsuario).setVisible(true);
+                    frmActualizarContra frm = new frmActualizarContra(idUsuario);
+                    frm.setVisible(true);
+
                     limpiarEntradas();
+                    // Cerrar el formulario de login
+                    this.dispose();
+
                     return; // Terminar el flujo hasta que la contraseña se actualice
-  
                 }
 
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) {
-                    case "Administrador":
-                        abrirVentana(new formMenuAdmin(), "Administrador");
+                    case "Sistemas":
+                        abrirVentana(new formMenuAdmin(), "Sistemas");
                         break;
                     case "Cajero":
                         abrirVentana(new frmCajero(), "Cajero");
@@ -94,7 +93,6 @@ public class frmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ocurrió un error al iniciar sesión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-        
     }
     
     private void limpiarEntradas() {
