@@ -1,10 +1,14 @@
 package Vista;
 
 import Modelo.Mesas;
+import Modelo.MesasData;
 import Modelo.PosadaMTYData;
 import Modelo.PosadaMTY;
+import Modelo.Precios;
+import Modelo.PreciosData;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.List;
 import javax.swing.*;
 
 /**
@@ -16,13 +20,48 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     PosadaMTY ps = PosadaMTY.getInstancia();
     PosadaMTYData posada = new PosadaMTYData();
     
+    
     Mesas mes = Mesas.getInstancia();
+    MesasData mesa = new MesasData(); //Se crea un nuevo objeto para actualizar las mesas
+    
+    
+    Precios pre = Precios.getInstancia();
+    PreciosData preD = new PreciosData();
+    
     
     public frmPosadaMTY() {
         initComponents();
         
         estadosMesas();
+        estadoPrecios();
         
+    }
+    
+    public void estadoPrecios(){
+        // Obtener la instancia de la clase singleton Precios
+        Precios precios = Precios.getInstancia();
+
+        // Obtener la lista de precios
+        List<Precios.Precio> listaPrecios = precios.getListaPrecios();
+
+        // Arreglo de etiquetas para mostrar los datos
+        JLabel[] lblDatos = {lblDato1, lblDato2, lblDato3}; // Ajusta según el número de etiquetas disponibles
+
+        try {
+            // Iterar sobre la lista de precios y etiquetas
+            for (int i = 0; i < lblDatos.length; i++) {
+                if (i < listaPrecios.size()) {
+                    Precios.Precio precio = listaPrecios.get(i);
+                    lblDatos[i].setText(precio.getZona() + " = $" + precio.getPrecio() + " M.N.");
+                } else {
+                    lblDatos[i].setText("Sin datos disponibles"); // Mensaje para etiquetas sin datos
+                }
+            }
+        } catch (Exception e) {
+            // Manejo de errores
+            JOptionPane.showMessageDialog(this, "Error al obtener los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
     
     public void estadosMesas()
@@ -208,16 +247,23 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblDato1 = new javax.swing.JLabel();
+        lblDato3 = new javax.swing.JLabel();
+        lblDato2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiVolverInicio = new javax.swing.JMenuItem();
+        jmActualizar = new javax.swing.JMenu();
+        jmiActualizar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Posada Monterrey");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1361,17 +1407,17 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jLabel3.setText("Mesas disponibles");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Zona A1 y A2 = $560.00 M.N.");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 40, -1, -1));
+        lblDato1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato1.setText("Zona A1 y A2 = $560.00 M.N.");
+        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 40, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Zona C1 y C2 = $360.00 M.N.");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, -1, -1));
+        lblDato3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato3.setText("Zona C1 y C2 = $360.00 M.N.");
+        jPanel1.add(lblDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Zona B1 y B2 = $460.00 M.N.");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, -1, -1));
+        lblDato2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato2.setText("Zona B1 y B2 = $460.00 M.N.");
+        jPanel1.add(lblDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/plano7.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 650));
@@ -1388,6 +1434,19 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jMenu1.add(jmiVolverInicio);
 
         jMenuBar1.add(jMenu1);
+
+        jmActualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jmActualizar.setText("Actualizar");
+
+        jmiActualizar.setText("Actualizar datos");
+        jmiActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiActualizarActionPerformed(evt);
+            }
+        });
+        jmActualizar.add(jmiActualizar);
+
+        jMenuBar1.add(jmActualizar);
 
         setJMenuBar(jMenuBar1);
 
@@ -1734,6 +1793,17 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         abrirVentana(80);
     }//GEN-LAST:event_btnMesa80ActionPerformed
 
+    private void jmiActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiActualizarActionPerformed
+        mes = mesa.m();
+        pre = preD.pr();
+        estadoPrecios();
+        estadosMesas();
+    }//GEN-LAST:event_jmiActualizarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximiza la ventana
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -1855,12 +1925,14 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu jmActualizar;
+    private javax.swing.JMenuItem jmiActualizar;
     private javax.swing.JMenuItem jmiVolverInicio;
+    private javax.swing.JLabel lblDato1;
+    private javax.swing.JLabel lblDato2;
+    private javax.swing.JLabel lblDato3;
     // End of variables declaration//GEN-END:variables
 }
