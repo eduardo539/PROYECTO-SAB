@@ -1,10 +1,14 @@
 package Vista;
 
 import Modelo.Mesas;
+import Modelo.MesasData;
 import Modelo.PosadaMTYData;
 import Modelo.PosadaMTY;
+import Modelo.Precios;
+import Modelo.PreciosData;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.List;
 import javax.swing.*;
 
 /**
@@ -16,13 +20,48 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     PosadaMTY ps = PosadaMTY.getInstancia();
     PosadaMTYData posada = new PosadaMTYData();
     
+    
     Mesas mes = Mesas.getInstancia();
+    MesasData mesa = new MesasData(); //Se crea un nuevo objeto para actualizar las mesas
+    
+    
+    Precios pre = Precios.getInstancia();
+    PreciosData preD = new PreciosData();
+    
     
     public frmPosadaMTY() {
         initComponents();
         
         estadosMesas();
+        estadoPrecios();
         
+    }
+    
+    public void estadoPrecios(){
+        // Obtener la instancia de la clase singleton Precios
+        Precios precios = Precios.getInstancia();
+
+        // Obtener la lista de precios
+        List<Precios.Precio> listaPrecios = precios.getListaPrecios();
+
+        // Arreglo de etiquetas para mostrar los datos
+        JLabel[] lblDatos = {lblDato1, lblDato2, lblDato3, lblDato4, lblDato5, lblDato6}; // Ajusta según el número de etiquetas disponibles
+
+        try {
+            // Iterar sobre la lista de precios y etiquetas
+            for (int i = 0; i < lblDatos.length; i++) {
+                if (i < listaPrecios.size()) {
+                    Precios.Precio precio = listaPrecios.get(i);
+                    lblDatos[i].setText("Zona: " + precio.getZona() + " = $" + precio.getPrecio() + " M.N.");
+                } else {
+                    lblDatos[i].setText("Sin datos disponibles"); // Mensaje para etiquetas sin datos
+                }
+            }
+        } catch (Exception e) {
+            // Manejo de errores
+            JOptionPane.showMessageDialog(this, "Error al obtener los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
     
     public void estadosMesas()
@@ -208,13 +247,25 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        lblDato1 = new javax.swing.JLabel();
+        lblDato2 = new javax.swing.JLabel();
+        lblDato3 = new javax.swing.JLabel();
+        lblDato4 = new javax.swing.JLabel();
+        lblDato5 = new javax.swing.JLabel();
+        lblDato6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiVolverInicio = new javax.swing.JMenuItem();
+        jmiActualizar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Posada Monterrey");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1343,25 +1394,50 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 40, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 40, 40));
 
         jButton2.setBackground(new java.awt.Color(0, 255, 0));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, 40, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 40, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Mesas Ocupadas");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Mesas disponibles");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+
+        lblDato1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato1.setText("Dato zona y costo");
+        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, -1, -1));
+
+        lblDato2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato2.setText("Dato zona y costo");
+        jPanel1.add(lblDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 30, -1, -1));
+
+        lblDato3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato3.setText("Dato zona y costo");
+        jPanel1.add(lblDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 60, -1, -1));
+
+        lblDato4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato4.setText("Dato zona y costo");
+        jPanel1.add(lblDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 60, -1, -1));
+
+        lblDato5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato5.setText("Dato zona y costo");
+        jPanel1.add(lblDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 90, -1, -1));
+
+        lblDato6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato6.setText("Dato zona y costo");
+        jPanel1.add(lblDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 90, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/plano7.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 640));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 640));
 
-        jMenu1.setText("Salir");
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenu1.setText("MENU");
 
         jmiVolverInicio.setText("Volver a Inicio");
         jmiVolverInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -1371,6 +1447,14 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         });
         jMenu1.add(jmiVolverInicio);
 
+        jmiActualizar.setText("Actualizar Contenido");
+        jmiActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiActualizarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiActualizar);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -1379,13 +1463,11 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -1718,6 +1800,17 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         abrirVentana(80);
     }//GEN-LAST:event_btnMesa80ActionPerformed
 
+    private void jmiActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiActualizarActionPerformed
+        mes = mesa.m();
+        pre = preD.pr();
+        estadoPrecios();
+        estadosMesas();
+    }//GEN-LAST:event_jmiActualizarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -1842,6 +1935,13 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem jmiActualizar;
     private javax.swing.JMenuItem jmiVolverInicio;
+    private javax.swing.JLabel lblDato1;
+    private javax.swing.JLabel lblDato2;
+    private javax.swing.JLabel lblDato3;
+    private javax.swing.JLabel lblDato4;
+    private javax.swing.JLabel lblDato5;
+    private javax.swing.JLabel lblDato6;
     // End of variables declaration//GEN-END:variables
 }

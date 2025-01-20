@@ -18,6 +18,9 @@ public class frmCajero extends javax.swing.JFrame {
     
     Mesas ms = Mesas.getInstancia();
     MesasData mesa = new MesasData();
+    
+    Precios pre = Precios.getInstancia();
+    PreciosData preD = new PreciosData();
 
     
     public frmCajero() {
@@ -72,6 +75,7 @@ public class frmCajero extends javax.swing.JFrame {
 
     public void consultaEstadoMesas(){
         ms = mesa.m();
+        pre = preD.pr();
     }
 
 
