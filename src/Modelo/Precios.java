@@ -41,7 +41,7 @@ public class Precios {
     
     
     public static class Precio {
-        private int idPrecio;
+        private int idZona;
         private String Zona;
         private Double Precio;
         
@@ -50,18 +50,18 @@ public class Precios {
         }
         
         
-        public Precio(int idPrecio, String Zona, Double Precio) {
-            this.idPrecio = idPrecio;
+        public Precio(int idZona, String Zona, Double Precio) {
+            this.idZona = idZona;
             this.Zona = Zona;
             this.Precio = Precio;
         }
 
-        public int getIdPrecio() {
-            return idPrecio;
+        public int getIdZona() {
+            return idZona;
         }
 
-        public void setIdPrecio(int idPrecio) {
-            this.idPrecio = idPrecio;
+        public void getIdZona(int idZona) {
+            this.idZona = idZona;
         }
 
         public String getZona() {
@@ -82,7 +82,7 @@ public class Precios {
 
 
         public void limpiarDatos() {
-            this.idPrecio = 0;
+            this.idZona = 0;
             this.Zona = null;
             this.Precio = null;
         }
@@ -91,7 +91,7 @@ public class Precios {
         @Override
         public String toString() {
             return "Precio{" +
-                    "id=" + idPrecio +
+                    "id=" + idZona +
                     ", zona='" + Zona + '\'' +
                     ", precio='" + Precio + '\'' +
                     '}';
