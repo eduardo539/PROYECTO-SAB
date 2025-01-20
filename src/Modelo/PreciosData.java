@@ -21,7 +21,9 @@ public class PreciosData {
     public Precios pr(){
         Precios p = Precios.getInstancia();
         
-        String sql = "SELECT * FROM tbl_precios;";
+        String sql = "SELECT tbl_zonas.idZona, tbl_zonas.Zona, tbl_costo.Costo " +
+                        "FROM tbl_zonas " +
+                        "INNER JOIN tbl_costo ON tbl_zonas.idCosto = tbl_costo.idCosto;";
         
         try{
             con = cn.getConnection();
@@ -32,11 +34,11 @@ public class PreciosData {
             p.getListaPrecios().clear();
             
             while (rs.next()) {
-                int id = rs.getInt("idPrecio");
-                String zona = rs.getString("vchZona");
-                Double precio = rs.getDouble("Precio");
+                int id = rs.getInt("idZona");
+                String zona = rs.getString("Zona");
+                Double costo = rs.getDouble("Costo");
                 
-                p.agregarPrecio(id, zona, precio);
+                p.agregarPrecio(id, zona, costo);
                 
             }
             

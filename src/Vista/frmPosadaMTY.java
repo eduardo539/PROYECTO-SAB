@@ -45,14 +45,14 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         List<Precios.Precio> listaPrecios = precios.getListaPrecios();
 
         // Arreglo de etiquetas para mostrar los datos
-        JLabel[] lblDatos = {lblDato1, lblDato2, lblDato3}; // Ajusta según el número de etiquetas disponibles
+        JLabel[] lblDatos = {lblDato1, lblDato2, lblDato3, lblDato4, lblDato5, lblDato6}; // Ajusta según el número de etiquetas disponibles
 
         try {
             // Iterar sobre la lista de precios y etiquetas
             for (int i = 0; i < lblDatos.length; i++) {
                 if (i < listaPrecios.size()) {
                     Precios.Precio precio = listaPrecios.get(i);
-                    lblDatos[i].setText(precio.getZona() + " = $" + precio.getPrecio() + " M.N.");
+                    lblDatos[i].setText("Zona: " + precio.getZona() + " = $" + precio.getPrecio() + " M.N.");
                 } else {
                     lblDatos[i].setText("Sin datos disponibles"); // Mensaje para etiquetas sin datos
                 }
@@ -248,8 +248,11 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblDato1 = new javax.swing.JLabel();
-        lblDato3 = new javax.swing.JLabel();
         lblDato2 = new javax.swing.JLabel();
+        lblDato3 = new javax.swing.JLabel();
+        lblDato4 = new javax.swing.JLabel();
+        lblDato5 = new javax.swing.JLabel();
+        lblDato6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -1407,16 +1410,28 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
 
         lblDato1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDato1.setText("Zona A1 y A2 = $560.00 M.N.");
-        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 40, -1, -1));
-
-        lblDato3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDato3.setText("Zona C1 y C2 = $360.00 M.N.");
-        jPanel1.add(lblDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, -1, -1));
+        lblDato1.setText("Dato zona y costo");
+        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, -1, -1));
 
         lblDato2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblDato2.setText("Zona B1 y B2 = $460.00 M.N.");
-        jPanel1.add(lblDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, -1, -1));
+        lblDato2.setText("Dato zona y costo");
+        jPanel1.add(lblDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 30, -1, -1));
+
+        lblDato3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato3.setText("Dato zona y costo");
+        jPanel1.add(lblDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 60, -1, -1));
+
+        lblDato4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato4.setText("Dato zona y costo");
+        jPanel1.add(lblDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 60, -1, -1));
+
+        lblDato5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato5.setText("Dato zona y costo");
+        jPanel1.add(lblDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 90, -1, -1));
+
+        lblDato6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDato6.setText("Dato zona y costo");
+        jPanel1.add(lblDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 90, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/plano7.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 650));
@@ -1927,5 +1942,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JLabel lblDato1;
     private javax.swing.JLabel lblDato2;
     private javax.swing.JLabel lblDato3;
+    private javax.swing.JLabel lblDato4;
+    private javax.swing.JLabel lblDato5;
+    private javax.swing.JLabel lblDato6;
     // End of variables declaration//GEN-END:variables
 }
