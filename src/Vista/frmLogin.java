@@ -94,7 +94,6 @@ public class frmLogin extends javax.swing.JFrame {
         } catch (Exception e) {
             // Manejo de errores
             JOptionPane.showMessageDialog(this, "Ocurrió un error al iniciar sesión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
     }
     
@@ -127,7 +126,6 @@ public class frmLogin extends javax.swing.JFrame {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al verificar la contraseña: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
         return false;
     }   
