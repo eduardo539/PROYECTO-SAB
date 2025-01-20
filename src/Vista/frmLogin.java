@@ -5,8 +5,6 @@ import javax.swing.JOptionPane;
 import Modelo.Login;
 import Modelo.LoginData;
 import javax.swing.JFrame;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,10 +23,15 @@ public class frmLogin extends javax.swing.JFrame {
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
     
+    
     public frmLogin() {
         initComponents();
         
+        setResizable(false);
+        
     }
+    
+    
 
     public void Entrar(){
         String usuario = txtUsuario.getText().trim();
