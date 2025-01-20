@@ -26,6 +26,8 @@ public class frmCajero extends javax.swing.JFrame {
     public frmCajero() {
         initComponents();
         
+        setResizable(false);
+        
         consultaEstadoMesas();
         
         // Inicializar datos dinámicos en la barra de estado
