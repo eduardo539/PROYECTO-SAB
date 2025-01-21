@@ -1,19 +1,21 @@
 package Vista;
 
 import Modelo.Conexion;
+import Modelo.Login;
+import java.awt.Window;
 import java.security.MessageDigest;
-import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author eduar
+ * @author eduardo´s
  */
 
 public class formMenuAdmin extends javax.swing.JFrame {
@@ -82,7 +84,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtAPaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Paterno"));
 
         txtid_usuario.setBorder(javax.swing.BorderFactory.createTitledBorder("ID"));
-        txtid_usuario.setEnabled(false);
 
         txtAMaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Materno"));
         txtAMaterno.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +180,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jMenu1.setText("Menu");
 
         jmiCerrarSesion.setText("Cerrar Sesión");
+        jmiCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCerrarSesionActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmiCerrarSesion);
 
         jMenuBar1.add(jMenu1);
@@ -280,16 +286,16 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
 
             String contrasenia = "cambio";
-            String contraseniaEncriptada = encriptarMD5(contrasenia);
+            //String contraseniaEncriptada = encriptarMD5(contrasenia);
 
             // Consulta para insertar los datos, incluyendo vchSucursal y dtVigencia
-            String query = "INSERT INTO tbl_usuarios (Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, ?, NOW(), ?)";
+            String query = "INSERT INTO tbl_usuarios (Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, MD5(?), ?, NOW(), ?)";
             PreparedStatement ps = cn.prepareStatement(query);
 
             ps.setString(1, nombre);
             ps.setString(2, aPaterno);
             ps.setString(3, aMaterno);
-            ps.setString(4, contraseniaEncriptada); // Contraseña encriptada con MD5
+            ps.setString(4, contrasenia); // Contraseña encriptada con MD5
             ps.setString(5, "cambio"); // Valor fijo para vchSucursal
             ps.setInt(6, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
 
@@ -466,6 +472,78 @@ public class formMenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAMaternoActionPerformed
 
+    private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
+        
+        try {
+            // Confirmar cierre de sesión
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                    "¿Estás seguro de que deseas cerrar sesión?", 
+                    "Cerrar Sesión", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Limpiar datos de la sesión del usuario
+                cerrarSesion();
+
+                // Cerrar todas las ventanas abiertas excepto el login
+                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                for (Window window : Window.getWindows()) {
+                    if (window != topFrame) {
+                        window.dispose();
+                    }
+                }
+
+                // Redirigir a la ventana de inicio de sesión
+                abrirLogin();
+            }
+        } catch (Exception e) {
+            // Manejo de errores en caso de fallo
+            JOptionPane.showMessageDialog(this, 
+                    "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jmiCerrarSesionActionPerformed
+
+    
+    /**
+     * Método para abrir la ventana de inicio de sesión.
+     */
+    private void abrirLogin() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                frmLogin lg = new frmLogin();
+                lg.setLocationRelativeTo(null);
+                lg.setVisible(true);
+
+            }
+        });
+
+    }
+    
+    
+    private void cerrarSesion() {
+       // Si tienes una clase Singleton para manejar la sesión
+       Login sesion = Login.getInstancia();
+       sesion.limpiarDatos();
+
+       // Si la clase no implementa un método limpiarDatos(), puedes hacer:
+       sesion.setIdusuario(0);
+       sesion.setNombre(null);
+       sesion.setAPaterno(null);
+       sesion.setAMaterno(null);
+       sesion.setSucursal(null);
+       sesion.setVigencia(null);
+       sesion.setIdperfil(0);
+       sesion.setTipo_perfil(null);
+
+       // Log de actividad (opcional)
+       System.out.println("Sesión cerrada exitosamente.");
+    }
+    
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -24,6 +24,11 @@ public class frmLogin extends javax.swing.JFrame {
     LoginData login = new LoginData();
     
     
+    // Crear instancia de la clase Conexion
+    Conexion conexion = new Conexion();
+    Connection connection = null;
+    
+    
     public frmLogin() {
         initComponents();
         
@@ -64,6 +69,7 @@ public class frmLogin extends javax.swing.JFrame {
                     
                     // Redirigir al formulario de actualización de contraseña
                     frmActualizarContra frm = new frmActualizarContra(idUsuario);
+                    frm.setLocationRelativeTo(null);
                     frm.setVisible(true);
 
                     limpiarEntradas();
@@ -103,9 +109,7 @@ public class frmLogin extends javax.swing.JFrame {
     }
     
     private boolean tieneContrasenaPredeterminada(int idUsuario) {
-        // Crear instancia de la clase Conexion
-        Conexion conexion = new Conexion();
-        Connection connection = null;
+        
 
         try {
             // Obtener la conexión
