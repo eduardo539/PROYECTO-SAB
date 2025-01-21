@@ -243,6 +243,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
     }
 
     private void abrirFormularioLogin() {
+        new frmLogin().setLocationRelativeTo(null);
         new frmLogin().setVisible(true); // Abrir el formulario de login
         this.dispose(); // Cerrar el formulario actual
     }
