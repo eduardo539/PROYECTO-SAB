@@ -417,7 +417,6 @@ public class frmCajero extends javax.swing.JFrame {
                     "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
                     "Error", 
                     JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
         }
         
     }//GEN-LAST:event_jmiCerrarSesionActionPerformed

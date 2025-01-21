@@ -1257,7 +1257,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa67ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa67, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 190, 50, 50));
+        jPanel1.add(btnMesa67, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 180, 50, 50));
 
         btnMesa68.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa68.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1271,7 +1271,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa68ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa68, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 240, 50, 50));
+        jPanel1.add(btnMesa68, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 230, 50, 50));
 
         btnMesa69.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa69.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1285,7 +1285,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa69ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa69, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 300, 50, 50));
+        jPanel1.add(btnMesa69, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 290, 50, 50));
 
         btnMesa70.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa70.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1299,7 +1299,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa70ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa70, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 360, 50, 50));
+        jPanel1.add(btnMesa70, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 350, 50, 50));
 
         btnMesa73.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa73.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1313,7 +1313,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa73ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa73, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 510, 50, 50));
+        jPanel1.add(btnMesa73, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 500, 50, 50));
 
         btnMesa72.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa72.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1327,7 +1327,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa72ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa72, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 460, 50, 50));
+        jPanel1.add(btnMesa72, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 450, 50, 50));
 
         btnMesa71.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa71.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1341,7 +1341,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa71ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa71, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 410, 50, 50));
+        jPanel1.add(btnMesa71, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 400, 50, 50));
 
         btnMesa74.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa74.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1355,7 +1355,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa74ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa74, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 190, 50, 50));
+        jPanel1.add(btnMesa74, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 180, 50, 50));
 
         btnMesa75.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa75.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1369,7 +1369,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa75ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa75, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 240, 50, 50));
+        jPanel1.add(btnMesa75, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 230, 50, 50));
 
         btnMesa76.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa76.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1383,7 +1383,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa76ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa76, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 300, 50, 50));
+        jPanel1.add(btnMesa76, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 290, 50, 50));
 
         btnMesa77.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa77.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1397,7 +1397,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa77ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa77, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 360, 50, 50));
+        jPanel1.add(btnMesa77, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 350, 50, 50));
 
         btnMesa78.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa78.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1411,7 +1411,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa78ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa78, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 410, 50, 50));
+        jPanel1.add(btnMesa78, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 400, 50, 50));
 
         btnMesa79.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa79.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1425,7 +1425,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa79ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa79, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 460, 50, 50));
+        jPanel1.add(btnMesa79, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 450, 50, 50));
 
         btnMesa80.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa80.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1439,7 +1439,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa80ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa80, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 510, 50, 50));
+        jPanel1.add(btnMesa80, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 500, 50, 50));
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1484,7 +1484,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jPanel1.add(lblDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 90, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/plano7.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 630));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 640));
 
         lblUsuario.setText("jLabel5");
 

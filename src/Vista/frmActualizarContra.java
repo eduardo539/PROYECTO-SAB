@@ -5,7 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import Vista.formMenuAdmin;
+
+import Modelo.Login;
 
 /**
  *
@@ -16,6 +17,13 @@ public class frmActualizarContra extends javax.swing.JFrame {
     
     private int idUsuario; // Atributo para almacenar el ID del usuario
     
+    
+    // Actualizar la contraseña en la base de datos
+    Conexion conexion = new Conexion();
+    Connection connection = null;
+    
+    Login lg = Login.getInstancia();
+    
     public frmActualizarContra() {
         initComponents();
     }
@@ -23,6 +31,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
     /**
      * Constructor con argumentos.
      * Recibe el ID del usuario para personalizar el formulario.
+     * @param idUsuario
      */
     
     public frmActualizarContra(int idUsuario) {
@@ -159,10 +168,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
             return; // El método ya muestra el mensaje de advertencia
         }
 
-        // Actualizar la contraseña en la base de datos
-        Conexion conexion = new Conexion();
-        Connection connection = null;
-
         try {
             connection = conexion.getConnection();
             if (connection == null) {
@@ -180,6 +185,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(this, "Contraseña actualizada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
+                lg.limpiarDatos();
                 // Abrir el formulario de login y cerrar el formulario actual
                 abrirFormularioLogin();
                 
@@ -199,31 +205,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmActualizarContra().setVisible(true);
-            }
-        });
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField txtConfirmaContrasenia;
-    private javax.swing.JPasswordField txtContrasenia;
-    // End of variables declaration//GEN-END:variables
-
-    /**
-     * Método para validar la contraseña.
-     * La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula,
-     * una minúscula, un número y un carácter especial (@$!%*?&#).
-     */
     
     private boolean validarContrasenia(String nuevaContrasena) {
         // Regex para validar la contraseña
@@ -243,8 +224,39 @@ public class frmActualizarContra extends javax.swing.JFrame {
     }
 
     private void abrirFormularioLogin() {
-        new frmLogin().setVisible(true); // Abrir el formulario de login
+        frmLogin lg = new frmLogin();
+        
+        lg.setLocationRelativeTo(null);
+        lg.setVisible(true); // Abrir el formulario de login
         this.dispose(); // Cerrar el formulario actual
     }
+    
+    
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new frmActualizarContra().setVisible(true);
+            }
+        });
+    }
+    
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField txtConfirmaContrasenia;
+    private javax.swing.JPasswordField txtContrasenia;
+    // End of variables declaration//GEN-END:variables
+
+    /**
+     * Método para validar la contraseña.
+     * La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula,
+     * una minúscula, un número y un carácter especial (@$!%*?&#).
+     */
     
 }
