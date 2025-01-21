@@ -16,7 +16,7 @@ import Modelo.Login;
 public class frmActualizarContra extends javax.swing.JFrame {
     
     private int idUsuario; // Atributo para almacenar el ID del usuario
-    
+   
     
     // Actualizar la contraseña en la base de datos
     Conexion conexion = new Conexion();
@@ -190,6 +190,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
                 abrirFormularioLogin();
                 
                 // aqui quiero mandar a llamar la funcion de traer datos de otro formulario
+                
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
             }
