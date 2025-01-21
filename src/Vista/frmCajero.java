@@ -26,6 +26,8 @@ public class frmCajero extends javax.swing.JFrame {
     public frmCajero() {
         initComponents();
         
+        setResizable(false);
+        
         consultaEstadoMesas();
         
         // Inicializar datos dinámicos en la barra de estado
@@ -33,10 +35,10 @@ public class frmCajero extends javax.swing.JFrame {
         lblNombre.setText("Nombre: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
+        //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
         lblFecha.setText("Fecha: " + LocalDate.now());
         
-        /*
+        
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
             try {
@@ -50,10 +52,13 @@ public class frmCajero extends javax.swing.JFrame {
                 System.err.println("Error al obtener la versión del kernel de Linux: " + e.getMessage());
             }
         }
-        */
+        else{
+            lblVersionOS.setText("Kernel: NA");
+        }
         
         
-        barraEstado = new javax.swing.JPanel();
+        
+        //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         lblVersionJava = new javax.swing.JLabel();
@@ -62,11 +67,11 @@ public class frmCajero extends javax.swing.JFrame {
         lblFecha = new javax.swing.JLabel();
 
         // Configurar la barra de estado
-        barraEstado.setBorder(BorderFactory.createEtchedBorder());
-        barraEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
+        //barraEstado.setBorder(BorderFactory.createEtchedBorder());
+        //barraEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // Añadir la barra de estado a la ventana
-        getContentPane().add(barraEstado, BorderLayout.SOUTH);
+        //getContentPane().add(barraEstado, BorderLayout.SOUTH);
 
         pack();
         setLocationRelativeTo(null);
