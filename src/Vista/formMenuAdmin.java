@@ -44,7 +44,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnActualizar1 = new javax.swing.JButton();
+        btnRestaurarContra = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaDatos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -123,13 +123,13 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Crear y Actualizar Usuarios");
 
-        btnActualizar1.setBackground(new java.awt.Color(76, 175, 80));
-        btnActualizar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar1.setText("Restablecer Contraseña");
-        btnActualizar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
+        btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
+        btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
+        btnRestaurarContra.setText("Restablecer Contraseña");
+        btnRestaurarContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnRestaurarContra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizar1ActionPerformed(evt);
+                btnRestaurarContraActionPerformed(evt);
             }
         });
 
@@ -151,7 +151,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 .addGap(77, 77, 77)
                 .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(btnActualizar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnRestaurarContra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +173,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRestaurarContra, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
 
@@ -351,6 +351,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtid_usuario.setEnabled(false);
         btnRegistrar.setEnabled(false);
         btnActualizar.setEnabled(true);
+        btnRestaurarContra.setEnabled(true);
         
         int fila = this.jTablaDatos.getSelectedRow();
         
@@ -462,6 +463,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
         txtid_usuario.setEnabled(true);
         btnRegistrar.setEnabled(true);
         limpiarEntradas();
@@ -470,6 +472,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         limpiarEntradas();
         btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
         txtid_usuario.setEnabled(true);
         btnRegistrar.setEnabled(true);
     }//GEN-LAST:event_jPanel1MouseClicked
@@ -539,7 +542,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmiCerrarSesionActionPerformed
 
-    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+    private void btnRestaurarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarContraActionPerformed
         try {
             // Validación si se ha seleccionado un usuario (esto aparece con la detección del puro id_usuario)
             if (txtid_usuario.getText().trim().isEmpty()) {
@@ -594,7 +597,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al restaurar la contraseña: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnActualizar1ActionPerformed
+    }//GEN-LAST:event_btnRestaurarContraActionPerformed
 
     private void txtid_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid_usuarioActionPerformed
         // TODO add your handling code here:
@@ -648,8 +651,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboPerfil;
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnRestaurarContra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

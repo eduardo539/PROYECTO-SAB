@@ -128,7 +128,7 @@
                   <Component id="txtid_usuario" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Component id="btnActualizar1" alignment="0" max="32767" attributes="0"/>
+              <Component id="btnRestaurarContra" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -151,7 +151,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnActualizar" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnActualizar1" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btnRestaurarContra" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -268,7 +268,7 @@
             <Property name="text" type="java.lang.String" value="Crear y Actualizar Usuarios"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnActualizar1">
+        <Component class="javax.swing.JButton" name="btnRestaurarContra">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="50" green="af" red="4c" type="rgb"/>
@@ -286,7 +286,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizar1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRestaurarContraActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
