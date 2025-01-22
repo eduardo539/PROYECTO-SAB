@@ -67,7 +67,7 @@ public class frmSillas extends javax.swing.JFrame {
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/252.png"))); // NOI18N
         jButton8.setBorder(null);
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 80, 80));
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 80, 80));
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/288.png"))); // NOI18N
         jButton9.setBorder(null);
