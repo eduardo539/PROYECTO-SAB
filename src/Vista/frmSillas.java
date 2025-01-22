@@ -17,7 +17,7 @@ public class frmSillas extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnSilla1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -36,10 +36,10 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/0.png"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 80, 80));
+        btnSilla1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSilla1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/0.png"))); // NOI18N
+        btnSilla1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.add(btnSilla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 80, 80));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/36.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -146,7 +146,7 @@ public class frmSillas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSilla1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
