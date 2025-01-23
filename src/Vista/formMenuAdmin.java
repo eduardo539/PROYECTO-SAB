@@ -41,12 +41,19 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtid_usuario = new javax.swing.JTextField();
         txtAMaterno = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        btnRegistrar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnRestaurarContra = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaDatos = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        btnActualizar = new javax.swing.JButton();
+        btnRestaurarContra = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiCerrarSesion = new javax.swing.JMenuItem();
@@ -72,6 +79,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
         jPanel1.setForeground(new java.awt.Color(240, 240, 240));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -80,102 +88,125 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
 
         ComboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione tipo de usuario", "Sistemas", "Operaciones", "Gerente", "Cajero" }));
-        ComboPerfil.setBorder(javax.swing.BorderFactory.createTitledBorder("Perfil"));
+        ComboPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        ComboPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboPerfilActionPerformed(evt);
+            }
+        });
 
-        txtAPaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Paterno"));
+        txtAPaterno.setAutoscrolls(false);
+        txtAPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
 
-        txtid_usuario.setBorder(javax.swing.BorderFactory.createTitledBorder("ID"));
+        txtid_usuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         txtid_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtid_usuarioActionPerformed(evt);
             }
         });
 
-        txtAMaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Materno"));
+        txtAMaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         txtAMaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAMaternoActionPerformed(evt);
             }
         });
 
-        txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre Completo"));
-
-        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setText("Registrar Usuario");
-        btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setBackground(new java.awt.Color(76, 175, 80));
-        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setText("Actualizar Usuario");
-        btnActualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel1.setText("Crear y Actualizar Usuarios");
+        jLabel1.setText("Crear usuarios");
 
-        btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
-        btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
-        btnRestaurarContra.setText("Restablecer Contraseña");
-        btnRestaurarContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnRestaurarContra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRestaurarContraActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("ID del Usuario:");
+
+        jLabel3.setText("Apellido Paterno:");
+
+        jLabel4.setText("Nombre Completo:");
+
+        jLabel5.setText("Perfil Usuario:");
+
+        jLabel6.setText("Apellido Materno:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ComboPerfil, 0, 234, Short.MAX_VALUE)
-            .addComponent(txtAMaterno)
-            .addComponent(txtNombre)
-            .addComponent(txtAPaterno)
-            .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ComboPerfil, 0, 300, Short.MAX_VALUE)
+                            .addComponent(txtAMaterno))))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(btnRestaurarContra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnRestaurarContra, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de usuarios"));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setModel(new javax.swing.table.DefaultTableModel(
@@ -196,6 +227,49 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTablaDatos);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 770, 260));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnActualizar.setBackground(new java.awt.Color(76, 175, 80));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar Usuario");
+        btnActualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 250, 40));
+
+        btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
+        btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
+        btnRestaurarContra.setText("Restablecer Contraseña");
+        btnRestaurarContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnRestaurarContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestaurarContraActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRestaurarContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 250, 40));
+
+        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setText("Registrar Usuario");
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 250, 40));
 
         jMenu1.setText("Menu");
 
@@ -219,20 +293,25 @@ public class formMenuAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -240,15 +319,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
-            // Validación general del formulario
+            // Validación del formulario
             if (!validarFormulario()) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "Datos faltantes. Por favor, complete bien el formulario.",
-                    "¡Advertencia!",
-                    JOptionPane.WARNING_MESSAGE
-                );
-                return; // Detener el proceso si la validación falla
+                return; // Detener si las validaciones no se cumplen
             }
 
             // Mostrar cuadro de confirmación antes de registrar el usuario
@@ -445,13 +518,24 @@ public class formMenuAdmin extends javax.swing.JFrame {
             // Ejecutar la consulta de actualización
             int filasActualizadas = ps.executeUpdate();
 
-            // Verificar si se actualizó algún dato
+           
+            // Verificar si se actualizó algún registro
             if (filasActualizadas > 0) {
-                JOptionPane.showMessageDialog(this, "Datos actualizados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Datos actualizados correctamente", 
+                    "Éxito", 
+                    JOptionPane.INFORMATION_MESSAGE
+                );
                 mostrarDatos(); // Actualiza la tabla con los datos actualizados
                 limpiarEntradas(); // Limpia los campos del formulario
             } else {
-                JOptionPane.showMessageDialog(this, "No se actualizó ningún dato", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "No se actualizó ningún dato. Verifica que el usuario exista.", 
+                    "Advertencia", 
+                    JOptionPane.WARNING_MESSAGE
+                );
             }
 
             ps.close(); // Cierra el PreparedStatement
@@ -468,14 +552,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         btnRegistrar.setEnabled(true);
         limpiarEntradas();
     }//GEN-LAST:event_formMouseClicked
-
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        limpiarEntradas();
-        btnActualizar.setEnabled(false);
-        btnRestaurarContra.setEnabled(false);
-        txtid_usuario.setEnabled(true);
-        btnRegistrar.setEnabled(true);
-    }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // Confirmación antes de eliminar el cliente
@@ -502,10 +578,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
 
     }//GEN-LAST:event_formMouseEntered
-
-    private void txtAMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAMaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAMaternoActionPerformed
 
     private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
         
@@ -599,9 +671,45 @@ public class formMenuAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRestaurarContraActionPerformed
 
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        limpiarEntradas();
+        btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
+        txtid_usuario.setEnabled(true);
+        btnRegistrar.setEnabled(true);
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtAMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAMaternoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAMaternoActionPerformed
+
     private void txtid_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid_usuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtid_usuarioActionPerformed
+
+    private void ComboPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPerfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboPerfilActionPerformed
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        limpiarEntradas();
+        btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
+        txtid_usuario.setEnabled(true);
+        btnRegistrar.setEnabled(true);
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        limpiarEntradas();
+        btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
+        txtid_usuario.setEnabled(true);
+        btnRegistrar.setEnabled(true);
+    }//GEN-LAST:event_jPanel3MouseClicked
 
     
     /**
@@ -654,11 +762,18 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRestaurarContra;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaDatos;
@@ -672,7 +787,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
 
-        modelo.addColumn("ID");
+        modelo.addColumn("Usuario");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido Paterno");
         modelo.addColumn("Apellido Materno");
@@ -726,22 +841,80 @@ public class formMenuAdmin extends javax.swing.JFrame {
     }
 
     private boolean validarFormulario() {
-        // Se verifica si los campos de texto están vacíos
+        // Validar que los campos no estén vacíos
         if (txtid_usuario.getText().trim().isEmpty() ||
             txtNombre.getText().trim().isEmpty() ||
             txtAPaterno.getText().trim().isEmpty() ||
             txtAMaterno.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Todos los campos son obligatorios. Por favor, complételos.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
             return false;
         }
 
-        // Se verifica si el combo tiene valor valido
-        String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
-        if (perfilSeleccionado.equals("Seleccione tipo de usuario")) {
+        // Validar que id_usuario solo contenga números
+        String id_usuario = txtid_usuario.getText().trim();
+        if (!id_usuario.matches("\\d+")) {
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo usuario de usuario solo debe contener números.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
             return false;
         }
-        
-        return true;
+
+        // Validar que Nombre, APaterno y AMaterno solo contengan letras válidas
+        String patronNombre = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"; // Letras, acentos, ñ y espacios
+
+        if (!txtNombre.getText().trim().matches(patronNombre)) {
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo Nombre solo debe contener letras.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+
+        if (!txtAPaterno.getText().trim().matches(patronNombre)) {
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo Apellido Paterno solo debe contener letras.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+
+        if (!txtAMaterno.getText().trim().matches(patronNombre)) {
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo Apellido Materno solo debe contener letras.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+
+        // Validar que se haya seleccionado un perfil válido
+        String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
+        if (perfilSeleccionado.equals("Seleccione tipo de usuario")) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Por favor, seleccione un perfil válido.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+
+        return true; // Si todas las validaciones pasan
     }
+
 
     private String encriptarMD5(String contrasenia) {
         try {
