@@ -212,7 +212,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
     private boolean validarContrasenia(String nuevaContrasena) {
         // Regex para validar la contraseña
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&#]).{8,}$";
-
+        
         // Verifica si la contraseña cumple con el patrón definido
         if (!nuevaContrasena.matches(regex)) {
             JOptionPane.showMessageDialog(
