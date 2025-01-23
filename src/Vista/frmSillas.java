@@ -38,6 +38,7 @@ public class frmSillas extends javax.swing.JFrame {
             for (int i = 0; i < lblDatos.length; i++) {
                 if (i < listaSillas.size()) {
                     Sillas.Silla silla = listaSillas.get(i);
+                    System.out.println(silla.getDescripSilla());
                     lblDatos[i].setText(silla.getDescripSilla());
                 } else {
                     lblDatos[i].setText("Null"); // Mensaje para etiquetas sin datos

@@ -26,7 +26,8 @@ public class SillasData {
                             "FROM tbl_sillas " +
                             "INNER JOIN tbl_estado_sillas ON tbl_sillas.idEstado = tbl_estado_sillas.idEstado " +
                             "INNER JOIN tbl_mesas ON tbl_sillas.idMesa = tbl_mesas.idMesa " +
-                            "WHERE tbl_mesas.idMesa = ?;";
+                            "WHERE tbl_mesas.idMesa = ? " +
+                            "ORDER BY tbl_sillas.idSilla ASC";
         
         
         try {
