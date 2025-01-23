@@ -33,11 +33,8 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
         
         setResizable(false);
-        
     }
     
-    
-
     public void Entrar(){
         String usuario = txtUsuario.getText().trim();
         String pass = new String(txtPassword.getPassword()).trim();
@@ -83,6 +80,12 @@ public class frmLogin extends javax.swing.JFrame {
                 switch (lg.getTipo_perfil()) {
                     case "Sistemas":
                         abrirVentana(new formMenuAdmin(), "Sistemas");
+                        break;
+                    case "Operaciones":
+                        abrirVentana(new frmOperaciones(), "Operaciones");
+                        break;
+                    case "Gerente":
+                        abrirVentana(new frmGerente(), "Gerente");
                         break;
                     case "Cajero":
                         abrirVentana(new frmCajero(), "Cajero");

@@ -8,7 +8,7 @@ import Vista.frmPosadaMTY;
 
 /**
  *
- * @author Eduardo's
+ * @author Eduardo's SAB
  */
 
 public class SAB {

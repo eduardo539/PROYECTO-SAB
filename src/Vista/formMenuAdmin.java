@@ -44,6 +44,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnRestaurarContra = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaDatos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -84,6 +85,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtAPaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Paterno"));
 
         txtid_usuario.setBorder(javax.swing.BorderFactory.createTitledBorder("ID"));
+        txtid_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtid_usuarioActionPerformed(evt);
+            }
+        });
 
         txtAMaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Materno"));
         txtAMaterno.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +123,16 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Crear y Actualizar Usuarios");
 
+        btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
+        btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
+        btnRestaurarContra.setText("Restablecer Contraseña");
+        btnRestaurarContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnRestaurarContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestaurarContraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,33 +144,37 @@ public class formMenuAdmin extends javax.swing.JFrame {
             .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btnRestaurarContra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRestaurarContra, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
 
         jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
@@ -211,8 +231,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -245,10 +265,13 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
 
             // Obtener los datos ingresados
+            String id_usuario = txtid_usuario.getText();
             String nombre = txtNombre.getText();
             String aPaterno = txtAPaterno.getText();
             String aMaterno = txtAMaterno.getText();
             String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
+            
+            int id_usuario1 = Integer.parseInt(id_usuario);
             int idPerfil;
 
             switch (perfilSeleccionado) {
@@ -275,7 +298,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
 
             // Verificar si el usuario ya existe en la base de datos
-            if (verificarUsuarioExistente(nombre, aPaterno, aMaterno, idPerfil)) {
+            if (verificarUsuarioExistente(id_usuario1, nombre, aPaterno, aMaterno, idPerfil)) {
                 JOptionPane.showMessageDialog(
                     null,
                     "El usuario ya está registrado en la base de datos.",
@@ -289,15 +312,16 @@ public class formMenuAdmin extends javax.swing.JFrame {
             //String contraseniaEncriptada = encriptarMD5(contrasenia);
 
             // Consulta para insertar los datos, incluyendo vchSucursal y dtVigencia
-            String query = "INSERT INTO tbl_usuarios (Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, MD5(?), ?, NOW(), ?)";
+            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, MD5(?), ?, NOW(), ?)";
             PreparedStatement ps = cn.prepareStatement(query);
 
-            ps.setString(1, nombre);
-            ps.setString(2, aPaterno);
-            ps.setString(3, aMaterno);
-            ps.setString(4, contrasenia); // Contraseña encriptada con MD5
-            ps.setString(5, "cambio"); // Valor fijo para vchSucursal
-            ps.setInt(6, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
+            ps.setInt(1, id_usuario1);
+            ps.setString(2, nombre);
+            ps.setString(3, aPaterno);
+            ps.setString(4, aMaterno);
+            ps.setString(5, contrasenia); // Contraseña encriptada con MD5
+            ps.setString(6, "cambio"); // Valor fijo para vchSucursal
+            ps.setInt(7, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
 
             // Ejecutar la consulta para insertar los datos en la base de datos
             ps.executeUpdate();
@@ -313,14 +337,21 @@ public class formMenuAdmin extends javax.swing.JFrame {
             limpiarEntradas();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                null, 
+                "Error, el usuario ya se encuentra en el sistema.", 
+                "Información", 
+                JOptionPane.ERROR_MESSAGE
+            );
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void jTablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaDatosMouseClicked
 
+        txtid_usuario.setEnabled(false);
         btnRegistrar.setEnabled(false);
         btnActualizar.setEnabled(true);
+        btnRestaurarContra.setEnabled(true);
         
         int fila = this.jTablaDatos.getSelectedRow();
         
@@ -432,6 +463,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
+        txtid_usuario.setEnabled(true);
         btnRegistrar.setEnabled(true);
         limpiarEntradas();
     }//GEN-LAST:event_formMouseClicked
@@ -439,6 +472,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         limpiarEntradas();
         btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
+        txtid_usuario.setEnabled(true);
         btnRegistrar.setEnabled(true);
     }//GEN-LAST:event_jPanel1MouseClicked
 
@@ -507,6 +542,67 @@ public class formMenuAdmin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmiCerrarSesionActionPerformed
 
+    private void btnRestaurarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarContraActionPerformed
+        try {
+            // Validación si se ha seleccionado un usuario (esto aparece con la detección del puro id_usuario)
+            if (txtid_usuario.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor, selecciona un usuario antes de restablecer la contraseña",
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si no se seleccionó un usuario
+            }
+
+            // Mostrar cuadro de confirmación antes de actualizar los datos
+            int confirmacion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Está seguro de que desea restablecer la contraseña de este usuario?",
+                "Confirmación de Actualización",
+                JOptionPane.YES_NO_OPTION
+            );
+
+            // Verificar si el usuario seleccionó "Sí"
+            if (confirmacion != JOptionPane.YES_OPTION) {
+                return; // Salir del método si el usuario selecciona "No"
+            }
+
+            // Contraseña a actualizar (encriptada con MD5)
+            String contrasenia = "cambio";
+            String contraseniaEncriptada = encriptarMD5(contrasenia); // Método para encriptar con MD5
+
+            // Preparar la consulta SQL para actualizar los datos
+            String query = "UPDATE tbl_usuarios SET vchPass = ? WHERE id_usuario = ?";
+            PreparedStatement ps = cn.prepareStatement(query);
+
+            // Asignar valores a los parámetros
+            ps.setString(1, contraseniaEncriptada); // Contraseña encriptada
+            ps.setInt(2, Integer.parseInt(txtid_usuario.getText())); // ID del usuario
+
+            // Ejecutar la consulta de actualización
+            int filasActualizadas = ps.executeUpdate();
+
+            // Verificar si se actualizó algún dato
+            if (filasActualizadas > 0) {
+                JOptionPane.showMessageDialog(this, "Contraseña restaurada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                mostrarDatos(); // Actualiza la tabla con los datos actualizados
+                limpiarEntradas(); // Limpia los campos del formulario
+            } else {
+                JOptionPane.showMessageDialog(this, "No se restauró la contraseña", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+
+            ps.close(); // Cierra el PreparedStatement
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al restaurar la contraseña: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRestaurarContraActionPerformed
+
+    private void txtid_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtid_usuarioActionPerformed
+
     
     /**
      * Método para abrir la ventana de inicio de sesión.
@@ -556,6 +652,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboPerfil;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnRestaurarContra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -630,7 +727,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private boolean validarFormulario() {
         // Se verifica si los campos de texto están vacíos
-        if (txtNombre.getText().trim().isEmpty() ||
+        if (txtid_usuario.getText().trim().isEmpty() ||
+            txtNombre.getText().trim().isEmpty() ||
             txtAPaterno.getText().trim().isEmpty() ||
             txtAMaterno.getText().trim().isEmpty()) {
             return false;
@@ -644,29 +742,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         
         return true;
     }
-    
-    /* private boolean validarContrasenia(String contrasenia) {
-        // Elimina espacios en blanco al principio y al final
-        contrasenia = contrasenia.trim();
-        
-        System.out.println("Contraseña ingresada: " + contrasenia);
-
-        // Regex para validar la contraseña
-        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&#]).{8,}$";
-
-        // Verifica si la contraseña cumple con el patrón definid
-        if (!contrasenia.matches(regex)) {
-            // Se muestra en caso de warning
-            JOptionPane.showMessageDialog(
-                null,
-                "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial @$!%*?&#.",
-                "Contraseña no válida",
-                JOptionPane.WARNING_MESSAGE
-            );
-            return false;
-        }
-        return true; // PASA
-    } */
 
     private String encriptarMD5(String contrasenia) {
         try {
@@ -694,15 +769,16 @@ public class formMenuAdmin extends javax.swing.JFrame {
         }
     }
 
-    private boolean verificarUsuarioExistente(String nombre, String aPaterno, String aMaterno, int idPerfil) {
+    private boolean verificarUsuarioExistente(int id_usuario1, String nombre, String aPaterno, String aMaterno, int idPerfil) {
         try {
             // Preparar la consulta SQL para buscar al usuario
-            String query = "SELECT COUNT(*) AS total FROM tbl_usuarios WHERE Nombre = ? AND APaterno = ? AND AMaterno = ? AND id_perfil = ?";
+            String query = "SELECT COUNT(*) AS total FROM tbl_usuarios WHERE id_usuario = ? AND Nombre = ? AND APaterno = ? AND AMaterno = ? AND id_perfil = ?";
             PreparedStatement ps = cn.prepareStatement(query);
-            ps.setString(1, nombre);
-            ps.setString(2, aPaterno);
-            ps.setString(3, aMaterno);
-            ps.setInt(4, idPerfil);
+            ps.setInt(1, id_usuario1);
+            ps.setString(2, nombre);
+            ps.setString(3, aPaterno);
+            ps.setString(4, aMaterno);
+            ps.setInt(5, idPerfil);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next() && rs.getInt("total") > 0) {

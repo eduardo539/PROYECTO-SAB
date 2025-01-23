@@ -24,6 +24,7 @@ public class Conexion {
      * Obtiene una conexión a la base de datos.
      * @return La conexión establecida o null si hay un error.
      */
+    
     public Connection getConnection() {
         try {
             // Configura el tiempo de espera para la conexión
