@@ -7,7 +7,7 @@ package Vista;
 
 /**
  *
- * @author Practicas1
+ * @author Stock 2 Sistemas
  */
 public class frmSillas extends javax.swing.JFrame {
 

@@ -7,6 +7,8 @@ import Modelo.PosadaMTYData;
 import Modelo.PosadaMTY;
 import Modelo.Precios;
 import Modelo.PreciosData;
+import Modelo.Sillas;
+import Modelo.SillasData;
 import java.awt.Color;
 import java.awt.Component;
 import java.time.LocalDate;
@@ -32,6 +34,12 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     
     
     Login lg = Login.getInstancia();
+    
+    
+    Sillas s = Sillas.getInstancia();
+    SillasData sid = new SillasData();
+    
+    private int idMesa;
     
     
     public frmPosadaMTY() {
@@ -109,6 +117,12 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         }
     }
     
+    /*
+    public void estadoSillas(){
+        s = sid.s(idMesa);
+    }
+    */
+    
     public void estadosMesas()
     {
         
@@ -145,15 +159,20 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     
     private void abrirVentana(int mesaNumero) {
         
+        this.idMesa = mesaNumero;
+        
         try {
             // Obtiene el estado de la mesa según el número
-            ps = posada.ps(mesaNumero);
+            ps = posada.ps(idMesa);
 
             if (ps != null) {
                 String estatusMesa = ps.getEstatusMesa();
 
                 switch (estatusMesa) {
                     case "Disponible":
+                        
+                        s = sid.s(idMesa);
+                        
                         frmSillas sillas = new frmSillas();
                         sillas.setLocationRelativeTo(null);
                         sillas.setVisible(true);
@@ -879,7 +898,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa7ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 50, 50));
+        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 50));
 
         btnMesa8.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
