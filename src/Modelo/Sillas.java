@@ -32,8 +32,8 @@ public class Sillas {
     
     
     // Método para agregar una silla a la lista
-    public void agregarSilla(int idSilla, String descripSilla, String estado, int idMesa) {
-        listaSillas.add(new Silla(idSilla, descripSilla, estado, idMesa));
+    public void agregarSilla(int idSilla, String descripSilla, String estado, int idMesa, String descMesa, String status, String zona, Double costo) {
+        listaSillas.add(new Silla(idSilla, descripSilla, estado, idMesa, descMesa, status, zona, costo));
     }
 
     // Método para obtener la lista de sillas
@@ -47,15 +47,23 @@ public class Sillas {
         private String descripSilla;
         private String estadoSilla;
         private int idMesa;
+        private String descMesa;
+        private String status;
+        private String zona;
+        private double costo;
 
         public Silla() {
         }
 
-        public Silla(int idSilla, String descripSilla, String estadoSilla, int idMesa) {
+        public Silla(int idSilla, String descripSilla, String estadoSilla, int idMesa, String descMesa, String status, String zona, double costo) {
             this.idSilla = idSilla;
             this.descripSilla = descripSilla;
             this.estadoSilla = estadoSilla;
             this.idMesa = idMesa;
+            this.descMesa = descMesa;
+            this.status = status;
+            this.zona = zona;
+            this.costo = costo;
         }
 
         public int getIdSilla() {
@@ -90,6 +98,41 @@ public class Sillas {
             this.idMesa = idMesa;
         }
 
+        public String getDescMesa() {
+            return descMesa;
+        }
+
+        public void setDescMesa(String descMesa) {
+            this.descMesa = descMesa;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getZona() {
+            return zona;
+        }
+
+        public void setZona(String zona) {
+            this.zona = zona;
+        }
+
+        public double getCosto() {
+            return costo;
+        }
+
+        public void setCosto(double costo) {
+            this.costo = costo;
+        }
+
+        
+        
+
         
         
         @Override
@@ -99,6 +142,10 @@ public class Sillas {
                     ", nomSilla='" + descripSilla + '\'' +
                     ", estadoSilla='" + estadoSilla + '\'' +
                     ", idMesa='" + idMesa + '\'' +
+                    ", descMesa='" + descMesa + '\'' +
+                    ", estatus='" + status + '\'' +
+                    ", zona='" + zona + '\'' +
+                    ", costo='" + costo + '\'' +
                     '}';
         }
         

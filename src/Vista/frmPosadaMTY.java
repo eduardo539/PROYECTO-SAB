@@ -173,6 +173,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                         
                         s = sid.s(idMesa);
                         
+                        
                         frmSillas sillas = new frmSillas();
                         sillas.setLocationRelativeTo(null);
                         sillas.setVisible(true);
