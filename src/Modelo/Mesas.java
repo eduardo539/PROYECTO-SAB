@@ -30,8 +30,8 @@ public class Mesas {
     
     
     // Método para agregar una mesa a la lista
-    public void agregarMesa(int id, String descripcion, String estatus) {
-        listaMesas.add(new Mesa(id, descripcion, estatus));
+    public void agregarMesa(int id, String descripcion, String estatus, String zona, Double costo) {
+        listaMesas.add(new Mesa(id, descripcion, estatus, zona, costo));
     }
 
     // Método para obtener la lista de mesas
@@ -39,24 +39,31 @@ public class Mesas {
         return listaMesas;
     }
     
+    // Método para borrar los datos de la lista
+    public void borrarDatos() {
+        listaMesas.clear();
+    }
+    
+    
     // Clase interna para representar una mesa
     public static class Mesa {
         private int id;
         private String descripcion;
         private String estatus;
+        private String zona;
+        private double costo;
 
-        // Constructor vacío
         public Mesa() {
         }
 
-        // Constructor con datos
-        public Mesa(int id, String descripcion, String estatus) {
+        public Mesa(int id, String descripcion, String estatus, String zona, double costo) {
             this.id = id;
             this.descripcion = descripcion;
             this.estatus = estatus;
+            this.zona = zona;
+            this.costo = costo;
         }
 
-        // Getters y Setters
         public int getId() {
             return id;
         }
@@ -81,12 +88,32 @@ public class Mesas {
             this.estatus = estatus;
         }
 
+        public String getZona() {
+            return zona;
+        }
+
+        public void setZona(String zona) {
+            this.zona = zona;
+        }
+
+        public double getCosto() {
+            return costo;
+        }
+
+        public void setCosto(double costo) {
+            this.costo = costo;
+        }
+
+        
+
         @Override
         public String toString() {
             return "Mesa{" +
                     "id=" + id +
                     ", descripcion='" + descripcion + '\'' +
                     ", estatus='" + estatus + '\'' +
+                    ", zona='" + zona + '\'' +
+                    ", costo='" + costo + '\'' +
                     '}';
         }
     }

@@ -1,5 +1,6 @@
 package Vista;
 
+import Modelo.Mesas;
 import Modelo.Precios;
 import Modelo.Sillas;
 import Modelo.SillasData;
@@ -15,11 +16,34 @@ import javax.swing.JOptionPane;
  */
 public class frmSillas extends javax.swing.JFrame {
     
-    
     public frmSillas() {
         initComponents();
         nomSillas();
         estadoSillas();
+        datos();
+        
+    }
+    
+    
+    public void datos(){
+        Sillas s = Sillas.getInstancia();
+        
+        // Asegúrate de que la lista tenga al menos 2 elementos
+        if (s.getListaSillas().size() >= 3) {
+            // Obtén los dos datos específicos de la lista
+            Sillas.Silla mesa = s.getListaSillas().get(4); // Primer dato
+            Sillas.Silla zona = s.getListaSillas().get(6); // Segundo dato
+            Sillas.Silla costo = s.getListaSillas().get(7); // Tercer dato
+            
+            // Asigna los valores a los labels
+            lblMesa.setText(mesa.getDescMesa());
+            lblZona.setText("Zona: " + zona.getZona());
+            lblCosto.setText("Costo: " + costo.getCosto() + " M.N.");
+        } else {
+            // Mensaje en caso de que la lista no tenga suficientes elementos
+            lblMesa.setText("Datos insuficientes");
+            lblZona.setText("Datos insuficientes");
+        }
     }
     
     
@@ -38,7 +62,7 @@ public class frmSillas extends javax.swing.JFrame {
             for (int i = 0; i < lblDatos.length; i++) {
                 if (i < listaSillas.size()) {
                     Sillas.Silla silla = listaSillas.get(i);
-                    System.out.println(silla.getDescripSilla());
+                    //System.out.println(silla.getDescripSilla());
                     lblDatos[i].setText(silla.getDescripSilla());
                 } else {
                     lblDatos[i].setText("Null"); // Mensaje para etiquetas sin datos
@@ -112,8 +136,18 @@ public class frmSillas extends javax.swing.JFrame {
         btnDato8 = new javax.swing.JButton();
         btnDato9 = new javax.swing.JButton();
         btnDato10 = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        btnCancelar = new javax.swing.JButton();
+        lblMesa = new javax.swing.JLabel();
+        lblZona = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblCosto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sillas");
@@ -122,75 +156,80 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblDato1.setText("jLabel2");
-        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 4, -1, 20));
+        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, 20));
 
         lblDato2.setText("jLabel2");
-        jPanel1.add(lblDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+        jPanel1.add(lblDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, -1, -1));
 
         lblDato3.setText("jLabel2");
-        jPanel1.add(lblDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 180, -1, -1));
+        jPanel1.add(lblDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, -1));
 
         lblDato4.setText("jLabel2");
-        jPanel1.add(lblDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, -1, -1));
+        jPanel1.add(lblDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, -1));
 
         lblDato5.setText("jLabel2");
-        jPanel1.add(lblDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 580, -1, -1));
+        jPanel1.add(lblDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 500, -1, -1));
 
         lblDato6.setText("jLabel2");
-        jPanel1.add(lblDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 630, -1, -1));
+        jPanel1.add(lblDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, -1, -1));
 
         lblDato7.setText("jLabel2");
-        jPanel1.add(lblDato7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 590, -1, -1));
+        jPanel1.add(lblDato7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, -1, -1));
 
         lblDato8.setText("jLabel2");
-        jPanel1.add(lblDato8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, -1));
+        jPanel1.add(lblDato8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
 
         lblDato9.setText("jLabel2");
-        jPanel1.add(lblDato9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, -1));
+        jPanel1.add(lblDato9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         lblDato10.setText("jLabel2");
-        jPanel1.add(lblDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
+        jPanel1.add(lblDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, -1));
 
         btnDato1.setForeground(new java.awt.Color(255, 255, 255));
-        btnDato1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/0.png"))); // NOI18N
+        btnDato1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1.png"))); // NOI18N
         btnDato1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 80, 80));
+        jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 55, 55));
 
-        btnDato2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/36.png"))); // NOI18N
+        btnDato2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
         btnDato2.setBorder(null);
-        jPanel1.add(btnDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, 80, 80));
+        jPanel1.add(btnDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 55, 55));
 
-        btnDato3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/72.png"))); // NOI18N
+        btnDato3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/3.png"))); // NOI18N
         btnDato3.setBorder(null);
-        jPanel1.add(btnDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 80, 80));
+        jPanel1.add(btnDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 55, 55));
 
-        btnDato4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/108.png"))); // NOI18N
+        btnDato4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4.png"))); // NOI18N
         btnDato4.setBorder(null);
-        jPanel1.add(btnDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 370, 80, 80));
+        jPanel1.add(btnDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 55, 55));
 
-        btnDato5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/144.png"))); // NOI18N
+        btnDato5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/5.png"))); // NOI18N
         btnDato5.setBorder(null);
-        jPanel1.add(btnDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 500, 80, 80));
+        jPanel1.add(btnDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, 55, 55));
 
-        btnDato6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/180.png"))); // NOI18N
+        btnDato6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/6.png"))); // NOI18N
         btnDato6.setBorder(null);
-        jPanel1.add(btnDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 550, 80, 80));
+        jPanel1.add(btnDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, 55, 55));
 
-        btnDato7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/216.png"))); // NOI18N
+        btnDato7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/7.png"))); // NOI18N
         btnDato7.setBorder(null);
-        jPanel1.add(btnDato7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 80, 80));
+        jPanel1.add(btnDato7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 55, 55));
 
-        btnDato8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/252.png"))); // NOI18N
+        btnDato8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/8.png"))); // NOI18N
         btnDato8.setBorder(null);
-        jPanel1.add(btnDato8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 80, 80));
+        jPanel1.add(btnDato8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 55, 55));
 
-        btnDato9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/288.png"))); // NOI18N
+        btnDato9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/9.png"))); // NOI18N
         btnDato9.setBorder(null);
-        jPanel1.add(btnDato9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 80, 80));
+        jPanel1.add(btnDato9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 55, 55));
 
-        btnDato10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/324.png"))); // NOI18N
+        btnDato10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/10.png"))); // NOI18N
         btnDato10.setBorder(null);
-        jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 80, 80));
+        jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 55, 55));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mesa2.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 550));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,26 +240,119 @@ public class frmSillas extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 590, 125, 38));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MESA.jpeg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 650));
+        lblMesa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblMesa.setText("jLabel2");
+
+        lblZona.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblZona.setText("jLabel2");
+
+        jButton1.setBackground(new java.awt.Color(0, 255, 0));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 0));
+
+        jButton3.setBackground(new java.awt.Color(255, 0, 0));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Disponible");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Separado");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Comprado");
+
+        lblCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCosto.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCosto)
+                    .addComponent(lblZona)
+                    .addComponent(lblMesa)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel2)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel3)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblMesa)
+                .addGap(18, 18, 18)
+                .addComponent(lblZona)
+                .addGap(18, 18, 18)
+                .addComponent(lblCosto)
+                .addGap(130, 130, 130)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        Mesas m = Mesas.getInstancia();
+        m.borrarDatos();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -271,8 +403,16 @@ public class frmSillas extends javax.swing.JFrame {
     private javax.swing.JButton btnDato7;
     private javax.swing.JButton btnDato8;
     private javax.swing.JButton btnDato9;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblCosto;
     private javax.swing.JLabel lblDato1;
     private javax.swing.JLabel lblDato10;
     private javax.swing.JLabel lblDato2;
@@ -283,5 +423,7 @@ public class frmSillas extends javax.swing.JFrame {
     private javax.swing.JLabel lblDato7;
     private javax.swing.JLabel lblDato8;
     private javax.swing.JLabel lblDato9;
+    private javax.swing.JLabel lblMesa;
+    private javax.swing.JLabel lblZona;
     // End of variables declaration//GEN-END:variables
 }

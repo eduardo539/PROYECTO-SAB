@@ -19,7 +19,11 @@ public class MesasData {
     
     public Mesas m() {
         Mesas m = Mesas.getInstancia(); // Obtener instancia única de Mesas
-        String consulta = "SELECT * FROM tbl_mesas;";
+        String consulta = "SELECT tbl_mesas.idMesa, tbl_mesas.descMesa, tbl_mesas.Estatus, " +
+                            "tbl_zonas.Zona, tbl_costo.Costo " +
+                            "FROM tbl_mesas " +
+                            "INNER JOIN tbl_zonas ON tbl_mesas.idZona = tbl_zonas.idZona " +
+                            "INNER JOIN tbl_costo ON tbl_zonas.idCosto = tbl_costo.idCosto;";
 
         try {
             con = cn.getConnection(); // Obtener conexión
@@ -33,11 +37,13 @@ public class MesasData {
             while (rs.next()) {
                 // Crear objeto Mesa con los datos obtenidos
                 int id = rs.getInt("idMesa");
-                String descripcion = rs.getString("DescMesa");
+                String descripcion = rs.getString("descMesa");
                 String estatus = rs.getString("Estatus");
+                String zona = rs.getString("Zona");
+                double costo = rs.getDouble("Costo");
 
                 // Agregar mesa a la lista en la instancia de Mesas
-                m.agregarMesa(id, descripcion, estatus);
+                m.agregarMesa(id, descripcion, estatus, zona, costo);
             }
 
         } catch (SQLException e) {
