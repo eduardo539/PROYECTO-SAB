@@ -71,7 +71,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
 
         jLabel2.setText("Confirme la contraseña:");
 
-        txtContrasenia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(153, 255, 153))); // NOI18N
+        txtContrasenia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
 
         txtConfirmaContrasenia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
 

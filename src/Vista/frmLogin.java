@@ -184,15 +184,18 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel6.setText("USUARIO:");
 
+        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Icono_user.png"))); // NOI18N
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Key.png"))); // NOI18N
 
         jLabel7.setText("CONTRASEÑA:");
 
+        txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         txtPassword.setPreferredSize(new java.awt.Dimension(6, 28));
 
-        btnEntrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnEntrar.setBackground(new java.awt.Color(153, 255, 153));
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
