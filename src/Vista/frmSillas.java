@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.Mesas;
 import Modelo.Precios;
+import Modelo.SillaEstado;
 import Modelo.Sillas;
 import Modelo.SillasData;
 import java.awt.Color;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
  * @author Eduardo`s
  */
 public class frmSillas extends javax.swing.JFrame {
+    
     
     public frmSillas() {
         initComponents();
@@ -31,14 +33,14 @@ public class frmSillas extends javax.swing.JFrame {
         // Asegúrate de que la lista tenga al menos 2 elementos
         if (s.getListaSillas().size() >= 3) {
             // Obtén los dos datos específicos de la lista
-            Sillas.Silla mesa = s.getListaSillas().get(4); // Primer dato
-            Sillas.Silla zona = s.getListaSillas().get(6); // Segundo dato
-            Sillas.Silla costo = s.getListaSillas().get(7); // Tercer dato
+            Sillas.Silla mesa = s.getListaSillas().get(5); // Primer dato
+            Sillas.Silla zona = s.getListaSillas().get(8); // Segundo dato
+            Sillas.Silla costo = s.getListaSillas().get(9); // Tercer dato
             
             // Asigna los valores a los labels
             lblMesa.setText(mesa.getDescMesa());
             lblZona.setText("Zona: " + zona.getZona());
-            lblCosto.setText("Costo: " + costo.getCosto() + " M.N.");
+            lblCosto.setText("Costo: $" + costo.getCosto() + " M.N.");
         } else {
             // Mensaje en caso de que la lista no tenga suficientes elementos
             lblMesa.setText("Datos insuficientes");
@@ -111,6 +113,52 @@ public class frmSillas extends javax.swing.JFrame {
     }
 
     
+    public void sillaID(int fila){
+        Sillas sill = Sillas.getInstancia();
+        
+        
+        try{
+            
+            if (!sill.getListaSillas().isEmpty() && sill.getListaSillas().size() >= 10) {
+                int idSilla = sill.getListaSillas().get(fila).getIdSilla(); // Fila consultada
+                estadoSilla(idSilla);
+            }
+            
+        }catch (Exception e) {
+            // Manejo de errores
+            JOptionPane.showMessageDialog(this, "Error al obtener los datos, ponerse en contacto con el administrador: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void estadoSilla(int idSilla){
+        
+        SillaEstado sss = SillaEstado.getInstancia();
+        SillasData sdat = new SillasData();
+
+        // Obtenemos el estado de la silla desde los datos
+        sss = sdat.siE(idSilla);
+        
+        
+        try{
+            // Validamos el estado de la silla y mostramos la alerta correspondiente
+            String estado = sss.getEstado();
+
+            if ("Disponible".equalsIgnoreCase(estado)) {
+                JOptionPane.showMessageDialog(null, "La silla está Disponible.", "Estado de la Silla", JOptionPane.INFORMATION_MESSAGE);
+            } else if ("Separado".equalsIgnoreCase(estado)) {
+                JOptionPane.showMessageDialog(null, "La silla está Separada.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
+            } else if ("Comprado".equalsIgnoreCase(estado)) {
+                JOptionPane.showMessageDialog(null, "La silla está Comprada.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "El estado de la silla no es válido.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            // Manejo de errores
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos, ponerse en contacto con el administrador: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -156,7 +204,7 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblDato1.setText("jLabel2");
-        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, 20));
+        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, -1, 20));
 
         lblDato2.setText("jLabel2");
         jPanel1.add(lblDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, -1, -1));
@@ -188,42 +236,92 @@ public class frmSillas extends javax.swing.JFrame {
         btnDato1.setForeground(new java.awt.Color(255, 255, 255));
         btnDato1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1.png"))); // NOI18N
         btnDato1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 55, 55));
+        btnDato1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 55, 55));
 
         btnDato2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
         btnDato2.setBorder(null);
+        btnDato2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 55, 55));
 
         btnDato3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/3.png"))); // NOI18N
         btnDato3.setBorder(null);
+        btnDato3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 55, 55));
 
         btnDato4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4.png"))); // NOI18N
         btnDato4.setBorder(null);
+        btnDato4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 55, 55));
 
         btnDato5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/5.png"))); // NOI18N
         btnDato5.setBorder(null);
+        btnDato5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato5ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, 55, 55));
 
         btnDato6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/6.png"))); // NOI18N
         btnDato6.setBorder(null);
+        btnDato6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato6ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, 55, 55));
 
         btnDato7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/7.png"))); // NOI18N
         btnDato7.setBorder(null);
+        btnDato7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato7ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 55, 55));
 
         btnDato8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/8.png"))); // NOI18N
         btnDato8.setBorder(null);
+        btnDato8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato8ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 55, 55));
 
         btnDato9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/9.png"))); // NOI18N
         btnDato9.setBorder(null);
+        btnDato9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato9ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 55, 55));
 
         btnDato10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/10.png"))); // NOI18N
         btnDato10.setBorder(null);
+        btnDato10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato10ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 55, 55));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mesa2.png"))); // NOI18N
@@ -355,6 +453,46 @@ public class frmSillas extends javax.swing.JFrame {
         m.borrarDatos();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnDato1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato1ActionPerformed
+        sillaID(0);
+    }//GEN-LAST:event_btnDato1ActionPerformed
+
+    private void btnDato2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato2ActionPerformed
+        sillaID(1);
+    }//GEN-LAST:event_btnDato2ActionPerformed
+
+    private void btnDato3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato3ActionPerformed
+        sillaID(2);
+    }//GEN-LAST:event_btnDato3ActionPerformed
+
+    private void btnDato4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato4ActionPerformed
+        sillaID(3);
+    }//GEN-LAST:event_btnDato4ActionPerformed
+
+    private void btnDato5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato5ActionPerformed
+        sillaID(4);
+    }//GEN-LAST:event_btnDato5ActionPerformed
+
+    private void btnDato6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato6ActionPerformed
+        sillaID(5);
+    }//GEN-LAST:event_btnDato6ActionPerformed
+
+    private void btnDato7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato7ActionPerformed
+        sillaID(6);
+    }//GEN-LAST:event_btnDato7ActionPerformed
+
+    private void btnDato8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato8ActionPerformed
+        sillaID(7);
+    }//GEN-LAST:event_btnDato8ActionPerformed
+
+    private void btnDato9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato9ActionPerformed
+        sillaID(8);
+    }//GEN-LAST:event_btnDato9ActionPerformed
+
+    private void btnDato10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato10ActionPerformed
+        sillaID(9);
+    }//GEN-LAST:event_btnDato10ActionPerformed
 
     /**
      * @param args the command line arguments
