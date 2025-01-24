@@ -5,6 +5,7 @@ import Modelo.SillaEstado;
 /**
  *
  * @author Eduardo´s
+ * 
  */
 public class frmBoleto extends javax.swing.JFrame {
 
