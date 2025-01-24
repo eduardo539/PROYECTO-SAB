@@ -899,7 +899,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa7ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 50));
+        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 50, 50));
 
         btnMesa8.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
