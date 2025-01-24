@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  *
@@ -62,7 +64,7 @@ public class frmLogin extends javax.swing.JFrame {
 
                 // Verificar si el usuario tiene la contraseña predeterminada
                 if (tieneContrasenaPredeterminada(idUsuario)) {
-                     System.out.println("dentro de tiene contrasena determinada: " + idUsuario); // Log (opcional)
+                    
                     
                     // Redirigir al formulario de actualización de contraseña
                     frmActualizarContra frm = new frmActualizarContra(idUsuario);
@@ -75,6 +77,35 @@ public class frmLogin extends javax.swing.JFrame {
 
                     return; // Terminar el flujo hasta que la contraseña se actualice
                 }
+                
+                // Verificar si la contraseña ha caducado
+                
+                System.out.println("ANTES DE ENTRAR A LA FUNCION DE VERIFICAR VIGENCIA " + idUsuario); // Log (opcional)
+                
+                if (verificarVigencia(idUsuario)) {
+                    
+                    System.out.println("DENTRO DE LA VALIDACION DEL IF" + idUsuario); // Log (opcional)
+                
+                 
+                    JOptionPane.showMessageDialog(
+                        this,
+                        "Su contraseña ha caducado. Es necesario actualizarla.",
+                        "Contraseña Caducada",
+                        JOptionPane.WARNING_MESSAGE
+                    );
+
+                    // Redirigir al formulario de actualización de contraseña
+                    frmActualizarContra frm = new frmActualizarContra(idUsuario);
+                    frm.setLocationRelativeTo(null);
+                    frm.setVisible(true);
+
+                    limpiarEntradas();
+                    this.dispose(); // Cerrar el formulario de login
+
+                    return; // Terminar el flujo hasta que la contraseña se actualice
+                }
+                
+                System.out.println("DESPUES DE LA FUNCION" + idUsuario); // Log (opcional)
 
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) {
@@ -290,5 +321,59 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private boolean verificarVigencia(int idUsuario) {
+        try {
+            // Consulta SQL para obtener la fecha de vigencia
+            String query = "SELECT dtVigencia FROM tbl_usuarios WHERE id_usuario = ?";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Obtener la fecha de vigencia desde la base de datos
+                String fechaVigenciaStr = rs.getString("dtVigencia");
+
+                // Verificar si la fecha de vigencia no es nula o vacía
+                if (fechaVigenciaStr == null || fechaVigenciaStr.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(
+                        this,
+                        "No se ha configurado la fecha de vigencia para este usuario. Por favor, contacta al administrador.",
+                        "Advertencia",
+                        JOptionPane.WARNING_MESSAGE
+                    );
+                    return true; // Obligación de actualizar la contraseña
+                }
+
+                LocalDate fechaVigencia = LocalDate.parse(fechaVigenciaStr);
+                LocalDate fechaActual = LocalDate.now();
+
+                // Comparar la fecha actual con la vigencia
+                if (fechaActual.isAfter(fechaVigencia)) {
+                    return true; // Contraseña vencida
+                }
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Error al verificar la vigencia de la contraseña: " + e.getMessage(),
+                "Error de SQL",
+                JOptionPane.ERROR_MESSAGE
+            );
+            } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Formato de fecha inválido en la base de datos. Contacta al administrador.",
+                "Error de Formato",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return false; // La contraseña no está vencida o ocurrió un error
+    }
 
 }
