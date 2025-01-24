@@ -236,14 +236,6 @@ public class frmSillas extends javax.swing.JFrame {
         btnDato1.setForeground(new java.awt.Color(255, 255, 255));
         btnDato1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1.png"))); // NOI18N
         btnDato1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-<<<<<<< HEAD
-=======
-        btnDato1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDato1ActionPerformed(evt);
-            }
-        });
->>>>>>> 289edd9e1537b8a969d3bdf3d9db0a060cdef8f4
         jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 55, 55));
 
         btnDato2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
@@ -325,11 +317,6 @@ public class frmSillas extends javax.swing.JFrame {
                 btnDato10ActionPerformed(evt);
             }
         });
-<<<<<<< HEAD
-        jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 55, 55));
-=======
-        jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 55, 55));
->>>>>>> 289edd9e1537b8a969d3bdf3d9db0a060cdef8f4
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mesa2.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 550));
@@ -461,10 +448,6 @@ public class frmSillas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-<<<<<<< HEAD
-    private void btnDato10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato10ActionPerformed
-        // TODO add your handling code here:
-=======
     private void btnDato1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato1ActionPerformed
         sillaID(0);
     }//GEN-LAST:event_btnDato1ActionPerformed
@@ -503,7 +486,6 @@ public class frmSillas extends javax.swing.JFrame {
 
     private void btnDato10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato10ActionPerformed
         sillaID(9);
->>>>>>> 289edd9e1537b8a969d3bdf3d9db0a060cdef8f4
     }//GEN-LAST:event_btnDato10ActionPerformed
 
     /**
