@@ -21,9 +21,10 @@ public class SillasData {
         
         Sillas s = Sillas.getInstancia();// Obtener instancia única de las Sillas
         
-        String consulta = "SELECT tbl_sillas.idSilla, tbl_sillas.vchDescripcion, tbl_estado_sillas.EstadoSilla, " +
-                            "tbl_mesas.idMesa, tbl_mesas.DescMesa, tbl_mesas.Estatus, tbl_zonas.Zona, " +
-                            "tbl_costo.Costo " +
+        String consulta = "SELECT tbl_sillas.idSilla, tbl_sillas.vchDescripcion,tbl_estado_sillas.idEstado, " +
+                            "tbl_estado_sillas.EstadoSilla, " +
+                            "tbl_mesas.idMesa, tbl_mesas.DescMesa, tbl_mesas.Estatus, " +
+                            "tbl_zonas.idZona, tbl_zonas.Zona, tbl_costo.Costo " +
                             "FROM tbl_sillas " +
                             "INNER JOIN tbl_estado_sillas ON tbl_sillas.idEstado = tbl_estado_sillas.idEstado " +
                             "INNER JOIN tbl_mesas ON tbl_sillas.idMesa = tbl_mesas.idMesa " +
@@ -47,15 +48,17 @@ public class SillasData {
                 // Crear objeto Mesa con los datos obtenidos
                 int id = rs.getInt("idSilla");
                 String descripSilla = rs.getString("vchDescripcion");
+                int idEstadoSilla = rs.getInt("idEstado");
                 String estadoSilla = rs.getString("EstadoSilla");
                 int idMesa = rs.getInt("idMesa");
                 String descMesa = rs.getString("DescMesa");
                 String status = rs.getString("Estatus");
+                int idZona = rs.getInt("idZona");
                 String zona = rs.getString("Zona");
                 Double costo = rs.getDouble("Costo");
 
                 // Agregar mesa a la lista en la instancia de Mesas
-                s.agregarSilla(id, descripSilla, estadoSilla, idMesa, descMesa, status, zona, costo);
+                s.agregarSilla(id, descripSilla, idEstadoSilla, estadoSilla, idMesa, descMesa, status, idZona, zona, costo);
             }
 
         } catch (SQLException e) {
@@ -65,4 +68,38 @@ public class SillasData {
         return s;
     }
     
+    
+    public SillaEstado siE(int idS){
+        SillaEstado se = SillaEstado.getInstancia();
+        
+        String consult = "SELECT tbl_sillas.idSilla, tbl_sillas.vchDescripcion, " +
+                            "tbl_estado_sillas.idEstado, tbl_estado_sillas.EstadoSilla " +
+                            "FROM tbl_sillas " +
+                            "INNER JOIN tbl_estado_sillas ON tbl_sillas.idEstado = tbl_estado_sillas.idEstado " +
+                            "WHERE tbl_sillas.idSilla = ?;";
+        
+        
+        try{
+            con = cn.getConnection();
+            ps = con.prepareStatement(consult);
+            ps.setInt(1, idS);
+            rs= ps.executeQuery();
+            if (rs.next()) {
+                se = SillaEstado.getInstancia(); // Inicializar solo si se encutra la consulta
+                se.setIdSilla(rs.getInt("idSilla"));
+                se.setNomSilla(rs.getString("vchDescripcion"));
+                se.setIdEstado(rs.getInt("idEstado"));
+                se.setEstado(rs.getString("EstadoSilla"));
+                //Se almacenan los datos en variables
+                
+                //cn.closeConnection();
+            }
+        }catch (SQLException e) {
+            System.out.println("Error, contactar al administrador: " + e.getMessage());
+        }
+        
+        
+        return se;
+    }
+
 }

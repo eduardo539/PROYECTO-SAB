@@ -16,6 +16,9 @@ public class frmGerente extends javax.swing.JFrame {
      */
     public frmGerente() {
         initComponents();
+        setLocationRelativeTo(null);//Abrir la ventana en el centro de la pantalla
+        
+        
     }
 
     /**
