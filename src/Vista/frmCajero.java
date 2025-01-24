@@ -14,22 +14,17 @@ public class frmCajero extends javax.swing.JFrame {
 
     Login lg = Login.getInstancia();
     Conexion cn = new Conexion();
-    
-    
+
     Mesas ms = Mesas.getInstancia();
     MesasData mesa = new MesasData();
     
     Precios pre = Precios.getInstancia();
     PreciosData preD = new PreciosData();
 
-    
     public frmCajero() {
         initComponents();
-        
         setResizable(false);
-        
         consultaEstadoMesas();
-        
         
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
@@ -39,7 +34,6 @@ public class frmCajero extends javax.swing.JFrame {
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
         //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
         lblFecha.setText("Fecha: " + LocalDate.now());
-        
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
@@ -58,8 +52,6 @@ public class frmCajero extends javax.swing.JFrame {
             lblVersionOS.setText("Kernel: NA");
         }
         
-        
-        
         //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -77,14 +69,12 @@ public class frmCajero extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-       
     }
 
     public void consultaEstadoMesas(){
         ms = mesa.m();
         pre = preD.pr();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -388,15 +378,14 @@ public class frmCajero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
-        
-        
+
         try {
             // Confirmar cierre de sesión
             int confirm = JOptionPane.showConfirmDialog(this, 
-                    "¿Estás seguro de que deseas cerrar sesión?", 
-                    "Cerrar Sesión", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE);
+                "¿Estás seguro de que deseas cerrar sesión?", 
+                "Cerrar Sesión", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
@@ -416,26 +405,23 @@ public class frmCajero extends javax.swing.JFrame {
         } catch (Exception e) {
             // Manejo de errores en caso de fallo
             JOptionPane.showMessageDialog(this, 
-                    "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
         }
-        
     }//GEN-LAST:event_jmiCerrarSesionActionPerformed
 
     private void btnPosadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPosadaActionPerformed
-
         frmPosadaMTY posada = new frmPosadaMTY();
         posada.setLocationRelativeTo(null);
         posada.setVisible(true);
         this.dispose();
-        
     }//GEN-LAST:event_btnPosadaActionPerformed
 
-    
     /**
     * Método para limpiar los datos de la sesión del usuario.
     */
+    
     private void cerrarSesion() {
        // Si tienes una clase Singleton para manejar la sesión
        Login sesion = Login.getInstancia();
@@ -455,52 +441,21 @@ public class frmCajero extends javax.swing.JFrame {
        System.out.println("Sesión cerrada exitosamente.");
     }
     
-    
     /**
      * Método para abrir la ventana de inicio de sesión.
      */
+    
     private void abrirLogin() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 frmLogin lg = new frmLogin();
                 lg.setLocationRelativeTo(null);
                 lg.setVisible(true);
-
             }
         });
-
-
     }
     
-    
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmCajero().setVisible(true);

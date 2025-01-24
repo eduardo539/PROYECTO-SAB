@@ -17,7 +17,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
     
     private int idUsuario; // Atributo para almacenar el ID del usuario
    
-    
     // Actualizar la contraseña en la base de datos
     Conexion conexion = new Conexion();
     Connection connection = null;
@@ -145,7 +144,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         
-// Obtener las contraseñas ingresadas
+        // Obtener las contraseñas ingresadas
         String nuevaContrasena = String.valueOf(txtContrasenia.getPassword()).trim();
         String confirmaContrasena = String.valueOf(txtConfirmaContrasenia.getPassword()).trim();
 
@@ -160,11 +159,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
         
-        
-        
-      
         // Validar que la contraseña cumple con los requisitos
         if (!validarContrasenia(nuevaContrasena)) {
             return; // El método ya muestra el mensaje de advertencia
@@ -190,7 +185,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
                 lg.limpiarDatos();
                 // Abrir el formulario de login y cerrar el formulario actual
                 abrirFormularioLogin();
-                
                 // aqui quiero mandar a llamar la funcion de traer datos de otro formulario
                 
             } else {
@@ -208,7 +202,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    
     private boolean validarContrasenia(String nuevaContrasena) {
         // Regex para validar la contraseña
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&#]).{8,}$";
@@ -234,7 +227,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
         this.dispose(); // Cerrar el formulario actual
     }
     
-    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -242,7 +234,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
             }
         });
     }
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
