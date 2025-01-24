@@ -156,7 +156,7 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblDato1.setText("jLabel2");
-        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, 20));
+        jPanel1.add(lblDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, -1, 20));
 
         lblDato2.setText("jLabel2");
         jPanel1.add(lblDato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, -1, -1));
@@ -165,7 +165,7 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel1.add(lblDato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, -1));
 
         lblDato4.setText("jLabel2");
-        jPanel1.add(lblDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, -1));
+        jPanel1.add(lblDato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, -1, -1));
 
         lblDato5.setText("jLabel2");
         jPanel1.add(lblDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 500, -1, -1));
@@ -183,12 +183,12 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel1.add(lblDato9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         lblDato10.setText("jLabel2");
-        jPanel1.add(lblDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, -1));
+        jPanel1.add(lblDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
 
         btnDato1.setForeground(new java.awt.Color(255, 255, 255));
         btnDato1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1.png"))); // NOI18N
         btnDato1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 55, 55));
+        jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 55, 55));
 
         btnDato2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
         btnDato2.setBorder(null);
@@ -224,7 +224,12 @@ public class frmSillas extends javax.swing.JFrame {
 
         btnDato10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/10.png"))); // NOI18N
         btnDato10.setBorder(null);
-        jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 55, 55));
+        btnDato10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDato10ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 55, 55));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mesa2.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 550));
@@ -355,6 +360,10 @@ public class frmSillas extends javax.swing.JFrame {
         m.borrarDatos();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnDato10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDato10ActionPerformed
 
     /**
      * @param args the command line arguments
