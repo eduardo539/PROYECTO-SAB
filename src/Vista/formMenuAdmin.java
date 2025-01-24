@@ -29,14 +29,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
     public formMenuAdmin() {
         initComponents();
         // funcion que manda a llamar a los datos una vez cargada el form menu admin
-        
         mostrarDatos();
         barraStatus ();
     }
     
     private void barraStatus () {
-        
-        
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("Usuario: " + lg.getIdusuario());
@@ -45,7 +42,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
         //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
         jLabel7.setText("Fecha: " + LocalDate.now());
-        
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
@@ -603,7 +599,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             if (confirmacion != JOptionPane.YES_OPTION) {
                 return; // Salir del método si el usuario selecciona "No"
             }
-
+            
             // Preparar la consulta SQL para actualizar los datos
             String query = "UPDATE tbl_usuarios SET Nombre = ?, APaterno = ?, AMaterno = ?, id_perfil = ? WHERE id_usuario = ?";
             PreparedStatement ps = cn.prepareStatement(query);
@@ -638,7 +634,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
             // Ejecutar la consulta de actualización
             int filasActualizadas = ps.executeUpdate();
 
-           
             // Verificar si se actualizó algún registro
             if (filasActualizadas > 0) {
                 JOptionPane.showMessageDialog(
@@ -727,9 +722,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
         } catch (Exception e) {
             // Manejo de errores en caso de fallo
             JOptionPane.showMessageDialog(this, 
-                    "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_jmiCerrarSesionActionPerformed
@@ -785,7 +780,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
 
             ps.close(); // Cierra el PreparedStatement
-
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al restaurar la contraseña: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -841,12 +836,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 frmLogin lg = new frmLogin();
                 lg.setLocationRelativeTo(null);
                 lg.setVisible(true);
-
             }
         });
-
     }
-    
     
     private void cerrarSesion() {
        // Si tienes una clase Singleton para manejar la sesión
@@ -866,7 +858,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
        // Log de actividad (opcional)
        System.out.println("Sesión cerrada exitosamente.");
     }
-    
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -923,9 +914,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jTablaDatos.setModel(modelo);
 
         String consultaSQL = "SELECT id_usuario, Nombre, APaterno, AMaterno, id_perfil FROM tbl_usuarios";
-
         String data[] = new String[5];
-
         Statement st;
 
         try {
@@ -1038,7 +1027,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
             );
             return false;
         }
-
         return true; // Si todas las validaciones pasan
     }
 
@@ -1060,7 +1048,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 }
                 hashHex.append(hex);
             }
-
+            
             // Devolver el hash en formato hexadecimal
             return hashHex.toString();
         } catch (Exception e) {
