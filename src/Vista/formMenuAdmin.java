@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -465,12 +466,16 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 );
                 return; // Detener el proceso si el usuario ya existe
             }
+            
+            // Calcula la fecha de vigencia (un mes después de hoy)
+            LocalDate fechaActual = LocalDate.now();
+            LocalDate fechaVigencia = fechaActual.plusMonths(1);
+            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
 
             String contrasenia = "cambio";
-            //String contraseniaEncriptada = encriptarMD5(contrasenia);
-
-            // Consulta para insertar los datos, incluyendo vchSucursal y dtVigencia
-            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, MD5(?), ?, NOW(), ?)";
+            // Consulta para insertar los datos, incluyendo la fecha de vigencia calculada
+            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, MD5(?), ?, ?, ?)";
             PreparedStatement ps = cn.prepareStatement(query);
 
             ps.setInt(1, id_usuario1);
@@ -479,7 +484,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
             ps.setString(4, aMaterno);
             ps.setString(5, contrasenia); // Contraseña encriptada con MD5
             ps.setString(6, "cambio"); // Valor fijo para vchSucursal
-            ps.setInt(7, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
+            ps.setString(7, fechaVigenciaStr); // Fecha de vigencia calculada
+            ps.setInt(8, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
 
             // Ejecutar la consulta para insertar los datos en la base de datos
             ps.executeUpdate();
@@ -733,11 +739,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void btnRestaurarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarContraActionPerformed
         try {
-            // Validación si se ha seleccionado un usuario (esto aparece con la detección del puro id_usuario)
+            // Validación si se ha seleccionado un usuario
             if (txtid_usuario.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(
                     this,
-                    "Por favor, selecciona un usuario antes de restablecer la contraseña",
+                    "Por favor, selecciona un usuario antes de restablecer la contraseña.",
                     "Advertencia",
                     JOptionPane.WARNING_MESSAGE
                 );
@@ -752,39 +758,59 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION
             );
 
-            // Verificar si el usuario seleccionó "Sí"
             if (confirmacion != JOptionPane.YES_OPTION) {
-                return; // Salir del método si el usuario selecciona "No"
+                return; // Salir si el usuario selecciona "No"
             }
+
+            // Calcula la fecha de vigencia (un mes después de hoy)
+            LocalDate fechaActual = LocalDate.now();
+            LocalDate fechaVigencia = fechaActual.plusMonths(1);
+            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             // Contraseña a actualizar (encriptada con MD5)
             String contrasenia = "cambio";
             String contraseniaEncriptada = encriptarMD5(contrasenia); // Método para encriptar con MD5
 
             // Preparar la consulta SQL para actualizar los datos
-            String query = "UPDATE tbl_usuarios SET vchPass = ? WHERE id_usuario = ?";
+            String query = "UPDATE tbl_usuarios SET vchPass = ?, dtVigencia = ? WHERE id_usuario = ?";
             PreparedStatement ps = cn.prepareStatement(query);
 
             // Asignar valores a los parámetros
             ps.setString(1, contraseniaEncriptada); // Contraseña encriptada
-            ps.setInt(2, Integer.parseInt(txtid_usuario.getText())); // ID del usuario
+            ps.setString(2, fechaVigenciaStr); // Fecha de vigencia calculada
+            ps.setInt(3, Integer.parseInt(txtid_usuario.getText())); // ID del usuario
 
             // Ejecutar la consulta de actualización
             int filasActualizadas = ps.executeUpdate();
 
             // Verificar si se actualizó algún dato
             if (filasActualizadas > 0) {
-                JOptionPane.showMessageDialog(this, "Contraseña restaurada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Contraseña restaurada correctamente y vigencia actualizada.", 
+                    "Éxito", 
+                    JOptionPane.INFORMATION_MESSAGE
+                );
                 mostrarDatos(); // Actualiza la tabla con los datos actualizados
                 limpiarEntradas(); // Limpia los campos del formulario
             } else {
-                JOptionPane.showMessageDialog(this, "No se restauró la contraseña", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "No se pudo restaurar la contraseña. Verifique el ID del usuario.", 
+                    "Advertencia", 
+                    JOptionPane.WARNING_MESSAGE
+                );
             }
 
-            ps.close(); // Cierra el PreparedStatement
-            
+            ps.close(); // Cerrar el PreparedStatement
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al restaurar la contraseña: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                this, 
+                "Error al restaurar la contraseña: " + e.getMessage(), 
+                "Error de SQL", 
+                JOptionPane.ERROR_MESSAGE
+            );
         }
     }//GEN-LAST:event_btnRestaurarContraActionPerformed
 

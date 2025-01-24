@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author Practicas1
+ * @author Eduardo´s
  */
 public class Sillas {
     
