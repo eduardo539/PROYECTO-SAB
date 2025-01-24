@@ -242,7 +242,7 @@ public class frmSillas extends javax.swing.JFrame {
                 btnDato1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 55, 55));
+        jPanel1.add(btnDato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 55, 55));
 
         btnDato2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
         btnDato2.setBorder(null);
