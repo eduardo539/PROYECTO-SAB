@@ -30,6 +30,8 @@ public class frmCajero extends javax.swing.JFrame {
         
         consultaEstadoMesas();
         
+        
+        //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("ID: " + lg.getIdusuario());
         lblNombre.setText("Nombre: " + lg.getNombre() + " | ");

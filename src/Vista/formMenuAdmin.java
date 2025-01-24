@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,11 +23,64 @@ public class formMenuAdmin extends javax.swing.JFrame {
     
     Conexion con = new Conexion();
     Connection cn = con.getConnection();
+    
+    Login lg = Login.getInstancia();
 
     public formMenuAdmin() {
         initComponents();
         // funcion que manda a llamar a los datos una vez cargada el form menu admin
+        
         mostrarDatos();
+        barraStatus ();
+    }
+    
+    private void barraStatus () {
+        
+        
+        //BARRA DE ESTADO: INFORMACION RELEVANTE
+        // Inicializar datos dinámicos en la barra de estado
+        lblUsuario.setText("Usuario: " + lg.getIdusuario());
+        lblNombre.setText("Nombre: " + lg.getNombre() + " | ");
+        lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
+        lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
+        //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
+        jLabel7.setText("Fecha: " + LocalDate.now());
+        
+        
+        // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
+        if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+            try {
+                // Ejecutar comando para obtener la versión del kernel de Linux
+                Process process = Runtime.getRuntime().exec("uname -r");
+                java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
+                String linuxVersion = reader.readLine(); // Leer la salida del comando
+                jLabel12.setText(jLabel12.getText() + " (Kernel: " + linuxVersion + ")");
+            } catch (Exception e) {
+                // Manejo de errores en caso de que no se pueda obtener la versión
+                System.err.println("Error al obtener la versión del kernel de Linux: " + e.getMessage());
+            }
+        }
+        else{
+            jLabel12.setText("Kernel: NA");
+        }
+         
+        //barraEstado = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+
+        // Configurar la barra de estado
+        //barraEstado.setBorder(BorderFactory.createEtchedBorder());
+        //barraEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        // Añadir la barra de estado a la ventana
+        //getContentPane().add(barraEstado, BorderLayout.SOUTH);
+
+        pack();
+        setLocationRelativeTo(null);
     }
     
     @SuppressWarnings("unchecked")
@@ -54,6 +108,13 @@ public class formMenuAdmin extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         btnRestaurarContra = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiCerrarSesion = new javax.swing.JMenuItem();
@@ -88,7 +149,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
 
         ComboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione tipo de usuario", "Sistemas", "Operaciones", "Gerente", "Cajero" }));
-        ComboPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        ComboPerfil.setBorder(null);
         ComboPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboPerfilActionPerformed(evt);
@@ -197,7 +258,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addGap(23, 23, 23))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de usuarios"));
@@ -228,7 +289,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTablaDatos);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 770, 260));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 770, 250));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -247,7 +308,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 250, 40));
+        jPanel2.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, 40));
 
         btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
         btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
@@ -258,7 +319,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 btnRestaurarContraActionPerformed(evt);
             }
         });
-        jPanel2.add(btnRestaurarContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 250, 40));
+        jPanel2.add(btnRestaurarContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 250, 40));
 
         btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -269,7 +330,27 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 250, 40));
+        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 250, 40));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setText("jLabel7");
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 110, 20));
+
+        lblNombre.setText("jLabel7");
+        jPanel4.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 110, 20));
+
+        lblVersionJava.setText("jLabel7");
+        jPanel4.add(lblVersionJava, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 110, 20));
+
+        lblSucursal.setText("jLabel7");
+        jPanel4.add(lblSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 150, 20));
+
+        jLabel12.setText("jLabel7");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 110, 20));
+
+        lblUsuario.setText("jLabel7");
+        jPanel4.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, 20));
 
         jMenu1.setText("Menu");
 
@@ -293,25 +374,31 @@ public class formMenuAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -469,6 +556,39 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE
                 );
                 return; // Detener el proceso si no se seleccionó un usuario
+            }
+            
+            // Validar que Nombre, Apellido Paterno y Apellido Materno solo contengan letras válidas
+            String patronNombre = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"; // Letras, acentos, ñ y espacios
+
+            if (!txtNombre.getText().trim().matches(patronNombre)) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "El campo Nombre solo debe contener letras.",
+                    "¡Advertencia!",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si la validación falla
+            }
+
+            if (!txtAPaterno.getText().trim().matches(patronNombre)) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "El campo Apellido Paterno solo debe contener letras.",
+                    "¡Advertencia!",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si la validación falla
+            }
+
+            if (!txtAMaterno.getText().trim().matches(patronNombre)) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "El campo Apellido Materno solo debe contener letras.",
+                    "¡Advertencia!",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si la validación falla
             }
 
             // Mostrar cuadro de confirmación antes de actualizar los datos
@@ -762,11 +882,13 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRestaurarContra;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -774,10 +896,15 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaDatos;
     private javax.swing.JMenuItem jmiCerrarSesion;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblSucursal;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblVersionJava;
     private javax.swing.JTextField txtAMaterno;
     private javax.swing.JTextField txtAPaterno;
     private javax.swing.JTextField txtNombre;
