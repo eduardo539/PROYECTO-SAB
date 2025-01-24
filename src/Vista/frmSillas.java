@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Eduardo`s
+ * 
  */
 public class frmSillas extends javax.swing.JFrame {
     
