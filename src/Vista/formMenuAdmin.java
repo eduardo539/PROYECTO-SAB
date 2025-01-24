@@ -33,6 +33,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
         barraStatus ();
     }
     
+    
+    
+    
     private void barraStatus () {
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
