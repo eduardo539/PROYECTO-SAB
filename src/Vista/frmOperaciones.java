@@ -16,6 +16,9 @@ public class frmOperaciones extends javax.swing.JFrame {
      */
     public frmOperaciones() {
         initComponents();
+        setLocationRelativeTo(null);//Abrir la ventana en el centro de la pantalla
+        
+        
     }
 
     /**
