@@ -104,7 +104,7 @@ public class frmBoleto extends javax.swing.JFrame {
         txtTelefono.setBorder(javax.swing.BorderFactory.createTitledBorder("Teléfono"));
 
         jDateChooser1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fecha de Vigencia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
-        jDateChooser1.setDateFormatString("yyyy/MM/d");
+        jDateChooser1.setDateFormatString("yyyy-MM-d");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -188,8 +188,6 @@ public class frmBoleto extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        jPanel2.getAccessibleContext().setAccessibleName("Datos para el Boleto");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
