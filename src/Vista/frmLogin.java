@@ -16,100 +16,100 @@ import java.time.format.DateTimeParseException;
  *
  * @author Eduardo´s SAB
  */
-public class frmLogin extends javax.swing.JFrame {
+public class frmLogin extends javax.swing.JFrame { 
 
-    static void traerDatos() {
+    static void traerDatos() { 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    } 
 
-    Login lg = Login.getInstancia();
-    LoginData login = new LoginData();
+    Login lg = Login.getInstancia(); 
+    LoginData login = new LoginData(); 
     
     // Crear instancia de la clase Conexion
-    Conexion conexion = new Conexion();
-    Connection connection = null;
+    Conexion conexion = new Conexion(); 
+    Connection connection = null; 
     
-    public frmLogin() {
-        initComponents();
+    public frmLogin() { 
+        initComponents(); 
         
         setResizable(false);
-    }
+    } 
     
-    public void Entrar(){
+    public void Entrar(){ 
         String usuario = txtUsuario.getText().trim();
         String pass = new String(txtPassword.getPassword()).trim();
 
         // Validación inicial: datos no vacíos
-        if (usuario.isEmpty() || pass.isEmpty()) {
+        if (usuario.isEmpty() || pass.isEmpty()) { 
             JOptionPane.showMessageDialog(this, "Por favor, llena los datos solicitados.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
-        }
+        } 
 
-        try {
-            lg = login.log(usuario, pass);
+        try { 
+            lg = login.log(usuario, pass); 
+            
+            if (lg != null && lg.getTipo_perfil() != null) { 
+                
+                int idUsuario; 
 
-            if (lg != null && lg.getTipo_perfil() != null) {
-           
-                int idUsuario;
-
-                try {
+                try { 
                     idUsuario = Integer.parseInt(usuario); // Convertir texto a entero
         
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException e) { 
                     JOptionPane.showMessageDialog(this, "El ID del usuario debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
-                }
-
+                } 
+                
                 // Verificar si el usuario tiene la contraseña predeterminada
-                if (tieneContrasenaPredeterminada(idUsuario)) {
+                if (tieneContrasenaPredeterminada(idUsuario)) { 
                     
                     // Redirigir al formulario de actualización de contraseña
-                    frmActualizarContra frm = new frmActualizarContra(idUsuario);
-                    frm.setLocationRelativeTo(null);
-                    frm.setVisible(true);
+                    frmActualizarContra frm = new frmActualizarContra(idUsuario); 
+                    frm.setLocationRelativeTo(null); 
+                    frm.setVisible(true); 
 
-                    limpiarEntradas();
+                    limpiarEntradas(); 
                     // Cerrar el formulario de login
-                    this.dispose();
+                    this.dispose(); 
 
-                    return; // Terminar el flujo hasta que la contraseña se actualice
-                }
+                    return; // Terminar el flujo hasta que la contraseña se actualice 
+                } 
                
                 
-                if (verificarVigencia(idUsuario)) {
+                if (verificarVigencia(idUsuario)) { 
                 
                  
-                    JOptionPane.showMessageDialog(
+                    JOptionPane.showMessageDialog( 
                         this,
                         "Su contraseña ha caducado. Es necesario actualizarla.",
                         "Contraseña Caducada",
                         JOptionPane.WARNING_MESSAGE
-                    );
+                    ); 
 
                     // Redirigir al formulario de actualización de contraseña
-                    frmActualizarContra frm = new frmActualizarContra(idUsuario);
-                    frm.setLocationRelativeTo(null);
-                    frm.setVisible(true);
+                    frmActualizarContra frm = new frmActualizarContra(idUsuario); 
+                    frm.setLocationRelativeTo(null); 
+                    frm.setVisible(true); 
 
-                    limpiarEntradas();
-                    this.dispose(); // Cerrar el formulario de login
+                    limpiarEntradas(); 
+                    this.dispose(); // Cerrar el formulario de login 
 
-                    return; // Terminar el flujo hasta que la contraseña se actualice
-                }
+                    return; // Terminar el flujo hasta que la contraseña se actualice 
+                } 
                 
                 System.out.println("DESPUES DE LA FUNCION" + idUsuario); // Log (opcional)
 
                 // Redirige según el tipo de perfil
-                switch (lg.getTipo_perfil()) {
+                switch (lg.getTipo_perfil()) { 
                     case "Sistemas":
                         abrirVentana(new formMenuAdmin(), "Sistemas");
-                        break;
-                    case "Operaciones":
+                        break; 
+                    case "Operaciones": 
                         abrirVentana(new frmOperaciones(), "Operaciones");
-                        break;
-                    case "Gerente":
+                        break; 
+                    case "Gerente": 
                         abrirVentana(new frmGerente(), "Gerente");
-                        break;
+                        break; 
                     case "Cajero":
                         abrirVentana(new frmCajero(), "Cajero");
                         break;
@@ -123,10 +123,10 @@ public class frmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
             
-        } catch (Exception e) {
+        } catch (Exception e) { 
             // Manejo de errores
             JOptionPane.showMessageDialog(this, "Ocurrió un error al iniciar sesión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        } 
     }
     
     private void limpiarEntradas() {
@@ -160,7 +160,7 @@ public class frmLogin extends javax.swing.JFrame {
         return false;
     }   
 
- 
+
     private void abrirVentana(JFrame ventana, String perfil) {
         ventana.setLocationRelativeTo(null); // Centrar ventana
         ventana.setVisible(true);            // Mostrar ventana

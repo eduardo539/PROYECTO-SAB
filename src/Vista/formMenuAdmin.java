@@ -1083,27 +1083,27 @@ public class formMenuAdmin extends javax.swing.JFrame {
             e.printStackTrace();
             return null; // En caso de error
         }
-    }
+    } 
 
-    private boolean verificarUsuarioExistente(int id_usuario1, String nombre, String aPaterno, String aMaterno, int idPerfil) {
-        try {
-            // Preparar la consulta SQL para buscar al usuario
-            String query = "SELECT COUNT(*) AS total FROM tbl_usuarios WHERE id_usuario = ? AND Nombre = ? AND APaterno = ? AND AMaterno = ? AND id_perfil = ?";
-            PreparedStatement ps = cn.prepareStatement(query);
-            ps.setInt(1, id_usuario1);
-            ps.setString(2, nombre);
-            ps.setString(3, aPaterno);
-            ps.setString(4, aMaterno);
-            ps.setInt(5, idPerfil);
-
-            ResultSet rs = ps.executeQuery();
-            if (rs.next() && rs.getInt("total") > 0) {
-                return true; // El usuario ya existe
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    private boolean verificarUsuarioExistente(int id_usuario1, String nombre, String aPaterno, String aMaterno, int idPerfil) { 
+        try { 
+            // Preparar la consulta SQL para buscar al usuario 
+            String query = "SELECT COUNT(*) AS total FROM tbl_usuarios WHERE id_usuario = ? AND Nombre = ? AND APaterno = ? AND AMaterno = ? AND id_perfil = ?"; 
+            PreparedStatement ps = cn.prepareStatement(query); 
+            ps.setInt(1, id_usuario1); 
+            ps.setString(2, nombre); 
+            ps.setString(3, aPaterno); 
+            ps.setString(4, aMaterno); 
+            ps.setInt(5, idPerfil); 
+            
+            ResultSet rs = ps.executeQuery(); 
+            if (rs.next() && rs.getInt("total") > 0) { 
+                return true; // El usuario ya existe 
+            } 
+        } catch (SQLException e) { 
+            JOptionPane.showMessageDialog(null, "Error al verificar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
+        } 
         return false; // El usuario no existe
-    }
+    } 
     
-}
+} 
