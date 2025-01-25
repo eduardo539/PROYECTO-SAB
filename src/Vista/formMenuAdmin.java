@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author eduardo´s
+ * 
  */
 
 public class formMenuAdmin extends javax.swing.JFrame {
@@ -44,7 +46,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
         //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
-        jLabel7.setText("Fecha: " + LocalDate.now());
+        //lblFecha.setText("Fecha: " + LocalDate.now());
+        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
@@ -53,14 +56,14 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 Process process = Runtime.getRuntime().exec("uname -r");
                 java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
                 String linuxVersion = reader.readLine(); // Leer la salida del comando
-                jLabel12.setText(jLabel12.getText() + " (Kernel: " + linuxVersion + ")");
+                lblVersionOS.setText(lblVersionOS.getText() + " (Kernel: " + linuxVersion + ")");
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
                 System.err.println("Error al obtener la versión del kernel de Linux: " + e.getMessage());
             }
         }
         else{
-            jLabel12.setText("Kernel: NA");
+            lblVersionOS.setText("Kernel: NA");
         }
         
         //barraEstado = new javax.swing.JPanel();
@@ -68,8 +71,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
         lblNombre = new javax.swing.JLabel();
         lblVersionJava = new javax.swing.JLabel();
         lblSucursal = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
 
         // Configurar la barra de estado
         //barraEstado.setBorder(BorderFactory.createEtchedBorder());
@@ -108,11 +111,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
         btnRestaurarContra = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         lblVersionJava = new javax.swing.JLabel();
         lblSucursal = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -333,8 +336,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setText("jLabel7");
-        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 110, 20));
+        lblFecha.setText("jLabel7");
+        jPanel4.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 110, 20));
 
         lblNombre.setText("jLabel7");
         jPanel4.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 110, 20));
@@ -345,8 +348,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
         lblSucursal.setText("jLabel7");
         jPanel4.add(lblSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 150, 20));
 
-        jLabel12.setText("jLabel7");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 110, 20));
+        lblVersionOS.setText("jLabel7");
+        jPanel4.add(lblVersionOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 110, 20));
 
         lblUsuario.setText("jLabel7");
         jPanel4.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, 20));
@@ -901,13 +904,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRestaurarContra;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -920,10 +921,12 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaDatos;
     private javax.swing.JMenuItem jmiCerrarSesion;
+    private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblSucursal;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblVersionJava;
+    private javax.swing.JLabel lblVersionOS;
     private javax.swing.JTextField txtAMaterno;
     private javax.swing.JTextField txtAPaterno;
     private javax.swing.JTextField txtNombre;
