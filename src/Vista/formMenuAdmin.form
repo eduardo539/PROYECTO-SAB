@@ -510,7 +510,7 @@
         <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JLabel" name="lblFecha">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel7"/>
           </Properties>
@@ -550,7 +550,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
+        <Component class="javax.swing.JLabel" name="lblVersionOS">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel7"/>
           </Properties>
