@@ -226,7 +226,8 @@ public class frmLogin extends javax.swing.JFrame {
         txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         txtPassword.setPreferredSize(new java.awt.Dimension(6, 28));
 
-        btnEntrar.setBackground(new java.awt.Color(153, 255, 153));
+        btnEntrar.setBackground(new java.awt.Color(0, 153, 0));
+        btnEntrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
