@@ -7,6 +7,14 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import Modelo.Login;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import static jdk.nashorn.tools.ShellFunctions.input;
 
 /**
  *
@@ -159,7 +167,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         // Validar que la contraseña cumple con los requisitos
         if (!validarContrasenia(nuevaContrasena)) {
             return; // El método ya muestra el mensaje de advertencia
@@ -167,15 +175,42 @@ public class frmActualizarContra extends javax.swing.JFrame {
 
         try {
             connection = conexion.getConnection();
+
             if (connection == null) {
                 JOptionPane.showMessageDialog(this, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            String query = "UPDATE tbl_usuarios SET vchPass = MD5(?) WHERE id_usuario = ?";
+            // Consulta la contraseña actual desde la base de datos
+            String consultaQuery = "SELECT vchPass FROM tbl_usuarios WHERE id_usuario = ?";
+            PreparedStatement consultaPs = connection.prepareStatement(consultaQuery);
+            consultaPs.setInt(1, idUsuario);
+            ResultSet rs = consultaPs.executeQuery();
+
+            if (rs.next()) {
+                String contrasenaActual = rs.getString("vchPass");
+
+                // Compara la nueva contraseña con la actual (MD5 para asegurarse de que coincida encriptada)
+                String nuevaContrasenaMD5 = calcularMD5(nuevaContrasena);
+                if (nuevaContrasenaMD5.equals(contrasenaActual)) {
+                    JOptionPane.showMessageDialog(this, "La nueva contraseña no puede ser igual a la actual.", "Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Calcula la fecha de vigencia (un mes después de hoy)
+            LocalDate fechaActual = LocalDate.now();
+            LocalDate fechaVigencia = fechaActual.plusMonths(1);
+            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            String query = "UPDATE tbl_usuarios SET vchPass = MD5(?), dtVigencia = ? WHERE id_usuario = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, nuevaContrasena);
-            ps.setInt(2, idUsuario);
+            ps.setString(2, fechaVigenciaStr); // Fecha de vigencia calculada
+            ps.setInt(3, idUsuario);
 
             int rowsUpdated = ps.executeUpdate();
 
@@ -185,8 +220,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
                 lg.limpiarDatos();
                 // Abrir el formulario de login y cerrar el formulario actual
                 abrirFormularioLogin();
-                // aqui quiero mandar a llamar la funcion de traer datos de otro formulario
-                
+                // Llamar a la función de traer datos de otro formulario
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -246,6 +280,33 @@ public class frmActualizarContra extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtConfirmaContrasenia;
     private javax.swing.JPasswordField txtContrasenia;
     // End of variables declaration//GEN-END:variables
+
+    private String calcularMD5(String nuevaContrasena) {
+        try {
+            // Crear el objeto MessageDigest para MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // Convertir la contraseña en bytes y calcular el hash
+            byte[] hashBytes = md.digest(nuevaContrasena.getBytes());
+
+            // Convertir el hash a formato hexadecimal
+            StringBuilder hashHex = new StringBuilder();
+            for (byte b : hashBytes) {
+                // Convertir cada byte a un valor hexadecimal
+                String hex = Integer.toHexString(0xff & b); // Asegurar valores positivos
+                if (hex.length() == 1) {
+                    hashHex.append('0'); // Agregar un cero para valores de un solo dígito
+                }
+                hashHex.append(hex);
+            }
+
+            // Devolver el hash en formato hexadecimal
+            return hashHex.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; // En caso de error
+        }
+    }
 
     /**
      * Método para validar la contraseña.

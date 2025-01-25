@@ -25,11 +25,9 @@ public class frmLogin extends javax.swing.JFrame {
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
     
-    
     // Crear instancia de la clase Conexion
     Conexion conexion = new Conexion();
     Connection connection = null;
-    
     
     public frmLogin() {
         initComponents();
@@ -65,7 +63,6 @@ public class frmLogin extends javax.swing.JFrame {
                 // Verificar si el usuario tiene la contraseña predeterminada
                 if (tieneContrasenaPredeterminada(idUsuario)) {
                     
-                    
                     // Redirigir al formulario de actualización de contraseña
                     frmActualizarContra frm = new frmActualizarContra(idUsuario);
                     frm.setLocationRelativeTo(null);
@@ -77,14 +74,9 @@ public class frmLogin extends javax.swing.JFrame {
 
                     return; // Terminar el flujo hasta que la contraseña se actualice
                 }
-                
-                // Verificar si la contraseña ha caducado
-                
-                System.out.println("ANTES DE ENTRAR A LA FUNCION DE VERIFICAR VIGENCIA " + idUsuario); // Log (opcional)
+               
                 
                 if (verificarVigencia(idUsuario)) {
-                    
-                    System.out.println("DENTRO DE LA VALIDACION DEL IF" + idUsuario); // Log (opcional)
                 
                  
                     JOptionPane.showMessageDialog(

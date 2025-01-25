@@ -62,7 +62,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         else{
             jLabel12.setText("Kernel: NA");
         }
-         
+        
         //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
