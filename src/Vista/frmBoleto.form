@@ -75,9 +75,6 @@
           <Color blue="f0" green="f0" red="f0" type="rgb"/>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Datos para el Boleto"/>
-      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -302,7 +299,7 @@
                 </TitledBorder>
               </Border>
             </Property>
-            <Property name="dateFormatString" type="java.lang.String" value="yyyy/MM/d"/>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-d"/>
           </Properties>
         </Component>
       </SubComponents>
