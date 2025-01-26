@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,17 +19,70 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author eduardo´s
+ * 
  */
 
 public class formMenuAdmin extends javax.swing.JFrame {
     
     Conexion con = new Conexion();
     Connection cn = con.getConnection();
+    
+    Login lg = Login.getInstancia();
 
     public formMenuAdmin() {
         initComponents();
         // funcion que manda a llamar a los datos una vez cargada el form menu admin
         mostrarDatos();
+        barraStatus ();
+    }
+    
+    //SUBIENDO EL ULTIMO CAMBIO DE FORMNA YA COMPLETA EN EL APARTADO DE MENU ADMIN
+    
+    private void barraStatus () {
+        //BARRA DE ESTADO: INFORMACION RELEVANTE
+        // Inicializar datos dinámicos en la barra de estado
+        lblUsuario.setText("Usuario: " + lg.getIdusuario());
+        lblNombre.setText("Nombre: " + lg.getNombre() + " | ");
+        lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
+        lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
+        //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
+        //lblFecha.setText("Fecha: " + LocalDate.now());
+        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        
+        // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
+        if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+            try {
+                // Ejecutar comando para obtener la versión del kernel de Linux
+                Process process = Runtime.getRuntime().exec("uname -r");
+                java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
+                String linuxVersion = reader.readLine(); // Leer la salida del comando
+                lblVersionOS.setText(lblVersionOS.getText() + " (Kernel: " + linuxVersion + ")");
+            } catch (Exception e) {
+                // Manejo de errores en caso de que no se pueda obtener la versión
+                System.err.println("Error al obtener la versión del kernel de Linux: " + e.getMessage());
+            }
+        }
+        else{
+            lblVersionOS.setText("Kernel: NA");
+        }
+        
+        //barraEstado = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+
+        // Configurar la barra de estado
+        //barraEstado.setBorder(BorderFactory.createEtchedBorder());
+        //barraEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        // Añadir la barra de estado a la ventana
+        //getContentPane().add(barraEstado, BorderLayout.SOUTH);
+
+        pack();
+        setLocationRelativeTo(null);
     }
     
     @SuppressWarnings("unchecked")
@@ -41,12 +97,26 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtid_usuario = new javax.swing.JTextField();
         txtAMaterno = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        btnRegistrar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnRestaurarContra = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaDatos = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        btnActualizar = new javax.swing.JButton();
+        btnRestaurarContra = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        lblFecha = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiCerrarSesion = new javax.swing.JMenuItem();
@@ -72,6 +142,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
         jPanel1.setForeground(new java.awt.Color(240, 240, 240));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -80,102 +151,125 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
 
         ComboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione tipo de usuario", "Sistemas", "Operaciones", "Gerente", "Cajero" }));
-        ComboPerfil.setBorder(javax.swing.BorderFactory.createTitledBorder("Perfil"));
+        ComboPerfil.setBorder(null);
+        ComboPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboPerfilActionPerformed(evt);
+            }
+        });
 
-        txtAPaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Paterno"));
+        txtAPaterno.setAutoscrolls(false);
+        txtAPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
 
-        txtid_usuario.setBorder(javax.swing.BorderFactory.createTitledBorder("ID"));
+        txtid_usuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         txtid_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtid_usuarioActionPerformed(evt);
             }
         });
 
-        txtAMaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Materno"));
+        txtAMaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         txtAMaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAMaternoActionPerformed(evt);
             }
         });
 
-        txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre Completo"));
-
-        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setText("Registrar Usuario");
-        btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setBackground(new java.awt.Color(76, 175, 80));
-        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setText("Actualizar Usuario");
-        btnActualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel1.setText("Crear y Actualizar Usuarios");
+        jLabel1.setText("Crear usuarios");
 
-        btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
-        btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
-        btnRestaurarContra.setText("Restablecer Contraseña");
-        btnRestaurarContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnRestaurarContra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRestaurarContraActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("ID del Usuario:");
+
+        jLabel3.setText("Apellido Paterno:");
+
+        jLabel4.setText("Nombre Completo:");
+
+        jLabel5.setText("Perfil Usuario:");
+
+        jLabel6.setText("Apellido Materno:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ComboPerfil, 0, 234, Short.MAX_VALUE)
-            .addComponent(txtAMaterno)
-            .addComponent(txtNombre)
-            .addComponent(txtAPaterno)
-            .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ComboPerfil, 0, 300, Short.MAX_VALUE)
+                            .addComponent(txtAMaterno))))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(btnRestaurarContra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnRestaurarContra, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
         );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de usuarios"));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setModel(new javax.swing.table.DefaultTableModel(
@@ -196,6 +290,69 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTablaDatos);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 770, 250));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnActualizar.setBackground(new java.awt.Color(76, 175, 80));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar Usuario");
+        btnActualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, 40));
+
+        btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
+        btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
+        btnRestaurarContra.setText("Restablecer Contraseña");
+        btnRestaurarContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnRestaurarContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestaurarContraActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRestaurarContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 250, 40));
+
+        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setText("Registrar Usuario");
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 250, 40));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblFecha.setText("jLabel7");
+        jPanel4.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 110, 20));
+
+        lblNombre.setText("jLabel7");
+        jPanel4.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 110, 20));
+
+        lblVersionJava.setText("jLabel7");
+        jPanel4.add(lblVersionJava, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 110, 20));
+
+        lblSucursal.setText("jLabel7");
+        jPanel4.add(lblSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 150, 20));
+
+        lblVersionOS.setText("jLabel7");
+        jPanel4.add(lblVersionOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 110, 20));
+
+        lblUsuario.setText("jLabel7");
+        jPanel4.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 100, 20));
 
         jMenu1.setText("Menu");
 
@@ -219,20 +376,31 @@ public class formMenuAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -240,15 +408,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
-            // Validación general del formulario
+            // Validación del formulario
             if (!validarFormulario()) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "Datos faltantes. Por favor, complete bien el formulario.",
-                    "¡Advertencia!",
-                    JOptionPane.WARNING_MESSAGE
-                );
-                return; // Detener el proceso si la validación falla
+                return; // Detener si las validaciones no se cumplen
             }
 
             // Mostrar cuadro de confirmación antes de registrar el usuario
@@ -307,12 +469,16 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 );
                 return; // Detener el proceso si el usuario ya existe
             }
+            
+            // Calcula la fecha de vigencia (un mes después de hoy)
+            LocalDate fechaActual = LocalDate.now();
+            LocalDate fechaVigencia = fechaActual.plusMonths(1);
+            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
 
             String contrasenia = "cambio";
-            //String contraseniaEncriptada = encriptarMD5(contrasenia);
-
-            // Consulta para insertar los datos, incluyendo vchSucursal y dtVigencia
-            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, MD5(?), ?, NOW(), ?)";
+            // Consulta para insertar los datos, incluyendo la fecha de vigencia calculada
+            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, MD5(?), ?, ?, ?)";
             PreparedStatement ps = cn.prepareStatement(query);
 
             ps.setInt(1, id_usuario1);
@@ -321,7 +487,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
             ps.setString(4, aMaterno);
             ps.setString(5, contrasenia); // Contraseña encriptada con MD5
             ps.setString(6, "cambio"); // Valor fijo para vchSucursal
-            ps.setInt(7, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
+            ps.setString(7, fechaVigenciaStr); // Fecha de vigencia calculada
+            ps.setInt(8, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
 
             // Ejecutar la consulta para insertar los datos en la base de datos
             ps.executeUpdate();
@@ -397,6 +564,39 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 );
                 return; // Detener el proceso si no se seleccionó un usuario
             }
+            
+            // Validar que Nombre, Apellido Paterno y Apellido Materno solo contengan letras válidas
+            String patronNombre = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"; // Letras, acentos, ñ y espacios
+
+            if (!txtNombre.getText().trim().matches(patronNombre)) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "El campo Nombre solo debe contener letras.",
+                    "¡Advertencia!",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si la validación falla
+            }
+
+            if (!txtAPaterno.getText().trim().matches(patronNombre)) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "El campo Apellido Paterno solo debe contener letras.",
+                    "¡Advertencia!",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si la validación falla
+            }
+
+            if (!txtAMaterno.getText().trim().matches(patronNombre)) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "El campo Apellido Materno solo debe contener letras.",
+                    "¡Advertencia!",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si la validación falla
+            }
 
             // Mostrar cuadro de confirmación antes de actualizar los datos
             int confirmacion = JOptionPane.showConfirmDialog(
@@ -410,7 +610,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             if (confirmacion != JOptionPane.YES_OPTION) {
                 return; // Salir del método si el usuario selecciona "No"
             }
-
+            
             // Preparar la consulta SQL para actualizar los datos
             String query = "UPDATE tbl_usuarios SET Nombre = ?, APaterno = ?, AMaterno = ?, id_perfil = ? WHERE id_usuario = ?";
             PreparedStatement ps = cn.prepareStatement(query);
@@ -445,13 +645,23 @@ public class formMenuAdmin extends javax.swing.JFrame {
             // Ejecutar la consulta de actualización
             int filasActualizadas = ps.executeUpdate();
 
-            // Verificar si se actualizó algún dato
+            // Verificar si se actualizó algún registro
             if (filasActualizadas > 0) {
-                JOptionPane.showMessageDialog(this, "Datos actualizados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Datos actualizados correctamente", 
+                    "Éxito", 
+                    JOptionPane.INFORMATION_MESSAGE
+                );
                 mostrarDatos(); // Actualiza la tabla con los datos actualizados
                 limpiarEntradas(); // Limpia los campos del formulario
             } else {
-                JOptionPane.showMessageDialog(this, "No se actualizó ningún dato", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "No se actualizó ningún dato. Verifica que el usuario exista.", 
+                    "Advertencia", 
+                    JOptionPane.WARNING_MESSAGE
+                );
             }
 
             ps.close(); // Cierra el PreparedStatement
@@ -468,14 +678,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         btnRegistrar.setEnabled(true);
         limpiarEntradas();
     }//GEN-LAST:event_formMouseClicked
-
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        limpiarEntradas();
-        btnActualizar.setEnabled(false);
-        btnRestaurarContra.setEnabled(false);
-        txtid_usuario.setEnabled(true);
-        btnRegistrar.setEnabled(true);
-    }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // Confirmación antes de eliminar el cliente
@@ -502,10 +704,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
 
     }//GEN-LAST:event_formMouseEntered
-
-    private void txtAMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAMaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAMaternoActionPerformed
 
     private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
         
@@ -535,20 +733,20 @@ public class formMenuAdmin extends javax.swing.JFrame {
         } catch (Exception e) {
             // Manejo de errores en caso de fallo
             JOptionPane.showMessageDialog(this, 
-                    "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_jmiCerrarSesionActionPerformed
 
     private void btnRestaurarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarContraActionPerformed
         try {
-            // Validación si se ha seleccionado un usuario (esto aparece con la detección del puro id_usuario)
+            // Validación si se ha seleccionado un usuario
             if (txtid_usuario.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(
                     this,
-                    "Por favor, selecciona un usuario antes de restablecer la contraseña",
+                    "Por favor, selecciona un usuario antes de restablecer la contraseña.",
                     "Advertencia",
                     JOptionPane.WARNING_MESSAGE
                 );
@@ -563,45 +761,101 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION
             );
 
-            // Verificar si el usuario seleccionó "Sí"
             if (confirmacion != JOptionPane.YES_OPTION) {
-                return; // Salir del método si el usuario selecciona "No"
+                return; // Salir si el usuario selecciona "No"
             }
+
+            // Calcula la fecha de vigencia (un mes después de hoy)
+            LocalDate fechaActual = LocalDate.now();
+            LocalDate fechaVigencia = fechaActual.plusMonths(1);
+            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             // Contraseña a actualizar (encriptada con MD5)
             String contrasenia = "cambio";
             String contraseniaEncriptada = encriptarMD5(contrasenia); // Método para encriptar con MD5
 
             // Preparar la consulta SQL para actualizar los datos
-            String query = "UPDATE tbl_usuarios SET vchPass = ? WHERE id_usuario = ?";
+            String query = "UPDATE tbl_usuarios SET vchPass = ?, dtVigencia = ? WHERE id_usuario = ?";
             PreparedStatement ps = cn.prepareStatement(query);
 
             // Asignar valores a los parámetros
             ps.setString(1, contraseniaEncriptada); // Contraseña encriptada
-            ps.setInt(2, Integer.parseInt(txtid_usuario.getText())); // ID del usuario
+            ps.setString(2, fechaVigenciaStr); // Fecha de vigencia calculada
+            ps.setInt(3, Integer.parseInt(txtid_usuario.getText())); // ID del usuario
 
             // Ejecutar la consulta de actualización
             int filasActualizadas = ps.executeUpdate();
 
             // Verificar si se actualizó algún dato
             if (filasActualizadas > 0) {
-                JOptionPane.showMessageDialog(this, "Contraseña restaurada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Contraseña restaurada correctamente y vigencia actualizada.", 
+                    "Éxito", 
+                    JOptionPane.INFORMATION_MESSAGE
+                );
                 mostrarDatos(); // Actualiza la tabla con los datos actualizados
                 limpiarEntradas(); // Limpia los campos del formulario
             } else {
-                JOptionPane.showMessageDialog(this, "No se restauró la contraseña", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "No se pudo restaurar la contraseña. Verifique el ID del usuario.", 
+                    "Advertencia", 
+                    JOptionPane.WARNING_MESSAGE
+                );
             }
 
-            ps.close(); // Cierra el PreparedStatement
+            ps.close(); // Cerrar el PreparedStatement
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al restaurar la contraseña: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                this, 
+                "Error al restaurar la contraseña: " + e.getMessage(), 
+                "Error de SQL", 
+                JOptionPane.ERROR_MESSAGE
+            );
         }
     }//GEN-LAST:event_btnRestaurarContraActionPerformed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        limpiarEntradas();
+        btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
+        txtid_usuario.setEnabled(true);
+        btnRegistrar.setEnabled(true);
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtAMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAMaternoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAMaternoActionPerformed
 
     private void txtid_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid_usuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtid_usuarioActionPerformed
+
+    private void ComboPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPerfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboPerfilActionPerformed
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        limpiarEntradas();
+        btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
+        txtid_usuario.setEnabled(true);
+        btnRegistrar.setEnabled(true);
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        limpiarEntradas();
+        btnActualizar.setEnabled(false);
+        btnRestaurarContra.setEnabled(false);
+        txtid_usuario.setEnabled(true);
+        btnRegistrar.setEnabled(true);
+    }//GEN-LAST:event_jPanel3MouseClicked
 
     
     /**
@@ -613,12 +867,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 frmLogin lg = new frmLogin();
                 lg.setLocationRelativeTo(null);
                 lg.setVisible(true);
-
             }
         });
-
     }
-    
     
     private void cerrarSesion() {
        // Si tienes una clase Singleton para manejar la sesión
@@ -639,7 +890,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
        System.out.println("Sesión cerrada exitosamente.");
     }
     
-    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -654,15 +904,29 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRestaurarContra;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaDatos;
     private javax.swing.JMenuItem jmiCerrarSesion;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblSucursal;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblVersionJava;
+    private javax.swing.JLabel lblVersionOS;
     private javax.swing.JTextField txtAMaterno;
     private javax.swing.JTextField txtAPaterno;
     private javax.swing.JTextField txtNombre;
@@ -672,7 +936,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
 
-        modelo.addColumn("ID");
+        modelo.addColumn("Usuario");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido Paterno");
         modelo.addColumn("Apellido Materno");
@@ -681,9 +945,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jTablaDatos.setModel(modelo);
 
         String consultaSQL = "SELECT id_usuario, Nombre, APaterno, AMaterno, id_perfil FROM tbl_usuarios";
-
         String data[] = new String[5];
-
         Statement st;
 
         try {
@@ -726,22 +988,79 @@ public class formMenuAdmin extends javax.swing.JFrame {
     }
 
     private boolean validarFormulario() {
-        // Se verifica si los campos de texto están vacíos
+        // Validar que los campos no estén vacíos
         if (txtid_usuario.getText().trim().isEmpty() ||
             txtNombre.getText().trim().isEmpty() ||
             txtAPaterno.getText().trim().isEmpty() ||
             txtAMaterno.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Todos los campos son obligatorios. Por favor, complételos.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
             return false;
         }
 
-        // Se verifica si el combo tiene valor valido
-        String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
-        if (perfilSeleccionado.equals("Seleccione tipo de usuario")) {
+        // Validar que id_usuario solo contenga números
+        String id_usuario = txtid_usuario.getText().trim();
+        if (!id_usuario.matches("\\d+")) {
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo usuario de usuario solo debe contener números.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
             return false;
         }
-        
-        return true;
+
+        // Validar que Nombre, APaterno y AMaterno solo contengan letras válidas
+        String patronNombre = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"; // Letras, acentos, ñ y espacios
+
+        if (!txtNombre.getText().trim().matches(patronNombre)) {
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo Nombre solo debe contener letras.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+
+        if (!txtAPaterno.getText().trim().matches(patronNombre)) {
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo Apellido Paterno solo debe contener letras.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+
+        if (!txtAMaterno.getText().trim().matches(patronNombre)) {
+            JOptionPane.showMessageDialog(
+                null,
+                "El campo Apellido Materno solo debe contener letras.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+
+        // Validar que se haya seleccionado un perfil válido
+        String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
+        if (perfilSeleccionado.equals("Seleccione tipo de usuario")) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Por favor, seleccione un perfil válido.",
+                "¡Advertencia!",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return false;
+        }
+        return true; // Si todas las validaciones pasan
     }
+
 
     private String encriptarMD5(String contrasenia) {
         try {
@@ -760,7 +1079,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 }
                 hashHex.append(hex);
             }
-
+            
             // Devolver el hash en formato hexadecimal
             return hashHex.toString();
         } catch (Exception e) {

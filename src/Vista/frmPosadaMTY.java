@@ -12,7 +12,9 @@ import Modelo.SillasData;
 import java.awt.Color;
 import java.awt.Component;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.*;
 
 /**
@@ -57,7 +59,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
         //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now());
+        //lblFecha.setText("Fecha: " + LocalDate.now());
+        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
         
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
@@ -899,7 +902,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 btnMesa7ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 50, 50));
+        jPanel1.add(btnMesa7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 50, 50));
 
         btnMesa8.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1560,7 +1563,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

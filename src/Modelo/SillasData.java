@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Practicas1
+ * @author Eduardo´s
  */
 public class SillasData {
     
@@ -73,10 +73,16 @@ public class SillasData {
         SillaEstado se = SillaEstado.getInstancia();
         
         String consult = "SELECT tbl_sillas.idSilla, tbl_sillas.vchDescripcion, " +
-                            "tbl_estado_sillas.idEstado, tbl_estado_sillas.EstadoSilla " +
+                            "tbl_estado_sillas.idEstado, tbl_estado_sillas.EstadoSilla, " +
+                            "tbl_mesas.idMesa, tbl_mesas.DescMesa, tbl_mesas.Estatus, " +
+                            "tbl_zonas.idZona, tbl_zonas.Zona, " +
+                            "tbl_costo.idCosto, tbl_costo.Costo " +
                             "FROM tbl_sillas " +
                             "INNER JOIN tbl_estado_sillas ON tbl_sillas.idEstado = tbl_estado_sillas.idEstado " +
-                            "WHERE tbl_sillas.idSilla = ?;";
+                            "INNER JOIN tbl_mesas ON tbl_sillas.idMesa = tbl_mesas.idMesa " +
+                            "INNER JOIN tbl_zonas ON tbl_mesas.idZona = tbl_zonas.idZona " +
+                            "INNER JOIN tbl_costo ON tbl_zonas.idCosto = tbl_costo.idCosto " +
+                            "WHERE tbl_sillas.idSilla = ?";
         
         
         try{
@@ -89,7 +95,15 @@ public class SillasData {
                 se.setIdSilla(rs.getInt("idSilla"));
                 se.setNomSilla(rs.getString("vchDescripcion"));
                 se.setIdEstado(rs.getInt("idEstado"));
-                se.setEstado(rs.getString("EstadoSilla"));
+                se.setEstadoSilla(rs.getString("EstadoSilla"));
+                se.setIdMesa(rs.getInt("idMesa"));
+                se.setNomMesa(rs.getString("DescMesa"));
+                se.setEstatusMesa(rs.getString("Estatus"));
+                se.setIdZona(rs.getInt("idZona"));
+                se.setZona(rs.getString("Zona"));
+                se.setIdCosto(rs.getInt("idCosto"));
+                se.setCosto(rs.getDouble("Costo"));
+                
                 //Se almacenan los datos en variables
                 
                 //cn.closeConnection();
