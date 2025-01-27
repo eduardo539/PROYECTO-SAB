@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+
 /**
  *
  * @author Practicas1
@@ -25,12 +26,15 @@ public class frmCajero extends javax.swing.JFrame {
 
     public frmCajero() {
         initComponents();
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
         setResizable(false);
         consultaEstadoMesas();
         
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
-        lblUsuario.setText("ID: " + lg.getIdusuario());
+        lblUsuario.setText("Usuario: " + lg.getIdusuario());
         lblNombre.setText("Nombre: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
@@ -52,7 +56,7 @@ public class frmCajero extends javax.swing.JFrame {
             }
         }
         else{
-            lblVersionOS.setText("Kernel: NA");
+            lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
         }
         
         //barraEstado = new javax.swing.JPanel();
@@ -62,13 +66,6 @@ public class frmCajero extends javax.swing.JFrame {
         lblSucursal = new javax.swing.JLabel();
         lblVersionOS = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
-
-        // Configurar la barra de estado
-        //barraEstado.setBorder(BorderFactory.createEtchedBorder());
-        //barraEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        // Añadir la barra de estado a la ventana
-        //getContentPane().add(barraEstado, BorderLayout.SOUTH);
 
         pack();
         setLocationRelativeTo(null);
@@ -119,6 +116,7 @@ public class frmCajero extends javax.swing.JFrame {
         lblFecha = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jmiCerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -343,16 +341,16 @@ public class frmCajero extends javax.swing.JFrame {
             barraEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(barraEstadoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         barraEstadoLayout.setVerticalGroup(
@@ -370,6 +368,16 @@ public class frmCajero extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-pendiente.png"))); // NOI18N
+        jMenuItem1.setText("Sillas Separadas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
 
         jmiCerrarSesion.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
@@ -454,6 +462,13 @@ public class frmCajero extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnPosadaActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        frmSillasSeparadas sillaSep = new frmSillasSeparadas();
+        sillaSep.setLocationRelativeTo(null);
+        sillaSep.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
     * Método para limpiar los datos de la sesión del usuario.
     */
@@ -523,6 +538,7 @@ public class frmCajero extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

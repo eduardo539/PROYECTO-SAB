@@ -11,16 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Eduardo´s SAB
  */
 public class frmLogin extends javax.swing.JFrame {
-
-    static void traerDatos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
@@ -31,6 +28,7 @@ public class frmLogin extends javax.swing.JFrame {
     
     public frmLogin() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
         setResizable(false);
     }
