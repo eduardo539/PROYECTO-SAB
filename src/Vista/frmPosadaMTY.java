@@ -19,7 +19,8 @@ import javax.swing.*;
 
 /**
  *
- * @author Practicas1
+ * @author Eduardo´s
+ * 
  */
 public class frmPosadaMTY extends javax.swing.JFrame {
 
