@@ -89,11 +89,6 @@
                   <Component id="btnCancelar" min="-2" pref="95" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="109" pref="109" max="-2" attributes="0"/>
-                  <Component id="comboEstatus" min="-2" pref="160" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -118,9 +113,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
-                  <Component id="comboEstatus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtNumSocio" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtZona" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -216,17 +209,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="comboEstatus">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Seleccionar"/>
-                <StringItem index="1" value="Comprar"/>
-                <StringItem index="2" value="Separar"/>
-              </StringArray>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCorreo">
           <Properties>

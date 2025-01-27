@@ -223,6 +223,7 @@ public class frmLogin extends javax.swing.JFrame {
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
         btnEntrar.setText("Entrar");
+        btnEntrar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);

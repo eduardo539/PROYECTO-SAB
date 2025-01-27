@@ -202,6 +202,7 @@
               <Image iconType="3" name="/Iconos/icon-login.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Entrar"/>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEntrarActionPerformed"/>
