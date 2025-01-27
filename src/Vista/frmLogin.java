@@ -19,30 +19,16 @@ import javax.swing.ImageIcon;
  */
 public class frmLogin extends javax.swing.JFrame { 
 
-<<<<<<< HEAD
-    static void traerDatos() { 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    } 
-
-    Login lg = Login.getInstancia(); 
-    LoginData login = new LoginData(); 
-=======
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
->>>>>>> 477a0914e563c33e6c638db3e5a6a11a011292a6
     
     // Crear instancia de la clase Conexion
     Conexion conexion = new Conexion(); 
     Connection connection = null; 
     
-<<<<<<< HEAD
-    public frmLogin() { 
-        initComponents(); 
-=======
     public frmLogin() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
->>>>>>> 477a0914e563c33e6c638db3e5a6a11a011292a6
         
         setResizable(false);
     } 
