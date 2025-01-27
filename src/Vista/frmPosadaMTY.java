@@ -329,8 +329,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         lblVersionOS = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jmiVolverInicio = new javax.swing.JMenuItem();
         jmiActualizar = new javax.swing.JMenuItem();
+        jmiVolverInicio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Posada Monterrey");
@@ -1522,16 +1522,12 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         lblVersionOS.setText("jLabel5");
 
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("MENU");
+        jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jmiVolverInicio.setText("Volver a Inicio");
-        jmiVolverInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiVolverInicioActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiVolverInicio);
-
+        jmiActualizar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
         jmiActualizar.setText("Actualizar Contenido");
         jmiActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1539,6 +1535,16 @@ public class frmPosadaMTY extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmiActualizar);
+
+        jmiVolverInicio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiVolverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-home.png"))); // NOI18N
+        jmiVolverInicio.setText("Volver a Inicio");
+        jmiVolverInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiVolverInicioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiVolverInicio);
 
         jMenuBar1.add(jMenu1);
 
