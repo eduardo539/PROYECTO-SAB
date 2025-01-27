@@ -155,7 +155,7 @@ public class frmSillas extends javax.swing.JFrame {
                 
             } else if ("Separado".equalsIgnoreCase(estado)) {
                 JOptionPane.showMessageDialog(null, "La silla está Separada/Apartada.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
-            } else if ("Comprado".equalsIgnoreCase(estado)) {
+            } else if ("Pagado".equalsIgnoreCase(estado)) {
                 JOptionPane.showMessageDialog(null, "La silla está Comprada.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "El estado de la silla no es válido.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
