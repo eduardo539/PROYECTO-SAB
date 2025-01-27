@@ -24,7 +24,7 @@ import static jdk.nashorn.tools.ShellFunctions.input;
 public class frmActualizarContra extends javax.swing.JFrame {
     
     private int idUsuario; // Atributo para almacenar el ID del usuario
-   
+    
     // Actualizar la contraseña en la base de datos
     Conexion conexion = new Conexion();
     Connection connection = null;
@@ -156,7 +156,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
         // Obtener las contraseñas ingresadas
         String nuevaContrasena = String.valueOf(txtContrasenia.getPassword()).trim();
         String confirmaContrasena = String.valueOf(txtConfirmaContrasenia.getPassword()).trim();
-
+        
         // Validar que los campos no estén vacíos
         if (nuevaContrasena.isEmpty() || confirmaContrasena.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
