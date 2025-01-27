@@ -104,7 +104,7 @@ public class frmSillas extends javax.swing.JFrame {
                 case "Separado":
                     boton.setBackground(Color.YELLOW); // Amarillo para apartado
                     break;
-                case "Comprado":
+                case "Pagado":
                     boton.setBackground(Color.RED); // Rojo para comprado
                     break;
                 default:
@@ -355,7 +355,7 @@ public class frmSillas extends javax.swing.JFrame {
         lblMesa.setText("Label-Mesa");
 
         lblZona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblZona.setText("Label-Silla");
+        lblZona.setText("Label-Zona");
 
         jButton1.setBackground(new java.awt.Color(0, 255, 0));
 
