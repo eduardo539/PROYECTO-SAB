@@ -7,6 +7,7 @@ import Modelo.Sillas;
 import Modelo.SillasData;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +22,10 @@ public class frmSillas extends javax.swing.JFrame {
     
     public frmSillas() {
         initComponents();
+        
+        //Se agrega el logo de la empresa
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
         setResizable(false);
         nomSillas();
         estadoSillas();

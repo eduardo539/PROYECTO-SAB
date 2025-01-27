@@ -48,21 +48,28 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     public frmPosadaMTY() {
         initComponents();
         
+        //Se agrega el logo de la empresa
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
+        barraEstado();
+        
         setResizable(false);
         
         estadosMesas();
         estadoPrecios();
         
+    }
+    
+    
+    public void barraEstado(){
         
+        //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("Usuario: " + lg.getIdusuario());
         lblNombre.setText("Nombre: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
-        //lblFecha.setText("Fecha: " + LocalDate.now());
         lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
-        
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
@@ -81,7 +88,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
         }
         
-        
         //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -89,10 +95,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         lblSucursal = new javax.swing.JLabel();
         lblVersionOS = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
-        
-        
-        
-        
     }
     
     public void estadoPrecios(){
@@ -121,14 +123,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         }
     }
     
-    /*
-    public void estadoSillas(){
-        s = sid.s(idMesa);
-    }
-    */
     
-    public void estadosMesas()
-    {
+    public void estadosMesas(){
         
         
         for (Mesas.Mesa mesa : mes.getListaMesas()) {
