@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.SillaEstado;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -15,6 +16,9 @@ public class frmBoleto extends javax.swing.JFrame {
     public frmBoleto() {
         initComponents();
         
+        // En el constructor de tu JFrame Form
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
