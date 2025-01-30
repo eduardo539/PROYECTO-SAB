@@ -7,6 +7,7 @@ import Modelo.Sillas;
 import Modelo.SillasData;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +22,10 @@ public class frmSillas extends javax.swing.JFrame {
     
     public frmSillas() {
         initComponents();
+        
+        //Se agrega el logo de la empresa
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
         setResizable(false);
         nomSillas();
         estadoSillas();
@@ -104,7 +109,7 @@ public class frmSillas extends javax.swing.JFrame {
                 case "Separado":
                     boton.setBackground(Color.YELLOW); // Amarillo para apartado
                     break;
-                case "Comprado":
+                case "Pagado":
                     boton.setBackground(Color.RED); // Rojo para comprado
                     break;
                 default:
@@ -155,7 +160,7 @@ public class frmSillas extends javax.swing.JFrame {
                 
             } else if ("Separado".equalsIgnoreCase(estado)) {
                 JOptionPane.showMessageDialog(null, "La silla está Separada/Apartada.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
-            } else if ("Comprado".equalsIgnoreCase(estado)) {
+            } else if ("Pagado".equalsIgnoreCase(estado)) {
                 JOptionPane.showMessageDialog(null, "La silla está Comprada.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "El estado de la silla no es válido.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
@@ -333,8 +338,7 @@ public class frmSillas extends javax.swing.JFrame {
                 btnDato10ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 55, 55));
-
+        jPanel1.add(btnDato10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 55, 55));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mesa2.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 550));
@@ -344,6 +348,7 @@ public class frmSillas extends javax.swing.JFrame {
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -353,10 +358,10 @@ public class frmSillas extends javax.swing.JFrame {
         });
 
         lblMesa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblMesa.setText("jLabel2");
+        lblMesa.setText("Label-Mesa");
 
         lblZona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblZona.setText("jLabel2");
+        lblZona.setText("Label-Zona");
 
         jButton1.setBackground(new java.awt.Color(0, 255, 0));
 
@@ -374,7 +379,7 @@ public class frmSillas extends javax.swing.JFrame {
         jLabel5.setText("Comprado");
 
         lblCosto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblCosto.setText("jLabel2");
+        lblCosto.setText("Label-Costo");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Seleccione la silla de su preferencia");
@@ -455,7 +460,7 @@ public class frmSillas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(

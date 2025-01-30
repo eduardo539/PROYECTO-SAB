@@ -11,105 +11,103 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Eduardo´s SAB
  */
-public class frmLogin extends javax.swing.JFrame {
-
-    static void traerDatos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class frmLogin extends javax.swing.JFrame { 
 
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
     
     // Crear instancia de la clase Conexion
-    Conexion conexion = new Conexion();
-    Connection connection = null;
+    Conexion conexion = new Conexion(); 
+    Connection connection = null; 
     
     public frmLogin() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
         setResizable(false);
-    }
+    } 
     
-    public void Entrar(){
+    public void Entrar(){ 
         String usuario = txtUsuario.getText().trim();
         String pass = new String(txtPassword.getPassword()).trim();
 
         // Validación inicial: datos no vacíos
-        if (usuario.isEmpty() || pass.isEmpty()) {
+        if (usuario.isEmpty() || pass.isEmpty()) { 
             JOptionPane.showMessageDialog(this, "Por favor, llena los datos solicitados.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
-        }
+        } 
 
-        try {
-            lg = login.log(usuario, pass);
+        try { 
+            lg = login.log(usuario, pass); 
+            
+            if (lg != null && lg.getTipo_perfil() != null) { 
+                
+                int idUsuario; 
 
-            if (lg != null && lg.getTipo_perfil() != null) {
-           
-                int idUsuario;
-
-                try {
+                try { 
                     idUsuario = Integer.parseInt(usuario); // Convertir texto a entero
         
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException e) { 
                     JOptionPane.showMessageDialog(this, "El ID del usuario debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
-                }
-
+                } 
+                
                 // Verificar si el usuario tiene la contraseña predeterminada
-                if (tieneContrasenaPredeterminada(idUsuario)) {
+                if (tieneContrasenaPredeterminada(idUsuario)) { 
                     
                     // Redirigir al formulario de actualización de contraseña
-                    frmActualizarContra frm = new frmActualizarContra(idUsuario);
-                    frm.setLocationRelativeTo(null);
-                    frm.setVisible(true);
+                    frmActualizarContra frm = new frmActualizarContra(idUsuario); 
+                    frm.setLocationRelativeTo(null); 
+                    frm.setVisible(true); 
 
-                    limpiarEntradas();
+                    limpiarEntradas(); 
                     // Cerrar el formulario de login
-                    this.dispose();
+                    this.dispose(); 
 
-                    return; // Terminar el flujo hasta que la contraseña se actualice
-                }
+                    return; // Terminar el flujo hasta que la contraseña se actualice 
+                } 
                
                 
-                if (verificarVigencia(idUsuario)) {
+                if (verificarVigencia(idUsuario)) { 
                 
                  
-                    JOptionPane.showMessageDialog(
+                    JOptionPane.showMessageDialog( 
                         this,
                         "Su contraseña ha caducado. Es necesario actualizarla.",
                         "Contraseña Caducada",
                         JOptionPane.WARNING_MESSAGE
-                    );
+                    ); 
 
                     // Redirigir al formulario de actualización de contraseña
-                    frmActualizarContra frm = new frmActualizarContra(idUsuario);
-                    frm.setLocationRelativeTo(null);
-                    frm.setVisible(true);
+                    frmActualizarContra frm = new frmActualizarContra(idUsuario); 
+                    frm.setLocationRelativeTo(null); 
+                    frm.setVisible(true); 
 
-                    limpiarEntradas();
-                    this.dispose(); // Cerrar el formulario de login
+                    limpiarEntradas(); 
+                    this.dispose(); // Cerrar el formulario de login 
 
-                    return; // Terminar el flujo hasta que la contraseña se actualice
-                }
+                    return; // Terminar el flujo hasta que la contraseña se actualice 
+                } 
                 
                 System.out.println("DESPUES DE LA FUNCION" + idUsuario); // Log (opcional)
 
                 // Redirige según el tipo de perfil
-                switch (lg.getTipo_perfil()) {
+                switch (lg.getTipo_perfil()) { 
                     case "Sistemas":
                         abrirVentana(new formMenuAdmin(), "Sistemas");
-                        break;
-                    case "Operaciones":
+                        break; 
+                    case "Operaciones": 
                         abrirVentana(new frmOperaciones(), "Operaciones");
-                        break;
-                    case "Gerente":
+                        break; 
+                    case "Gerente": 
                         abrirVentana(new frmGerente(), "Gerente");
-                        break;
+                        break; 
                     case "Cajero":
                         abrirVentana(new frmCajero(), "Cajero");
                         break;
@@ -123,10 +121,10 @@ public class frmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
             
-        } catch (Exception e) {
+        } catch (Exception e) { 
             // Manejo de errores
             JOptionPane.showMessageDialog(this, "Ocurrió un error al iniciar sesión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        } 
     }
     
     private void limpiarEntradas() {
@@ -160,7 +158,7 @@ public class frmLogin extends javax.swing.JFrame {
         return false;
     }   
 
- 
+
     private void abrirVentana(JFrame ventana, String perfil) {
         ventana.setLocationRelativeTo(null); // Centrar ventana
         ventana.setVisible(true);            // Mostrar ventana
@@ -207,6 +205,7 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel6.setText("USUARIO:");
 
+        txtUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Icono_user.png"))); // NOI18N
@@ -215,13 +214,16 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel7.setText("CONTRASEÑA:");
 
+        txtPassword.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         txtPassword.setPreferredSize(new java.awt.Dimension(6, 28));
 
         btnEntrar.setBackground(new java.awt.Color(0, 153, 0));
-        btnEntrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEntrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
         btnEntrar.setText("Entrar");
+        btnEntrar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
@@ -237,7 +239,7 @@ public class frmLogin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
-                .addGap(18, 18, 18)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
@@ -246,9 +248,9 @@ public class frmLogin extends javax.swing.JFrame {
                     .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(194, Short.MAX_VALUE)
+                .addContainerGap(190, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addGap(188, 188, 188))
+                .addGap(190, 190, 190))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,12 +259,10 @@ public class frmLogin extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
