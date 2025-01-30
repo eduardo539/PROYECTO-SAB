@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -22,6 +23,9 @@ public class frmSillas extends javax.swing.JFrame {
     
     public frmSillas() {
         initComponents();
+        
+        // En el constructor de tu JFrame Form
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
