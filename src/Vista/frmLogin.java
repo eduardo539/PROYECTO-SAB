@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Conexion;
+import Modelo.Conexion2;
 import javax.swing.JOptionPane;
 import Modelo.Login;
 import Modelo.LoginData;
@@ -16,6 +17,7 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author Eduardo´s SAB
+ * 
  */
 public class frmLogin extends javax.swing.JFrame { 
 
@@ -24,7 +26,10 @@ public class frmLogin extends javax.swing.JFrame {
     
     // Crear instancia de la clase Conexion
     Conexion conexion = new Conexion(); 
-    Connection connection = null; 
+    Connection connection = null;
+    
+    Conexion2 conect = new Conexion2();
+    Connection post = null;
     
     public frmLogin() {
         initComponents();
