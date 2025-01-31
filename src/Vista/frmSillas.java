@@ -1,7 +1,6 @@
 package Vista;
 
 import Modelo.Mesas;
-import Modelo.Precios;
 import Modelo.SillaEstado;
 import Modelo.Sillas;
 import Modelo.SillasData;

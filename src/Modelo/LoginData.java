@@ -9,6 +9,7 @@ import java.sql.SQLException;
 /**
  *
  * @author Eduardo´s
+ * 
  */
 public class LoginData {
     
