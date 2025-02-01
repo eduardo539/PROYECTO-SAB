@@ -9,24 +9,16 @@ import java.sql.SQLException;
  * @author Eduardo´s
  * 
  */
-public class Conexion {
+public class Conexion2 {
+    
     private Connection con;
     
-    // Datos de conexión a la base de datos
-    
-    private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String DATABASE = "eventos";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
-    
-    
-    /*
-    private static final String URL = "jdbc:mysql://133.145.4.186:3306/";
-    private static final String DATABASE = "eventos";
-    private static final String USER = "root";
-    private static final String PASSWORD = "saccsscl";
-    */
-    
+    // Datos de conexión a la base de datos PostgreSQL
+    private static final String URL = "jdbc:postgresql://133.145.50.139:5432/";  // Puerto predeterminado de PostgreSQL es 5432
+    private static final String DATABASE = "cerro_041124";  // Nombre de la base de datos en PostgreSQL
+    private static final String USER = "admin2";  // Tu usuario de PostgreSQL
+    private static final String PASSWORD = "admin2";  // Tu contraseña de PostgreSQL
+
     // Tiempo de espera para la conexión
     private static final int TIMEOUT_SECONDS = 10;
 
@@ -40,16 +32,16 @@ public class Conexion {
             // Configura el tiempo de espera para la conexión
             DriverManager.setLoginTimeout(TIMEOUT_SECONDS);
 
-            // Construye la URL completa
-            String dbURL = URL + DATABASE + "?useSSL=false&serverTimezone=UTC";
+            // Construye la URL completa para PostgreSQL
+            String dbURL = URL + DATABASE;
 
-            // Establece la conexión
+            // Establece la conexión con PostgreSQL
             con = DriverManager.getConnection(dbURL, USER, PASSWORD);
 
             System.out.println("Conexión exitosa a la base de datos: " + DATABASE);
             return con;
         } catch (SQLException e) {
-            // Log de errores (se puede reemplazar con un sistema de logging como Log4j o SLF4J)
+            // Log de errores
             System.err.println("Error al conectar con la base de datos: " + e.getMessage());
         }
         return null;
