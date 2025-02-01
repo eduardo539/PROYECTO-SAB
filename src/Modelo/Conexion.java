@@ -13,11 +13,20 @@ public class Conexion {
     private Connection con;
     
     // Datos de conexión a la base de datos
+    
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String DATABASE = "eventos";
     private static final String USER = "root";
     private static final String PASSWORD = "";
-
+    
+    
+    /*
+    private static final String URL = "jdbc:mysql://133.145.4.186:3306/";
+    private static final String DATABASE = "eventos";
+    private static final String USER = "root";
+    private static final String PASSWORD = "saccsscl";
+    */
+    
     // Tiempo de espera para la conexión
     private static final int TIMEOUT_SECONDS = 10;
 
