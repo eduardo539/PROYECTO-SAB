@@ -45,8 +45,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         lblNombre.setText("Nombre: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        //lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
-        //lblFecha.setText("Fecha: " + LocalDate.now());
         lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
@@ -56,7 +54,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 Process process = Runtime.getRuntime().exec("uname -r");
                 java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
                 String linuxVersion = reader.readLine(); // Leer la salida del comando
-                lblVersionOS.setText(lblVersionOS.getText() + " (Kernel: " + linuxVersion + ")");
+                lblVersionOS.setText("Kernel: " + linuxVersion);
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
                 System.err.println("Error al obtener la versión del kernel de Linux: " + e.getMessage());
