@@ -107,19 +107,17 @@
                       </Group>
                   </Group>
                   <EmptySpace pref="65" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="dtVigencia" max="32767" attributes="0"/>
-                          <Component id="txtZona" max="32767" attributes="0"/>
-                          <Component id="txtMesa" max="32767" attributes="0"/>
-                          <Component id="txtCosto" max="32767" attributes="0"/>
-                          <Component id="txtSilla" max="32767" attributes="0"/>
-                          <Component id="txtCorreo" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="txtZona" max="32767" attributes="0"/>
+                      <Component id="txtMesa" max="32767" attributes="0"/>
+                      <Component id="txtCosto" max="32767" attributes="0"/>
+                      <Component id="txtSilla" max="32767" attributes="0"/>
+                      <Component id="txtCorreo" alignment="1" pref="180" max="32767" attributes="0"/>
+                      <Component id="dtVigencia" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
@@ -144,21 +142,21 @@
                       <Component id="txtMesa" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtSucursal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtCosto" alignment="1" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="txtSucursal" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtSilla" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="txtTelefono" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="dtVigencia" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="radioInvitado" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="dtVigencia" min="-2" max="-2" attributes="0"/>
+                      <Component id="radioInvitado" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnCancelar" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="btnComprar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -244,6 +242,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtCorreo">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Correo"/>
@@ -301,18 +300,6 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dtVigencia">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Fecha de Vigencia">
-                  <Font PropertyName="font" name="Tahoma" size="10" style="0"/>
-                </TitledBorder>
-              </Border>
-            </Property>
-            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-d"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JComboBox" name="comboBoleto">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -340,6 +327,15 @@
               </Border>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
+          </Properties>
+        </Component>
+        <Component class="com.github.lgooddatepicker.components.DatePicker" name="dtVigencia">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Vigencia del Boleto"/>
+              </Border>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -374,19 +370,14 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="txtOrigen" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnBuscar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="txtSocio" alignment="3" pref="43" max="32767" attributes="0"/>
-                              <Component id="txtGrupo" alignment="3" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                      <Component id="txtOrigen" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnBuscar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="txtSocio" alignment="3" pref="43" max="32767" attributes="0"/>
+                          <Component id="txtGrupo" alignment="3" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
