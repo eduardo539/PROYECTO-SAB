@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,12 +20,12 @@ public class InsertarData {
     Conexion cn = new Conexion();
     
     
-    public void insertarBoletos(int origen, int grupo, int socio, String nombre, String invitado, String telefono, String correo, int idusuario, String zona, String mesa, String silla, double costo, String estatus, LocalDate vigencia) {
+    public void insertarBoletos(int origen, int grupo, int socio, String nombre, String invitado, String telefono, String correo, int idusuario, String zona, String mesa, String silla, double costo, int estatus, LocalDate vigencia) {
         
-    // Convertir LocalDate a java.sql.Date
+    // Convertir LocalDate (fecha) a java.sql.Date
     java.sql.Date sqlDate = java.sql.Date.valueOf(vigencia);
     
-    String insertBoleto = "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, id_usuario, Zona, Mesa, Silla, Costo, Estatus, FechaCompra, FechaVigencia) " +
+    String insertBoleto = "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, id_usuario, Zona, Mesa, Silla, Costo, idEstado, FechaCompra, FechaVigencia) " +
                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?);";
     
     try {
@@ -42,12 +43,16 @@ public class InsertarData {
         ps.setString(10, mesa);
         ps.setString(11, silla);
         ps.setDouble(12, costo);
-        ps.setString(13, estatus);
+        ps.setInt(13, estatus);
         ps.setDate(14, sqlDate);
         ps.executeUpdate(); // Usamos executeUpdate() para operaciones de inserción
 
+        // Si la inserción es exitosa
+        JOptionPane.showMessageDialog(null, "Compra del boleto realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            
     } catch (SQLException e) {
-        System.out.println(e.toString());
+        // Si no se pudo insertar
+        JOptionPane.showMessageDialog(null, "Hubo un error en la base de datos. No se pudo realizar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
     } finally {
         // Cerrar recursos
         try {

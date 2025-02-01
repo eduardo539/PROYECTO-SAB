@@ -1,5 +1,6 @@
 package Vista;
 
+import Modelo.ActualizarData;
 import Modelo.CompraBoleto;
 import Modelo.CompraBoletoData;
 import Modelo.InsertarData;
@@ -25,6 +26,7 @@ public class frmBoleto extends javax.swing.JFrame {
     
     
     InsertarData insert = new InsertarData();
+    ActualizarData actualiza = new ActualizarData();
     Login lg = Login.getInstancia();
     
     String zona = sE.getZona();
@@ -95,9 +97,9 @@ public class frmBoleto extends javax.swing.JFrame {
         txtSilla.setText(silla);
         txtCosto.setText(String.valueOf(costo));
     }
-
     
     public void comprar() {
+
         
         int origen = datos.getOrigen();
         int grupo = datos.getGrupo();
@@ -111,9 +113,11 @@ public class frmBoleto extends javax.swing.JFrame {
         String Mesa = sE.getNomMesa();
         String Silla = sE.getNomSilla();
         double Costo = sE.getCosto();
+        int estatusSilla;
+        int idSilla = sE.getIdSilla();
 
         // Obtenemos el ítem seleccionado del JComboBox
-        String estatus = comboBoleto.getSelectedItem().toString();
+        String comboBox = comboBoleto.getSelectedItem().toString();
 
         // Obtenemos el dato del radio botón
         boolean invitado = radioInvitado.isSelected();
@@ -132,23 +136,30 @@ public class frmBoleto extends javax.swing.JFrame {
         if (origen == 0 || grupo == 0 || socio == 0 || nombre == null || nombre.isEmpty() || 
             telefono == null || telefono.isEmpty() || correo == null || correo.isEmpty() || 
             idusuario == 0 || Zona == null || Zona.isEmpty() || Mesa == null || Mesa.isEmpty() || 
-            Silla == null || Silla.isEmpty() || Costo == 0 || estatus == null || estatus.isEmpty() || 
+            Silla == null || Silla.isEmpty() || Costo == 0 || comboBox == null || comboBox.isEmpty() || 
             vigencia == null) {
 
-            JOptionPane.showMessageDialog(null, "Todos los campos son requeridos.", 
+            JOptionPane.showMessageDialog(null, "Todos los campos para el boleto son requeridos.", 
                                           "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salir del método si algún campo está vacío o nulo
         }
 
-        switch(estatus) {
+        switch(comboBox) {
             case "Separar":
+                estatusSilla = 2;
+                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, vigencia);
+                actualiza.actualizarEstatusSilla(estatusSilla,idSilla);
+                this.dispose();
+                break;
             case "Comprar":
-                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatus, vigencia);
-                System.out.println("Fecha seleccionada: " + vigencia);
+                estatusSilla = 3;
+                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, vigencia);
+                actualiza.actualizarEstatusSilla(estatusSilla,idSilla);
+                this.dispose();
                 break;
             default:
                 // Si no coincide con "Separar" ni con "Comprar", mostramos un mensaje
-                JOptionPane.showMessageDialog(null, "Opción no válida seleccionada.", 
+                JOptionPane.showMessageDialog(null, "Selecciona una opcion (Compra o Separar).", 
                                               "Alerta", JOptionPane.WARNING_MESSAGE);
                 break;
         }
