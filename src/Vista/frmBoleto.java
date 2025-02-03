@@ -99,7 +99,6 @@ public class frmBoleto extends javax.swing.JFrame {
     }
     
     public void comprar() {
-
         
         int origen = datos.getOrigen();
         int grupo = datos.getGrupo();
@@ -115,6 +114,21 @@ public class frmBoleto extends javax.swing.JFrame {
         double Costo = sE.getCosto();
         int estatusSilla;
         int idSilla = sE.getIdSilla();
+
+        String input = txtImporte.getText();
+        double importe;
+
+        if (input == null || input.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo de importe no puede estar vacío. Por favor, introduce un número.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si el campo está vacío
+        } else {
+            try {
+                importe = Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada no válida. Por favor, introduce un número.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la entrada no es válida
+            }
+        }
 
         // Obtenemos el ítem seleccionado del JComboBox
         String comboBox = comboBoleto.getSelectedItem().toString();
@@ -133,13 +147,13 @@ public class frmBoleto extends javax.swing.JFrame {
         }
 
         // Validar que todos los campos requeridos no estén vacíos o nulos
-        if (origen == 0 || grupo == 0 || socio == 0 || nombre == null || nombre.isEmpty() || 
-            telefono == null || telefono.isEmpty() || correo == null || correo.isEmpty() || 
-            idusuario == 0 || Zona == null || Zona.isEmpty() || Mesa == null || Mesa.isEmpty() || 
-            Silla == null || Silla.isEmpty() || Costo == 0 || comboBox == null || comboBox.isEmpty() || 
-            vigencia == null) {
+        if (origen == 0 || grupo == 0 || socio == 0 || nombre == null || nombre.isEmpty() ||
+            telefono == null || telefono.isEmpty() || correo == null || correo.isEmpty() ||
+            idusuario == 0 || Zona == null || Zona.isEmpty() || Mesa == null || Mesa.isEmpty() ||
+            Silla == null || Silla.isEmpty() || Costo == 0 || comboBox == null || comboBox.isEmpty() ||
+            vigencia == null || importe == 0) {
 
-            JOptionPane.showMessageDialog(null, "Todos los campos para el boleto son requeridos.", 
+            JOptionPane.showMessageDialog(null, "Todos los campos para el boleto son requeridos.",
                                           "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salir del método si algún campo está vacío o nulo
         }
@@ -147,23 +161,24 @@ public class frmBoleto extends javax.swing.JFrame {
         switch(comboBox) {
             case "Separar":
                 estatusSilla = 2;
-                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, vigencia);
-                actualiza.actualizarEstatusSilla(estatusSilla,idSilla);
+                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
+                actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
                 this.dispose();
                 break;
             case "Comprar":
                 estatusSilla = 3;
-                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, vigencia);
-                actualiza.actualizarEstatusSilla(estatusSilla,idSilla);
+                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
+                actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
                 this.dispose();
                 break;
             default:
                 // Si no coincide con "Separar" ni con "Comprar", mostramos un mensaje
-                JOptionPane.showMessageDialog(null, "Selecciona una opcion (Compra o Separar).", 
+                JOptionPane.showMessageDialog(null, "Selecciona una opción (Compra o Separar).",
                                               "Alerta", JOptionPane.WARNING_MESSAGE);
                 break;
         }
     }
+
 
     
     
@@ -188,6 +203,7 @@ public class frmBoleto extends javax.swing.JFrame {
         comboBoleto = new javax.swing.JComboBox();
         radioInvitado = new javax.swing.JRadioButton();
         dtVigencia = new com.github.lgooddatepicker.components.DatePicker();
+        txtImporte = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         txtOrigen = new javax.swing.JTextField();
@@ -201,7 +217,7 @@ public class frmBoleto extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo3.jpg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 250, 370));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 250, 370));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos para el Boleto"));
         jPanel2.setForeground(new java.awt.Color(240, 240, 240));
@@ -220,22 +236,22 @@ public class frmBoleto extends javax.swing.JFrame {
         txtSucursal.setEditable(false);
         txtSucursal.setBorder(javax.swing.BorderFactory.createTitledBorder("Sucursal"));
 
+        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-buy.png"))); // NOI18N
+        btnComprar.setText("Comprar");
         btnComprar.setBackground(new java.awt.Color(76, 175, 80));
         btnComprar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnComprar.setForeground(new java.awt.Color(255, 255, 255));
-        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-buy.png"))); // NOI18N
-        btnComprar.setText("Comprar");
         btnComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComprarActionPerformed(evt);
             }
         });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cancelar.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cancelar.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -262,12 +278,14 @@ public class frmBoleto extends javax.swing.JFrame {
 
         comboBoleto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Separar", "Comprar" }));
 
-        radioInvitado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         radioInvitado.setText("Invitado");
         radioInvitado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Invitado?"));
+        radioInvitado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         radioInvitado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         dtVigencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Vigencia del Boleto"));
+
+        txtImporte.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe"));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -276,7 +294,7 @@ public class frmBoleto extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioInvitado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radioInvitado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtNumSocio)
                         .addComponent(txtNombre)
@@ -296,7 +314,8 @@ public class frmBoleto extends javax.swing.JFrame {
                     .addComponent(txtCosto)
                     .addComponent(txtSilla)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                    .addComponent(dtVigencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dtVigencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtImporte))
                 .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
@@ -324,9 +343,11 @@ public class frmBoleto extends javax.swing.JFrame {
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dtVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radioInvitado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(11, 11, 11)
+                    .addComponent(radioInvitado)
+                    .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dtVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnComprar))
@@ -335,12 +356,12 @@ public class frmBoleto extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscador de Socios"));
 
-        btnBuscar.setBackground(new java.awt.Color(51, 153, 255));
-        btnBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.setBackground(new java.awt.Color(51, 153, 255));
         btnBuscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -373,11 +394,11 @@ public class frmBoleto extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtOrigen)
+                    .addComponent(txtOrigen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtSocio, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                        .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -394,11 +415,11 @@ public class frmBoleto extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -467,6 +488,7 @@ public class frmBoleto extends javax.swing.JFrame {
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtGrupo;
+    private javax.swing.JTextField txtImporte;
     private javax.swing.JTextField txtMesa;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumSocio;

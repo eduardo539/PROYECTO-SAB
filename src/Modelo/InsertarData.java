@@ -20,13 +20,13 @@ public class InsertarData {
     Conexion cn = new Conexion();
     
     
-    public void insertarBoletos(int origen, int grupo, int socio, String nombre, String invitado, String telefono, String correo, int idusuario, String zona, String mesa, String silla, double costo, int estatus, LocalDate vigencia) {
+    public void insertarBoletos(int origen, int grupo, int socio, String nombre, String invitado, String telefono, String correo, int idusuario, String zona, String mesa, String silla, double costo, int estatus, double importe, LocalDate vigencia) {
         
     // Convertir LocalDate (fecha) a java.sql.Date
     java.sql.Date sqlDate = java.sql.Date.valueOf(vigencia);
     
-    String insertBoleto = "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, id_usuario, Zona, Mesa, Silla, Costo, idEstado, FechaCompra, FechaVigencia) " +
-                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?);";
+    String insertBoleto = "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, id_usuario, Zona, Mesa, Silla, Costo, idEstado, Importe, FechaCompra, FechaVigencia) " +
+                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?);";
     
     try {
         con = cn.getConnection();
@@ -44,7 +44,8 @@ public class InsertarData {
         ps.setString(11, silla);
         ps.setDouble(12, costo);
         ps.setInt(13, estatus);
-        ps.setDate(14, sqlDate);
+        ps.setDouble(14, importe);
+        ps.setDate(15, sqlDate);
         ps.executeUpdate(); // Usamos executeUpdate() para operaciones de inserción
 
         // Si la inserción es exitosa
