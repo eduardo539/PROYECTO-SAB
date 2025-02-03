@@ -33,8 +33,9 @@ CREATE TABLE `tbl_boletos` (
   `Zona` varchar(50) NOT NULL,
   `Mesa` varchar(50) NOT NULL,
   `Silla` varchar(50) NOT NULL,
-  `Costo` float NOT NULL,
+  `Costo` double NOT NULL,
   `idEstado` int(11) NOT NULL,
+  `Importe` double NOT NULL,
   `FechaCompra` date NOT NULL,
   `FechaVigencia` date NOT NULL,
   PRIMARY KEY (`Folio`),
@@ -48,7 +49,7 @@ CREATE TABLE `tbl_boletos` (
 
 LOCK TABLES `tbl_boletos` WRITE;
 
-insert  into `tbl_boletos`(`Folio`,`Origen`,`Grupo`,`NumSocio`,`Nombre`,`Invitado`,`Telefono`,`Correo`,`id_usuario`,`Zona`,`Mesa`,`Silla`,`Costo`,`idEstado`,`FechaCompra`,`FechaVigencia`) values (1,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','No','8116819904','mveranialg@gmail.com',539,'A1','Mesa-1','Silla 2',560,3,'2025-02-01','2025-03-01'),(2,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','No','8116819904','mveranialg@gmail.com',539,'A1','Mesa-2','Silla 13',560,3,'2025-02-01','2025-05-10'),(3,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','Si','8116819904','mveranialg@gmail.com',539,'A1','Mesa-1','Silla 1',560,2,'2025-02-01','2025-02-22'),(4,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','No','8116819904','mveranialg@gmail.com',539,'A1','Mesa-1','Silla 6',560,3,'2025-02-01','2025-02-23'),(5,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','No','8116819904','mveranialg@gmail.com',539,'A1','Mesa-3','Silla 21',560,2,'2025-02-01','2025-02-27');
+insert  into `tbl_boletos`(`Folio`,`Origen`,`Grupo`,`NumSocio`,`Nombre`,`Invitado`,`Telefono`,`Correo`,`id_usuario`,`Zona`,`Mesa`,`Silla`,`Costo`,`idEstado`,`Importe`,`FechaCompra`,`FechaVigencia`) values (1,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','No','8116819904','mveranialg@gmail.com',539,'A1','Mesa-1','Silla 2',560,2,560,'2025-02-01','2025-03-01'),(2,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','No','8116819904','mveranialg@gmail.com',539,'A1','Mesa-2','Silla 13',560,2,560,'2025-02-01','2025-05-10'),(3,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','Si','8116819904','mveranialg@gmail.com',539,'A1','Mesa-1','Silla 1',560,2,560,'2025-02-01','2025-02-22'),(4,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','No','8116819904','mveranialg@gmail.com',539,'A1','Mesa-1','Silla 6',560,2,560,'2025-02-01','2025-02-23'),(5,30412,10,1658,'MARLEN VERANIA LOPEZ GUZMAN','No','8116819904','mveranialg@gmail.com',539,'A1','Mesa-3','Silla 21',560,2,560,'2025-02-01','2025-02-27');
 
 UNLOCK TABLES;
 
