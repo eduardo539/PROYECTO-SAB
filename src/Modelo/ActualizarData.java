@@ -31,7 +31,9 @@ public class ActualizarData {
             ps.setInt(1, idEstado);
             ps.setInt(2, idSilla);
             ps.executeUpdate(); // Usamos executeUpdate() para operaciones de actualización
-
+            
+            cn.closeConnection();
+            
         } catch (SQLException e) {
             // Si no se pudo insertar
             System.out.println(e.toString());

@@ -98,6 +98,8 @@ public class frmBoleto extends javax.swing.JFrame {
         txtCosto.setText(String.valueOf(costo));
     }
     
+    
+    
     public void comprar() {
         
         int origen = datos.getOrigen();
@@ -120,33 +122,21 @@ public class frmBoleto extends javax.swing.JFrame {
 
         if (input == null || input.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El campo de importe no puede estar vacío. Por favor, introduce un número.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Salir del método si el campo está vacío
+            return;
         } else {
             try {
                 importe = Double.parseDouble(input);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Entrada no válida. Por favor, introduce un número.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método si la entrada no es válida
+                return;
             }
         }
 
-        // Obtenemos el ítem seleccionado del JComboBox
         String comboBox = comboBoleto.getSelectedItem().toString();
-
-        // Obtenemos el dato del radio botón
         boolean invitado = radioInvitado.isSelected();
-
-        // Obtener la fecha seleccionada del DatePicker
         java.time.LocalDate vigencia = dtVigencia.getDate();
+        rInvitado = invitado ? "Sí" : "No";
 
-        // Comprobamos si el radio button está seleccionado
-        if (invitado != false) {
-            rInvitado = "Si";
-        } else {
-            rInvitado = "No";
-        }
-
-        // Validar que todos los campos requeridos no estén vacíos o nulos
         if (origen == 0 || grupo == 0 || socio == 0 || nombre == null || nombre.isEmpty() ||
             telefono == null || telefono.isEmpty() || correo == null || correo.isEmpty() ||
             idusuario == 0 || Zona == null || Zona.isEmpty() || Mesa == null || Mesa.isEmpty() ||
@@ -155,29 +145,49 @@ public class frmBoleto extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "Todos los campos para el boleto son requeridos.",
                                           "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Salir del método si algún campo está vacío o nulo
+            return;
         }
 
-        switch(comboBox) {
-            case "Separar":
-                estatusSilla = 2;
-                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
-                actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
-                this.dispose();
-                break;
-            case "Comprar":
-                estatusSilla = 3;
-                insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
-                actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
-                this.dispose();
-                break;
-            default:
-                // Si no coincide con "Separar" ni con "Comprar", mostramos un mensaje
-                JOptionPane.showMessageDialog(null, "Selecciona una opción (Compra o Separar).",
-                                              "Alerta", JOptionPane.WARNING_MESSAGE);
-                break;
+        // Crear el mensaje de confirmación con los detalles
+        String mensaje = "Detalles de la compra:\n" +
+                         "Zona: " + Zona + "\n" +
+                         "Mesa: " + Mesa + "\n" +
+                         "Silla: " + Silla + "\n" +
+                         "Costo: $" + Costo + "\n" +
+                         "Importe: $" + importe + "\n" +
+                         "Vigencia: " + vigencia + "\n" +
+                         "Invitado: " + rInvitado + "\n\n" +
+                         "¿Deseas continuar con la compra?";
+
+        // Mostrar cuadro de diálogo con opciones
+        int confirmacion = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar compra", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Si el usuario confirma, se ejecuta la compra
+            switch(comboBox) {
+                case "Separar":
+                    estatusSilla = 2;
+                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
+                    actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
+                    this.dispose();
+                    break;
+                case "Comprar":
+                    estatusSilla = 3;
+                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
+                    actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
+                    this.dispose();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Selecciona una opción (Compra o Separar).",
+                                                  "Alerta", JOptionPane.WARNING_MESSAGE);
+                    break;
+            }
+        } else {
+            // Si el usuario cancela, no se realiza ninguna acción
+            JOptionPane.showMessageDialog(null, "Operación cancelada.", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
 
 
     
