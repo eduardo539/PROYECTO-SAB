@@ -5,6 +5,7 @@ import Modelo.Login;
 import Modelo.SillasApartadas;
 import Modelo.SillasApartadas.Boleto;
 import Modelo.SillasApartadasData;
+import Modelo.SelectSillasSeparadas;
 import java.awt.Window;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -151,7 +152,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         modelo.addColumn("Folio");
         modelo.addColumn("Núm. Socio");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Socio");
         modelo.addColumn("Zona");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
@@ -198,7 +199,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     */
     public void imprimirBoletosSeleccionados() {
         
-        
         int[] filasSeleccionadas = tblBoletos.getSelectedRows();
 
         if (filasSeleccionadas.length == 0) {
@@ -216,6 +216,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         StringJoiner costos = new StringJoiner(", ");
         StringJoiner importes = new StringJoiner(", ");
         StringJoiner vigencias = new StringJoiner(", ");
+        
+        
+        double totalImporte = 0.0; // Variable para almacenar la suma de los importes
+        double totalCosto = 0.0;
 
         for (int fila : filasSeleccionadas) {
             folios.add(tblBoletos.getValueAt(fila, 0).toString());
@@ -224,22 +228,24 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             zonas.add(tblBoletos.getValueAt(fila, 3).toString());
             mesas.add(tblBoletos.getValueAt(fila, 4).toString());
             sillas.add(tblBoletos.getValueAt(fila, 5).toString());
-            costos.add("$" + tblBoletos.getValueAt(fila, 6).toString());
-            importes.add("$" + tblBoletos.getValueAt(fila, 7).toString());
+            costos.add(tblBoletos.getValueAt(fila, 6).toString());
+            importes.add(tblBoletos.getValueAt(fila, 7).toString());
             vigencias.add(tblBoletos.getValueAt(fila, 8).toString());
+            
+            // Sumar los importes seleccionados
+            totalCosto += Double.parseDouble(tblBoletos.getValueAt(fila, 6).toString());
+            totalImporte += Double.parseDouble(tblBoletos.getValueAt(fila, 7).toString());
         }
 
+        double totalRestante = totalCosto - totalImporte;
         // Imprimir la información en una sola línea por campo
-        System.out.println("Boletos seleccionados:");
-        System.out.println("Folio: " + folios);
-        System.out.println("Núm. Socio: " + numSocios);
-        System.out.println("Nombre: " + nombres);
-        System.out.println("Zona: " + zonas);
-        System.out.println("Mesa: " + mesas);
-        System.out.println("Silla: " + sillas);
-        System.out.println("Costo: " + costos);
-        System.out.println("Importe: " + importes);
-        System.out.println("Vigencia: " + vigencias);
+        txtSillas.setText("" + sillas);
+        txtTotal.setText(String.format("%.2f", totalCosto)); // Mostrar el total formateado
+        txtTotalImporte.setText(String.format("%.2f", totalImporte));
+        txtAdeudo.setText(String.format("%.2f", totalRestante));
+        txtNewImporte.getText();
+        java.time.LocalDate newVigencia = dtNewVigencia.getDate();
+        
         
         
     }
@@ -267,6 +273,12 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
+        txtNewImporte = new javax.swing.JTextField();
+        dtNewVigencia = new com.github.lgooddatepicker.components.DatePicker();
+        txtSillas = new javax.swing.JTextField();
+        txtTotalImporte = new javax.swing.JTextField();
+        txtAdeudo = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiVolverInicio = new javax.swing.JMenuItem();
@@ -276,6 +288,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jmiAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sillas Separadas");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -306,9 +319,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 218, Short.MAX_VALUE)
-                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -327,11 +340,11 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar por..."));
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
         btnBuscar.setBackground(new java.awt.Color(0, 153, 255));
         btnBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
-        btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -340,11 +353,11 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         txtSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("Núm Socio"));
 
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-limpiar.png"))); // NOI18N
+        btnLimpiar.setText("Limpiar");
         btnLimpiar.setBackground(new java.awt.Color(0, 153, 0));
         btnLimpiar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-limpiar.png"))); // NOI18N
-        btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -397,58 +410,98 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Actualizables"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Actualizar"));
 
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-confirmCompra.png"))); // NOI18N
+        btnActualizar.setText("Confirmar");
         btnActualizar.setBackground(new java.awt.Color(0, 153, 0));
         btnActualizar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setText("Confirmar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
 
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-select.png"))); // NOI18N
+        btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.setBackground(new java.awt.Color(0, 153, 255));
         btnSeleccionar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarActionPerformed(evt);
             }
         });
 
+        txtNewImporte.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe..."));
+
+        dtNewVigencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Vigencia"));
+
+        txtSillas.setEditable(false);
+        txtSillas.setBorder(javax.swing.BorderFactory.createTitledBorder("Sillas"));
+
+        txtTotalImporte.setEditable(false);
+        txtTotalImporte.setBorder(javax.swing.BorderFactory.createTitledBorder("Total Importe"));
+
+        txtAdeudo.setEditable(false);
+        txtAdeudo.setBorder(javax.swing.BorderFactory.createTitledBorder("Resta..."));
+
+        txtTotal.setEditable(false);
+        txtTotal.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dtNewVigencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtSillas)
+                    .addComponent(txtNewImporte)
+                    .addComponent(txtAdeudo)
+                    .addComponent(txtTotalImporte)
+                    .addComponent(txtTotal))
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(344, Short.MAX_VALUE)
-                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtSillas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTotalImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtAdeudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNewImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dtNewVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -501,7 +554,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,6 +622,11 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
         // Limpiar el campo txtSocio
         txtSocio.setText("");
+        txtSillas.setText("");
+        txtTotal.setText("");
+        txtTotalImporte.setText("");
+        txtAdeudo.setText("");
+        txtNewImporte.setText("");
         
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblBoletos.getModel();
@@ -693,6 +751,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSeleccionar;
+    private com.github.lgooddatepicker.components.DatePicker dtNewVigencia;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -712,6 +771,11 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private javax.swing.JLabel lblVersionJava;
     private javax.swing.JLabel lblVersionOS;
     public javax.swing.JTable tblBoletos;
+    private javax.swing.JTextField txtAdeudo;
+    private javax.swing.JTextField txtNewImporte;
+    private javax.swing.JTextField txtSillas;
     private javax.swing.JTextField txtSocio;
+    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtTotalImporte;
     // End of variables declaration//GEN-END:variables
 }
