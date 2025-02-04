@@ -1,12 +1,12 @@
 package Vista;
 
 import Modelo.Mesas;
-import Modelo.Precios;
 import Modelo.SillaEstado;
 import Modelo.Sillas;
 import Modelo.SillasData;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +21,13 @@ public class frmSillas extends javax.swing.JFrame {
     
     public frmSillas() {
         initComponents();
+        
+        // En el constructor de tu JFrame Form
+        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        //Se agrega el logo de la empresa
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
         setResizable(false);
         nomSillas();
         estadoSillas();
@@ -155,7 +162,7 @@ public class frmSillas extends javax.swing.JFrame {
                 
             } else if ("Separado".equalsIgnoreCase(estado)) {
                 JOptionPane.showMessageDialog(null, "La silla está Separada/Apartada.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
-            } else if ("Comprado".equalsIgnoreCase(estado)) {
+            } else if ("Pagado".equalsIgnoreCase(estado)) {
                 JOptionPane.showMessageDialog(null, "La silla está Comprada.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "El estado de la silla no es válido.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
@@ -343,6 +350,7 @@ public class frmSillas extends javax.swing.JFrame {
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {

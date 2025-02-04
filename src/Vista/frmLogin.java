@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Conexion;
+import Modelo.Conexion2;
 import javax.swing.JOptionPane;
 import Modelo.Login;
 import Modelo.LoginData;
@@ -16,6 +17,7 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author Eduardo´s SAB
+ * 
  */
 public class frmLogin extends javax.swing.JFrame { 
 
@@ -24,7 +26,10 @@ public class frmLogin extends javax.swing.JFrame {
     
     // Crear instancia de la clase Conexion
     Conexion conexion = new Conexion(); 
-    Connection connection = null; 
+    Connection connection = null;
+    
+    Conexion2 conect = new Conexion2();
+    Connection post = null;
     
     public frmLogin() {
         initComponents();
@@ -221,7 +226,9 @@ public class frmLogin extends javax.swing.JFrame {
         btnEntrar.setBackground(new java.awt.Color(0, 153, 0));
         btnEntrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
         btnEntrar.setText("Entrar");
+        btnEntrar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);

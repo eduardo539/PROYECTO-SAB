@@ -37,8 +37,10 @@ public class PosadaMTYData {
                 psMTY.setEstatusMesa(rs.getString("Estatus"));
                 //Se almacenan los datos en variables
                 
-                //cn.closeConnection();
             }
+            
+            cn.closeConnection();
+            
         } catch (SQLException e) {
             System.out.println(e.toString());
         }

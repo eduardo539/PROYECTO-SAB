@@ -1,35 +1,196 @@
 package Vista;
 
+import Modelo.ActualizarData;
+import Modelo.CompraBoleto;
+import Modelo.CompraBoletoData;
+import Modelo.InsertarData;
+import Modelo.Login;
 import Modelo.SillaEstado;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 /**
- *
+ * 
  * @author Eduardo´s
  * 
  */
 public class frmBoleto extends javax.swing.JFrame {
-
     
+    SillaEstado sE = SillaEstado.getInstancia();
+    
+    
+    CompraBoleto datos = CompraBoleto.getInstancia();
+    CompraBoletoData socioData = new CompraBoletoData();
+    
+    
+    InsertarData insert = new InsertarData();
+    ActualizarData actualiza = new ActualizarData();
+    Login lg = Login.getInstancia();
+    
+    String zona = sE.getZona();
+    String mesa = sE.getNomMesa();
+    String silla = sE.getNomSilla();
+    double costo = sE.getCosto();
     
     public frmBoleto() {
         initComponents();
+        
+        // En el constructor de tu JFrame Form
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        //Se agrega el logo de la empresa
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
         setResizable(false);
         
         
         extraerDatos();
     }
     
+    public void buscarDatosSocio(){
+
+        // Obtener el texto ingresado en las cajas de texto
+        String origenText = txtOrigen.getText().trim();
+        String grupoText = txtGrupo.getText().trim();
+        String socioText = txtSocio.getText().trim();
+
+        // Verificar si alguno de los campos está vacío
+        if (origenText.isEmpty() || grupoText.isEmpty() || socioText.isEmpty()) {
+            // Mostrar una alerta si alguno de los campos está vacío
+            JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos: origen, grupo y socio.", 
+                                          "Alerta", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                // Convertir los valores de los campos a enteros
+                int origen = Integer.parseInt(origenText);
+                int grupo = Integer.parseInt(grupoText);
+                int socio = Integer.parseInt(socioText);
+
+                // Realizar la consulta con los valores ingresados
+                datos = socioData.consultaSocio(origen, grupo, socio);
+
+                String NumSocio = String.valueOf(datos.getOrigen()) + "-" + 
+                                    String.valueOf(datos.getGrupo()) + "-" + 
+                                    String.valueOf(datos.getSocio());
+
+                
+                // Mostrar los resultados en los campos de texto
+                txtNumSocio.setText(NumSocio);
+                txtNombre.setText(datos.getNombre());
+                txtTelefono.setText(datos.getNumCelular());
+                txtSucursal.setText(datos.getSucursal());
+                txtCorreo.setText(datos.getCorreo());
+            } catch (NumberFormatException e) {
+                // Si ocurre un error al convertir a entero (por ejemplo, el usuario ingresó texto no numérico)
+                JOptionPane.showMessageDialog(null, "Por favor ingrese solo números válidos en los campos de origen, grupo y socio.", 
+                                              "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    }
     
     public void extraerDatos(){
-        SillaEstado sE = SillaEstado.getInstancia();
+        txtZona.setText(zona);
+        txtMesa.setText(mesa);
+        txtSilla.setText(silla);
+        txtCosto.setText(String.valueOf(costo));
+    }
+    
+    
+    
+    public void comprar() {
         
-        
-        txtZona.setText(sE.getZona());
-        txtMesa.setText(sE.getNomMesa());
-        txtSilla.setText(sE.getNomSilla());
-        txtCosto.setText(String.valueOf(sE.getCosto()));
+        int origen = datos.getOrigen();
+        int grupo = datos.getGrupo();
+        int socio = datos.getSocio();
+        String nombre = datos.getNombre();
+        String rInvitado;
+        String telefono = datos.getNumCelular();
+        String correo = datos.getCorreo();
+        int idusuario = lg.getIdusuario();
+        String Zona = sE.getZona();
+        String Mesa = sE.getNomMesa();
+        String Silla = sE.getNomSilla();
+        double Costo = sE.getCosto();
+        int estatusSilla;
+        int idSilla = sE.getIdSilla();
+
+        String input = txtImporte.getText();
+        double importe;
+
+        if (input == null || input.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo de importe no puede estar vacío. Por favor, introduce un número.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            try {
+                importe = Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada no válida. Por favor, introduce un número.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        String comboBox = comboBoleto.getSelectedItem().toString();
+        boolean invitado = radioInvitado.isSelected();
+        java.time.LocalDate vigencia = dtVigencia.getDate();
+        rInvitado = invitado ? "Sí" : "No";
+
+        if (origen == 0 || grupo == 0 || socio == 0 || nombre == null || nombre.isEmpty() ||
+            telefono == null || telefono.isEmpty() || correo == null || correo.isEmpty() ||
+            idusuario == 0 || Zona == null || Zona.isEmpty() || Mesa == null || Mesa.isEmpty() ||
+            Silla == null || Silla.isEmpty() || Costo == 0 || comboBox == null || comboBox.isEmpty() ||
+            vigencia == null || importe == 0) {
+
+            JOptionPane.showMessageDialog(null, "Todos los campos para el boleto son requeridos.",
+                                          "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear el mensaje de confirmación con los detalles
+        String mensaje = "Detalles de la compra:\n" +
+                         "Zona: " + Zona + "\n" +
+                         "Mesa: " + Mesa + "\n" +
+                         "Silla: " + Silla + "\n" +
+                         "Costo: $" + Costo + "\n" +
+                         "Importe: $" + importe + "\n" +
+                         "Vigencia: " + vigencia + "\n" +
+                         "Invitado: " + rInvitado + "\n\n" +
+                         "¿Deseas continuar con la compra?";
+
+        // Mostrar cuadro de diálogo con opciones
+        int confirmacion = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar compra", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Si el usuario confirma, se ejecuta la compra
+            switch(comboBox) {
+                case "Separar":
+                    estatusSilla = 2;
+                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
+                    actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
+                    this.dispose();
+                    break;
+                case "Comprar":
+                    estatusSilla = 3;
+                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
+                    actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
+                    this.dispose();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Selecciona una opción (Compra o Separar).",
+                                                  "Alerta", JOptionPane.WARNING_MESSAGE);
+                    break;
+            }
+        } else {
+            // Si el usuario cancela, no se realiza ninguna acción
+            JOptionPane.showMessageDialog(null, "Operación cancelada.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
+
+
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -43,26 +204,35 @@ public class frmBoleto extends javax.swing.JFrame {
         txtSucursal = new javax.swing.JTextField();
         btnComprar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        comboEstatus = new javax.swing.JComboBox();
         txtCorreo = new javax.swing.JTextField();
         txtZona = new javax.swing.JTextField();
         txtMesa = new javax.swing.JTextField();
         txtSilla = new javax.swing.JTextField();
         txtCosto = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        comboBoleto = new javax.swing.JComboBox();
+        radioInvitado = new javax.swing.JRadioButton();
+        dtVigencia = new com.github.lgooddatepicker.components.DatePicker();
+        txtImporte = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        btnBuscar = new javax.swing.JButton();
+        txtOrigen = new javax.swing.JTextField();
+        txtSocio = new javax.swing.JTextField();
+        txtGrupo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Posada"));
         jPanel1.setForeground(new java.awt.Color(240, 240, 240));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo3.jpg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 250, 370));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 250, 370));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos para el Boleto"));
         jPanel2.setForeground(new java.awt.Color(240, 240, 240));
 
+        txtNumSocio.setEditable(false);
         txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("NúmSocio"));
         txtNumSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,27 +240,35 @@ public class frmBoleto extends javax.swing.JFrame {
             }
         });
 
+        txtNombre.setEditable(false);
         txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
 
+        txtSucursal.setEditable(false);
         txtSucursal.setBorder(javax.swing.BorderFactory.createTitledBorder("Sucursal"));
 
+        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-buy.png"))); // NOI18N
+        btnComprar.setText("Comprar");
         btnComprar.setBackground(new java.awt.Color(76, 175, 80));
         btnComprar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnComprar.setForeground(new java.awt.Color(255, 255, 255));
-        btnComprar.setText("Comprar");
+        btnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprarActionPerformed(evt);
+            }
+        });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cancelar.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
 
-        comboEstatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Comprar", "Separar" }));
-
+        txtCorreo.setEditable(false);
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder("Correo"));
 
         txtZona.setEditable(false);
@@ -105,48 +283,59 @@ public class frmBoleto extends javax.swing.JFrame {
         txtCosto.setEditable(false);
         txtCosto.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo"));
 
+        txtTelefono.setEditable(false);
         txtTelefono.setBorder(javax.swing.BorderFactory.createTitledBorder("Teléfono"));
 
-        jDateChooser1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fecha de Vigencia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
-        jDateChooser1.setDateFormatString("yyyy-MM-d");
+        comboBoleto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Separar", "Comprar" }));
+
+        radioInvitado.setText("Invitado");
+        radioInvitado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Invitado?"));
+        radioInvitado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        radioInvitado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        dtVigencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Vigencia del Boleto"));
+
+        txtImporte.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe"));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(comboEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtZona, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+                    .addComponent(radioInvitado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtNumSocio)
+                        .addComponent(txtNombre)
+                        .addComponent(txtSucursal)
+                        .addComponent(txtTelefono)
+                        .addComponent(comboBoleto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(btnComprar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addGap(39, 39, 39))
+                    .addComponent(txtZona)
+                    .addComponent(txtMesa)
+                    .addComponent(txtCosto)
+                    .addComponent(txtSilla)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(dtVigencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtImporte))
+                .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(comboEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -155,22 +344,72 @@ public class frmBoleto extends javax.swing.JFrame {
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(radioInvitado)
+                    .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dtVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCorreo)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnComprar))
+                .addGap(23, 23, 23))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscador de Socios"));
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.setBackground(new java.awt.Color(51, 153, 255));
+        btnBuscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtOrigen.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen"));
+
+        txtSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de Socio"));
+
+        txtGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupo"));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(155, 155, 155))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtOrigen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSocio, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                        .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,17 +417,19 @@ public class frmBoleto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -201,6 +442,14 @@ public class frmBoleto extends javax.swing.JFrame {
     private void txtNumSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumSocioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumSocioActionPerformed
+
+    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
+        comprar();
+    }//GEN-LAST:event_btnComprarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscarDatosSocio();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     
     public static void main(String args[]) {
@@ -236,19 +485,26 @@ public class frmBoleto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnComprar;
-    private javax.swing.JComboBox comboEstatus;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JComboBox comboBoleto;
+    private com.github.lgooddatepicker.components.DatePicker dtVigencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton radioInvitado;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtGrupo;
+    private javax.swing.JTextField txtImporte;
     private javax.swing.JTextField txtMesa;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumSocio;
+    private javax.swing.JTextField txtOrigen;
     private javax.swing.JTextField txtSilla;
+    private javax.swing.JTextField txtSocio;
     private javax.swing.JTextField txtSucursal;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtZona;

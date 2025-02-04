@@ -9,6 +9,7 @@ import java.sql.SQLException;
 /**
  *
  * @author Eduardo´s
+ * 
  */
 public class LoginData {
     
@@ -49,8 +50,10 @@ public class LoginData {
                 l.setTipo_perfil(rs.getString("tipo_perfil"));
                 //Se almacenan los datos en variables
                 
-                //cn.closeConnection();
             }
+            
+            cn.closeConnection();
+            
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
