@@ -4,6 +4,7 @@ import Vista.formMenuAdmin;
 import Vista.frmBoleto;
 import Vista.frmLogin;
 import Vista.frmCajero;
+import Vista.frmOperaciones;
 import Vista.frmSillasSeparadas;
 import Vista.frmPosadaMTY;
 
@@ -26,7 +27,7 @@ public class SAB {
         
         //frmBoleto iniciar = new frmBoleto();
         
-        
+
         iniciar.setLocationRelativeTo(null); // Centra la ventana en la pantalla
         //Se inicia la ventana de login
         iniciar.setVisible(true);
