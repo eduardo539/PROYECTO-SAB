@@ -14,7 +14,7 @@ public class SillasApartadas {
     private static SillasApartadas instancia; // Instancia única de la clase
     
     
-    // Lista para almacenar los datos de las mesas
+    // Lista para almacenar los datos de los boletos
     private List<Boleto> listaBoletos;
     
     
@@ -34,11 +34,11 @@ public class SillasApartadas {
     
     
     // Método para agregar una mesa a la lista
-    public void agregarBoleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, String zona, String mesa, String silla, double costo, int estado, String estadoSilla, double importe, Date fechaCompra, Date vigencia) {
-        listaBoletos.add(new Boleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, zona, mesa, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia));
+    public void agregarBoleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, int idZona, String zona,int idMesa , String mesa,int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, Date fechaCompra, Date vigencia) {
+        listaBoletos.add(new Boleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia));
     }
 
-    // Método para obtener la lista de mesas
+    // Método para obtener la lista
     public List<Boleto> getListaBoletos() {
         return listaBoletos;
     }
@@ -61,8 +61,11 @@ public class SillasApartadas {
         int usuario;
         String nomUsuario;
         String sucursal;
+        int idZona;
         String zona;
+        int idMesa;
         String mesa;
+        int idSilla;
         String silla;
         double costo;
         int estado;
@@ -74,7 +77,7 @@ public class SillasApartadas {
         public Boleto() {
         }
 
-        public Boleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, String zona, String mesa, String silla, double costo, int estado, String estadoSilla, double importe, Date fechaCompra, Date vigencia) {
+        public Boleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, int idZona, String zona, int idMesa, String mesa, int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, Date fechaCompra, Date vigencia) {
             this.folio = folio;
             this.origen = origen;
             this.grupo = grupo;
@@ -86,8 +89,11 @@ public class SillasApartadas {
             this.usuario = usuario;
             this.nomUsuario = nomUsuario;
             this.sucursal = sucursal;
+            this.idZona = idZona;
             this.zona = zona;
+            this.idMesa = idMesa;
             this.mesa = mesa;
+            this.idSilla = idSilla;
             this.silla = silla;
             this.costo = costo;
             this.estado = estado;
@@ -185,6 +191,14 @@ public class SillasApartadas {
             this.sucursal = sucursal;
         }
 
+        public int getIdZona() {
+            return idZona;
+        }
+
+        public void setIdZona(int idZona) {
+            this.idZona = idZona;
+        }
+
         public String getZona() {
             return zona;
         }
@@ -193,12 +207,28 @@ public class SillasApartadas {
             this.zona = zona;
         }
 
+        public int getIdMesa() {
+            return idMesa;
+        }
+
+        public void setIdMesa(int idMesa) {
+            this.idMesa = idMesa;
+        }
+
         public String getMesa() {
             return mesa;
         }
 
         public void setMesa(String mesa) {
             this.mesa = mesa;
+        }
+
+        public int getIdSilla() {
+            return idSilla;
+        }
+
+        public void setIdSilla(int idSilla) {
+            this.idSilla = idSilla;
         }
 
         public String getSilla() {
@@ -256,6 +286,8 @@ public class SillasApartadas {
         public void setVigencia(Date vigencia) {
             this.vigencia = vigencia;
         }
+
+        
         
         
         
@@ -273,8 +305,11 @@ public class SillasApartadas {
                     ", idusuario='" + usuario + '\'' +
                     ", nomUsuario='" + nomUsuario + '\'' +
                     ", sucursal='" + sucursal + '\'' +
+                    ", idzona='" + idZona + '\'' +
                     ", zona='" + zona + '\'' +
+                    ", idMesa='" + idMesa + '\'' +
                     ", mesa='" + mesa + '\'' +
+                    ", idSilla='" + idSilla + '\'' +
                     ", silla='" + silla + '\'' +
                     ", costo='" + costo + '\'' +
                     ", idestado='" + estado + '\'' +

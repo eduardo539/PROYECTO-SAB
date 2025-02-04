@@ -6,6 +6,7 @@ import java.util.List;
 /**
  *
  * @author Eduardo´s
+ * 
  */
 public class Sillas {
     

@@ -20,12 +20,12 @@ public class InsertarData {
     Conexion cn = new Conexion();
     
     
-    public void insertarBoletos(int origen, int grupo, int socio, String nombre, String invitado, String telefono, String correo, int idusuario, String zona, String mesa, String silla, double costo, int estatus, double importe, LocalDate vigencia) {
+    public void insertarBoletos(int origen, int grupo, int socio, String nombre, String invitado, String telefono, String correo, int idusuario, int idzona, int idmesa, int idsilla, double costo, int estatus, double importe, LocalDate vigencia) {
         
     // Convertir LocalDate (fecha) a java.sql.Date
     java.sql.Date sqlDate = java.sql.Date.valueOf(vigencia);
     
-    String insertBoleto = "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, id_usuario, Zona, Mesa, Silla, Costo, idEstado, Importe, FechaCompra, FechaVigencia) " +
+    String insertBoleto = "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, id_usuario, idZona, idMesa, idSilla, Costo, idEstado, Importe, FechaCompra, FechaVigencia) " +
                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?);";
     
     try {
@@ -39,9 +39,9 @@ public class InsertarData {
         ps.setString(6, telefono);
         ps.setString(7, correo);
         ps.setInt(8, idusuario);
-        ps.setString(9, zona);
-        ps.setString(10, mesa);
-        ps.setString(11, silla);
+        ps.setInt(9, idzona);
+        ps.setInt(10, idmesa);
+        ps.setInt(11, idsilla);
         ps.setDouble(12, costo);
         ps.setInt(13, estatus);
         ps.setDouble(14, importe);
@@ -51,6 +51,10 @@ public class InsertarData {
         // Si la inserción es exitosa
         cn.closeConnection();
             
+        // Si la compra se realizó con éxito
+        JOptionPane.showMessageDialog(null, "La compra se realizó de forma exitosa.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        
     } catch (SQLException e) {
         // Si no se pudo insertar
         JOptionPane.showMessageDialog(null, "Hubo un error en la base de datos. No se pudo realizar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
