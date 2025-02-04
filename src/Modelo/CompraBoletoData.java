@@ -48,8 +48,10 @@ public class CompraBoletoData {
                 so.setSucursal(rs.getString("sucursal"));
                 //Se almacenan los datos en variables
                 
-                //cn.closeConnection();
             }
+            
+            cn.closeConnection();
+            
         } catch (SQLException e) {
             System.out.println(e.toString());
         }

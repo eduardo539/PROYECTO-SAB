@@ -71,6 +71,8 @@ public class SillasApartadasData {
                 // Agregar mesa a la lista en la instancia de Mesas
                 bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, zona, mesa, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
             }
+            
+            cn.closeConnection();
 
         } catch (SQLException e) {
             System.out.println("Error al ejecutar la consulta: " + e.getMessage());
@@ -144,6 +146,8 @@ public class SillasApartadasData {
                 // Agregar mesa a la lista en la instancia de Mesas
                 bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, zona, mesa, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
             }
+            
+            cn.closeConnection();
 
         } catch (SQLException e) {
             System.out.println("Error al ejecutar la consulta: " + e.getMessage());

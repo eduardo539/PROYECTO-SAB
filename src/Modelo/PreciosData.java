@@ -42,6 +42,8 @@ public class PreciosData {
                 
             }
             
+            cn.closeConnection();
+            
         }catch (SQLException e) {
             System.out.println(e.toString());
         }

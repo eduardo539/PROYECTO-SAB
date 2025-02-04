@@ -10,9 +10,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringJoiner;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +32,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     SillasApartadasData apartD = new SillasApartadasData();
     
     DefaultTableModel tabla = new DefaultTableModel();
+        
         
     
     public frmSillasSeparadas() {
@@ -98,7 +101,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         modelo.addColumn("Zona");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
-        modelo.addColumn("Costo");
+        modelo.addColumn("Costo c/u");
         modelo.addColumn("Importe");
         modelo.addColumn("Vigencia");
         
@@ -128,9 +131,12 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         // Asignar el modelo actualizado a la tabla
         tblBoletos.setModel(modelo);
+        
+        
+        // Permitir la selección múltiple de filas
+        tblBoletos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
     }
-    
-    
     
     public void datosxSocioTabla(int socio) {
         
@@ -149,7 +155,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         modelo.addColumn("Zona");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
-        modelo.addColumn("Costo");
+        modelo.addColumn("Costo c/u");
         modelo.addColumn("Importe");
         modelo.addColumn("Vigencia");
         
@@ -167,8 +173,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 data[1] = String.valueOf(dato.getNumSocio());
                 data[2] = dato.getNombre();
                 data[3] = dato.getZona();
-                data[4] = String.valueOf(dato.getMesa());
-                data[5] = String.valueOf(dato.getSilla());
+                data[4] = dato.getMesa();
+                data[5] = dato.getSilla();
                 data[6] = String.valueOf(dato.getCosto());
                 data[7] = String.valueOf(dato.getImporte());
                 data[8] = String.valueOf(dato.getVigencia());
@@ -180,9 +186,64 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         // Asignar el modelo actualizado a la tabla
         tblBoletos.setModel(modelo);
+        
+        
+        // Permitir la selección múltiple de filas
+        tblBoletos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
     }
 
-    
+    /**
+    * Método para obtener e imprimir los boletos seleccionados.
+    */
+    public void imprimirBoletosSeleccionados() {
+        
+        
+        int[] filasSeleccionadas = tblBoletos.getSelectedRows();
+
+        if (filasSeleccionadas.length == 0) {
+            System.out.println("No se ha seleccionado ningún boleto.");
+            return;
+        }
+
+        // Usamos StringJoiner para concatenar valores con comas
+        StringJoiner folios = new StringJoiner(", ");
+        StringJoiner numSocios = new StringJoiner(", ");
+        StringJoiner nombres = new StringJoiner(", ");
+        StringJoiner zonas = new StringJoiner(", ");
+        StringJoiner mesas = new StringJoiner(", ");
+        StringJoiner sillas = new StringJoiner(", ");
+        StringJoiner costos = new StringJoiner(", ");
+        StringJoiner importes = new StringJoiner(", ");
+        StringJoiner vigencias = new StringJoiner(", ");
+
+        for (int fila : filasSeleccionadas) {
+            folios.add(tblBoletos.getValueAt(fila, 0).toString());
+            numSocios.add(tblBoletos.getValueAt(fila, 1).toString());
+            nombres.add(tblBoletos.getValueAt(fila, 2).toString());
+            zonas.add(tblBoletos.getValueAt(fila, 3).toString());
+            mesas.add(tblBoletos.getValueAt(fila, 4).toString());
+            sillas.add(tblBoletos.getValueAt(fila, 5).toString());
+            costos.add("$" + tblBoletos.getValueAt(fila, 6).toString());
+            importes.add("$" + tblBoletos.getValueAt(fila, 7).toString());
+            vigencias.add(tblBoletos.getValueAt(fila, 8).toString());
+        }
+
+        // Imprimir la información en una sola línea por campo
+        System.out.println("Boletos seleccionados:");
+        System.out.println("Folio: " + folios);
+        System.out.println("Núm. Socio: " + numSocios);
+        System.out.println("Nombre: " + nombres);
+        System.out.println("Zona: " + zonas);
+        System.out.println("Mesa: " + mesas);
+        System.out.println("Silla: " + sillas);
+        System.out.println("Costo: " + costos);
+        System.out.println("Importe: " + importes);
+        System.out.println("Vigencia: " + vigencias);
+        
+        
+    }
+
     
     
     @SuppressWarnings("unchecked")
@@ -203,6 +264,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBoletos = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        btnActualizar = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiVolverInicio = new javax.swing.JMenuItem();
@@ -242,7 +306,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 118, Short.MAX_VALUE)
+                .addGap(18, 218, Short.MAX_VALUE)
                 .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,7 +325,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                     .addComponent(lblVersionOS)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtrar por..."));
 
         btnBuscar.setBackground(new java.awt.Color(0, 153, 255));
         btnBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -298,7 +362,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(149, 149, 149))
+                .addGap(272, 272, 272))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +376,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Sillas Separadas"));
 
         tblBoletos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -333,15 +397,58 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Actualizables"));
+
+        btnActualizar.setBackground(new java.awt.Color(0, 153, 0));
+        btnActualizar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Confirmar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionar.setBackground(new java.awt.Color(0, 153, 255));
+        btnSeleccionar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(344, Short.MAX_VALUE)
+                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -394,18 +501,20 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -500,7 +609,19 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         // Llamar a la función que muestra los datos filtrados
         datosxSocioTabla(socio);
         
+        
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        
+        //Datos para la actualizacion
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        imprimirBoletosSeleccionados();
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void cerrarSesion() {
        // Si tienes una clase Singleton para manejar la sesión
@@ -568,14 +689,17 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem jmiAcercaDe;
     private javax.swing.JMenuItem jmiCerrarSesion;

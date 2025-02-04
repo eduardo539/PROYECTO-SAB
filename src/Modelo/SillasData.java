@@ -60,6 +60,8 @@ public class SillasData {
                 // Agregar mesa a la lista en la instancia de Mesas
                 s.agregarSilla(id, descripSilla, idEstadoSilla, estadoSilla, idMesa, descMesa, status, idZona, zona, costo);
             }
+            
+            cn.closeConnection();
 
         } catch (SQLException e) {
             System.out.println("Error al ejecutar la consulta: " + e.getMessage());
@@ -106,8 +108,10 @@ public class SillasData {
                 
                 //Se almacenan los datos en variables
                 
-                //cn.closeConnection();
             }
+            
+            cn.closeConnection();
+            
         }catch (SQLException e) {
             System.out.println("Error, contactar al administrador: " + e.getMessage());
         }

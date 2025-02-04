@@ -45,6 +45,8 @@ public class MesasData {
                 // Agregar mesa a la lista en la instancia de Mesas
                 m.agregarMesa(id, descripcion, estatus, zona, costo);
             }
+            
+            cn.closeConnection();
 
         } catch (SQLException e) {
             System.out.println("Error al ejecutar la consulta: " + e.getMessage());

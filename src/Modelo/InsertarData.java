@@ -49,7 +49,7 @@ public class InsertarData {
         ps.executeUpdate(); // Usamos executeUpdate() para operaciones de inserción
 
         // Si la inserción es exitosa
-        JOptionPane.showMessageDialog(null, "Compra del boleto realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        cn.closeConnection();
             
     } catch (SQLException e) {
         // Si no se pudo insertar
