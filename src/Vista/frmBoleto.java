@@ -29,10 +29,6 @@ public class frmBoleto extends javax.swing.JFrame {
     ActualizarData actualiza = new ActualizarData();
     Login lg = Login.getInstancia();
     
-    String zona = sE.getZona();
-    String mesa = sE.getNomMesa();
-    String silla = sE.getNomSilla();
-    double costo = sE.getCosto();
     
     public frmBoleto() {
         initComponents();
@@ -92,6 +88,11 @@ public class frmBoleto extends javax.swing.JFrame {
     }
     
     public void extraerDatos(){
+        String zona = sE.getZona();
+        String mesa = sE.getNomMesa();
+        String silla = sE.getNomSilla();
+        double costo = sE.getCosto();
+    
         txtZona.setText(zona);
         txtMesa.setText(mesa);
         txtSilla.setText(silla);
@@ -110,12 +111,14 @@ public class frmBoleto extends javax.swing.JFrame {
         String telefono = datos.getNumCelular();
         String correo = datos.getCorreo();
         int idusuario = lg.getIdusuario();
+        int idZona = sE.getIdZona();
         String Zona = sE.getZona();
+        int idMesa = sE.getIdMesa();
         String Mesa = sE.getNomMesa();
+        int idSilla = sE.getIdSilla();
         String Silla = sE.getNomSilla();
         double Costo = sE.getCosto();
         int estatusSilla;
-        int idSilla = sE.getIdSilla();
 
         String input = txtImporte.getText();
         double importe;
@@ -139,8 +142,9 @@ public class frmBoleto extends javax.swing.JFrame {
 
         if (origen == 0 || grupo == 0 || socio == 0 || nombre == null || nombre.isEmpty() ||
             telefono == null || telefono.isEmpty() || correo == null || correo.isEmpty() ||
-            idusuario == 0 || Zona == null || Zona.isEmpty() || Mesa == null || Mesa.isEmpty() ||
-            Silla == null || Silla.isEmpty() || Costo == 0 || comboBox == null || comboBox.isEmpty() ||
+            idusuario == 0 || idZona == 0 || Zona == null || Zona.isEmpty() ||
+            idMesa == 0 || Mesa == null || Mesa.isEmpty() || idSilla == 0 || Silla == null || Silla.isEmpty() || 
+            Costo == 0 || comboBox == null || comboBox.isEmpty() ||
             vigencia == null || importe == 0) {
 
             JOptionPane.showMessageDialog(null, "Todos los campos para el boleto son requeridos.",
@@ -152,7 +156,7 @@ public class frmBoleto extends javax.swing.JFrame {
         String mensaje = "Detalles de la compra:\n" +
                          "Zona: " + Zona + "\n" +
                          "Mesa: " + Mesa + "\n" +
-                         "Silla: " + Silla + "\n" +
+                         "Sila: " + Silla + "\n" +
                          "Costo: $" + Costo + "\n" +
                          "Importe: $" + importe + "\n" +
                          "Vigencia: " + vigencia + "\n" +
@@ -167,13 +171,13 @@ public class frmBoleto extends javax.swing.JFrame {
             switch(comboBox) {
                 case "Separar":
                     estatusSilla = 2;
-                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
+                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, idZona, idMesa, idSilla, Costo, estatusSilla, importe, vigencia);
                     actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
                     this.dispose();
                     break;
                 case "Comprar":
                     estatusSilla = 3;
-                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, Zona, Mesa, Silla, Costo, estatusSilla, importe, vigencia);
+                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, idZona, idMesa, idSilla, Costo, estatusSilla, importe, vigencia);
                     actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
                     this.dispose();
                     break;
@@ -278,7 +282,7 @@ public class frmBoleto extends javax.swing.JFrame {
         txtMesa.setBorder(javax.swing.BorderFactory.createTitledBorder("Mesa"));
 
         txtSilla.setEditable(false);
-        txtSilla.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla"));
+        txtSilla.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s"));
 
         txtCosto.setEditable(false);
         txtCosto.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo"));

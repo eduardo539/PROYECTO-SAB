@@ -8,6 +8,7 @@ import Modelo.PosadaMTY;
 import Modelo.Precios;
 import Modelo.PreciosData;
 import Modelo.Sillas;
+import Modelo.Sillas;
 import Modelo.SillasData;
 import java.awt.Color;
 import java.awt.Component;
@@ -24,6 +25,7 @@ import javax.swing.*;
  */
 public class frmPosadaMTY extends javax.swing.JFrame {
 
+    
     PosadaMTY ps = PosadaMTY.getInstancia();
     PosadaMTYData posada = new PosadaMTYData();
     
@@ -161,9 +163,9 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     }
     
     private void abrirVentana(int mesaNumero) {
-        
+
         this.idMesa = mesaNumero;
-        
+
         try {
             // Obtiene el estado de la mesa según el número
             ps = posada.ps(idMesa);
@@ -173,13 +175,86 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
                 switch (estatusMesa) {
                     case "Disponible":
-                        
+
+                        // Obtener la lista de sillas disponibles
                         s = sid.s(idMesa);
-                        
-                        
+                        List<Sillas.Silla> listaSillas = s.getListaSillas(); // Obtener la lista de sillas
+                        int sillasDisponibles = 0;
+
+                        // Contar cuántas sillas están disponibles
+                        for (Sillas.Silla silla : listaSillas) {  
+                            if (silla.getEstadoSilla().equals("Disponible")) {  
+                                sillasDisponibles++;
+                            }
+                        }
+
+                        if (sillasDisponibles == 0) {
+                            JOptionPane.showMessageDialog(
+                                this,
+                                "No hay sillas disponibles en esta mesa.",
+                                "Sin disponibilidad",
+                                JOptionPane.WARNING_MESSAGE
+                            );
+                            return;
+                        }
+
+                        int cantidadSillas;
+                        boolean entradaValida = false;
+
+                        // Solicitar al usuario la cantidad de sillas hasta que ingrese una válida
+                        do {
+                            String input = JOptionPane.showInputDialog(
+                                this,
+                                "Ingrese la cantidad de sillas que desea comprar (1-10):\n"
+                                + "Sillas disponibles: " + sillasDisponibles + "\n" +
+                                "Recuerda seleccionar las sillas que va a comprar\n"
+                                + "o que va a Apartar de forma separada",
+                                "Seleccionar Sillas",
+                                JOptionPane.QUESTION_MESSAGE
+                            );
+
+                            if (input == null) { // Si el usuario presiona "Cancelar"
+                                return; 
+                            }
+
+                            try {
+                                cantidadSillas = Integer.parseInt(input);
+
+                                if (cantidadSillas < 1 || cantidadSillas > 10) {
+                                    JOptionPane.showMessageDialog(
+                                        this,
+                                        "Por favor, ingrese un número entre 1 y 10.",
+                                        "Entrada no válida",
+                                        JOptionPane.WARNING_MESSAGE
+                                    );
+                                } else if (cantidadSillas > sillasDisponibles) {
+                                    JOptionPane.showMessageDialog(
+                                        this,
+                                        "No hay suficientes sillas disponibles.\n"
+                                        + "Sillas disponibles: " + sillasDisponibles,
+                                        "Disponibilidad insuficiente",
+                                        JOptionPane.WARNING_MESSAGE
+                                    );
+                                } else {
+                                    entradaValida = true; // La entrada es correcta, se puede continuar
+                                }
+
+                            } catch (NumberFormatException e) {
+                                JOptionPane.showMessageDialog(
+                                    this,
+                                    "Entrada no válida. Debe ingresar un número entre 1 y 10.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE
+                                );
+                            }
+
+                        } while (!entradaValida);
+
+                        // Si la cantidad de sillas es válida, abrir la ventana
                         frmSillas sillas = new frmSillas();
                         sillas.setLocationRelativeTo(null);
                         sillas.setVisible(true);
+
                         break;
 
                     case "Ocupado":
@@ -216,12 +291,13 @@ public class frmPosadaMTY extends javax.swing.JFrame {
             // Manejo de errores generales
             JOptionPane.showMessageDialog(
                 this, 
-                "No se encontró informacion en la base de datos: " + e.getMessage(), 
+                "No se encontró información en la base de datos: " + e.getMessage(), 
                 "Error", 
                 JOptionPane.ERROR_MESSAGE
             );
         }
     }
+
 
 
     
