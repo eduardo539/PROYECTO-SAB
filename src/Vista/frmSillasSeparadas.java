@@ -1,14 +1,18 @@
 
 package Vista;
 
+import Modelo.ActualizarData;
+import Modelo.ConsultaBoleto;
+import Modelo.ConsultaBoleto.listBoleto;
+import Modelo.ConsultasData;
 import Modelo.Login;
 import Modelo.SillasApartadas;
 import Modelo.SillasApartadas.Boleto;
 import Modelo.SillasApartadasData;
-import Modelo.SelectSillasSeparadas;
 import java.awt.Window;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringJoiner;
@@ -34,7 +38,15 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     
     DefaultTableModel tabla = new DefaultTableModel();
         
-        
+    ConsultaBoleto cb = ConsultaBoleto.getInstancia();
+    ConsultasData cd = new ConsultasData();
+    
+    
+    public double totalImporte = 0.0; // Variable para almacenar la suma de los importes
+    double totalCosto = 0.0;
+    double totalRestante = 0.0;
+    public int totalSeleccionados;
+
     
     public frmSillasSeparadas() {
         initComponents();
@@ -97,6 +109,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         
         modelo.addColumn("Folio");
+        modelo.addColumn("Origen");
+        modelo.addColumn("Grupo");
         modelo.addColumn("Núm. Socio");
         modelo.addColumn("Nombre");
         modelo.addColumn("Zona");
@@ -111,19 +125,21 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         List<Boleto> listaDatos = apart.getListaBoletos(); // Ajusta según cómo obtienes los datos
 
         // Arreglo para almacenar temporalmente los datos de cada fila
-        String data[] = new String[9];
+        String data[] = new String[11];
 
         // Filtrar los datos según el socio ingresado y agregarlos a la tabla
         for (Boleto dato : listaDatos) {
             data[0] = String.valueOf(dato.getFolio());
-            data[1] = String.valueOf(dato.getNumSocio());
-            data[2] = dato.getNombre();
-            data[3] = dato.getZona();
-            data[4] = dato.getMesa();
-            data[5] = dato.getSilla();
-            data[6] = String.valueOf(dato.getCosto());
-            data[7] = String.valueOf(dato.getImporte());
-            data[8] = String.valueOf(dato.getVigencia());
+            data[1] = String.valueOf(dato.getOrigen());
+            data[2] = String.valueOf(dato.getGrupo());
+            data[3] = String.valueOf(dato.getNumSocio());
+            data[4] = dato.getNombre();
+            data[5] = dato.getZona();
+            data[6] = dato.getMesa();
+            data[7] = dato.getSilla();
+            data[8] = String.valueOf(dato.getCosto());
+            data[9] = String.valueOf(dato.getImporte());
+            data[10] = String.valueOf(dato.getVigencia());
 
             // Agregar la fila al modelo de la tabla
             modelo.addRow(data);
@@ -151,6 +167,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
 
         modelo.addColumn("Folio");
+        modelo.addColumn("Origen");
+        modelo.addColumn("Grupo");
         modelo.addColumn("Núm. Socio");
         modelo.addColumn("Socio");
         modelo.addColumn("Zona");
@@ -165,20 +183,22 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         List<Boleto> listaDatos = apart.getListaBoletos(); // Ajusta según cómo obtienes los datos
 
         // Arreglo para almacenar temporalmente los datos de cada fila
-        String data[] = new String[9];
+        String data[] = new String[11];
 
         // Filtrar los datos según el socio ingresado y agregarlos a la tabla
         for (Boleto dato : listaDatos) {
             if (dato.getNumSocio() == socio) { // Filtrar por número de socio
                 data[0] = String.valueOf(dato.getFolio());
-                data[1] = String.valueOf(dato.getNumSocio());
-                data[2] = dato.getNombre();
-                data[3] = dato.getZona();
-                data[4] = dato.getMesa();
-                data[5] = dato.getSilla();
-                data[6] = String.valueOf(dato.getCosto());
-                data[7] = String.valueOf(dato.getImporte());
-                data[8] = String.valueOf(dato.getVigencia());
+                data[1] = String.valueOf(dato.getOrigen());
+                data[2] = String.valueOf(dato.getGrupo());
+                data[3] = String.valueOf(dato.getNumSocio());
+                data[4] = dato.getNombre();
+                data[5] = dato.getZona();
+                data[6] = dato.getMesa();
+                data[7] = dato.getSilla();
+                data[8] = String.valueOf(dato.getCosto());
+                data[9] = String.valueOf(dato.getImporte());
+                data[10] = String.valueOf(dato.getVigencia());
 
                 // Agregar la fila al modelo de la tabla
                 modelo.addRow(data);
@@ -202,12 +222,17 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         int[] filasSeleccionadas = tblBoletos.getSelectedRows();
 
         if (filasSeleccionadas.length == 0) {
-            System.out.println("No se ha seleccionado ningún boleto.");
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun dato.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        // Contador de boletos seleccionados
+        totalSeleccionados = filasSeleccionadas.length;
 
         // Usamos StringJoiner para concatenar valores con comas
         StringJoiner folios = new StringJoiner(", ");
+        StringJoiner origen = new StringJoiner(", ");
+        StringJoiner grupo = new StringJoiner(", ");
         StringJoiner numSocios = new StringJoiner(", ");
         StringJoiner nombres = new StringJoiner(", ");
         StringJoiner zonas = new StringJoiner(", ");
@@ -218,39 +243,139 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         StringJoiner vigencias = new StringJoiner(", ");
         
         
-        double totalImporte = 0.0; // Variable para almacenar la suma de los importes
-        double totalCosto = 0.0;
+        // Arreglo de folios para consultas
+        int[] foliosArray = new int[filasSeleccionadas.length];
+        
+        // Variable para almacenar la primera vigencia seleccionada
+        String primeraVigencia = "";
 
-        for (int fila : filasSeleccionadas) {
-            folios.add(tblBoletos.getValueAt(fila, 0).toString());
-            numSocios.add(tblBoletos.getValueAt(fila, 1).toString());
-            nombres.add(tblBoletos.getValueAt(fila, 2).toString());
-            zonas.add(tblBoletos.getValueAt(fila, 3).toString());
-            mesas.add(tblBoletos.getValueAt(fila, 4).toString());
-            sillas.add(tblBoletos.getValueAt(fila, 5).toString());
-            costos.add(tblBoletos.getValueAt(fila, 6).toString());
-            importes.add(tblBoletos.getValueAt(fila, 7).toString());
-            vigencias.add(tblBoletos.getValueAt(fila, 8).toString());
+        for (int i = 0; i < filasSeleccionadas.length; i++) {
+            int fila = filasSeleccionadas[i];
             
+            // Obtener y agregar los valores de la tabla
+            foliosArray[i] = Integer.parseInt(tblBoletos.getValueAt(fila, 0).toString());
+        
+            folios.add(tblBoletos.getValueAt(fila, 0).toString());
+            origen.add(tblBoletos.getValueAt(fila, 1).toString());
+            grupo.add(tblBoletos.getValueAt(fila, 2).toString());
+            numSocios.add(tblBoletos.getValueAt(fila, 3).toString());
+            nombres.add(tblBoletos.getValueAt(fila, 4).toString());
+            zonas.add(tblBoletos.getValueAt(fila, 5).toString());
+            mesas.add(tblBoletos.getValueAt(fila, 6).toString());
+            sillas.add(tblBoletos.getValueAt(fila, 7).toString());
+            costos.add(tblBoletos.getValueAt(fila, 8).toString());
+            importes.add(tblBoletos.getValueAt(fila, 9).toString());
+            vigencias.add(tblBoletos.getValueAt(fila, 10).toString());
+            
+            
+            // Guardar la primera vigencia
+            if (i == 0) {
+                primeraVigencia = tblBoletos.getValueAt(fila, 10).toString();
+            }
+        
+        
             // Sumar los importes seleccionados
-            totalCosto += Double.parseDouble(tblBoletos.getValueAt(fila, 6).toString());
-            totalImporte += Double.parseDouble(tblBoletos.getValueAt(fila, 7).toString());
+            totalCosto += Double.parseDouble(tblBoletos.getValueAt(fila, 8).toString());
+            totalImporte += Double.parseDouble(tblBoletos.getValueAt(fila, 9).toString());
         }
 
-        double totalRestante = totalCosto - totalImporte;
+        totalRestante = totalCosto - totalImporte;
         // Imprimir la información en una sola línea por campo
         txtSillas.setText("" + sillas);
         txtTotal.setText(String.format("%.2f", totalCosto)); // Mostrar el total formateado
         txtTotalImporte.setText(String.format("%.2f", totalImporte));
         txtAdeudo.setText(String.format("%.2f", totalRestante));
-        txtNewImporte.getText();
-        java.time.LocalDate newVigencia = dtNewVigencia.getDate();
         
+        // Convertir la primera vigencia a LocalDate y asignarla a dtNewVigencia
+        if (!primeraVigencia.isEmpty()) {
+            try {
+                java.time.LocalDate fechaVigencia = java.time.LocalDate.parse(primeraVigencia);
+                dtNewVigencia.setDate(fechaVigencia);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error en la vigencia.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
         
+        cd.boletosSeleccionados(foliosArray);
         
     }
 
-    
+    public void actualizarEstadoSillas() {
+        
+        ActualizarData actualiza = new ActualizarData();
+        
+        // Obtener la lista de boletos
+        List<listBoleto> listaBoletos = cb.getListaBoletos();
+        
+        // Crear un arreglo con el tamaño de la lista de boletos
+        int[] Folios = new int[listaBoletos.size()];
+        
+        String comboBox = SelectCombo.getSelectedItem().toString().trim();
+
+        // Validar que la caja de texto Silla no esté vacía
+        String sillaSeleccionada = txtSillas.getText().trim();
+        if (sillaSeleccionada.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar a menos una silla de la tabla.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        String importeTexto = txtNewImporte.getText().trim();
+
+        // Validar que el campo no esté vacío
+        if (importeTexto.isEmpty()) { 
+            JOptionPane.showMessageDialog(null, "El campo de importe no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!importeTexto.matches("\\d+(\\.\\d+)?")) { 
+            JOptionPane.showMessageDialog(null, "Ingrese solo números en el campo de importe.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double newImporte = Double.parseDouble(importeTexto);
+
+
+        // Validar que la vigencia no sea nula
+        java.time.LocalDate newVigencia = dtNewVigencia.getDate();
+        if (newVigencia == null) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una vigencia.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Extraer solo los folios
+        int index = 0;
+        for (listBoleto boleto : listaBoletos) {
+            Folios[index++] = boleto.getFolio();
+        }
+        
+        double importeActualizado = totalImporte + newImporte;
+        double restante = totalRestante - newImporte;
+        double importeDividido = importeActualizado / totalSeleccionados;
+        
+        switch(comboBox){
+            case "Abonar":
+                int estado1 = 2;
+                if(newImporte > totalRestante){
+                    JOptionPane.showMessageDialog(null, "El importe no puede ser mayor a el adeudo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    actualiza.actualizarSillasSeparadas(Folios, estado1, restante, newVigencia);
+                }
+                break;
+            case "Pagar":
+                int estado2 = 3;
+                if(totalRestante == newImporte){
+                    actualiza.actualizarSillasSeparadas(Folios, estado2, restante, newVigencia);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Para liquidar la deuda debe ingresar el monto restante.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Opción no válida. Debes seleccionar 'Abonar' o 'Pagar'.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
+        
+      
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -279,6 +404,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         txtTotalImporte = new javax.swing.JTextField();
         txtAdeudo = new javax.swing.JTextField();
         txtTotal = new javax.swing.JTextField();
+        SelectCombo = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiVolverInicio = new javax.swing.JMenuItem();
@@ -447,7 +573,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         txtNewImporte.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe..."));
 
-        dtNewVigencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Nueva Vigencia"));
+        dtNewVigencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Vigencia"));
 
         txtSillas.setEditable(false);
         txtSillas.setBorder(javax.swing.BorderFactory.createTitledBorder("Sillas"));
@@ -461,31 +587,38 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         txtTotal.setEditable(false);
         txtTotal.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
 
+        SelectCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "Abonar", "Pagar" }));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dtNewVigencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSillas)
-                    .addComponent(txtNewImporte)
-                    .addComponent(txtAdeudo)
-                    .addComponent(txtTotalImporte)
-                    .addComponent(txtTotal))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SelectCombo, javax.swing.GroupLayout.Alignment.TRAILING, 0, 228, Short.MAX_VALUE)
+                            .addComponent(dtNewVigencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSillas)
+                            .addComponent(txtNewImporte)
+                            .addComponent(txtAdeudo)
+                            .addComponent(txtTotalImporte)
+                            .addComponent(txtTotal))))
                 .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SelectCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSillas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -630,7 +763,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblBoletos.getModel();
-
+        
         // Limpiar solo las filas sin tocar las columnas
         modelo.setRowCount(0);
         
@@ -673,11 +806,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         
-        //Datos para la actualizacion
+        actualizarEstadoSillas();
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        cb.borrarDatos();
+        totalCosto = 0;
+        totalImporte = 0;
         imprimirBoletosSeleccionados();
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
@@ -747,6 +883,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox SelectCombo;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpiar;

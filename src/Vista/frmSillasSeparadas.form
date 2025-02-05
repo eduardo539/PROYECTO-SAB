@@ -411,25 +411,30 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="dtNewVigencia" max="32767" attributes="0"/>
-                      <Component id="txtSillas" max="32767" attributes="0"/>
-                      <Component id="txtNewImporte" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtAdeudo" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtTotalImporte" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtTotal" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="btnActualizar" max="32767" attributes="0"/>
+                              <Component id="btnSeleccionar" min="-2" pref="139" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="SelectCombo" alignment="1" pref="228" max="32767" attributes="0"/>
+                              <Component id="dtNewVigencia" max="32767" attributes="0"/>
+                              <Component id="txtSillas" max="32767" attributes="0"/>
+                              <Component id="txtNewImporte" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtAdeudo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtTotalImporte" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtTotal" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="btnActualizar" max="32767" attributes="0"/>
-                      <Component id="btnSeleccionar" min="-2" pref="139" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -437,6 +442,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="SelectCombo" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txtSillas" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txtTotal" min="-2" max="-2" attributes="0"/>
@@ -511,7 +518,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Nueva Vigencia"/>
+                <TitledBorder title="Vigencia"/>
               </Border>
             </Property>
           </Properties>
@@ -553,6 +560,17 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Total"/>
               </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="SelectCombo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="Seleccionar"/>
+                <StringItem index="1" value="Abonar"/>
+                <StringItem index="2" value="Pagar"/>
+              </StringArray>
             </Property>
           </Properties>
         </Component>

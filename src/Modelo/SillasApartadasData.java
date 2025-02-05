@@ -1,10 +1,10 @@
 package Modelo;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 /**
  *
@@ -72,10 +72,10 @@ public class SillasApartadasData {
                 int estado = rs.getInt("idEstado");
                 String estadoSilla = rs.getString("EstadoSilla");
                 double importe = rs.getDouble("Importe");
-                Date fechaCompra = rs.getDate("FechaCompra");
-                Date vigencia = rs.getDate("FechaVigencia");
+                String fechaCompra = rs.getString("FechaCompra");
+                String vigencia = rs.getString("FechaVigencia");
 
-                // Agregar mesa a la lista en la instancia de Mesas
+                // Agregar mesa a la lista en la instancia
                 bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
             }
             
@@ -155,8 +155,8 @@ public class SillasApartadasData {
                 int estado = rs.getInt("idEstado");
                 String estadoSilla = rs.getString("EstadoSilla");
                 double importe = rs.getDouble("Importe");
-                Date fechaCompra = rs.getDate("FechaCompra");
-                Date vigencia = rs.getDate("FechaVigencia");
+                String fechaCompra = rs.getString("FechaCompra");
+                String vigencia = rs.getString("FechaVigencia");
 
                 // Agregar mesa a la lista en la instancia de Mesas
                 bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
