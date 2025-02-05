@@ -25,9 +25,9 @@ public class SAB {
         //frmLogin iniciar = new frmLogin();
         // frmSillasSeparadas iniciar = new frmSillasSeparadas();
         
+        frmEnviarPDF iniciar = new frmEnviarPDF();
 
-
-        frmLogin iniciar = new frmLogin();
+        //frmLogin iniciar = new frmLogin();
         //frmSillasSeparadas iniciar = new frmSillasSeparadas();
 
         //frmCajero iniciar = new frmCajero();
