@@ -26,13 +26,17 @@ public class SillasApartadasData {
         String datosBoletos = "SELECT tbl_boletos.Folio, tbl_boletos.Origen, tbl_boletos.Grupo, tbl_boletos.NumSocio, tbl_boletos.Nombre, " +
                                 "tbl_boletos.Invitado, tbl_boletos.Telefono, tbl_boletos.Correo, tbl_boletos.id_usuario, " +
                                 "CONCAT(tbl_usuarios.Nombre, ' ', tbl_usuarios.APaterno, ' ', tbl_usuarios.AMaterno) AS NombreUsuario, " +
-                                "tbl_usuarios.vchSucursal, tbl_boletos.Zona, tbl_boletos.Mesa, tbl_boletos.Silla, " +
+                                "tbl_usuarios.vchSucursal, tbl_boletos.idZona, tbl_zonas.Zona, tbl_boletos.idMesa, tbl_mesas.DescMesa, " +
+                                "tbl_boletos.idSilla, tbl_sillas.vchDescripcion, " +
                                 "tbl_boletos.Costo, tbl_boletos.idEstado, tbl_estado_sillas.EstadoSilla, " +
                                 "tbl_boletos.Importe, tbl_boletos.FechaCompra, tbl_boletos.FechaVigencia " +
                                 "FROM tbl_boletos " +
-                                "join tbl_usuarios on tbl_boletos.id_usuario = tbl_usuarios.id_usuario " +
-                                "join tbl_estado_sillas on tbl_boletos.idEstado = tbl_estado_sillas.idEstado " +
-                                "WHERE tbl_estado_sillas.EstadoSilla = 'Separado'" +
+                                "JOIN tbl_usuarios ON tbl_boletos.id_usuario = tbl_usuarios.id_usuario " +
+                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
+                                "JOIN tbl_mesas ON tbl_boletos.idMesa = tbl_mesas.idMesa " +
+                                "JOIN tbl_sillas ON tbl_boletos.idSilla = tbl_sillas.idSilla " +
+                                "JOIN tbl_estado_sillas ON tbl_boletos.idEstado = tbl_estado_sillas.idEstado " +
+                                "WHERE tbl_estado_sillas.EstadoSilla = 'Separado' " +
                                 "ORDER BY tbl_boletos.Folio ASC;";
         
         
@@ -58,9 +62,12 @@ public class SillasApartadasData {
                 int usuario = rs.getInt("id_usuario");
                 String nomUsuario = rs.getString("NombreUsuario");
                 String sucursal = rs.getString("vchSucursal");
+                int idZona = rs.getInt("idZona"); //
                 String zona = rs.getString("Zona");
-                String mesa = rs.getString("Mesa");
-                String silla = rs.getString("Silla");
+                int idMesa = rs.getInt("idMesa");//
+                String mesa = rs.getString("DescMesa");
+                int idSilla = rs.getInt("idSilla");//
+                String silla = rs.getString("vchDescripcion");
                 double costo = rs.getDouble("Costo");
                 int estado = rs.getInt("idEstado");
                 String estadoSilla = rs.getString("EstadoSilla");
@@ -69,7 +76,7 @@ public class SillasApartadasData {
                 Date vigencia = rs.getDate("FechaVigencia");
 
                 // Agregar mesa a la lista en la instancia de Mesas
-                bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, zona, mesa, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
+                bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
             }
             
             cn.closeConnection();
@@ -97,15 +104,20 @@ public class SillasApartadasData {
         
         SillasApartadas bol = SillasApartadas.getInstancia();
         
+        
         String datosBoletos = "SELECT tbl_boletos.Folio, tbl_boletos.Origen, tbl_boletos.Grupo, tbl_boletos.NumSocio, tbl_boletos.Nombre, " +
                                 "tbl_boletos.Invitado, tbl_boletos.Telefono, tbl_boletos.Correo, tbl_boletos.id_usuario, " +
                                 "CONCAT(tbl_usuarios.Nombre, ' ', tbl_usuarios.APaterno, ' ', tbl_usuarios.AMaterno) AS NombreUsuario, " +
-                                "tbl_usuarios.vchSucursal, tbl_boletos.Zona, tbl_boletos.Mesa, tbl_boletos.Silla, " +
+                                "tbl_usuarios.vchSucursal, tbl_boletos.idZona, tbl_zonas.Zona, tbl_boletos.idMesa, tbl_mesas.DescMesa, " +
+                                "tbl_boletos.idSilla, tbl_sillas.vchDescripcion, " +
                                 "tbl_boletos.Costo, tbl_boletos.idEstado, tbl_estado_sillas.EstadoSilla, " +
                                 "tbl_boletos.Importe, tbl_boletos.FechaCompra, tbl_boletos.FechaVigencia " +
                                 "FROM tbl_boletos " +
-                                "join tbl_usuarios on tbl_boletos.id_usuario = tbl_usuarios.id_usuario " +
-                                "join tbl_estado_sillas on tbl_boletos.idEstado = tbl_estado_sillas.idEstado " +
+                                "JOIN tbl_usuarios ON tbl_boletos.id_usuario = tbl_usuarios.id_usuario " +
+                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
+                                "JOIN tbl_mesas ON tbl_boletos.idMesa = tbl_mesas.idMesa " +
+                                "JOIN tbl_sillas ON tbl_boletos.idSilla = tbl_sillas.idSilla " +
+                                "JOIN tbl_estado_sillas ON tbl_boletos.idEstado = tbl_estado_sillas.idEstado " +
                                 "WHERE tbl_boletos.NumSocio = ? AND tbl_estado_sillas.EstadoSilla = 'Separado' " +
                                 "ORDER BY tbl_boletos.Folio ASC;";
         
@@ -133,9 +145,12 @@ public class SillasApartadasData {
                 int usuario = rs.getInt("id_usuario");
                 String nomUsuario = rs.getString("NombreUsuario");
                 String sucursal = rs.getString("vchSucursal");
+                int idZona = rs.getInt("idZona"); //
                 String zona = rs.getString("Zona");
-                String mesa = rs.getString("Mesa");
-                String silla = rs.getString("Silla");
+                int idMesa = rs.getInt("idMesa");//
+                String mesa = rs.getString("DescMesa");
+                int idSilla = rs.getInt("idSilla");//
+                String silla = rs.getString("vchDescripcion");
                 double costo = rs.getDouble("Costo");
                 int estado = rs.getInt("idEstado");
                 String estadoSilla = rs.getString("EstadoSilla");
@@ -144,7 +159,7 @@ public class SillasApartadasData {
                 Date vigencia = rs.getDate("FechaVigencia");
 
                 // Agregar mesa a la lista en la instancia de Mesas
-                bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, zona, mesa, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
+                bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
             }
             
             cn.closeConnection();
