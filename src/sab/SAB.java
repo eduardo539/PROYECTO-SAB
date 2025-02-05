@@ -18,9 +18,16 @@ public class SAB {
 
     public static void main(String[] args) {
         //Se crea un objeto para inicializar el formulario de login
+<<<<<<< HEAD
+        
+        //frmLogin iniciar = new frmLogin();
+        // frmSillasSeparadas iniciar = new frmSillasSeparadas();
+        
+=======
 
         frmLogin iniciar = new frmLogin();
         //frmSillasSeparadas iniciar = new frmSillasSeparadas();
+>>>>>>> 7b78bedac98062dae335b06ce680b26ca30f5812
         //frmCajero iniciar = new frmCajero();
         
         //forMenuAdmin iniciar = new forMenuAdmin();
