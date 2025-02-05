@@ -4,6 +4,8 @@ import Vista.formMenuAdmin;
 import Vista.frmBoleto;
 import Vista.frmLogin;
 import Vista.frmCajero;
+import Vista.frmCrearPdf;
+import Vista.frmEnviarPDF;
 import Vista.frmOperaciones;
 import Vista.frmSillasSeparadas;
 import Vista.frmPosadaMTY;
@@ -19,7 +21,7 @@ public class SAB {
     public static void main(String[] args) {
         //Se crea un objeto para inicializar el formulario de login
 
-        frmLogin iniciar = new frmLogin();
+        //frmLogin iniciar = new frmLogin();
         //frmSillasSeparadas iniciar = new frmSillasSeparadas();
         //frmCajero iniciar = new frmCajero();
         
@@ -27,7 +29,7 @@ public class SAB {
         
         //frmBoleto iniciar = new frmBoleto();
         
-
+        frmEnviarPDF iniciar = new frmEnviarPDF();
         iniciar.setLocationRelativeTo(null); // Centra la ventana en la pantalla
         //Se inicia la ventana de login
         iniciar.setVisible(true);
