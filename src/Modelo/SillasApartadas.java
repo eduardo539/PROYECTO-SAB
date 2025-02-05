@@ -1,6 +1,5 @@
 package Modelo;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class SillasApartadas {
     
     
     // Método para agregar una mesa a la lista
-    public void agregarBoleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, int idZona, String zona,int idMesa , String mesa,int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, Date fechaCompra, Date vigencia) {
+    public void agregarBoleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, int idZona, String zona,int idMesa , String mesa,int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, String fechaCompra, String vigencia) {
         listaBoletos.add(new Boleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia));
     }
 
@@ -71,13 +70,13 @@ public class SillasApartadas {
         int estado;
         String estadoSilla;
         double importe;
-        Date fechaCompra;
-        Date vigencia;
+        String fechaCompra;
+        String vigencia;
 
         public Boleto() {
         }
 
-        public Boleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, int idZona, String zona, int idMesa, String mesa, int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, Date fechaCompra, Date vigencia) {
+        public Boleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, int idZona, String zona, int idMesa, String mesa, int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, String fechaCompra, String vigencia) {
             this.folio = folio;
             this.origen = origen;
             this.grupo = grupo;
@@ -271,25 +270,21 @@ public class SillasApartadas {
             this.importe = importe;
         }
 
-        public Date getFechaCompra() {
+        public String getFechaCompra() {
             return fechaCompra;
         }
 
-        public void setFechaCompra(Date fechaCompra) {
+        public void setFechaCompra(String fechaCompra) {
             this.fechaCompra = fechaCompra;
         }
 
-        public Date getVigencia() {
+        public String getVigencia() {
             return vigencia;
         }
 
-        public void setVigencia(Date vigencia) {
+        public void setVigencia(String vigencia) {
             this.vigencia = vigencia;
         }
-
-        
-        
-        
         
         @Override
         public String toString() {
