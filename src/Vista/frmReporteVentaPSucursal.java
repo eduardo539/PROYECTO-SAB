@@ -29,9 +29,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         initComponents();
         conexion = new Conexion(); // Inicializa la conexión
         configurarModeloTabla(); // Configura los encabezados correctos
-        cargarDatosGerente(); // Carga los datos iniciales (todos los boletos)
+        cargarDatosGerente(null, null); // Carga todos los datos iniciales (sin filtros)
     }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -40,6 +39,10 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporte = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        txtAno = new javax.swing.JTextField();
+        txtMes = new javax.swing.JTextField();
+        btnFiltrar = new javax.swing.JButton();
+        btnMostrarTodo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -66,6 +69,35 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         jLabel1.setText("Boletos por Sucursal");
 
+        txtAno.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese el año:"));
+
+        txtMes.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese el mes:"));
+        txtMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMesActionPerformed(evt);
+            }
+        });
+
+        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
+        btnFiltrar.setText("Filtrar Datos");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
+        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
+        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
+        btnMostrarTodo.setText("Mostrar todos los Boletos");
+        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodoActionPerformed(evt);
+            }
+        });
+
         jMenuBar1.setPreferredSize(new java.awt.Dimension(79, 36));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
@@ -73,6 +105,11 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jMenuItem2.setText("Cerrar Sesión");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -88,26 +125,63 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1097, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMesActionPerformed
+        
+    }//GEN-LAST:event_txtMesActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        filtrarPorFecha();
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
+        // Llama al método para cargar todos los boletos sin filtros
+        cargarDatosGerente(null, null);
+    }//GEN-LAST:event_btnMostrarTodoActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
     public static void main(String args[]) {
@@ -117,16 +191,10 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    
-    
-    
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnMostrarTodo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -134,6 +202,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblReporte;
+    private javax.swing.JTextField txtAno;
+    private javax.swing.JTextField txtMes;
     // End of variables declaration//GEN-END:variables
 
     private void configurarModeloTabla() {
@@ -143,8 +213,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
         modelo.addColumn("NumSocio");
-        modelo.addColumn("Empleado");
-        modelo.addColumn("Usuario");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
         modelo.addColumn("Precio por boleto");
         modelo.addColumn("Mesa");
@@ -152,8 +222,9 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         modelo.addColumn("Total de boletos vendidos");
         tblReporte.setModel(modelo);
     }
-    
-    private void cargarDatosGerente() {
+   
+
+    private void cargarDatosGerente(String ano, String mes) {
         Login login = Login.getInstancia();
         String sucursalGerente = login.getSucursal();
 
@@ -168,8 +239,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 "    b.Origen AS Origen, \n" +
                 "    b.Grupo AS Grupo, \n" +
                 "    b.NumSocio AS NumSocio, \n" +
-                "    b.Nombre AS Empleado, \n" +
-                "    CONCAT(u.Nombre, ' ', u.APaterno, ' ', u.AMaterno) AS Usuario, \n" +
+                "    b.Nombre AS Nombre, \n" +
+                "    CONCAT(u.Nombre, ' ', u.APaterno, ' ', u.AMaterno) AS Cajero, \n" +
                 "    MAX(z.Zona) AS Zona, \n" +
                 "    b.Costo AS Precio_Boleto, \n" +
                 "    MAX(m.DescMesa) AS Mesa, \n" +
@@ -186,13 +257,17 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 "LEFT JOIN \n" +
                 "    tbl_sillas s ON b.idSilla = s.idSilla \n" +
                 "WHERE \n" +
-                "    u.vchSucursal = ? \n" +
-                "GROUP BY \n" +
+                "    u.vchSucursal = ? \n";
+
+        if (ano != null && mes != null) {
+            consultaSQL += "    AND YEAR(b.FechaCompra) = ? AND MONTH(b.FechaCompra) = ? \n";
+        }
+
+        consultaSQL += "GROUP BY \n" +
                 "    u.vchSucursal, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, \n" +
-                "    u.Nombre, u.APaterno, u.AMaterno, b.Costo \n" + // Sin coma al final
+                "    u.Nombre, u.APaterno, u.AMaterno, b.Costo \n" +
                 "ORDER BY \n" +
                 "    b.Folio";
-
 
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
         modelo.setRowCount(0);
@@ -201,6 +276,11 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
              PreparedStatement stmt = conn.prepareStatement(consultaSQL)) {
 
             stmt.setString(1, sucursalGerente);
+
+            if (ano != null && mes != null) {
+                stmt.setInt(2, Integer.parseInt(ano)); // Año
+                stmt.setInt(3, Integer.parseInt(mes)); // Mes
+            }
 
             ResultSet rs = stmt.executeQuery();
 
@@ -211,8 +291,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                         rs.getString("Origen"),
                         rs.getString("Grupo"),
                         rs.getString("NumSocio"),
-                        rs.getString("Empleado"),
-                        rs.getString("Usuario"),
+                        rs.getString("Nombre"),
+                        rs.getString("Cajero"),
                         rs.getString("Zona"),
                         rs.getDouble("Precio_Boleto"),
                         rs.getString("Mesa"),
@@ -231,7 +311,17 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    private void filtrarPorFecha() {
+        String ano = txtAno.getText();
+        String mes = txtMes.getText();
 
+        if (ano.isEmpty() || mes.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese año y mes.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        cargarDatosGerente(ano, mes);
+    }
     
 }
