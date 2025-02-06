@@ -31,7 +31,7 @@ public class SAB {
         //frmSillasSeparadas iniciar = new frmSillasSeparadas();
 
         //frmCajero iniciar = new frmCajero();
-        
+    
         //forMenuAdmin iniciar = new forMenuAdmin();
         
         //frmBoleto iniciar = new frmBoleto();
