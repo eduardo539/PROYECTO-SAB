@@ -100,8 +100,16 @@ public class frmLogin extends javax.swing.JFrame {
                     return; // Terminar el flujo hasta que la contraseña se actualice 
                 } 
                 
-                System.out.println("DESPUES DE LA FUNCION" + idUsuario); // Log (opcional)
 
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) { 
                     case "Sistemas":
