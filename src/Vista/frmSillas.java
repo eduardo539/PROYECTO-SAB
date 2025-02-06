@@ -1,10 +1,12 @@
 package Vista;
 
+import Modelo.CantidadSillasSelect;
 import Modelo.Mesas;
 import Modelo.SillaEstado;
 import Modelo.Sillas;
 import Modelo.SillasData;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +21,16 @@ import javax.swing.JOptionPane;
 public class frmSillas extends javax.swing.JFrame {
     
     
+    CantidadSillasSelect numSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
+    private final int numeroDeSillas = numSillas.getCantidadSillas(); // Límite de sillas a seleccionar
+    private final ArrayList<Integer> idSillasSeleccionadas = new ArrayList<>(); // Lista de IDs seleccionados
+    private final ArrayList<String> nombresSillasSeleccionadas = new ArrayList<>(); // Lista de nombres de sillas seleccionadas
+    
+    
+    SillaEstado sss = SillaEstado.getInstancia();
+    SillasData sdat = new SillasData();
+    
+        
     public frmSillas() {
         initComponents();
         
@@ -37,6 +49,7 @@ public class frmSillas extends javax.swing.JFrame {
     
     
     public void datos(){
+        
         Sillas s = Sillas.getInstancia();
         
         // Asegúrate de que la lista tenga al menos 2 elementos
@@ -49,7 +62,7 @@ public class frmSillas extends javax.swing.JFrame {
             // Asigna los valores a los labels
             lblMesa.setText(mesa.getDescMesa());
             lblZona.setText("Zona: " + zona.getZona());
-            lblCosto.setText("Costo: $" + costo.getCosto() + " M.N.");
+            lblCosto.setText("Costo Unit: $" + costo.getCosto() + " M.N.");
         } else {
             // Mensaje en caso de que la lista no tenga suficientes elementos
             lblMesa.setText("Datos insuficientes");
@@ -122,56 +135,84 @@ public class frmSillas extends javax.swing.JFrame {
     }
 
     
-    public void sillaID(int fila){
-        Sillas sill = Sillas.getInstancia();
+    public void seleccionSillas(int data) {
         
+        Sillas sill = Sillas.getInstancia(); // Obtener la instancia de las sillas
         
-        try{
-            
-            if (!sill.getListaSillas().isEmpty() && sill.getListaSillas().size() >= 10) {
-                int idSilla = sill.getListaSillas().get(fila).getIdSilla(); // Fila consultada
-                estadoSilla(idSilla);
+        try {
+            if (sill.getListaSillas().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No hay sillas disponibles.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
             }
+
+            // Obtener el ID y la descripción de la silla seleccionada
+            int idSilla = sill.getListaSillas().get(data).getIdSilla();
+            String nomSilla = sill.getListaSillas().get(data).getDescripSilla();
+
+            // Comprobar si la silla está disponible
+            if (!estadoSilla(idSilla)) {
+                return; // Si no está disponible, salir del método
+            }
+
+            // Verificar si ya se ha alcanzado el número máximo de selecciones
+            if (numSillas.getListaDatSilla().size() >= numSillas.getCantidadSillas()) {
+                JOptionPane.showMessageDialog(null, "Has alcanzado el límite de " + numSillas.getCantidadSillas() + " sillas seleccionadas.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Verificar si la silla ya está seleccionada
+            for (CantidadSillasSelect.tempDataSillas silla : numSillas.getListaDatSilla()) {
+                if (silla.getIdSilla() == idSilla) {
+                    JOptionPane.showMessageDialog(null, "Esta silla ya ha sido seleccionada.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+
             
-        }catch (Exception e) {
+            // Agregar la silla a la lista de la clase CantidadSillasSelect
+            numSillas.agregarDataSilla(idSilla, nomSilla);
+            
+            // Actualizar la vista
+            List<CantidadSillasSelect.tempDataSillas> listaSillas = numSillas.getListaDatSilla();
+            List<String> nombresSillas = new ArrayList<>();
+            for (CantidadSillasSelect.tempDataSillas silla : listaSillas) {
+                nombresSillas.add(silla.getNomSilla());
+            }
+            txtSillasSelect.setText(String.join(", ", nombresSillas));
+            
+            
+        } catch (Exception e) {
             // Manejo de errores
-            JOptionPane.showMessageDialog(this, "Error al obtener los datos, ponerse en contacto con el administrador: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos, contacte al administrador: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    public void estadoSilla(int idSilla){
+    
+    public boolean estadoSilla(int idSilla) {
         
-        SillaEstado sss = SillaEstado.getInstancia();
-        SillasData sdat = new SillasData();
-
-        // Obtenemos el estado de la silla desde los datos
-        sss = sdat.siE(idSilla);
-        
-        
-        try{
-            // Validamos el estado de la silla y mostramos la alerta correspondiente
+        try {
+            // Obtener el estado de la silla
+            sss = sdat.siE(idSilla);
             String estado = sss.getEstadoSilla();
 
-            if ("Disponible".equalsIgnoreCase(estado)) {
-                //JOptionPane.showMessageDialog(null, "La silla está Disponible.", "Estado de la Silla", JOptionPane.INFORMATION_MESSAGE);
-                
-                frmBoleto boleto = new frmBoleto();
-                boleto.setLocationRelativeTo(null);
-                boleto.setVisible(true);
-                this.dispose();
-                
-            } else if ("Separado".equalsIgnoreCase(estado)) {
-                JOptionPane.showMessageDialog(null, "La silla está Separada/Apartada.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
-            } else if ("Pagado".equalsIgnoreCase(estado)) {
-                JOptionPane.showMessageDialog(null, "La silla está Comprada.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "El estado de la silla no es válido.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
+            switch (estado.toLowerCase()) {
+                case "disponible":
+                    return true;
+                case "separado":
+                    JOptionPane.showMessageDialog(null, "La silla está Separada/Apartada.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
+                    break;
+                case "pagado":
+                    JOptionPane.showMessageDialog(null, "La silla está Comprada.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "El estado de la silla no es válido.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
+                    break;
             }
         } catch (Exception e) {
-            // Manejo de errores
-            JOptionPane.showMessageDialog(null, "Error al obtener los datos, ponerse en contacto con el administrador: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al obtener el estado de la silla: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+        return false;
     }
     
     
@@ -214,6 +255,8 @@ public class frmSillas extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         lblCosto = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        txtSillasSelect = new javax.swing.JTextField();
+        btnContinuar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Selección de Sillas");
@@ -386,18 +429,24 @@ public class frmSillas extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Seleccione la silla de su preferencia");
 
+        txtSillasSelect.setEditable(false);
+        txtSillasSelect.setBorder(javax.swing.BorderFactory.createTitledBorder("Sillas Seleccionadas"));
+
+        btnContinuar.setBackground(new java.awt.Color(0, 153, 0));
+        btnContinuar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnContinuar.setForeground(new java.awt.Color(255, 255, 255));
+        btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-continuar.png"))); // NOI18N
+        btnContinuar.setText("Continuar");
+        btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinuarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCosto)
-                    .addComponent(lblZona)
-                    .addComponent(lblMesa)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -419,6 +468,21 @@ public class frmSillas extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCosto)
+                    .addComponent(lblZona)
+                    .addComponent(lblMesa)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(txtSillasSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(33, 33, 33))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(btnContinuar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(50, 50, 50)))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,15 +509,19 @@ public class frmSillas extends javax.swing.JFrame {
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(18, 18, 18)
+                .addComponent(txtSillasSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(lblMesa)
                 .addGap(18, 18, 18)
                 .addComponent(lblZona)
                 .addGap(18, 18, 18)
                 .addComponent(lblCosto)
-                .addGap(127, 127, 127)
+                .addGap(31, 31, 31)
+                .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -476,49 +544,58 @@ public class frmSillas extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Mesas m = Mesas.getInstancia();
+        numSillas.borrarDatos();
+        numSillas.borrarCantidadSillas();
         m.borrarDatos();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnDato1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato1ActionPerformed
-        sillaID(0);
+        seleccionSillas(0);
     }//GEN-LAST:event_btnDato1ActionPerformed
 
     private void btnDato2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato2ActionPerformed
-        sillaID(1);
+        seleccionSillas(1);
     }//GEN-LAST:event_btnDato2ActionPerformed
 
     private void btnDato3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato3ActionPerformed
-        sillaID(2);
+        seleccionSillas(2);
     }//GEN-LAST:event_btnDato3ActionPerformed
 
     private void btnDato4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato4ActionPerformed
-        sillaID(3);
+        seleccionSillas(3);
     }//GEN-LAST:event_btnDato4ActionPerformed
 
     private void btnDato5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato5ActionPerformed
-        sillaID(4);
+        seleccionSillas(4);
     }//GEN-LAST:event_btnDato5ActionPerformed
 
     private void btnDato6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato6ActionPerformed
-        sillaID(5);
+        seleccionSillas(5);
     }//GEN-LAST:event_btnDato6ActionPerformed
 
     private void btnDato7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato7ActionPerformed
-        sillaID(6);
+        seleccionSillas(6);
     }//GEN-LAST:event_btnDato7ActionPerformed
 
     private void btnDato8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato8ActionPerformed
-        sillaID(7);
+        seleccionSillas(7);
     }//GEN-LAST:event_btnDato8ActionPerformed
 
     private void btnDato9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato9ActionPerformed
-        sillaID(8);
+        seleccionSillas(8);
     }//GEN-LAST:event_btnDato9ActionPerformed
 
     private void btnDato10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato10ActionPerformed
-        sillaID(9);
+        seleccionSillas(9);
     }//GEN-LAST:event_btnDato10ActionPerformed
+
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+        frmBoleto boleto = new frmBoleto();
+        boleto.setLocationRelativeTo(null);
+        boleto.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnContinuarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -557,6 +634,7 @@ public class frmSillas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnContinuar;
     private javax.swing.JButton btnDato1;
     private javax.swing.JButton btnDato10;
     private javax.swing.JButton btnDato2;
@@ -590,5 +668,6 @@ public class frmSillas extends javax.swing.JFrame {
     private javax.swing.JLabel lblDato9;
     private javax.swing.JLabel lblMesa;
     private javax.swing.JLabel lblZona;
+    private javax.swing.JTextField txtSillasSelect;
     // End of variables declaration//GEN-END:variables
 }

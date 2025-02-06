@@ -12,7 +12,6 @@ import Modelo.SillasApartadasData;
 import java.awt.Window;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringJoiner;
@@ -309,6 +308,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
         // Crear un arreglo con el tamaño de la lista de boletos
         int[] Folios = new int[listaBoletos.size()];
+        int[] idSillas = new int[listaBoletos.size()];
         
         String comboBox = SelectCombo.getSelectedItem().toString().trim();
 
@@ -344,8 +344,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
         // Extraer solo los folios
         int index = 0;
+        int index2 = 0;
         for (listBoleto boleto : listaBoletos) {
             Folios[index++] = boleto.getFolio();
+            idSillas[index2++] = boleto.getIdsilla();
         }
         
         double importeActualizado = totalImporte + newImporte;
@@ -369,6 +371,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 int estado2 = 3;
                 if(totalRestante == newImporte){
                     actualiza.actualizarSillasSeparadas(Folios, estado2, importeDividido, newVigencia);
+                    actualiza.actualizaEstaSillaxFila(estado2, idSillas);
                     limpiarCamposCompra();
                 }else{
                     JOptionPane.showMessageDialog(null, "Para liquidar la deuda debe ingresar el monto restante.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -779,6 +782,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         apart.borrarDatos();
         
         // Limpiar el campo txtSocio
+        txtOrigen.setText("");
         txtSocio.setText("");
         txtSillas.setText("");
         txtTotal.setText("");

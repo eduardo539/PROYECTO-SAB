@@ -1,11 +1,15 @@
 package Vista;
 
 import Modelo.ActualizarData;
+import Modelo.CantidadSillasSelect;
+import Modelo.CantidadSillasSelect.tempDataSillas;
 import Modelo.CompraBoleto;
 import Modelo.CompraBoletoData;
 import Modelo.InsertarData;
 import Modelo.Login;
 import Modelo.SillaEstado;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,7 +24,6 @@ public class frmBoleto extends javax.swing.JFrame {
     
     SillaEstado sE = SillaEstado.getInstancia();
     
-    
     CompraBoleto datos = CompraBoleto.getInstancia();
     CompraBoletoData socioData = new CompraBoletoData();
     
@@ -28,6 +31,9 @@ public class frmBoleto extends javax.swing.JFrame {
     InsertarData insert = new InsertarData();
     ActualizarData actualiza = new ActualizarData();
     Login lg = Login.getInstancia();
+    
+    
+    CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
     
     
     public frmBoleto() {
@@ -87,27 +93,54 @@ public class frmBoleto extends javax.swing.JFrame {
         
     }
     
-    public void extraerDatos(){
+    
+    public void extraerDatos() {
         String zona = sE.getZona();
         String mesa = sE.getNomMesa();
-        String silla = sE.getNomSilla();
         double costo = sE.getCosto();
-    
+
+        // Obtener la lista de sillas y extraer solo los nombres
+        List<tempDataSillas> listaSillas = dataSillas.getListaDatSilla();
+        List<String> nombresSillas = new ArrayList<>();
+
+        for (CantidadSillasSelect.tempDataSillas silla : listaSillas) {
+            nombresSillas.add(silla.getNomSilla());
+        }
+
+        // Unir los nombres con coma y espacio
+        String nombresSillasStr = String.join(", " + nombresSillas);
+
+        // Asignar los valores a los campos de texto
         txtZona.setText(zona);
         txtMesa.setText(mesa);
-        txtSilla.setText(silla);
+        txtSilla.setText(nombresSillasStr); //Solo los nombres de las sillas
         txtCosto.setText(String.valueOf(costo));
     }
     
     
-    
     public void comprar() {
         
+        List<tempDataSillas> listaIds = dataSillas.getListaDatSilla();
+
+        // Verificar que haya sillas seleccionadas
+        if (listaIds == null || listaIds.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una silla.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear arreglos para IDs y nombres de sillas
+        int[] idsSillas = new int[listaIds.size()];
+        String[] nombresSillas = new String[listaIds.size()];
+
+        for (int i = 0; i < listaIds.size(); i++) {
+            idsSillas[i] = listaIds.get(i).getIdSilla();
+            nombresSillas[i] = listaIds.get(i).getNomSilla();
+        }
+
         int origen = datos.getOrigen();
         int grupo = datos.getGrupo();
         int socio = datos.getSocio();
         String nombre = datos.getNombre();
-        String rInvitado;
         String telefono = datos.getNumCelular();
         String correo = datos.getCorreo();
         int idusuario = lg.getIdusuario();
@@ -115,16 +148,17 @@ public class frmBoleto extends javax.swing.JFrame {
         String Zona = sE.getZona();
         int idMesa = sE.getIdMesa();
         String Mesa = sE.getNomMesa();
-        int idSilla = sE.getIdSilla();
-        String Silla = sE.getNomSilla();
         double Costo = sE.getCosto();
         int estatusSilla;
+        double importe;
+        
+        double importeDividido;
+        int cantidadSillas = dataSillas.getCantidadSillas();
 
         String input = txtImporte.getText();
-        double importe;
 
         if (input == null || input.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El campo de importe no puede estar vacío. Por favor, introduce un número.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El campo de importe no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } else {
             try {
@@ -138,12 +172,12 @@ public class frmBoleto extends javax.swing.JFrame {
         String comboBox = comboBoleto.getSelectedItem().toString();
         boolean invitado = radioInvitado.isSelected();
         java.time.LocalDate vigencia = dtVigencia.getDate();
-        rInvitado = invitado ? "Sí" : "No";
+        String rInvitado = invitado ? "Sí" : "No";
 
         if (origen == 0 || grupo == 0 || socio == 0 || nombre == null || nombre.isEmpty() ||
             telefono == null || telefono.isEmpty() || correo == null || correo.isEmpty() ||
             idusuario == 0 || idZona == 0 || Zona == null || Zona.isEmpty() ||
-            idMesa == 0 || Mesa == null || Mesa.isEmpty() || idSilla == 0 || Silla == null || Silla.isEmpty() || 
+            idMesa == 0 || Mesa == null || Mesa.isEmpty() || 
             Costo == 0 || comboBox == null || comboBox.isEmpty() ||
             vigencia == null || importe == 0) {
 
@@ -156,8 +190,8 @@ public class frmBoleto extends javax.swing.JFrame {
         String mensaje = "Detalles de la compra:\n" +
                          "Zona: " + Zona + "\n" +
                          "Mesa: " + Mesa + "\n" +
-                         "Sila: " + Silla + "\n" +
-                         "Costo: $" + Costo + "\n" +
+                         "Silla/s: " + String.join(", ", nombresSillas) + "\n" +
+                         "Costo unitario: $" + Costo + "\n" +
                          "Importe: $" + importe + "\n" +
                          "Vigencia: " + vigencia + "\n" +
                          "Invitado: " + rInvitado + "\n\n" +
@@ -166,33 +200,35 @@ public class frmBoleto extends javax.swing.JFrame {
         // Mostrar cuadro de diálogo con opciones
         int confirmacion = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar compra", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
+        importeDividido = importe / cantidadSillas;
+        
         if (confirmacion == JOptionPane.YES_OPTION) {
-            // Si el usuario confirma, se ejecuta la compra
-            switch(comboBox) {
-                case "Separar":
-                    estatusSilla = 2;
-                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, idZona, idMesa, idSilla, Costo, estatusSilla, importe, vigencia);
-                    actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
-                    this.dispose();
-                    break;
-                case "Comprar":
-                    estatusSilla = 3;
-                    insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, idusuario, idZona, idMesa, idSilla, Costo, estatusSilla, importe, vigencia);
-                    actualiza.actualizarEstatusSilla(estatusSilla, idSilla);
-                    this.dispose();
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Selecciona una opción (Compra o Separar).",
-                                                  "Alerta", JOptionPane.WARNING_MESSAGE);
-                    break;
+            if ("Separar".equals(comboBox)) {
+                estatusSilla = 2;
+            } else if ("Comprar".equals(comboBox)) {
+                estatusSilla = 3;
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecciona una opción válida (Compra o Separar).",
+                                              "Alerta", JOptionPane.WARNING_MESSAGE);
+                return;
             }
+
+            // Enviar los datos a la base de datos
+            insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, 
+                                   idusuario, idZona, idMesa, idsSillas, Costo, estatusSilla, importeDividido, vigencia);
+
+            // Actualizar el estatus de las sillas en la base de datos
+            actualiza.actualizarEstatusSilla(estatusSilla, idsSillas);
+
+            // Limpiar los datos seleccionados
+            dataSillas.borrarDatos();
+            dataSillas.borrarCantidadSillas();
+            this.dispose();
         } else {
-            // Si el usuario cancela, no se realiza ninguna acción
             JOptionPane.showMessageDialog(null, "Operación cancelada.", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
+        
     }
-
-
 
     
     
@@ -281,7 +317,6 @@ public class frmBoleto extends javax.swing.JFrame {
         txtMesa.setEditable(false);
         txtMesa.setBorder(javax.swing.BorderFactory.createTitledBorder("Mesa"));
 
-        txtSilla.setEditable(false);
         txtSilla.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s"));
 
         txtCosto.setEditable(false);
@@ -440,6 +475,8 @@ public class frmBoleto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dataSillas.borrarDatos();
+        dataSillas.borrarCantidadSillas();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 

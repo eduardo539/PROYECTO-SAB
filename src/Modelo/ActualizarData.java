@@ -20,36 +20,61 @@ public class ActualizarData {
     Conexion cn = new Conexion();
     
     
-    public void actualizarEstatusSilla(int idEstado,int idSilla){
-        
-        String actualizarSilla = "UPDATE tbl_sillas " +
-                                    "SET idEstado = ? " +
-                                    "WHERE idSilla = ?;";
-        
-        
+    CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia();
+    
+    
+    public void actualizarEstatusSilla(int idEstado, int[] idSillas) {
+        if (idSillas == null || idSillas.length == 0) {
+            JOptionPane.showMessageDialog(null, "No se han seleccionado sillas para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Construcción dinámica del query con múltiples placeholders (?,?,?,...)
+        StringBuilder queryBuilder = new StringBuilder("UPDATE tbl_sillas SET idEstado = ? WHERE idSilla IN (");
+
+        for (int i = 0; i < idSillas.length; i++) {
+            queryBuilder.append("?");
+            if (i < idSillas.length - 1) {
+                queryBuilder.append(", ");
+            }
+        }
+        queryBuilder.append(");");
+
+        String actualizarSilla = queryBuilder.toString();
+
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(actualizarSilla);
+
+            // Asignar el idEstado
             ps.setInt(1, idEstado);
-            ps.setInt(2, idSilla);
-            ps.executeUpdate(); // Usamos executeUpdate() para operaciones de actualización
-            
+
+            // Asignar cada idSilla a su correspondiente `?`
+            for (int i = 0; i < idSillas.length; i++) {
+                ps.setInt(i + 2, idSillas[i]); // `+2` porque el primer `?` es idEstado
+            }
+
+            int filasActualizadas = ps.executeUpdate(); // Ejecutar actualización
+
             cn.closeConnection();
+
+            JOptionPane.showMessageDialog(null, filasActualizadas + " sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            dataSillas.borrarDatos();
+            dataSillas.borrarCantidadSillas();
             
         } catch (SQLException e) {
-            // Si no se pudo insertar
             JOptionPane.showMessageDialog(null, "Error al actualizar las sillas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
-            // Cerrar recursos
             try {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }   
+        }
     }
-    
+
     
     
     public void actualizarSillasSeparadas(int[] folios, int idEstado, Double importe, LocalDate newVigencia) {
@@ -111,6 +136,58 @@ public class ActualizarData {
         }
     }
     
+    
+    public void actualizaEstaSillaxFila(int idEstado, int[] idSillas) {
+        
+        if (idSillas == null || idSillas.length == 0) {
+            JOptionPane.showMessageDialog(null, "No hay sillas para actualizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Construimos la consulta dinámica con el número correcto de placeholders '?'
+        StringBuilder actualizarSilla = new StringBuilder("UPDATE tbl_sillas SET idEstado = ? WHERE idSilla IN (");
+        for (int i = 0; i < idSillas.length; i++) {
+            actualizarSilla.append("?");  
+            if (i < idSillas.length - 1) {
+                actualizarSilla.append(", ");  // Agregar coma entre los placeholders
+            }
+        }
+        actualizarSilla.append(");");
+
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(actualizarSilla.toString());
+
+            // Asignar el nuevo estado a la primera posición del query
+            ps.setInt(1, idEstado);
+
+            // Asignar cada idSilla en su respectivo placeholder '?'
+            for (int i = 0; i < idSillas.length; i++) {
+                ps.setInt(i + 2, idSillas[i]);  // El índice comienza desde 2 porque 1 es idEstado
+            }
+
+            int filasActualizadas = ps.executeUpdate(); // Ejecutar la consulta y obtener filas afectadas
+
+            // Mostrar mensaje si no se actualizó ninguna fila
+            if (filasActualizadas == 0) {
+                JOptionPane.showMessageDialog(null, "No se actualizó ninguna silla.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar las sillas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     
     
 }
