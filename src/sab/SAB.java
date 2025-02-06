@@ -25,7 +25,7 @@ public class SAB {
         //frmLogin iniciar = new frmLogin();
         // frmSillasSeparadas iniciar = new frmSillasSeparadas();
         
-
+       
 
         frmLogin iniciar = new frmLogin();
         //frmSillasSeparadas iniciar = new frmSillasSeparadas();
@@ -37,6 +37,7 @@ public class SAB {
         //frmBoleto iniciar = new frmBoleto();
         
 
+        
         iniciar.setLocationRelativeTo(null); // Centra la ventana en la pantalla
         //Se inicia la ventana de login
         iniciar.setVisible(true);
