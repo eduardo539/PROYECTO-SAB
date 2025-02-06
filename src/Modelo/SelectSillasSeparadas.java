@@ -39,8 +39,7 @@ public class SelectSillasSeparadas {
         return instancia;
     }
     
-    
-    
+
     // Método para agregar una mesa a la lista
     public void agregarFolio(int folio) {
         listaFolios.add(new Folio(folio));
