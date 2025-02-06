@@ -155,9 +155,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
     }
     
-    public void datosxSocioTabla(int socio) {
+    public void datosxSocioTabla(int ori, int socio) {
         
-        apart = apartD.cajeroBoleto();
+        apart = apartD.datosxSocioBoleto(ori, socio);
 
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
@@ -165,12 +165,12 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         // Limpiar solo las filas sin tocar las columnas
         modelo.setRowCount(0);
 
-
+        
         modelo.addColumn("Folio");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
         modelo.addColumn("Núm. Socio");
-        modelo.addColumn("Socio");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Zona");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
@@ -187,22 +187,21 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         // Filtrar los datos según el socio ingresado y agregarlos a la tabla
         for (Boleto dato : listaDatos) {
-            if (dato.getNumSocio() == socio) { // Filtrar por número de socio
-                data[0] = String.valueOf(dato.getFolio());
-                data[1] = String.valueOf(dato.getOrigen());
-                data[2] = String.valueOf(dato.getGrupo());
-                data[3] = String.valueOf(dato.getNumSocio());
-                data[4] = dato.getNombre();
-                data[5] = dato.getZona();
-                data[6] = dato.getMesa();
-                data[7] = dato.getSilla();
-                data[8] = String.valueOf(dato.getCosto());
-                data[9] = String.valueOf(dato.getImporte());
-                data[10] = String.valueOf(dato.getVigencia());
+            data[0] = String.valueOf(dato.getFolio());
+            data[1] = String.valueOf(dato.getOrigen());
+            data[2] = String.valueOf(dato.getGrupo());
+            data[3] = String.valueOf(dato.getNumSocio());
+            data[4] = dato.getNombre();
+            data[5] = dato.getZona();
+            data[6] = dato.getMesa();
+            data[7] = dato.getSilla();
+            data[8] = String.valueOf(dato.getCosto());
+            data[9] = String.valueOf(dato.getImporte());
+            data[10] = String.valueOf(dato.getVigencia());
 
-                // Agregar la fila al modelo de la tabla
-                modelo.addRow(data);
-            }
+            // Agregar la fila al modelo de la tabla
+            modelo.addRow(data);
+            
         }
 
         // Asignar el modelo actualizado a la tabla
@@ -211,6 +210,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
         // Permitir la selección múltiple de filas
         tblBoletos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
         
     }
 
@@ -349,7 +349,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         }
         
         double importeActualizado = totalImporte + newImporte;
-        double restante = totalRestante - newImporte;
         double importeDividido = importeActualizado / totalSeleccionados;
         
         switch(comboBox){
@@ -357,14 +356,20 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 int estado1 = 2;
                 if(newImporte > totalRestante){
                     JOptionPane.showMessageDialog(null, "El importe no puede ser mayor a el adeudo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
-                }else{
-                    actualiza.actualizarSillasSeparadas(Folios, estado1, restante, newVigencia);
+                }
+                else if(newImporte == totalRestante){
+                    JOptionPane.showMessageDialog(null, "Si desea cubrir el monto restante en su totalidad seleccione 'Pagar'.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    actualiza.actualizarSillasSeparadas(Folios, estado1, importeDividido, newVigencia);
+                    limpiarCamposCompra();
                 }
                 break;
             case "Pagar":
                 int estado2 = 3;
                 if(totalRestante == newImporte){
-                    actualiza.actualizarSillasSeparadas(Folios, estado2, restante, newVigencia);
+                    actualiza.actualizarSillasSeparadas(Folios, estado2, importeDividido, newVigencia);
+                    limpiarCamposCompra();
                 }else{
                     JOptionPane.showMessageDialog(null, "Para liquidar la deuda debe ingresar el monto restante.", "Advertencia", JOptionPane.ERROR_MESSAGE);
                 }
@@ -374,7 +379,21 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 break;
         }
         
-      
+    }
+    
+    public void limpiarCamposCompra(){
+        datosTabla();
+        
+        apart.borrarDatos();
+        
+        // Limpiar el campo txtSocio
+        txtOrigen.setText("");
+        txtSocio.setText("");
+        txtSillas.setText("");
+        txtTotal.setText("");
+        txtTotalImporte.setText("");
+        txtAdeudo.setText("");
+        txtNewImporte.setText("");
     }
     
     @SuppressWarnings("unchecked")
@@ -392,6 +411,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         txtSocio = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
+        txtOrigen = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBoletos = new javax.swing.JTable();
@@ -490,12 +510,16 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             }
         });
 
+        txtOrigen.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen"));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -508,7 +532,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSocio, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSocio)
+                        .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnBuscar)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -579,7 +605,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         txtSillas.setBorder(javax.swing.BorderFactory.createTitledBorder("Sillas"));
 
         txtTotalImporte.setEditable(false);
-        txtTotalImporte.setBorder(javax.swing.BorderFactory.createTitledBorder("Total Importe"));
+        txtTotalImporte.setBorder(javax.swing.BorderFactory.createTitledBorder("Total Importe Abonado"));
 
         txtAdeudo.setEditable(false);
         txtAdeudo.setBorder(javax.swing.BorderFactory.createTitledBorder("Resta..."));
@@ -750,7 +776,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         
-        apart = apartD.cajeroBoleto();
         apart.borrarDatos();
         
         // Limpiar el campo txtSocio
@@ -773,20 +798,34 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         
-        String input = txtSocio.getText().trim(); // Eliminar espacios en blanco
-
+        String input1 = txtOrigen.getText().trim();
+        String input2 = txtSocio.getText().trim(); // Eliminar espacios en blanco
+        
+        
         // Validar que el campo no esté vacío y contenga solo números
-        if (input.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El campo no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (input1.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de origen no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return; // Salir del método si la validación falla
         }
 
-        if (!input.matches("\\d+")) {
+        if (!input1.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Ingrese el número de origen correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return; // Salir del método si la validación falla
+        }
+        
+        // Validar que el campo no esté vacío y contenga solo números
+        if (input2.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de socio no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return; // Salir del método si la validación falla
+        }
+
+        if (!input2.matches("\\d+")) {
             JOptionPane.showMessageDialog(this, "Ingrese el número de socio correctamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return; // Salir del método si la validación falla
         }
 
-        int socio = Integer.parseInt(input); // Convertir el texto a entero
+        int origen = Integer.parseInt(input1);
+        int socio = Integer.parseInt(input2); // Convertir el texto a entero
 
         apart = apartD.cajeroBoleto();
         apart.borrarDatos();
@@ -798,14 +837,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         modelo.setRowCount(0);
 
         // Llamar a la función que muestra los datos filtrados
-        datosxSocioTabla(socio);
+        datosxSocioTabla(origen, socio);
         
         
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        
+   
         actualizarEstadoSillas();
         
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -910,6 +949,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     public javax.swing.JTable tblBoletos;
     private javax.swing.JTextField txtAdeudo;
     private javax.swing.JTextField txtNewImporte;
+    private javax.swing.JTextField txtOrigen;
     private javax.swing.JTextField txtSillas;
     private javax.swing.JTextField txtSocio;
     private javax.swing.JTextField txtTotal;
