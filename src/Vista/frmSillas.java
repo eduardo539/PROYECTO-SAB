@@ -591,10 +591,29 @@ public class frmSillas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDato10ActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        frmBoleto boleto = new frmBoleto();
-        boleto.setLocationRelativeTo(null);
-        boleto.setVisible(true);
-        this.dispose();
+
+        
+        int sillasSeleccionadas = numSillas.getListaDatSilla().size();
+        int sillasRequeridas = numSillas.getCantidadSillas();
+
+        if (sillasSeleccionadas == sillasRequeridas) {
+            frmBoleto boleto = new frmBoleto();
+            boleto.setLocationRelativeTo(null);
+            boleto.setVisible(true);
+            this.dispose();
+        } else {
+            int faltantes = sillasRequeridas - sillasSeleccionadas;
+            JOptionPane.showMessageDialog(
+                null,
+                "Debes seleccionar " + sillasRequeridas + " sillas.\n" +
+                "Actualmente has seleccionado " + sillasSeleccionadas + ".\n" +
+                "Faltan " + faltantes + " sillas.",
+                "Selección incompleta",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
+
+        
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     /**
