@@ -1,5 +1,6 @@
 package Vista;
 
+import Modelo.CantidadSillasSelect;
 import Modelo.Login;
 import Modelo.Mesas;
 import Modelo.MesasData;
@@ -164,6 +165,10 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     
     private void abrirVentana(int mesaNumero) {
 
+        CantidadSillasSelect cantidadS = CantidadSillasSelect.getInstancia();
+        
+        int cantidadSillas = 0;
+        
         this.idMesa = mesaNumero;
 
         try {
@@ -197,8 +202,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                             );
                             return;
                         }
-
-                        int cantidadSillas;
+                        
+                        
                         boolean entradaValida = false;
 
                         // Solicitar al usuario la cantidad de sillas hasta que ingrese una válida
@@ -208,7 +213,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                                 "Ingrese la cantidad de sillas que desea comprar (1-10):\n"
                                 + "Sillas disponibles: " + sillasDisponibles + "\n" +
                                 "Recuerda seleccionar las sillas que va a comprar\n"
-                                + "o que va a Apartar de forma separada",
+                                + "o que va a Apartar por separado\n",
                                 "Seleccionar Sillas",
                                 JOptionPane.QUESTION_MESSAGE
                             );
@@ -250,6 +255,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
                         } while (!entradaValida);
 
+                        cantidadS.setCantidadSillas(cantidadSillas);
+                        
                         // Si la cantidad de sillas es válida, abrir la ventana
                         frmSillas sillas = new frmSillas();
                         sillas.setLocationRelativeTo(null);
