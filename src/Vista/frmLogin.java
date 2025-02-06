@@ -98,17 +98,7 @@ public class frmLogin extends javax.swing.JFrame {
                     this.dispose(); // Cerrar el formulario de login 
 
                     return; // Terminar el flujo hasta que la contraseña se actualice 
-                } 
-                
-
-                
-                
-                
-                
-                
-                
-                
-                
+                }
                 
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) { 
