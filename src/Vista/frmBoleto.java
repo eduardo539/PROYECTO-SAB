@@ -113,7 +113,7 @@ public class frmBoleto extends javax.swing.JFrame {
         // Asignar los valores a los campos de texto
         txtZona.setText(zona);
         txtMesa.setText(mesa);
-        txtSilla.setText(nombresSillasStr); //Solo los nombres de las sillas
+        txtSilla.setText("" + nombresSillas); //Solo los nombres de las sillas
         txtCosto.setText(String.valueOf(costo));
     }
     
@@ -317,6 +317,7 @@ public class frmBoleto extends javax.swing.JFrame {
         txtMesa.setEditable(false);
         txtMesa.setBorder(javax.swing.BorderFactory.createTitledBorder("Mesa"));
 
+        txtSilla.setEditable(false);
         txtSilla.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s"));
 
         txtCosto.setEditable(false);
