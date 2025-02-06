@@ -111,7 +111,7 @@ public class frmLogin extends javax.swing.JFrame {
                         abrirVentana(new frmOperaciones(), "Operaciones");
                         break;
                     case "Gerente":
-                        abrirVentana(new frmEnviarPDF(), "Gerente");
+                        abrirVentana(new frmReporteVentaPSucursal(), "Gerente");
                         break; 
                     case "Cajero":
                         abrirVentana(new frmCajero(), "Cajero");
