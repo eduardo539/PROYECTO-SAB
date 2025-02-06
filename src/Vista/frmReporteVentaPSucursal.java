@@ -149,6 +149,13 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         });
     }
     
+    
+    
+    
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DatePicker dtFechas;
