@@ -65,7 +65,7 @@ public class frmCajero extends javax.swing.JFrame {
             }
         }
         else{
-            lblVersionOS.setText("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " | ");
+            lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
         
         //barraEstado = new javax.swing.JPanel();

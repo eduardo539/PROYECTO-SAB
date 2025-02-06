@@ -409,6 +409,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jmiAcercaDe.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
         jmiAcercaDe.setText("Acerca de...");
+        jmiAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAcercaDeActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmiAcercaDe);
 
         jMenuBar1.add(jMenu2);
@@ -897,6 +902,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtid_usuario.setEnabled(true);
         btnRegistrar.setEnabled(true);
     }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jmiAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAcercaDeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiAcercaDeActionPerformed
 
     
     /**

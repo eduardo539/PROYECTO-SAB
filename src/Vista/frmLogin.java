@@ -98,10 +98,8 @@ public class frmLogin extends javax.swing.JFrame {
                     this.dispose(); // Cerrar el formulario de login 
 
                     return; // Terminar el flujo hasta que la contraseña se actualice 
-                } 
+                }
                 
-                System.out.println("DESPUES DE LA FUNCION" + idUsuario); // Log (opcional)
-
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) { 
                     case "Sistemas":
@@ -109,9 +107,9 @@ public class frmLogin extends javax.swing.JFrame {
                         break; 
                     case "Operaciones": 
                         abrirVentana(new frmOperaciones(), "Operaciones");
-                        break; 
-                    case "Gerente": 
-                        abrirVentana(new frmGerente(), "Gerente");
+                        break;
+                    case "Gerente":
+                        abrirVentana(new frmReporteVentaPSucursal(), "Gerente");
                         break; 
                     case "Cajero":
                         abrirVentana(new frmCajero(), "Cajero");
