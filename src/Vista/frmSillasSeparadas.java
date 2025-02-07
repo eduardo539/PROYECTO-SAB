@@ -213,6 +213,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
     }
 
+    
     /**
     * Método para obtener e imprimir los boletos seleccionados.
     */
@@ -299,6 +300,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
     }
 
+    
     public void actualizarEstadoSillas() {
         
         ActualizarData actualiza = new ActualizarData();
@@ -384,12 +386,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
     }
     
+    
     public void limpiarCamposCompra(){
         datosTabla();
         
         apart.borrarDatos();
         
         // Limpiar el campo txtSocio
+        SelectCombo.setSelectedIndex(0);
         txtOrigen.setText("");
         txtSocio.setText("");
         txtSillas.setText("");
@@ -397,7 +401,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         txtTotalImporte.setText("");
         txtAdeudo.setText("");
         txtNewImporte.setText("");
+        dtNewVigencia.setDate(null);
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -737,6 +743,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void jmiVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVolverInicioActionPerformed
         frmCajero cajero = new frmCajero();
         cajero.setLocationRelativeTo(null);
@@ -780,8 +787,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         
         apart.borrarDatos();
+        cb.borrarDatos();
         
         // Limpiar el campo txtSocio
+        SelectCombo.setSelectedIndex(0);
         txtOrigen.setText("");
         txtSocio.setText("");
         txtSillas.setText("");
@@ -789,6 +798,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         txtTotalImporte.setText("");
         txtAdeudo.setText("");
         txtNewImporte.setText("");
+        dtNewVigencia.setDate(null);
         
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblBoletos.getModel();

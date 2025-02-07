@@ -20,15 +20,13 @@ import javax.swing.JOptionPane;
  */
 public class frmSillas extends javax.swing.JFrame {
     
+    double sumaCosto = 0.0;
     
     CantidadSillasSelect numSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
-    private final int numeroDeSillas = numSillas.getCantidadSillas(); // Límite de sillas a seleccionar
-    private final ArrayList<Integer> idSillasSeleccionadas = new ArrayList<>(); // Lista de IDs seleccionados
-    private final ArrayList<String> nombresSillasSeleccionadas = new ArrayList<>(); // Lista de nombres de sillas seleccionadas
-    
     
     SillaEstado sss = SillaEstado.getInstancia();
     SillasData sdat = new SillasData();
+    Sillas sill = Sillas.getInstancia();
     
         
     public frmSillas() {
@@ -48,28 +46,36 @@ public class frmSillas extends javax.swing.JFrame {
     }
     
     
-    public void datos(){
-        
-        Sillas s = Sillas.getInstancia();
-        
-        // Asegúrate de que la lista tenga al menos 2 elementos
-        if (s.getListaSillas().size() >= 3) {
-            // Obtén los dos datos específicos de la lista
-            Sillas.Silla mesa = s.getListaSillas().get(5); // Primer dato
-            Sillas.Silla zona = s.getListaSillas().get(8); // Segundo dato
-            Sillas.Silla costo = s.getListaSillas().get(9); // Tercer dato
-            
-            // Asigna los valores a los labels
+    public void datos() {
+
+        // Asegurarse de que la lista tenga suficientes elementos antes de acceder a ellos
+        List<Sillas.Silla> listaSillas = sill.getListaSillas();
+
+        if (listaSillas.size() > 9) { // Verifica que al menos hay 10 elementos
+            // Obtener los datos específicos de la lista
+            Sillas.Silla mesa = listaSillas.get(5);
+            Sillas.Silla zona = listaSillas.get(8);
+            Sillas.Silla costo = listaSillas.get(9);
+
+            int cantSill = numSillas.getCantidadSillas();
+            sumaCosto = costo.getCosto() * cantSill; // Multiplicación correcta
+
+            // Asignar los valores a los labels
             lblMesa.setText(mesa.getDescMesa());
             lblZona.setText("Zona: " + zona.getZona());
-            lblCosto.setText("Costo Unit: $" + costo.getCosto() + " M.N.");
+            lblCostoUnit.setText("Costo Unitario: $" + costo.getCosto() + " M.N.");
+            lblCantiSillas.setText("Cantidad: " + cantSill + " Sillas");
+            lblCosto.setText("Costo Total: $" + sumaCosto + " M.N.");
         } else {
             // Mensaje en caso de que la lista no tenga suficientes elementos
             lblMesa.setText("Datos insuficientes");
             lblZona.setText("Datos insuficientes");
+            lblCostoUnit.setText("Datos insuficientes");
+            lblCantiSillas.setText("Datos insuficientes");
+            lblCosto.setText("Datos insuficientes");
         }
     }
-    
+
     
     public void nomSillas(){
         // Obtener la instancia de la clase singleton Sillas
@@ -135,9 +141,7 @@ public class frmSillas extends javax.swing.JFrame {
     }
 
     
-    public void seleccionSillas(int data) {
-        
-        Sillas sill = Sillas.getInstancia(); // Obtener la instancia de las sillas
+    public void seleccionSillas(int data) {  
         
         try {
             if (sill.getListaSillas().isEmpty()) {
@@ -167,7 +171,7 @@ public class frmSillas extends javax.swing.JFrame {
                     return;
                 }
             }
-
+            
             
             // Agregar la silla a la lista de la clase CantidadSillasSelect
             numSillas.agregarDataSilla(idSilla, nomSilla);
@@ -178,7 +182,9 @@ public class frmSillas extends javax.swing.JFrame {
             for (CantidadSillasSelect.tempDataSillas silla : listaSillas) {
                 nombresSillas.add(silla.getNomSilla());
             }
+            
             txtSillasSelect.setText(String.join(", ", nombresSillas));
+            
             
             
         } catch (Exception e) {
@@ -257,6 +263,8 @@ public class frmSillas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtSillasSelect = new javax.swing.JTextField();
         btnContinuar = new javax.swing.JButton();
+        lblCostoUnit = new javax.swing.JLabel();
+        lblCantiSillas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Selección de Sillas");
@@ -424,13 +432,13 @@ public class frmSillas extends javax.swing.JFrame {
         jLabel5.setText("Comprado");
 
         lblCosto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblCosto.setText("Label-Costo");
+        lblCosto.setText("Label-Costo-Total");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Seleccione la silla de su preferencia");
 
         txtSillasSelect.setEditable(false);
-        txtSillasSelect.setBorder(javax.swing.BorderFactory.createTitledBorder("Sillas Seleccionadas"));
+        txtSillasSelect.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s Seleccionada/s"));
 
         btnContinuar.setBackground(new java.awt.Color(0, 153, 0));
         btnContinuar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -443,46 +451,52 @@ public class frmSillas extends javax.swing.JFrame {
             }
         });
 
+        lblCostoUnit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblCostoUnit.setText("Label-Costo-Unit");
+
+        lblCantiSillas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblCantiSillas.setText("Label-Cantidad-Sillas");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2))))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnContinuar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCantiSillas)
+                    .addComponent(lblCostoUnit)
                     .addComponent(lblCosto)
                     .addComponent(lblZona)
                     .addComponent(lblMesa)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(txtSillasSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(33, 33, 33))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                .addComponent(btnContinuar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(50, 50, 50)))))
+                    .addComponent(txtSillasSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,21 +521,25 @@ public class frmSillas extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtSillasSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addComponent(lblMesa)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblZona)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCostoUnit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCantiSillas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCosto)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -597,6 +615,7 @@ public class frmSillas extends javax.swing.JFrame {
         int sillasRequeridas = numSillas.getCantidadSillas();
 
         if (sillasSeleccionadas == sillasRequeridas) {
+            numSillas.setCostoSilla(sumaCosto);
             frmBoleto boleto = new frmBoleto();
             boleto.setLocationRelativeTo(null);
             boleto.setVisible(true);
@@ -674,7 +693,9 @@ public class frmSillas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblCantiSillas;
     private javax.swing.JLabel lblCosto;
+    private javax.swing.JLabel lblCostoUnit;
     private javax.swing.JLabel lblDato1;
     private javax.swing.JLabel lblDato10;
     private javax.swing.JLabel lblDato2;
