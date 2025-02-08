@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista;
 
 import Modelo.Login;
@@ -10,17 +5,16 @@ import java.awt.Window;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Stock 2 Sistemas
  */
 
 public class frmOperaciones extends javax.swing.JFrame {
-       
+    
     public frmOperaciones() {
         initComponents();
-        setLocationRelativeTo(null);//Abrir la ventana en el centro de la pantalla
+        setLocationRelativeTo(null); //Abrir la ventana en el centro de la pantalla
     }
     
     private void abrirLogin() {
@@ -169,9 +163,9 @@ public class frmOperaciones extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             // Manejo de errores en caso de fallo
-            JOptionPane.showMessageDialog(this, 
-                "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
-                "Error", 
+            JOptionPane.showMessageDialog(this,
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
+                "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -183,7 +177,7 @@ public class frmOperaciones extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;

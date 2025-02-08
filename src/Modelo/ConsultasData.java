@@ -91,13 +91,55 @@ public class ConsultasData {
         return cb;
     }
     
-    public boolean obtenerDatosBoletos(int[] folio, int origen, int numSocio, int idMesa){
+    
+    public int obtenerDatosBoletos(int origen, int numSocio, String zona){
+        
+        String countBoletos = "SELECT COUNT(*) AS Total FROM tbl_boletos " +
+                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
+                                "WHERE tbl_boletos.Origen = ? AND tbl_boletos.NumSocio = ? " +
+                                "AND tbl_zonas.Zona = ?";
+        
+        int totalDatos = 0; // Inicializa con 0 en caso de error
         
         
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(countBoletos);
+            ps.setInt(1, origen);
+            ps.setInt(2, numSocio);
+            ps.setString(3, zona);
+            rs = ps.executeQuery();
+
+            // Si hay resultado, obtener el número de boletos disponibles
+            if (rs.next()) {
+                totalDatos = rs.getInt("Total");
+            }
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener el total de boletos.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos para evitar fugas de memoria
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, 
+                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return totalDatos;
         
-        return true;
     }
 
+    
     public int sillasDisponibles(int idEstado, int idMesa) {
         
         String sql = "SELECT COUNT(*) AS Total FROM tbl_sillas " +
