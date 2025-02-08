@@ -115,10 +115,10 @@
                       <Component id="txtZona" max="32767" attributes="0"/>
                       <Component id="txtMesa" max="32767" attributes="0"/>
                       <Component id="txtCosto" max="32767" attributes="0"/>
-                      <Component id="txtSilla" max="32767" attributes="0"/>
                       <Component id="txtCorreo" alignment="1" pref="180" max="32767" attributes="0"/>
                       <Component id="dtVigencia" alignment="1" max="32767" attributes="0"/>
                       <Component id="txtImporte" max="32767" attributes="0"/>
+                      <Component id="txtSilla" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
@@ -149,10 +149,10 @@
                   </Group>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtSilla" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="txtTelefono" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSilla" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="radioInvitado" min="-2" max="-2" attributes="0"/>
                       <Component id="txtImporte" min="-2" pref="39" max="-2" attributes="0"/>
@@ -273,22 +273,12 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtSilla">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Silla/s"/>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="txtCosto">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Costo"/>
+                <TitledBorder title="Costo Total"/>
               </Border>
             </Property>
           </Properties>
@@ -346,6 +336,16 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Importe"/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtSilla">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Silla/s"/>
               </Border>
             </Property>
           </Properties>

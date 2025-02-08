@@ -9,7 +9,6 @@ import Modelo.PosadaMTY;
 import Modelo.Precios;
 import Modelo.PreciosData;
 import Modelo.Sillas;
-import Modelo.Sillas;
 import Modelo.SillasData;
 import java.awt.Color;
 import java.awt.Component;
@@ -103,6 +102,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         lblFecha = new javax.swing.JLabel();
     }
     
+    
     public void estadoPrecios(){
         // Obtener la instancia de la clase singleton Precios
         Precios precios = Precios.getInstancia();
@@ -163,6 +163,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         
     }
     
+    
     private void abrirVentana(int mesaNumero) {
 
         CantidadSillasSelect cantidadS = CantidadSillasSelect.getInstancia();
@@ -177,21 +178,23 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
             if (ps != null) {
                 String estatusMesa = ps.getEstatusMesa();
-
+                
                 switch (estatusMesa) {
                     case "Disponible":
-
+                      
                         // Obtener la lista de sillas disponibles
                         s = sid.s(idMesa);
+                        
                         List<Sillas.Silla> listaSillas = s.getListaSillas(); // Obtener la lista de sillas
                         int sillasDisponibles = 0;
-
+                        
                         // Contar cuántas sillas están disponibles
                         for (Sillas.Silla silla : listaSillas) {  
                             if (silla.getEstadoSilla().equals("Disponible")) {  
                                 sillasDisponibles++;
                             }
                         }
+                        
 
                         if (sillasDisponibles == 0) {
                             JOptionPane.showMessageDialog(

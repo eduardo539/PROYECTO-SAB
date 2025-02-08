@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -88,6 +89,55 @@ public class ConsultasData {
         }
 
         return cb;
+    }
+    
+    public boolean obtenerDatosBoletos(int[] folio, int origen, int numSocio, int idMesa){
+        
+        
+        
+        return true;
+    }
+
+    public int sillasDisponibles(int idEstado, int idMesa) {
+        
+        String sql = "SELECT COUNT(*) AS Total FROM tbl_sillas " +
+                     "WHERE idEstado = ? AND idMesa = ?";
+
+        int totalSillas = 0; // Inicializa con 0 en caso de error
+
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idEstado);
+            ps.setInt(2, idMesa);
+            rs = ps.executeQuery();
+
+            // Si hay resultado, obtener el número de sillas disponibles
+            if (rs.next()) {
+                totalSillas = rs.getInt("Total");
+            }
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener las sillas disponibles.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos para evitar fugas de memoria
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, 
+                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return totalSillas; // Retorna el número real de sillas disponibles
     }
 
     

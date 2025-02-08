@@ -5,8 +5,11 @@ import Modelo.CantidadSillasSelect;
 import Modelo.CantidadSillasSelect.tempDataSillas;
 import Modelo.CompraBoleto;
 import Modelo.CompraBoletoData;
+import Modelo.ConsultasData;
 import Modelo.InsertarData;
 import Modelo.Login;
+import Modelo.Mesas;
+import Modelo.MesasData;
 import Modelo.SillaEstado;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +33,11 @@ public class frmBoleto extends javax.swing.JFrame {
     
     InsertarData insert = new InsertarData();
     ActualizarData actualiza = new ActualizarData();
+    ConsultasData consulta = new ConsultasData();
     Login lg = Login.getInstancia();
     
     
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
-    
     
     public frmBoleto() {
         initComponents();
@@ -97,24 +100,19 @@ public class frmBoleto extends javax.swing.JFrame {
     public void extraerDatos() {
         String zona = sE.getZona();
         String mesa = sE.getNomMesa();
-        double costo = sE.getCosto();
-
-        // Obtener la lista de sillas y extraer solo los nombres
+        double costoTotal = dataSillas.getCostoSilla();
+        
         List<tempDataSillas> listaSillas = dataSillas.getListaDatSilla();
         List<String> nombresSillas = new ArrayList<>();
-
-        for (CantidadSillasSelect.tempDataSillas silla : listaSillas) {
+        for (tempDataSillas silla : listaSillas) {
             nombresSillas.add(silla.getNomSilla());
         }
-
-        // Unir los nombres con coma y espacio
-        String nombresSillasStr = String.join(", " + nombresSillas);
 
         // Asignar los valores a los campos de texto
         txtZona.setText(zona);
         txtMesa.setText(mesa);
-        txtSilla.setText("" + nombresSillas); //Solo los nombres de las sillas
-        txtCosto.setText(String.valueOf(costo));
+        txtSilla.setText(String.join(", ", nombresSillas)); //Solo los nombres de las sillas
+        txtCosto.setText(String.valueOf(costoTotal));
     }
     
     
@@ -150,10 +148,13 @@ public class frmBoleto extends javax.swing.JFrame {
         String Mesa = sE.getNomMesa();
         double Costo = sE.getCosto();
         int estatusSilla;
-        double importe;
+        double importe = 0.0;
+        
+        int idEstadoSilla = 1; // Estado "Disponible"
         
         double importeDividido;
         int cantidadSillas = dataSillas.getCantidadSillas();
+        double totalCosto = dataSillas.getCostoSilla();
 
         String input = txtImporte.getText();
 
@@ -192,6 +193,8 @@ public class frmBoleto extends javax.swing.JFrame {
                          "Mesa: " + Mesa + "\n" +
                          "Silla/s: " + String.join(", ", nombresSillas) + "\n" +
                          "Costo unitario: $" + Costo + "\n" +
+                         "Cantidad: " + cantidadSillas + " Sillas\n" +
+                         "Costo Total: $" + totalCosto + "\n" +
                          "Importe: $" + importe + "\n" +
                          "Vigencia: " + vigencia + "\n" +
                          "Invitado: " + rInvitado + "\n\n" +
@@ -203,14 +206,34 @@ public class frmBoleto extends javax.swing.JFrame {
         importeDividido = importe / cantidadSillas;
         
         if (confirmacion == JOptionPane.YES_OPTION) {
-            if ("Separar".equals(comboBox)) {
-                estatusSilla = 2;
-            } else if ("Comprar".equals(comboBox)) {
-                estatusSilla = 3;
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecciona una opción válida (Compra o Separar).",
-                                              "Alerta", JOptionPane.WARNING_MESSAGE);
-                return;
+            switch (comboBox) {
+                case "Separar":
+                    if (importe > 0 && importe < totalCosto) {
+                        estatusSilla = 2;
+                    } else {
+                        JOptionPane.showMessageDialog(null, 
+                            "Para 'Separar', ingresa un importe menor al total y mayor a 0.", 
+                            "Alerta", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                    break;
+
+                case "Comprar":
+                    if (importe == totalCosto) {
+                        estatusSilla = 3;
+                    } else {
+                        JOptionPane.showMessageDialog(null, 
+                            "Para 'Comprar', el importe debe ser exactamente igual al total.", 
+                            "Alerta", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, 
+                        "Selecciona una opción válida ('Comprar' o 'Separar').", 
+                        "Alerta", JOptionPane.WARNING_MESSAGE);
+                    return;
             }
 
             // Enviar los datos a la base de datos
@@ -219,14 +242,24 @@ public class frmBoleto extends javax.swing.JFrame {
 
             // Actualizar el estatus de las sillas en la base de datos
             actualiza.actualizarEstatusSilla(estatusSilla, idsSillas);
+            
+            int dataCount = consulta.sillasDisponibles(idEstadoSilla, idMesa);
+            
+            // Verificamos si el resultado es válido antes de actualizar
+            if(dataCount == 0){
+                actualiza.actualizaEstadoMesa(idMesa);
+            }
 
             // Limpiar los datos seleccionados
             dataSillas.borrarDatos();
             dataSillas.borrarCantidadSillas();
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Operación cancelada.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, 
+                "Operación cancelada.", 
+                "Información", JOptionPane.INFORMATION_MESSAGE);
         }
+
         
     }
 
@@ -247,13 +280,13 @@ public class frmBoleto extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         txtZona = new javax.swing.JTextField();
         txtMesa = new javax.swing.JTextField();
-        txtSilla = new javax.swing.JTextField();
         txtCosto = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         comboBoleto = new javax.swing.JComboBox();
         radioInvitado = new javax.swing.JRadioButton();
         dtVigencia = new com.github.lgooddatepicker.components.DatePicker();
         txtImporte = new javax.swing.JTextField();
+        txtSilla = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         txtOrigen = new javax.swing.JTextField();
@@ -317,11 +350,8 @@ public class frmBoleto extends javax.swing.JFrame {
         txtMesa.setEditable(false);
         txtMesa.setBorder(javax.swing.BorderFactory.createTitledBorder("Mesa"));
 
-        txtSilla.setEditable(false);
-        txtSilla.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s"));
-
         txtCosto.setEditable(false);
-        txtCosto.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo"));
+        txtCosto.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo Total"));
 
         txtTelefono.setEditable(false);
         txtTelefono.setBorder(javax.swing.BorderFactory.createTitledBorder("Teléfono"));
@@ -336,6 +366,9 @@ public class frmBoleto extends javax.swing.JFrame {
         dtVigencia.setBorder(javax.swing.BorderFactory.createTitledBorder("Vigencia del Boleto"));
 
         txtImporte.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe"));
+
+        txtSilla.setEditable(false);
+        txtSilla.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s"));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -362,10 +395,10 @@ public class frmBoleto extends javax.swing.JFrame {
                     .addComponent(txtZona)
                     .addComponent(txtMesa)
                     .addComponent(txtCosto)
-                    .addComponent(txtSilla)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                     .addComponent(dtVigencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtImporte))
+                    .addComponent(txtImporte)
+                    .addComponent(txtSilla))
                 .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
@@ -389,9 +422,9 @@ public class frmBoleto extends javax.swing.JFrame {
                     .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(radioInvitado)
                     .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
