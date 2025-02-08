@@ -223,7 +223,6 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         }
     }
     
-
     private void configuracionModeloTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Sucursal");
@@ -232,7 +231,5 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         tblReporte.setModel(modelo);
 
     }
-
-    
     
 }
