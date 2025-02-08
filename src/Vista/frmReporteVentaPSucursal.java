@@ -28,8 +28,10 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
     public frmReporteVentaPSucursal() {
         initComponents();
-        conexion = new Conexion(); // Inicializa la conexión
+        conexion = new Conexion();
         configurarModeloTabla(); // Configura los encabezados correctos
+        configurarComboBoxAnos(); // Configura los años en el ComboBox
+        configurarComboBoxMeses(); // Configura los meses en el ComboBox
         cargarDatosGerente(null, null); // Carga todos los datos iniciales (sin filtros)
     }
     
@@ -69,10 +71,10 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporte = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        txtAno = new javax.swing.JTextField();
-        txtMes = new javax.swing.JTextField();
         btnFiltrar = new javax.swing.JButton();
         btnMostrarTodo = new javax.swing.JButton();
+        jtlAnos = new javax.swing.JComboBox();
+        jtlMeses = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -101,32 +103,35 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         jLabel1.setText("Boletos por Sucursal");
 
-        txtAno.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese el año:"));
-
-        txtMes.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese el mes:"));
-        txtMes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMesActionPerformed(evt);
-            }
-        });
-
-        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
-        btnFiltrar.setText("Filtrar Datos");
         btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
         btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
+        btnFiltrar.setText("Filtrar Datos");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
             }
         });
 
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar todos los Boletos");
         btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
         btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
+        btnMostrarTodo.setText("Mostrar todos los Boletos");
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
+            }
+        });
+
+        jtlAnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtlAnosActionPerformed(evt);
+            }
+        });
+
+        jtlMeses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtlMesesActionPerformed(evt);
             }
         });
 
@@ -168,15 +173,15 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,8 +195,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
@@ -202,18 +207,19 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMesActionPerformed
-        
-    }//GEN-LAST:event_txtMesActionPerformed
-
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         filtrarPorFecha();
-        limpiarEntradas();
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
         // Llama al método para cargar todos los boletos sin filtros
         cargarDatosGerente(null, null);
+        limpiarCamposSeleccion();
+    }
+
+    private void limpiarCamposSeleccion() {
+        jtlAnos.setSelectedIndex(0);
+        jtlMeses.setSelectedIndex(0);
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -248,6 +254,14 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jtlAnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlAnosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtlAnosActionPerformed
+
+    private void jtlMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlMesesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtlMesesActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -267,9 +281,9 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox jtlAnos;
+    private javax.swing.JComboBox jtlMeses;
     private javax.swing.JTable tblReporte;
-    private javax.swing.JTextField txtAno;
-    private javax.swing.JTextField txtMes;
     // End of variables declaration//GEN-END:variables
 
     private void configurarModeloTabla() {
@@ -379,20 +393,32 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     }
     
     private void filtrarPorFecha() {
-        String ano = txtAno.getText();
-        String mes = txtMes.getText();
+        String ano = (String) jtlAnos.getSelectedItem();
+        String mes = jtlMeses.getSelectedIndex() > 0 ? String.valueOf(jtlMeses.getSelectedIndex()) : null;
 
-        if (ano.isEmpty() || mes.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese año y mes.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (ano == null || mes == null || jtlAnos.getSelectedIndex() == 0 || jtlMeses.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un año y un mes.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         cargarDatosGerente(ano, mes);
     }
 
-    private void limpiarEntradas() {
-        txtAno.setText("");
-        txtMes.setText("");
+    private void configurarComboBoxAnos() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Seleccione un año");
+        for (int i = 2025; i <= 2050; i++) {
+            modelo.addElement(String.valueOf(i));
+        }
+        jtlAnos.setModel(modelo);
     }
-    
+
+    private void configurarComboBoxMeses() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Seleccione un mes");
+        String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        for (String mes : meses) {
+            modelo.addElement(mes);
+        }
+        jtlMeses.setModel(modelo);
+    }
 }
