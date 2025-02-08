@@ -31,7 +31,6 @@ public class SillasApartadas {
         return instancia;
     }
     
-    
     // Método para agregar una mesa a la lista
     public void agregarBoleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursal, int idZona, String zona,int idMesa , String mesa,int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, String fechaCompra, String vigencia) {
         listaBoletos.add(new Boleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia));
