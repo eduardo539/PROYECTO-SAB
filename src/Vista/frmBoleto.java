@@ -7,6 +7,7 @@ import Modelo.CompraBoleto;
 import Modelo.CompraBoletoData;
 import Modelo.ConsultasData;
 import Modelo.DatosBoletosPDF;
+import Modelo.GenerarBoleto;
 import Modelo.InsertarData;
 import Modelo.Login;
 import Modelo.SillaEstado;
@@ -253,9 +254,12 @@ public class frmBoleto extends javax.swing.JFrame {
             
             if(estatusSilla == 3){
                 pdf = consulta.datosGenerarBoleto(origen, grupo, socio, idsSillas);
+                GenerarBoleto bol = new GenerarBoleto();
+                bol.boletoPDF();
             }
 
             // Limpiar los datos seleccionados
+            pdf.borrarDatos();
             dataSillas.borrarDatos();
             dataSillas.borrarCantidadSillas();
             this.dispose();
