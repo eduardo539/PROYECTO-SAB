@@ -74,8 +74,7 @@ public class ActualizarData {
             }
         }
     }
-
-    
+  
     
     public void actualizarSillasSeparadas(int[] folios, int idEstado, Double importe, LocalDate newVigencia) {
         
@@ -184,6 +183,35 @@ public class ActualizarData {
                 if (con != null) con.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    
+    public void actualizaEstadoMesa(int idMesa) {
+        String actualizaMesa = "UPDATE tbl_mesas SET Estatus = 'Ocupado' WHERE idMesa = ?";
+
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(actualizaMesa);
+            ps.setInt(1, idMesa);
+            ps.executeUpdate(); // Se usa executeUpdate() en lugar de executeQuery()
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al actualizar el estado de la mesa.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos para evitar fugas de memoria
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, 
+                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }

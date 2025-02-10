@@ -44,7 +44,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     public double totalImporte = 0.0; // Variable para almacenar la suma de los importes
     double totalCosto = 0.0;
     double totalRestante = 0.0;
-    public int totalSeleccionados;
+    public int totalSeleccionados = 0;
 
     
     public frmSillasSeparadas() {
@@ -213,21 +213,52 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
     }
 
+    
     /**
     * Método para obtener e imprimir los boletos seleccionados.
     */
     public void imprimirBoletosSeleccionados() {
         
+        
         int[] filasSeleccionadas = tblBoletos.getSelectedRows();
-
+ 
         if (filasSeleccionadas.length == 0) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun dato.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
+
+        // Variables para almacenar la primera fila seleccionada
+        int numOrigen = 0;
+        int numSocio = 0;
+        String Zona = "";
+
+        // Inicializar los contadores de costos e importes
+        totalCosto = 0;
+        totalImporte = 0;
+        
+        int countBol = 0;
+        
         // Contador de boletos seleccionados
         totalSeleccionados = filasSeleccionadas.length;
 
+        int primeraFila = filasSeleccionadas[0];
+        numOrigen = Integer.parseInt(tblBoletos.getValueAt(primeraFila, 1).toString());
+        numSocio = Integer.parseInt(tblBoletos.getValueAt(primeraFila, 3).toString());
+        Zona = tblBoletos.getValueAt(primeraFila, 5).toString();
+        
+        countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, Zona);
+        
+        // Validar si la cantidad de boletos seleccionados es mayor a los permitidos
+        if (totalSeleccionados > countBol) {
+            JOptionPane.showMessageDialog(null,
+                    "Debe seleccionar boletos del mismo Origen, Socio y Zona.\n"
+                    + "No pueden ser diferentes.",
+                    "Selección Inválida",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         // Usamos StringJoiner para concatenar valores con comas
         StringJoiner folios = new StringJoiner(", ");
         StringJoiner origen = new StringJoiner(", ");
@@ -248,6 +279,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         // Variable para almacenar la primera vigencia seleccionada
         String primeraVigencia = "";
 
+    
         for (int i = 0; i < filasSeleccionadas.length; i++) {
             int fila = filasSeleccionadas[i];
             
@@ -278,6 +310,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             totalImporte += Double.parseDouble(tblBoletos.getValueAt(fila, 9).toString());
         }
 
+        
         totalRestante = totalCosto - totalImporte;
         // Imprimir la información en una sola línea por campo
         txtSillas.setText("" + sillas);
@@ -299,6 +332,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
     }
 
+    
     public void actualizarEstadoSillas() {
         
         ActualizarData actualiza = new ActualizarData();
@@ -384,12 +418,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
     }
     
+    
     public void limpiarCamposCompra(){
         datosTabla();
         
         apart.borrarDatos();
         
         // Limpiar el campo txtSocio
+        SelectCombo.setSelectedIndex(0);
         txtOrigen.setText("");
         txtSocio.setText("");
         txtSillas.setText("");
@@ -397,7 +433,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         txtTotalImporte.setText("");
         txtAdeudo.setText("");
         txtNewImporte.setText("");
+        dtNewVigencia.setDate(null);
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -737,6 +775,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void jmiVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVolverInicioActionPerformed
         frmCajero cajero = new frmCajero();
         cajero.setLocationRelativeTo(null);
@@ -780,8 +819,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         
         apart.borrarDatos();
+        cb.borrarDatos();
         
         // Limpiar el campo txtSocio
+        SelectCombo.setSelectedIndex(0);
         txtOrigen.setText("");
         txtSocio.setText("");
         txtSillas.setText("");
@@ -789,6 +830,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         txtTotalImporte.setText("");
         txtAdeudo.setText("");
         txtNewImporte.setText("");
+        dtNewVigencia.setDate(null);
         
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblBoletos.getModel();

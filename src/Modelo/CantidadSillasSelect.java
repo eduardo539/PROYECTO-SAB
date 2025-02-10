@@ -18,6 +18,7 @@ public class CantidadSillasSelect {
     
     
     private int cantidadSillas;
+    private double costoSilla;
     
     
     // Constructor privado para implementar Singleton
@@ -35,8 +36,8 @@ public class CantidadSillasSelect {
     
     
     // Método para agregar 2 datos de la silla a la lista
-    public void agregarDataSilla(int folio, String nom) {
-        listIdNom.add(new tempDataSillas(folio, nom));
+    public void agregarDataSilla(int idSi, String nom) {
+        listIdNom.add(new tempDataSillas(idSi, nom));
     }
     
 
@@ -57,12 +58,24 @@ public class CantidadSillasSelect {
     public void setCantidadSillas(int cantidadSillas) {
         this.cantidadSillas = cantidadSillas;
     }
+
+    public double getCostoSilla() {
+        return costoSilla;
+    }
+
+    public void setCostoSilla(double costoSilla) {
+        this.costoSilla = costoSilla;
+    }
+    
+    
     
     public void borrarCantidadSillas(){
         this.cantidadSillas = 0;
+        this.costoSilla = 0.0;
     }
     
     public static class tempDataSillas{
+        
         int idSilla;
         String nomSilla;
 
