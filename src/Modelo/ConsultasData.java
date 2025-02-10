@@ -190,7 +190,7 @@ public class ConsultasData {
 
         // Construcción dinámica de la consulta con múltiples sillas
         StringBuilder consultaBoletos = new StringBuilder(
-            "SELECT tbl_boletos.Origen, tbl_boletos.Grupo, tbl_boletos.NumSocio, tbl_boletos.Nombre, tbl_boletos.Invitado, " +
+            "SELECT tbl_boletos.Folio, tbl_boletos.Origen, tbl_boletos.Grupo, tbl_boletos.NumSocio, tbl_boletos.Nombre, tbl_boletos.Invitado, " +
             "tbl_boletos.Telefono, tbl_boletos.Correo, tbl_zonas.Zona, tbl_mesas.DescMesa, tbl_sillas.vchDescripcion, " +
             "tbl_boletos.Costo, tbl_boletos.Importe, tbl_estado_sillas.EstadoSilla, tbl_boletos.FechaCompra, tbl_boletos.FechaVigencia " +
             "FROM tbl_boletos " +
@@ -231,6 +231,7 @@ public class ConsultasData {
 
             // Iterar sobre los resultados
             while (rs.next()) {
+                int Folio = rs.getInt("Folio");
                 int Origen = rs.getInt("Origen");
                 int Grupo = rs.getInt("Grupo");
                 int NumSocio = rs.getInt("NumSocio");
@@ -248,7 +249,7 @@ public class ConsultasData {
                 String FechaVigencia = rs.getString("FechaVigencia");
 
                 // Agregar datos al PDF
-                pdf.agregarDataPDF(Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, Zona, DescMesa, vchDescripcion, Costo, Importe, EstadoSilla, FechaCompra, FechaVigencia);
+                pdf.agregarDataPDF(Folio, Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, Zona, DescMesa, vchDescripcion, Costo, Importe, EstadoSilla, FechaCompra, FechaVigencia);
             }
 
         } catch (SQLException e) {

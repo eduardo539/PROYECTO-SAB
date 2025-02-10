@@ -1,13 +1,13 @@
 
 package Modelo;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Eduardo´s
+ * 
  */
 public class DatosBoletosPDF {
     
@@ -35,8 +35,8 @@ public class DatosBoletosPDF {
     
     
     // Método para agregar un boleto a la lista
-    public void agregarDataPDF(int Origen, int Grupo, int NumSocio, String Nombre, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
-        listaDatos.add(new DataPDF(Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, Zona, DescMesa, vchDescripcion, Costo, Importe, EstadoSilla, FechaCompra, FechaVigencia));
+    public void agregarDataPDF(int Folio, int Origen, int Grupo, int NumSocio, String Nombre, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
+        listaDatos.add(new DataPDF(Folio, Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, Zona, DescMesa, vchDescripcion, Costo, Importe, EstadoSilla, FechaCompra, FechaVigencia));
     }
     
     
@@ -53,6 +53,7 @@ public class DatosBoletosPDF {
     
     public static class DataPDF{
         
+        int Folio;
         int Origen;
         int Grupo;
         int NumSocio;
@@ -71,7 +72,8 @@ public class DatosBoletosPDF {
         public DataPDF() {
         }
 
-        public DataPDF(int Origen, int Grupo, int NumSocio, String Nombre, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
+        public DataPDF(int Folio, int Origen, int Grupo, int NumSocio, String Nombre, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
+            this.Folio = Folio;
             this.Origen = Origen;
             this.Grupo = Grupo;
             this.NumSocio = NumSocio;
@@ -87,6 +89,14 @@ public class DatosBoletosPDF {
             this.EstadoSilla = EstadoSilla;
             this.FechaCompra = FechaCompra;
             this.FechaVigencia = FechaVigencia;
+        }
+
+        public int getFolio() {
+            return Folio;
+        }
+
+        public void setFolio(int Folio) {
+            this.Folio = Folio;
         }
 
         public int getOrigen() {
@@ -208,12 +218,16 @@ public class DatosBoletosPDF {
         public void setFechaVigencia(String FechaVigencia) {
             this.FechaVigencia = FechaVigencia;
         }
+
+        
+        
         
         
         @Override
         public String toString() {
             return "DataPDF{" +
-                    "origen=" + Origen +
+                    "Folio=" + Folio +
+                    ", origen='" + Origen + '\'' +
                     ", Grupo='" + Grupo + '\'' +
                     ", NumSocio='" + NumSocio + '\'' +
                     ", Nombre='" + Nombre + '\'' +
