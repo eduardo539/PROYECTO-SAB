@@ -6,10 +6,9 @@ import Modelo.CantidadSillasSelect.tempDataSillas;
 import Modelo.CompraBoleto;
 import Modelo.CompraBoletoData;
 import Modelo.ConsultasData;
+import Modelo.DatosBoletosPDF;
 import Modelo.InsertarData;
 import Modelo.Login;
-import Modelo.Mesas;
-import Modelo.MesasData;
 import Modelo.SillaEstado;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +34,8 @@ public class frmBoleto extends javax.swing.JFrame {
     ActualizarData actualiza = new ActualizarData();
     ConsultasData consulta = new ConsultasData();
     Login lg = Login.getInstancia();
+    
+    DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
     
     
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
@@ -147,7 +148,7 @@ public class frmBoleto extends javax.swing.JFrame {
         int idMesa = sE.getIdMesa();
         String Mesa = sE.getNomMesa();
         double Costo = sE.getCosto();
-        int estatusSilla;
+        int estatusSilla = 0;
         double importe = 0.0;
         
         int idEstadoSilla = 1; // Estado "Disponible"
@@ -239,7 +240,7 @@ public class frmBoleto extends javax.swing.JFrame {
             // Enviar los datos a la base de datos
             insert.insertarBoletos(origen, grupo, socio, nombre, rInvitado, telefono, correo, 
                                    idusuario, idZona, idMesa, idsSillas, Costo, estatusSilla, importeDividido, vigencia);
-
+            
             // Actualizar el estatus de las sillas en la base de datos
             actualiza.actualizarEstatusSilla(estatusSilla, idsSillas);
             
@@ -248,6 +249,10 @@ public class frmBoleto extends javax.swing.JFrame {
             // Verificamos si el resultado es válido antes de actualizar
             if(dataCount == 0){
                 actualiza.actualizaEstadoMesa(idMesa);
+            }
+            
+            if(estatusSilla == 3){
+                pdf = consulta.datosGenerarBoleto(origen, grupo, socio, idsSillas);
             }
 
             // Limpiar los datos seleccionados

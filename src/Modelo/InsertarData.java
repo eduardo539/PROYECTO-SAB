@@ -78,9 +78,6 @@ public class InsertarData {
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo completar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
-            dataSillas.borrarDatos();
-            dataSillas.borrarCantidadSillas();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Hubo un error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
