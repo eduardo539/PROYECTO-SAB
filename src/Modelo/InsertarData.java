@@ -21,7 +21,7 @@ public class InsertarData {
     
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia();
     
-    public void insertarBoletos(int origen, int grupo, int socio, String nombre, String invitado, 
+    public boolean insertarBoletos(int origen, int grupo, int socio, String nombre, String sucursal, String invitado, 
                             String telefono, String correo, int idusuario, int idzona, int idmesa, 
                             int[] idsilla, double costo, int estatus, double importe, LocalDate vigencia) {
     
@@ -31,18 +31,18 @@ public class InsertarData {
         // Verificar si hay sillas para insertar
         if (idsilla == null || idsilla.length == 0) {
             JOptionPane.showMessageDialog(null, "No hay sillas seleccionadas para la compra.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
         // Construir la consulta con múltiples valores dinámicamente
         StringBuilder insertBoleto = new StringBuilder(
-            "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, " +
+            "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, NomSucursal, Invitado, Telefono, Correo, " +
             "id_usuario, idZona, idMesa, idSilla, Costo, idEstado, Importe, FechaCompra, FechaVigencia) VALUES "
         );
 
         // Agregar los placeholders (?, ?, ...) por cada silla
         for (int i = 0; i < idsilla.length; i++) {
-            insertBoleto.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?),");
+            insertBoleto.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?),");
         }
 
         // Eliminar la última coma para evitar errores de sintaxis
@@ -57,6 +57,7 @@ public class InsertarData {
                 ps.setInt(index++, grupo);
                 ps.setInt(index++, socio);
                 ps.setString(index++, nombre);
+                ps.setString(index++, sucursal);
                 ps.setString(index++, invitado);
                 ps.setString(index++, telefono);
                 ps.setString(index++, correo);
@@ -75,13 +76,16 @@ public class InsertarData {
 
             if (filasInsertadas > 0) {
                 JOptionPane.showMessageDialog(null, "La compra se realizó de forma exitosa.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                return true; // Retorna true si la inserción es exitosa
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo completar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
             }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Hubo un error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
+            return false;
         }
     }
 
