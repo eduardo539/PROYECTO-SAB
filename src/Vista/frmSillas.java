@@ -417,10 +417,13 @@ public class frmSillas extends javax.swing.JFrame {
         lblZona.setText("Label-Zona");
 
         jButton1.setBackground(new java.awt.Color(0, 255, 0));
+        jButton1.setEnabled(false);
 
         jButton2.setBackground(new java.awt.Color(255, 255, 0));
+        jButton2.setEnabled(false);
 
         jButton3.setBackground(new java.awt.Color(255, 0, 0));
+        jButton3.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Disponible");

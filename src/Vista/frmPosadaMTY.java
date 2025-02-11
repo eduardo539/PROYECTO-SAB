@@ -1553,11 +1553,13 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jButton1.setEnabled(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 40, 40));
 
         jButton2.setBackground(new java.awt.Color(0, 255, 0));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jButton2.setEnabled(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 40, 40));
 
