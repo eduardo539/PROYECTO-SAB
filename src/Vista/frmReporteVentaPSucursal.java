@@ -3,7 +3,6 @@ package Vista;
 import Modelo.Login;
 import Modelo.Conexion;
 import java.awt.Window;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -200,7 +199,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                     .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -217,6 +216,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         limpiarCamposSeleccion();
     }
 
+    
     private void limpiarCamposSeleccion() {
         jtlAnos.setSelectedIndex(0);
         jtlMeses.setSelectedIndex(0);
