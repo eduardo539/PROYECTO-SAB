@@ -81,11 +81,11 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jtlSucursales" min="-2" pref="280" max="-2" attributes="0"/>
+                              <Component id="jtlSucursales" min="-2" pref="250" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jtlAnos" min="-2" pref="280" max="-2" attributes="0"/>
+                              <Component id="jtlAnos" min="-2" pref="250" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jtlMeses" min="-2" pref="280" max="-2" attributes="0"/>
+                              <Component id="jtlMeses" min="-2" pref="250" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="btnFiltrar" min="-2" pref="200" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>

@@ -702,7 +702,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseEntered
 
     private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
-        
         try {
             // Confirmar cierre de sesión
             int confirm = JOptionPane.showConfirmDialog(this, 
@@ -733,7 +732,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 "Error", 
                 JOptionPane.ERROR_MESSAGE);
         }
-        
     }//GEN-LAST:event_jmiCerrarSesionActionPerformed
 
     private void btnRestaurarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarContraActionPerformed
@@ -857,10 +855,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiAcercaDeActionPerformed
 
-    
     /**
      * Método para abrir la ventana de inicio de sesión.
      */
+    
     private void abrirLogin() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1057,8 +1055,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         }
         return true; // Si todas las validaciones pasan
     }
-
-
+    
     private String encriptarMD5(String contrasenia) {
         try {
             // Crear el objeto MessageDigest para MD5
