@@ -76,7 +76,11 @@ public class ConsultasData {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error al ejecutar la consulta: " + e.getMessage());
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al ejecutar la consulta: \nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
         } finally {
             // Cerrar recursos
             try {
@@ -84,7 +88,10 @@ public class ConsultasData {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, 
+                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
 

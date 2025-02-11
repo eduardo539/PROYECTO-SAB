@@ -3,6 +3,7 @@ package Modelo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,8 +42,10 @@ public class Conexion2 {
             System.out.println("Conexión exitosa a la base de datos: " + DATABASE);
             return con;
         } catch (SQLException e) {
-            // Log de errores
-            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, 
+                        "Error al conectarse a la base de datos.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
@@ -56,7 +59,10 @@ public class Conexion2 {
                 con.close();
                 System.out.println("Conexión cerrada correctamente.");
             } catch (SQLException e) {
-                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, 
+                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
