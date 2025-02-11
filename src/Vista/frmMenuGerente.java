@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author eduar
  */
+
 public class frmMenuGerente extends javax.swing.JFrame {
 
     /**
