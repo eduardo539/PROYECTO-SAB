@@ -45,7 +45,7 @@ public class frmBoleto extends javax.swing.JFrame {
         initComponents();
         
         // En el constructor de tu JFrame Form
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
@@ -241,8 +241,17 @@ public class frmBoleto extends javax.swing.JFrame {
             }
 
             // Enviar los datos a la base de datos
-            insert.insertarBoletos(origen, grupo, socio, nombre, sucursal, rInvitado, telefono, correo, 
+            boolean datInsert = insert.insertarBoletos(origen, grupo, socio, nombre, sucursal, rInvitado, telefono, correo, 
                                    idusuario, idZona, idMesa, idsSillas, Costo, estatusSilla, importeDividido, vigencia);
+            
+            // Se comprueba si la insersión de los datos se realizo de manera correcta.
+            //En caso de que no se hayan insertado los datos muestra la alerta y no se ejecuta nada.
+            if(datInsert != true){
+                JOptionPane.showMessageDialog(null, 
+                        "Error al capturar los datos para el boleto, Contactar a Soporte.", 
+                        "Alerta", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             
             // Actualizar el estatus de las sillas en la base de datos
             actualiza.actualizarEstatusSilla(estatusSilla, idsSillas);
