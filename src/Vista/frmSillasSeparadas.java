@@ -5,6 +5,8 @@ import Modelo.ActualizarData;
 import Modelo.ConsultaBoleto;
 import Modelo.ConsultaBoleto.listBoleto;
 import Modelo.ConsultasData;
+import Modelo.DatosBoletosPDF;
+import Modelo.GenerarBoleto;
 import Modelo.Login;
 import Modelo.SillasApartadas;
 import Modelo.SillasApartadas.Boleto;
@@ -37,6 +39,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
     ConsultaBoleto cb = ConsultaBoleto.getInstancia();
     ConsultasData cd = new ConsultasData();
+    
+    ConsultasData consulta = new ConsultasData();
+    DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
     
     public double totalImporte = 0.0; // Variable para almacenar la suma de los importes
     double totalCosto = 0.0;
@@ -318,6 +323,11 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         int[] Folios = new int[listaBoletos.size()];
         int[] idSillas = new int[listaBoletos.size()];
         
+        // Variables para almacenar los datos del socio
+        int origen = 0;
+        int grupo = 0;
+        int socio = 0;
+        
         String comboBox = SelectCombo.getSelectedItem().toString().trim();
 
         // Validar que la caja de texto Silla no esté vacía
@@ -350,7 +360,15 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             return;
         }
         
-        // Extraer solo los folios
+        if (!listaBoletos.isEmpty()) {
+            // Tomar solo el origen, grupo y socio de la primera fila seleccionada
+            listBoleto primerBoleto = listaBoletos.get(0);
+            origen = primerBoleto.getOrigen();
+            grupo = primerBoleto.getGrupo();
+            socio = primerBoleto.getNumSocio();
+        }
+        
+        // Extraer solo los folios y id de las sillas
         int index = 0;
         int index2 = 0;
         for (listBoleto boleto : listaBoletos) {
@@ -380,6 +398,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 if(totalRestante == newImporte){
                     actualiza.actualizarSillasSeparadas(Folios, estado2, importeDividido, newVigencia);
                     actualiza.actualizaEstaSillaxFila(estado2, idSillas);
+                    pdf = consulta.datosGenerarBoleto(origen, grupo, socio, idSillas);
+                    GenerarBoleto bol = new GenerarBoleto();
+                    bol.boletoPDF();
                     limpiarCamposCompra();
                 }else{
                     JOptionPane.showMessageDialog(null, "Para liquidar la deuda debe ingresar el monto restante.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -395,6 +416,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         datosTabla();
         
         apart.borrarDatos();
+        pdf.borrarDatos();
         
         // Limpiar el campo txtSocio
         SelectCombo.setSelectedIndex(0);
