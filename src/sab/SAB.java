@@ -5,8 +5,7 @@ import Vista.frmBoleto;
 import Vista.frmLogin;
 import Vista.frmCajero;
 import Vista.frmCrearPdf;
-import Vista.frmEnviarPDF;
-import Vista.frmOperaciones;
+
 import Vista.frmSillasSeparadas;
 import Vista.frmPosadaMTY;
 

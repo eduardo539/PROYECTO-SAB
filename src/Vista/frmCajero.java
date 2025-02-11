@@ -119,6 +119,7 @@ public class frmCajero extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jmiCerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiInfo = new javax.swing.JMenuItem();
@@ -128,18 +129,18 @@ public class frmCajero extends javax.swing.JFrame {
         setTitle("Cajero");
         setResizable(false);
 
+        jPanel1.setAlignmentX(0.0F);
+        jPanel1.setAlignmentY(0.0F);
         jPanel1.setBackground(new java.awt.Color(53, 210, 89));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setForeground(new java.awt.Color(53, 210, 89));
-        jPanel1.setAlignmentX(0.0F);
-        jPanel1.setAlignmentY(0.0F);
 
+        jLabel1.setText("SAB");
         jLabel1.setBackground(new java.awt.Color(153, 51, 0));
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
-        jLabel1.setText("SAB");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Sistema de Administración de Boletos");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
@@ -175,10 +176,10 @@ public class frmCajero extends javax.swing.JFrame {
         jScrollPane1.setAlignmentX(0.0F);
         jScrollPane1.setAlignmentY(0.0F);
 
-        jPanel2.setBackground(new java.awt.Color(77, 177, 80));
-        jPanel2.setForeground(new java.awt.Color(77, 177, 80));
         jPanel2.setAlignmentX(0.0F);
         jPanel2.setAlignmentY(0.0F);
+        jPanel2.setBackground(new java.awt.Color(77, 177, 80));
+        jPanel2.setForeground(new java.awt.Color(77, 177, 80));
         jPanel2.setPreferredSize(new java.awt.Dimension(750, 770));
 
         btnDiaMadre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ImgDiaMadre.png"))); // NOI18N
@@ -200,31 +201,31 @@ public class frmCajero extends javax.swing.JFrame {
 
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/diaNino.png"))); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Posada Monterrey");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Día de la Madre");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Día del niño");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Socio Fest");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel8.setText("Rifa");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Acelera y Gana");
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         btnDiaNino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/diaNino.png"))); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setText("Por asignar");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setText("Por asignar");
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -368,9 +369,9 @@ public class frmCajero extends javax.swing.JFrame {
                 .addComponent(lblFecha))
         );
 
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -382,6 +383,16 @@ public class frmCajero extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-volver.png"))); // NOI18N
+        jMenuItem2.setText("Regresar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         jmiCerrarSesion.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
@@ -484,6 +495,13 @@ public class frmCajero extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        frmMenuCajero cajero = new frmMenuCajero();
+        cajero.setLocationRelativeTo(null);
+        cajero.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
     * Método para limpiar los datos de la sesión del usuario.
     */
@@ -554,6 +572,7 @@ public class frmCajero extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

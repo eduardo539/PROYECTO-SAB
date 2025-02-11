@@ -43,12 +43,12 @@ public class frmLogin extends javax.swing.JFrame {
         String pass = new String(txtPassword.getPassword()).trim();
 
         // Validación inicial: datos no vacíos
-        if (usuario.isEmpty() || pass.isEmpty()) { 
+        if (usuario.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, llena los datos solicitados.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
-        } 
+        }
 
-        try { 
+        try {
             lg = login.log(usuario, pass); 
             
             if (lg != null && lg.getTipo_perfil() != null) { 
@@ -81,7 +81,7 @@ public class frmLogin extends javax.swing.JFrame {
                 
                 if (verificarVigencia(idUsuario)) { 
                 
-                 
+    
                     JOptionPane.showMessageDialog( 
                         this,
                         "Su contraseña ha caducado. Es necesario actualizarla.",
@@ -92,7 +92,7 @@ public class frmLogin extends javax.swing.JFrame {
                     // Redirigir al formulario de actualización de contraseña
                     frmActualizarContra frm = new frmActualizarContra(idUsuario); 
                     frm.setLocationRelativeTo(null); 
-                    frm.setVisible(true); 
+                    frm.setVisible(true);
 
                     limpiarEntradas(); 
                     this.dispose(); // Cerrar el formulario de login 
@@ -103,16 +103,16 @@ public class frmLogin extends javax.swing.JFrame {
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) { 
                     case "Sistemas":
-                        abrirVentana(new formMenuAdmin(), "Sistemas");
+                        abrirVentana(new frmMenuSistemas(), "Sistemas");
                         break; 
                     case "Operaciones": 
-                        abrirVentana(new frmOperaciones(), "Operaciones");
+                        abrirVentana(new frmMenuOperaciones(), "Operaciones");
                         break;
                     case "Gerente":
                         abrirVentana(new frmMenuGerente(), "Gerente");
                         break; 
                     case "Cajero":
-                        abrirVentana(new frmCajero(), "Cajero");
+                        abrirVentana(new frmMenuCajero(), "Cajero");
                         break;
                     default:
                         JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);

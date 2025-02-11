@@ -1,11 +1,14 @@
 package Vista;
 
 import Modelo.Conexion;
+import Modelo.Login;
+import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +28,36 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         cargarSucursales();
         configurarComboBoxAnos();
         configurarComboBoxMeses();
+        
+    }
+    
+    private void abrirLogin() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                frmLogin lg = new frmLogin();
+                lg.setLocationRelativeTo(null);
+                lg.setVisible(true);
+            }
+        });
+    }
+    
+    private void cerrarSesion() {
+        // Si tienes una clase Singleton para manejar la sesión
+        Login sesion = Login.getInstancia();
+        sesion.limpiarDatos();
+
+        // Si la clase no implementa un método limpiarDatos(), puedes hacer:
+        sesion.setIdusuario(0);
+        sesion.setNombre(null);
+        sesion.setAPaterno(null);
+        sesion.setAMaterno(null);
+        sesion.setSucursal(null);
+        sesion.setVigencia(null);
+        sesion.setIdperfil(0);
+        sesion.setTipo_perfil(null);
+
+        // Log de actividad (opcional)
+        System.out.println("Sesión cerrada exitosamente.");
     }
     
     @SuppressWarnings("unchecked")
@@ -42,6 +75,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -110,7 +144,9 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("MENU");
+        jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-volver.png"))); // NOI18N
         jMenuItem1.setText("Regresar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -120,11 +156,23 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
+        jMenuItem3.setText("Cerrar Sesión");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
         jMenu2.setText("AYUDA");
+        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem2.setText("Info...");
         jMenu2.add(jMenuItem2);
@@ -164,11 +212,11 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtlSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtlSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
@@ -179,7 +227,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
 
     private void jtlSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlSucursalesActionPerformed
         String sucursalSeleccionada = (String) jtlSucursales.getSelectedItem();
-        if (sucursalSeleccionada != null && !sucursalSeleccionada.equals("Seleccione una sucursal para filtrar")) {
+        if (sucursalSeleccionada != null && !sucursalSeleccionada.equals("Seleccione una sucursal")) {
             cargarDatos(sucursalSeleccionada, null, null);
         } else {
             limpiarTabla();
@@ -191,7 +239,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         if (jtlAnos.getSelectedIndex() > 0 && jtlMeses.getSelectedIndex() > 0) {
             int ano = Integer.parseInt((String) jtlAnos.getSelectedItem());
             int mes = jtlMeses.getSelectedIndex();
-            if (!sucursal.equals("Seleccione una sucursal para filtrar")) {
+            if (!sucursal.equals("Seleccione una sucursal")) {
                 cargarDatos(sucursal, ano, mes);
             } else {
                 cargarDatos(null, ano, mes);
@@ -207,7 +255,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        frmOperaciones operaciones = new frmOperaciones();
+        frmMenuOperaciones operaciones = new frmMenuOperaciones();
         operaciones.setLocationRelativeTo(null);
         operaciones.setVisible(true);
         this.dispose();
@@ -220,6 +268,38 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private void jtlMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlMesesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtlMesesActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        try {
+            // Confirmar cierre de sesión
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                    "¿Estás seguro de que deseas cerrar sesión?", 
+                    "Cerrar Sesión", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Limpiar datos de la sesión del usuario
+                cerrarSesion();
+
+                // Cerrar todas las ventanas abiertas excepto el login
+                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                for (Window window : Window.getWindows()) {
+                    if (window != topFrame) {
+                        window.dispose();
+                    }
+                }
+                // Redirigir a la ventana de inicio de sesión
+                abrirLogin();
+            }
+        } catch (Exception e) {
+            // Manejo de errores en caso de fallo
+            JOptionPane.showMessageDialog(this,
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -238,6 +318,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jtlAnos;
     private javax.swing.JComboBox jtlMeses;
@@ -250,7 +331,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
              PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT vchSucursal FROM tbl_usuarios")) {
             ResultSet rs = stmt.executeQuery();
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-            modelo.addElement("Seleccione una sucursal para filtrar");
+            modelo.addElement("Seleccione una sucursal");
             while (rs.next()) {
                 modelo.addElement(rs.getString("vchSucursal"));
             }
@@ -382,4 +463,5 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         modelo.setRowCount(0);
     }
 
+    
 }
