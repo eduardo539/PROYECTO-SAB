@@ -107,18 +107,20 @@
                       </Group>
                   </Group>
                   <EmptySpace pref="65" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtZona" max="32767" attributes="0"/>
+                          <Component id="txtMesa" max="32767" attributes="0"/>
+                          <Component id="txtCosto" max="32767" attributes="0"/>
+                          <Component id="txtCorreo" alignment="1" pref="180" max="32767" attributes="0"/>
+                          <Component id="dtVigencia" alignment="1" max="32767" attributes="0"/>
+                          <Component id="txtImporte" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="txtZona" max="32767" attributes="0"/>
-                      <Component id="txtMesa" max="32767" attributes="0"/>
-                      <Component id="txtCosto" max="32767" attributes="0"/>
-                      <Component id="txtCorreo" alignment="1" pref="180" max="32767" attributes="0"/>
-                      <Component id="dtVigencia" alignment="1" max="32767" attributes="0"/>
-                      <Component id="txtImporte" max="32767" attributes="0"/>
-                      <Component id="txtSilla" max="32767" attributes="0"/>
+                      <Component id="txtSilla" min="-2" pref="177" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
@@ -147,19 +149,19 @@
                       <Component id="txtCosto" alignment="1" min="-2" pref="44" max="-2" attributes="0"/>
                       <Component id="txtSucursal" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtTelefono" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtSilla" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSilla" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="radioInvitado" min="-2" max="-2" attributes="0"/>
                       <Component id="txtImporte" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="dtVigencia" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnCancelar" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="btnComprar" alignment="3" min="-2" max="-2" attributes="0"/>
