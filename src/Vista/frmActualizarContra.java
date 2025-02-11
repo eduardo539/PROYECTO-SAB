@@ -300,7 +300,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
                 }
                 hashHex.append(hex);
             }
-
             // Devolver el hash en formato hexadecimal
             return hashHex.toString();
         } catch (Exception e) {
@@ -308,11 +307,5 @@ public class frmActualizarContra extends javax.swing.JFrame {
             return null; // En caso de error
         }
     }
-
-    /**
-     * Método para validar la contraseña.
-     * La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula,
-     * una minúscula, un número y un carácter especial (@$!%*?&#).
-     */
     
 }
