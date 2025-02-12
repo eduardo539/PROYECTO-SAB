@@ -25,8 +25,8 @@ public class frmMenuCajero extends javax.swing.JFrame {
             // Asignar valores a los JLabel
             jlUsuario.setText(usuario.getIdusuario() > 0 ? String.valueOf(usuario.getIdusuario()) : "N/A");
             jlNombre.setText(usuario.getNombre() != null ? usuario.getNombre() : "N/A");
-            jlAPaterno.setText(usuario.getAPaterno() != null ? usuario.getAPaterno() : "N/A");
-            jlAMaterno.setText(usuario.getAMaterno() != null ? usuario.getAMaterno() : "N/A");
+            //jlAPaterno.setText(usuario.getAPaterno() != null ? usuario.getAPaterno() : "N/A");
+            //jlAMaterno.setText(usuario.getAMaterno() != null ? usuario.getAMaterno() : "N/A");
         } else {
             // En caso de que no haya sesión activa, se muestran valores por defecto
             jlUsuario.setText("N/A");
@@ -52,8 +52,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
         // Si la clase no implementa un método limpiarDatos(), puedes hacer:
         sesion.setIdusuario(0);
         sesion.setNombre(null);
-        sesion.setAPaterno(null);
-        sesion.setAMaterno(null);
         sesion.setSucursal(null);
         sesion.setVigencia(null);
         sesion.setIdperfil(0);

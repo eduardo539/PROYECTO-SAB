@@ -40,8 +40,6 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         sesion.limpiarDatos();
         sesion.setIdusuario(0);
         sesion.setNombre(null);
-        sesion.setAPaterno(null);
-        sesion.setAMaterno(null);
         sesion.setSucursal(null);
         sesion.setVigencia(null);
         sesion.setIdperfil(0);

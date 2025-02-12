@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -25,8 +26,8 @@ public class SillasApartadasData {
         
         String datosBoletos = "SELECT tbl_boletos.Folio, tbl_boletos.Origen, tbl_boletos.Grupo, tbl_boletos.NumSocio, tbl_boletos.Nombre, " +
                                 "tbl_boletos.Invitado, tbl_boletos.Telefono, tbl_boletos.Correo, tbl_boletos.id_usuario, " +
-                                "CONCAT(tbl_usuarios.Nombre, ' ', tbl_usuarios.APaterno, ' ', tbl_usuarios.AMaterno) AS NombreUsuario, " +
-                                "tbl_usuarios.vchSucursal, tbl_boletos.idZona, tbl_zonas.Zona, tbl_boletos.idMesa, tbl_mesas.DescMesa, " +
+                                "tbl_usuarios.Nombre AS NombreUsuario, " +
+                                "tbl_boletos.idZona, tbl_zonas.Zona, tbl_boletos.idMesa, tbl_mesas.DescMesa, " +
                                 "tbl_boletos.idSilla, tbl_sillas.vchDescripcion, " +
                                 "tbl_boletos.Costo, tbl_boletos.idEstado, tbl_estado_sillas.EstadoSilla, " +
                                 "tbl_boletos.Importe, tbl_boletos.FechaCompra, tbl_boletos.FechaVigencia " +
@@ -61,7 +62,6 @@ public class SillasApartadasData {
                 String correo = rs.getString("Correo");
                 int usuario = rs.getInt("id_usuario");
                 String nomUsuario = rs.getString("NombreUsuario");
-                String sucursal = rs.getString("vchSucursal");
                 int idZona = rs.getInt("idZona"); //
                 String zona = rs.getString("Zona");
                 int idMesa = rs.getInt("idMesa");//
@@ -76,20 +76,27 @@ public class SillasApartadasData {
                 String vigencia = rs.getString("FechaVigencia");
 
                 // Agregar mesa a la lista en la instancia
-                bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
+                bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
             }
             
             cn.closeConnection();
 
         } catch (SQLException e) {
-            System.out.println("Error al ejecutar la consulta: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, 
+                    "Error al ejecutar la consulta:\n" + e.getMessage(), 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, 
+                    "Error al cerrar recursos:\n" + e.getMessage(), 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+
             }
         }
         
@@ -107,8 +114,8 @@ public class SillasApartadasData {
         
         String datosBoletos = "SELECT tbl_boletos.Folio, tbl_boletos.Origen, tbl_boletos.Grupo, tbl_boletos.NumSocio, tbl_boletos.Nombre, " +
                                 "tbl_boletos.Invitado, tbl_boletos.Telefono, tbl_boletos.Correo, tbl_boletos.id_usuario, " +
-                                "CONCAT(tbl_usuarios.Nombre, ' ', tbl_usuarios.APaterno, ' ', tbl_usuarios.AMaterno) AS NombreUsuario, " +
-                                "tbl_usuarios.vchSucursal, tbl_boletos.idZona, tbl_zonas.Zona, tbl_boletos.idMesa, tbl_mesas.DescMesa, " +
+                                "tbl_usuarios.Nombre AS NombreUsuario, " +
+                                "tbl_boletos.idZona, tbl_zonas.Zona, tbl_boletos.idMesa, tbl_mesas.DescMesa, " +
                                 "tbl_boletos.idSilla, tbl_sillas.vchDescripcion, " +
                                 "tbl_boletos.Costo, tbl_boletos.idEstado, tbl_estado_sillas.EstadoSilla, " +
                                 "tbl_boletos.Importe, tbl_boletos.FechaCompra, tbl_boletos.FechaVigencia " +
@@ -146,7 +153,6 @@ public class SillasApartadasData {
                 String correo = rs.getString("Correo");
                 int usuario = rs.getInt("id_usuario");
                 String nomUsuario = rs.getString("NombreUsuario");
-                String sucursal = rs.getString("vchSucursal");
                 int idZona = rs.getInt("idZona"); //
                 String zona = rs.getString("Zona");
                 int idMesa = rs.getInt("idMesa");//
@@ -161,20 +167,26 @@ public class SillasApartadasData {
                 String vigencia = rs.getString("FechaVigencia");
 
                 // Agregar mesa a la lista en la instancia de Mesas
-                bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, sucursal, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
+                bol.agregarBoleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia);
             }
             
             cn.closeConnection();
 
         } catch (SQLException e) {
-            System.out.println("Error al ejecutar la consulta: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, 
+                    "Error al ejecutar la consulta:\n" + e.getMessage(), 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, 
+                    "Error al cerrar recursos:\n" + e.getMessage(), 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
             }
         }
         
