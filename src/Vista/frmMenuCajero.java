@@ -92,11 +92,11 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setText("BIENVENIDO AL SAB");
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Sistema de Administración de Boletos");
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel4.setText("CAJERO");
 
@@ -222,8 +222,9 @@ public class frmMenuCajero extends javax.swing.JFrame {
                             .addComponent(jlAMaterno))
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
