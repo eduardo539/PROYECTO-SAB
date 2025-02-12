@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
  * @author Eduardo´s
  * 
  */
+
+
 public class Conexion2 {
     
     private Connection con;

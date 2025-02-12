@@ -91,9 +91,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         ComboPerfil = new javax.swing.JComboBox();
-        txtAPaterno = new javax.swing.JTextField();
         txtid_usuario = new javax.swing.JTextField();
-        txtAMaterno = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -154,20 +152,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
 
-        txtAPaterno.setAutoscrolls(false);
-        txtAPaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Paterno:"));
-
         txtid_usuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Id del usuario:"));
         txtid_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtid_usuarioActionPerformed(evt);
-            }
-        });
-
-        txtAMaterno.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido Materno:"));
-        txtAMaterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAMaternoActionPerformed(evt);
             }
         });
 
@@ -191,8 +179,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -205,11 +191,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(125, 125, 125)
                 .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -222,7 +204,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -234,6 +215,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setComponentPopupMenu(jPopupMenu2);
         jTablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -436,8 +418,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
             // Obtener los datos ingresados
             String id_usuario = txtid_usuario.getText();
             String nombre = txtNombre.getText();
-            String aPaterno = txtAPaterno.getText();
-            String aMaterno = txtAMaterno.getText();
             String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
             
             int id_usuario1 = Integer.parseInt(id_usuario);
@@ -467,7 +447,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
 
             // Verificar si el usuario ya existe en la base de datos
-            if (verificarUsuarioExistente(id_usuario1, nombre, aPaterno, aMaterno, idPerfil)) {
+            if (verificarUsuarioExistente(id_usuario1, nombre, idPerfil)) {
                 JOptionPane.showMessageDialog(
                     null,
                     "El usuario ya está registrado en la base de datos.",
@@ -485,17 +465,15 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
             String contrasenia = "cambio";
             // Consulta para insertar los datos, incluyendo la fecha de vigencia calculada
-            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, APaterno, AMaterno, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, ?, ?, MD5(?), ?, ?, ?)";
+            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, MD5(?), ?, ?, ?)";
             PreparedStatement ps = cn.prepareStatement(query);
 
             ps.setInt(1, id_usuario1);
             ps.setString(2, nombre);
-            ps.setString(3, aPaterno);
-            ps.setString(4, aMaterno);
-            ps.setString(5, contrasenia); // Contraseña encriptada con MD5
-            ps.setString(6, "cambio"); // Valor fijo para vchSucursal
-            ps.setString(7, fechaVigenciaStr); // Fecha de vigencia calculada
-            ps.setInt(8, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
+            ps.setString(3, contrasenia); // Contraseña encriptada con MD5
+            ps.setString(4, "cambio"); // Valor fijo para vchSucursal
+            ps.setString(5, fechaVigenciaStr); // Fecha de vigencia calculada
+            ps.setInt(6, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
 
             // Ejecutar la consulta para insertar los datos en la base de datos
             ps.executeUpdate();
@@ -532,8 +510,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         if (fila >= 0) { // Verifica que haya una fila seleccionada
             this.txtid_usuario.setText(this.jTablaDatos.getValueAt(fila, 0).toString());
             this.txtNombre.setText(this.jTablaDatos.getValueAt(fila, 1).toString());
-            this.txtAPaterno.setText(this.jTablaDatos.getValueAt(fila, 2).toString());
-            this.txtAMaterno.setText(this.jTablaDatos.getValueAt(fila, 3).toString());
 
             // Asignar el perfil según el texto recibido desde la tabla
             String perfil = this.jTablaDatos.getValueAt(fila, 4).toString();
@@ -585,7 +561,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 return; // Detener el proceso si la validación falla
             }
 
-            if (!txtAPaterno.getText().trim().matches(patronNombre)) {
+            /* if (!txtAPaterno.getText().trim().matches(patronNombre)) {
                 JOptionPane.showMessageDialog(
                     null,
                     "El campo Apellido Paterno solo debe contener letras.",
@@ -593,9 +569,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE
                 );
                 return; // Detener el proceso si la validación falla
-            }
+            } */
 
-            if (!txtAMaterno.getText().trim().matches(patronNombre)) {
+            /* if (!txtAMaterno.getText().trim().matches(patronNombre)) {
                 JOptionPane.showMessageDialog(
                     null,
                     "El campo Apellido Materno solo debe contener letras.",
@@ -603,7 +579,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE
                 );
                 return; // Detener el proceso si la validación falla
-            }
+            } */ 
 
             // Mostrar cuadro de confirmación antes de actualizar los datos
             int confirmacion = JOptionPane.showConfirmDialog(
@@ -619,12 +595,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
             
             // Preparar la consulta SQL para actualizar los datos
-            String query = "UPDATE tbl_usuarios SET Nombre = ?, APaterno = ?, AMaterno = ?, id_perfil = ? WHERE id_usuario = ?";
+            String query = "UPDATE tbl_usuarios SET Nombre = ?, id_perfil = ? WHERE id_usuario = ?";
             PreparedStatement ps = cn.prepareStatement(query);
 
             ps.setString(1, txtNombre.getText());
-            ps.setString(2, txtAPaterno.getText());
-            ps.setString(3, txtAMaterno.getText());
 
             // Convertir el perfil seleccionado en el ComboBox a su ID correspondiente
             int idPerfil = 0;
@@ -835,10 +809,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtAMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAMaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAMaternoActionPerformed
-
     private void txtid_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtid_usuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtid_usuarioActionPerformed
@@ -940,8 +910,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblVersionJava;
     private javax.swing.JLabel lblVersionOS;
-    private javax.swing.JTextField txtAMaterno;
-    private javax.swing.JTextField txtAPaterno;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtid_usuario;
     // End of variables declaration//GEN-END:variables
@@ -951,14 +919,12 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
         modelo.addColumn("Usuario");
         modelo.addColumn("Nombre");
-        modelo.addColumn("Apellido Paterno");
-        modelo.addColumn("Apellido Materno");
         modelo.addColumn("Perfil Usuario");
 
         jTablaDatos.setModel(modelo);
 
-        String consultaSQL = "SELECT id_usuario, Nombre, APaterno, AMaterno, id_perfil FROM tbl_usuarios";
-        String data[] = new String[5];
+        String consultaSQL = "SELECT id_usuario, Nombre, id_perfil FROM tbl_usuarios";
+        String data[] = new String[3];
         Statement st;
 
         try {
@@ -968,8 +934,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
             while (rs.next()) {
                 data[0] = rs.getString("id_usuario");
                 data[1] = rs.getString("Nombre");
-                data[2] = rs.getString("APaterno");
-                data[3] = rs.getString("AMaterno");
                 
                 // validacion sobre los texto del apatado de menu del combo box
                 int idPerfil = rs.getInt("id_perfil");
@@ -995,17 +959,13 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private void limpiarEntradas() {
         txtid_usuario.setText("");
         txtNombre.setText("");
-        txtAPaterno.setText("");
-        txtAMaterno.setText("");
         ComboPerfil.setSelectedIndex(0);
     }
 
     private boolean validarFormulario() {
         // Validar que los campos no estén vacíos
         if (txtid_usuario.getText().trim().isEmpty() ||
-            txtNombre.getText().trim().isEmpty() ||
-            txtAPaterno.getText().trim().isEmpty() ||
-            txtAMaterno.getText().trim().isEmpty()) {
+            txtNombre.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(
                 null,
                 "Todos los campos son obligatorios. Por favor, complételos.",
@@ -1040,7 +1000,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             return false;
         }
 
-        if (!txtAPaterno.getText().trim().matches(patronNombre)) {
+        /* if (!txtAPaterno.getText().trim().matches(patronNombre)) {
             JOptionPane.showMessageDialog(
                 null,
                 "El campo Apellido Paterno solo debe contener letras.",
@@ -1048,9 +1008,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE
             );
             return false;
-        }
+        } */
 
-        if (!txtAMaterno.getText().trim().matches(patronNombre)) {
+        /* if (!txtAMaterno.getText().trim().matches(patronNombre)) {
             JOptionPane.showMessageDialog(
                 null,
                 "El campo Apellido Materno solo debe contener letras.",
@@ -1058,7 +1018,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE
             );
             return false;
-        }
+        } */
 
         // Validar que se haya seleccionado un perfil válido
         String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
@@ -1100,16 +1060,14 @@ public class formMenuAdmin extends javax.swing.JFrame {
         }
     } 
 
-    private boolean verificarUsuarioExistente(int id_usuario1, String nombre, String aPaterno, String aMaterno, int idPerfil) { 
+    private boolean verificarUsuarioExistente(int id_usuario1, String nombre, int idPerfil) { 
         try { 
             // Preparar la consulta SQL para buscar al usuario 
-            String query = "SELECT COUNT(*) AS total FROM tbl_usuarios WHERE id_usuario = ? AND Nombre = ? AND APaterno = ? AND AMaterno = ? AND id_perfil = ?"; 
+            String query = "SELECT COUNT(*) AS total FROM tbl_usuarios WHERE id_usuario = ? AND Nombre = ? AND id_perfil = ?"; 
             PreparedStatement ps = cn.prepareStatement(query); 
             ps.setInt(1, id_usuario1); 
             ps.setString(2, nombre); 
-            ps.setString(3, aPaterno); 
-            ps.setString(4, aMaterno); 
-            ps.setInt(5, idPerfil); 
+            ps.setInt(3, idPerfil); 
             
             ResultSet rs = ps.executeQuery(); 
             if (rs.next() && rs.getInt("total") > 0) { 

@@ -251,6 +251,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     private void cargarEmpleadosSucursal() {
         Login login = Login.getInstancia();
         String sucursalGerente = login.getSucursal();
+        int idGerente = login.getIdusuario(); // Obtener ID del gerente logueado
 
         if (sucursalGerente == null || sucursalGerente.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Error: No se ha podido obtener la sucursal.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -260,7 +261,11 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Seleccione un empleado");
 
-        String consultaSQL = "SELECT id_usuario, CONCAT(Nombre, ' ', APaterno, ' ', AMaterno) AS NombreCompleto FROM tbl_usuarios WHERE vchSucursal = ?";
+        String consultaSQL = "SELECT DISTINCT u.id_usuario, " +
+                "CONCAT(u.Nombre, ' ', u.APaterno, ' ', u.AMaterno) AS NombreCompleto " +
+                "FROM tbl_usuarios u " +
+                "INNER JOIN tbl_boletos b ON u.id_usuario = b.id_usuario " +
+                "WHERE b.id_usuario IN (SELECT id_usuario FROM tbl_usuarios WHERE vchSucursal = ?)";
 
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(consultaSQL)) {
@@ -281,6 +286,8 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
 
     private void cargarComprasPorEmpleado() {
         String seleccion = (String) cbxUsuarios1.getSelectedItem();
+        Login login = Login.getInstancia();
+        int idGerente = login.getIdusuario(); // ID del gerente logueado
 
         if (seleccion == null || seleccion.equals("Seleccione un empleado")) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un empleado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -288,29 +295,30 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         }
 
         String[] partes = seleccion.split(" - ");
-        String idEmpleado = partes[0];
+        String idEmpleado = partes[0]; // Extraemos el ID del usuario seleccionado
 
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0);
+        modelo.setRowCount(0); // Limpiar tabla antes de cargar nuevos datos
 
         String consultaSQL = "SELECT " +
                 "b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
                 "MAX(z.Zona) AS Zona, b.Costo, " +
                 "MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla, " +
                 "COUNT(b.Folio) AS Total_Comprado " +
-            "FROM tbl_boletos b " +
-            "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
-            "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
-            "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
-            "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-            "WHERE b.id_usuario = ? " +
-            "GROUP BY b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Costo " +
-            "ORDER BY b.Folio";
+                "FROM tbl_boletos b " +
+                "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
+                "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
+                "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
+                "WHERE b.id_usuario = ? " +
+                "GROUP BY b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Costo " +
+                "ORDER BY b.Folio";
 
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(consultaSQL)) {
 
             stmt.setInt(1, Integer.parseInt(idEmpleado));
+            stmt.setInt(2, idGerente); // ID del gerente que hizo la venta
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -321,7 +329,12 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                 });
             }
 
+            if (modelo.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "No se encontraron boletos para este empleado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
