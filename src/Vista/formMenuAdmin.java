@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Conexion;
+import Modelo.Conexion2;
 import Modelo.Login;
 import java.awt.Window;
 import java.security.MessageDigest;
@@ -24,8 +25,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class formMenuAdmin extends javax.swing.JFrame {
     
-    Conexion con = new Conexion();
-    Connection cn = con.getConnection();
+    Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
+    Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
+
+    Conexion2 con2 = new Conexion2();  // Crear una instancia de la clase Conexion2
+    Connection cn2 = con2.getConnection();  // Llamar a getConnection() desde la instancia creada
     
     Login lg = Login.getInstancia();
 
@@ -35,7 +39,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         mostrarDatos();
         barraStatus ();
     }
-    
     //SUBIENDO EL ULTIMO CAMBIO DE FORMNA YA COMPLETA EN EL APARTADO DE MENU ADMIN
     
     private void barraStatus () {
@@ -94,13 +97,13 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtid_usuario = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        btnRegistrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaDatos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
         btnRestaurarContra = new javax.swing.JButton();
-        btnRegistrar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         lblFecha = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -160,6 +163,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
 
         txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre Completo:"));
+        txtNombre.setEnabled(false);
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
@@ -169,18 +173,39 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Crear usuarios");
 
+        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-agregar.png"))); // NOI18N
+        btnRegistrar.setText("Registrar Usuario");
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,11 +214,13 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20)
                 .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(27, 27, 27)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125)
+                .addGap(29, 29, 29)
                 .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de usuarios"));
@@ -204,18 +231,17 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
-        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setComponentPopupMenu(jPopupMenu2);
         jTablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -244,7 +270,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 200, 40));
+        jPanel2.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 200, 40));
 
         btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
         btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
@@ -256,19 +282,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 btnRestaurarContraActionPerformed(evt);
             }
         });
-        jPanel2.add(btnRestaurarContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 40));
-
-        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-agregar.png"))); // NOI18N
-        btnRegistrar.setText("Registrar Usuario");
-        btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 200, 40));
+        jPanel2.add(btnRestaurarContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 40));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -417,9 +431,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
             // Obtener los datos ingresados
             String id_usuario = txtid_usuario.getText();
-            String nombre = txtNombre.getText();
             String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
-            
+
             int id_usuario1 = Integer.parseInt(id_usuario);
             int idPerfil;
 
@@ -446,40 +459,60 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     return; // Detener si no se seleccionó un perfil válido
             }
 
-            // Verificar si el usuario ya existe en la base de datos
-            if (verificarUsuarioExistente(id_usuario1, nombre, idPerfil)) {
+            // Verificar si el usuario existe en la base de datos (conexion2 para PostgreSQL)
+            String nombreUsuario = verificarUsuarioExistente(id_usuario1);
+
+            if (nombreUsuario == null) {
+                // Si el usuario NO está registrado en la base de datos, mostrar advertencia y detener el proceso
                 JOptionPane.showMessageDialog(
                     null,
-                    "El usuario ya está registrado en la base de datos.",
+                    "Usuario no encontrado en la base de datos PostgreSQL.",
+                    "Usuario No Encontrado",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return; // Detener el proceso si no se encuentra al usuario
+            }
+
+            // Verificar si el usuario ya existe en la base de datos MySQL (conexion1 para MySQL)
+            Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
+            Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
+
+            String queryVerificar = "SELECT COUNT(*) AS total FROM tbl_usuarios WHERE id_usuario = ?";
+            PreparedStatement psVerificar = cn1.prepareStatement(queryVerificar);
+            psVerificar.setInt(1, id_usuario1);
+
+            ResultSet rs = psVerificar.executeQuery();
+
+            if (rs.next() && rs.getInt("total") > 0) {
+                // Si el usuario ya existe en la base de datos MySQL, mostrar mensaje y detener el proceso
+                JOptionPane.showMessageDialog(
+                    null,
+                    "El usuario ya está registrado en la base de datos MySQL.",
                     "Usuario Existente",
                     JOptionPane.WARNING_MESSAGE
                 );
-                return; // Detener el proceso si el usuario ya existe
+                return; // Detener el proceso si el usuario ya está registrado
             }
-            
-            // Calcula la fecha de vigencia (un mes después de hoy)
-            LocalDate fechaActual = LocalDate.now();
-            LocalDate fechaVigencia = fechaActual.plusMonths(1);
-            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+            // Si el usuario NO está registrado en la base de datos MySQL, entonces proceder con la inserción
 
-            String contrasenia = "cambio";
+            String contrasenia = "cambio";  // Contraseña predeterminada o encriptada si lo necesitas
+
             // Consulta para insertar los datos, incluyendo la fecha de vigencia calculada
-            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, vchPass, vchSucursal, dtVigencia, id_perfil) VALUES (?, ?, MD5(?), ?, ?, ?)";
-            PreparedStatement ps = cn.prepareStatement(query);
+            String query = "INSERT INTO tbl_usuarios (id_usuario, Nombre, vchPass, dtVigencia, id_perfil) VALUES (?, ?, MD5(?), ?, ?)";
+            PreparedStatement ps = cn1.prepareStatement(query);
 
             ps.setInt(1, id_usuario1);
-            ps.setString(2, nombre);
-            ps.setString(3, contrasenia); // Contraseña encriptada con MD5
-            ps.setString(4, "cambio"); // Valor fijo para vchSucursal
-            ps.setString(5, fechaVigenciaStr); // Fecha de vigencia calculada
-            ps.setInt(6, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
+            ps.setString(2, nombreUsuario);  // Usar el nombre recuperado de PostgreSQL
+            ps.setString(3, contrasenia);  // Contraseña encriptada con MD5
+            ps.setString(4, LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))); // Fecha de vigencia calculada
+            ps.setInt(5, idPerfil); // Asigna el ID del perfil al parámetro correspondiente
 
-            // Ejecutar la consulta para insertar los datos en la base de datos
+            // Ejecutar la consulta para insertar los datos en la base de datos MySQL
             ps.executeUpdate();
             JOptionPane.showMessageDialog(
                 null,
-                "DATOS GUARDADOS EXITOSAMENTE",
+                "DATOS GUARDADOS EXITOSAMENTE EN MySQL",
                 "Éxito",
                 JOptionPane.INFORMATION_MESSAGE
             );
@@ -491,8 +524,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(
                 null, 
-                "Error, el usuario ya se encuentra en el sistema.", 
-                "Información", 
+                "Error al registrar los datos: " + e.getMessage(), 
+                "Error", 
                 JOptionPane.ERROR_MESSAGE
             );
         }
@@ -511,8 +544,12 @@ public class formMenuAdmin extends javax.swing.JFrame {
             this.txtid_usuario.setText(this.jTablaDatos.getValueAt(fila, 0).toString());
             this.txtNombre.setText(this.jTablaDatos.getValueAt(fila, 1).toString());
 
+            
+            
+            
             // Asignar el perfil según el texto recibido desde la tabla
-            String perfil = this.jTablaDatos.getValueAt(fila, 4).toString();
+            String perfil = this.jTablaDatos.getValueAt(fila, 2).toString();
+            
             switch (perfil) {
                 case "Sistemas":
                     this.ComboPerfil.setSelectedIndex(1); // Índice 1 corresponde a Sistemas
@@ -548,38 +585,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 return; // Detener el proceso si no se seleccionó un usuario
             }
             
-            // Validar que Nombre, Apellido Paterno y Apellido Materno solo contengan letras válidas
-            String patronNombre = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"; // Letras, acentos, ñ y espacios
 
-            if (!txtNombre.getText().trim().matches(patronNombre)) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "El campo Nombre solo debe contener letras.",
-                    "¡Advertencia!",
-                    JOptionPane.WARNING_MESSAGE
-                );
-                return; // Detener el proceso si la validación falla
-            }
-
-            /* if (!txtAPaterno.getText().trim().matches(patronNombre)) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "El campo Apellido Paterno solo debe contener letras.",
-                    "¡Advertencia!",
-                    JOptionPane.WARNING_MESSAGE
-                );
-                return; // Detener el proceso si la validación falla
-            } */
-
-            /* if (!txtAMaterno.getText().trim().matches(patronNombre)) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "El campo Apellido Materno solo debe contener letras.",
-                    "¡Advertencia!",
-                    JOptionPane.WARNING_MESSAGE
-                );
-                return; // Detener el proceso si la validación falla
-            } */ 
 
             // Mostrar cuadro de confirmación antes de actualizar los datos
             int confirmacion = JOptionPane.showConfirmDialog(
@@ -594,11 +600,14 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 return; // Salir del método si el usuario selecciona "No"
             }
             
+            Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
+            Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
+            
             // Preparar la consulta SQL para actualizar los datos
-            String query = "UPDATE tbl_usuarios SET Nombre = ?, id_perfil = ? WHERE id_usuario = ?";
-            PreparedStatement ps = cn.prepareStatement(query);
+            String query = "UPDATE tbl_usuarios SET id_perfil = ? WHERE id_usuario = ?";
+            PreparedStatement ps = cn1.prepareStatement(query);
 
-            ps.setString(1, txtNombre.getText());
+        
 
             // Convertir el perfil seleccionado en el ComboBox a su ID correspondiente
             int idPerfil = 0;
@@ -620,8 +629,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     return;
             }
 
-            ps.setInt(4, idPerfil); // Asignar el ID del perfil
-            ps.setInt(5, Integer.parseInt(txtid_usuario.getText())); // ID del usuario
+            ps.setInt(1, idPerfil); // Asignar el ID del perfil
+            ps.setInt(2, Integer.parseInt(txtid_usuario.getText())); // ID del usuario
 
             // Ejecutar la consulta de actualización
             int filasActualizadas = ps.executeUpdate();
@@ -665,7 +674,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE ELIMINAR ESTE USUARIO", "SALIR", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {
                 // Preparar la consulta SQL para eliminar
-                PreparedStatement ps = cn.prepareStatement("DELETE FROM tbl_usuarios WHERE id_usuario = '" + txtid_usuario.getText() + "'");
+                
+                Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
+                Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
+            
+                PreparedStatement ps = cn1.prepareStatement("DELETE FROM tbl_usuarios WHERE id_usuario = '" + txtid_usuario.getText() + "'");
                 int indice = ps.executeUpdate();
 
                 // Verificar si se eliminó alguna fila
@@ -754,9 +767,12 @@ public class formMenuAdmin extends javax.swing.JFrame {
             String contrasenia = "cambio";
             String contraseniaEncriptada = encriptarMD5(contrasenia); // Método para encriptar con MD5
 
+            Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
+            Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
+                
             // Preparar la consulta SQL para actualizar los datos
             String query = "UPDATE tbl_usuarios SET vchPass = ?, dtVigencia = ? WHERE id_usuario = ?";
-            PreparedStatement ps = cn.prepareStatement(query);
+            PreparedStatement ps = cn1.prepareStatement(query);
 
             // Asignar valores a los parámetros
             ps.setString(1, contraseniaEncriptada); // Contraseña encriptada
@@ -928,7 +944,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
         Statement st;
 
         try {
-            st = cn.createStatement();
+            Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
+            Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
+            
+            st = cn1.createStatement();
             ResultSet rs = st.executeQuery(consultaSQL);
 
             while (rs.next()) {
@@ -938,15 +957,15 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 // validacion sobre los texto del apatado de menu del combo box
                 int idPerfil = rs.getInt("id_perfil");
                 if (idPerfil == 1) {
-                    data[4] = "Sistemas";
+                    data[2] = "Sistemas";
                 } else if (idPerfil == 2) {
-                    data[4] = "Operaciones";
+                    data[2] = "Operaciones";
                 } else if (idPerfil == 3) {
-                    data[4] = "Gerente";
+                    data[2] = "Gerente";
                 } else if (idPerfil == 4) {
-                    data[4] = "Cajero";
+                    data[2] = "Cajero";
                 } else {
-                    data[4] = "Otro";
+                    data[2] = "Otro";
                 }
                 modelo.addRow(data);
             }
@@ -964,8 +983,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private boolean validarFormulario() {
         // Validar que los campos no estén vacíos
-        if (txtid_usuario.getText().trim().isEmpty() ||
-            txtNombre.getText().trim().isEmpty()) {
+        if (txtid_usuario.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(
                 null,
                 "Todos los campos son obligatorios. Por favor, complételos.",
@@ -986,40 +1004,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             );
             return false;
         }
-
-        // Validar que Nombre, APaterno y AMaterno solo contengan letras válidas
-        String patronNombre = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"; // Letras, acentos, ñ y espacios
-
-        if (!txtNombre.getText().trim().matches(patronNombre)) {
-            JOptionPane.showMessageDialog(
-                null,
-                "El campo Nombre solo debe contener letras.",
-                "¡Advertencia!",
-                JOptionPane.WARNING_MESSAGE
-            );
-            return false;
-        }
-
-        /* if (!txtAPaterno.getText().trim().matches(patronNombre)) {
-            JOptionPane.showMessageDialog(
-                null,
-                "El campo Apellido Paterno solo debe contener letras.",
-                "¡Advertencia!",
-                JOptionPane.WARNING_MESSAGE
-            );
-            return false;
-        } */
-
-        /* if (!txtAMaterno.getText().trim().matches(patronNombre)) {
-            JOptionPane.showMessageDialog(
-                null,
-                "El campo Apellido Materno solo debe contener letras.",
-                "¡Advertencia!",
-                JOptionPane.WARNING_MESSAGE
-            );
-            return false;
-        } */
-
+        
         // Validar que se haya seleccionado un perfil válido
         String perfilSeleccionado = ComboPerfil.getSelectedItem().toString();
         if (perfilSeleccionado.equals("Seleccione tipo de usuario")) {
@@ -1060,22 +1045,36 @@ public class formMenuAdmin extends javax.swing.JFrame {
         }
     } 
 
-    private boolean verificarUsuarioExistente(int id_usuario1, String nombre, int idPerfil) { 
-        try { 
-            // Preparar la consulta SQL para buscar al usuario 
-            String query = "SELECT COUNT(*) AS total FROM tbl_usuarios WHERE id_usuario = ? AND Nombre = ? AND id_perfil = ?"; 
-            PreparedStatement ps = cn.prepareStatement(query); 
-            ps.setInt(1, id_usuario1); 
-            ps.setString(2, nombre); 
-            ps.setInt(3, idPerfil); 
-            
+    private String verificarUsuarioExistente(int id_usuario1) { 
+        try {
+            // Crear una instancia de la clase Conexion2 para PostgreSQL
+            Conexion2 con2 = new Conexion2();
+            Connection cn2 = con2.getConnection();
+
+            // Preparar la consulta SQL para verificar si el usuario existe y recuperar el nombre
+            String query = "SELECT Nombre FROM usuarios u WHERE u.idusuario = ?"; 
+
+            // Usar la conexión cn2
+            PreparedStatement ps = cn2.prepareStatement(query); 
+            ps.setInt(1, id_usuario1);  // Establecer el valor para el parámetro id_usuario
+
+            // Ejecutar la consulta
             ResultSet rs = ps.executeQuery(); 
-            if (rs.next() && rs.getInt("total") > 0) { 
-                return true; // El usuario ya existe 
-            } 
+
+            // Verificar si el usuario existe y recuperar el nombre
+            if (rs.next()) { 
+                // Si el usuario existe, recuperar el nombre
+                String nombreUsuario = rs.getString("Nombre");
+
+                return nombreUsuario;  // Devolver el nombre del usuario
+            } else {
+                // Si no se encuentra el usuario
+                return null;  // Usuario no encontrado
+            }
         } catch (SQLException e) { 
+            // Manejo de excepciones
             JOptionPane.showMessageDialog(null, "Error al verificar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
-        } 
-        return false; // El usuario no existe
-    } 
+            return null;  // Si ocurre un error en la consulta, retornar null
+        }
+    }
 } 
