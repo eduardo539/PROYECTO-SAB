@@ -35,8 +35,8 @@ public class DatosBoletosPDF {
     
     
     // Método para agregar un boleto a la lista
-    public void agregarDataPDF(int Folio, int Origen, int Grupo, int NumSocio, String Nombre, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
-        listaDatos.add(new DataPDF(Folio, Origen, Grupo, NumSocio, Nombre, Invitado, Telefono, Correo, Zona, DescMesa, vchDescripcion, Costo, Importe, EstadoSilla, FechaCompra, FechaVigencia));
+    public void agregarDataPDF(int Folio, int Origen, int Grupo, int NumSocio, String Nombre, String sucursal, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
+        listaDatos.add(new DataPDF(Folio, Origen, Grupo, NumSocio, Nombre, sucursal, Invitado, Telefono, Correo, Zona, DescMesa, vchDescripcion, Costo, Importe, EstadoSilla, FechaCompra, FechaVigencia));
     }
     
     
@@ -58,6 +58,7 @@ public class DatosBoletosPDF {
         int Grupo;
         int NumSocio;
         String Nombre;
+        String sucursal;
         String Invitado;
         String Telefono;
         String Correo;
@@ -72,12 +73,13 @@ public class DatosBoletosPDF {
         public DataPDF() {
         }
 
-        public DataPDF(int Folio, int Origen, int Grupo, int NumSocio, String Nombre, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
+        public DataPDF(int Folio, int Origen, int Grupo, int NumSocio, String Nombre, String sucursal, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
             this.Folio = Folio;
             this.Origen = Origen;
             this.Grupo = Grupo;
             this.NumSocio = NumSocio;
             this.Nombre = Nombre;
+            this.sucursal = sucursal;
             this.Invitado = Invitado;
             this.Telefono = Telefono;
             this.Correo = Correo;
@@ -129,6 +131,14 @@ public class DatosBoletosPDF {
 
         public void setNombre(String Nombre) {
             this.Nombre = Nombre;
+        }
+
+        public String getSucursal() {
+            return sucursal;
+        }
+
+        public void setSucursal(String sucursal) {
+            this.sucursal = sucursal;
         }
 
         public String getInvitado() {
@@ -222,7 +232,6 @@ public class DatosBoletosPDF {
         
         
         
-        
         @Override
         public String toString() {
             return "DataPDF{" +
@@ -231,6 +240,7 @@ public class DatosBoletosPDF {
                     ", Grupo='" + Grupo + '\'' +
                     ", NumSocio='" + NumSocio + '\'' +
                     ", Nombre='" + Nombre + '\'' +
+                    ", Nombre='" + sucursal + '\'' +
                     ", Invitado='" + Invitado + '\'' +
                     ", Telefono='" + Telefono + '\'' +
                     ", Correo='" + Correo + '\'' +
