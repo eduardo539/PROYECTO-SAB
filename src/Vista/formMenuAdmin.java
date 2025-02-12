@@ -715,10 +715,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
         try {
             // Confirmar cierre de sesión
-            int confirm = JOptionPane.showConfirmDialog(this, 
-                    "¿Estás seguro de que deseas cerrar sesión?", 
-                    "Cerrar Sesión", 
-                    JOptionPane.YES_NO_OPTION, 
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "¿Estás seguro de que deseas cerrar sesión?",
+                    "Cerrar Sesión",
+                    JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
 
             
