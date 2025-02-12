@@ -49,8 +49,6 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         // Si la clase no implementa un método limpiarDatos(), puedes hacer:
         sesion.setIdusuario(0);
         sesion.setNombre(null);
-        sesion.setAPaterno(null);
-        sesion.setAMaterno(null);
         sesion.setSucursal(null);
         sesion.setVigencia(null);
         sesion.setIdperfil(0);

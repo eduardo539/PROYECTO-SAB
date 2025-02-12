@@ -14,8 +14,6 @@ public class Login {
     
     private int idusuario;
     private String nombre;
-    private String APaterno;
-    private String AMaterno;
     private String Sucursal;
     private Date vigencia;
     private int idperfil;
@@ -32,14 +30,12 @@ public class Login {
         return instancia;
     }
 
-    public Login(int idusuario, String nombre, String APaterno, String AMaterno, int idperfil, String Sucursal, Date vigencia, String tipo_perfil) {
+    public Login(int idusuario, String nombre, String Sucursal, Date vigencia, int idperfil, String tipo_perfil) {
         this.idusuario = idusuario;
         this.nombre = nombre;
-        this.APaterno = APaterno;
-        this.AMaterno = AMaterno;
-        this.idperfil = idperfil;
         this.Sucursal = Sucursal;
         this.vigencia = vigencia;
+        this.idperfil = idperfil;
         this.tipo_perfil = tipo_perfil;
     }
 
@@ -59,30 +55,6 @@ public class Login {
         this.nombre = nombre;
     }
 
-    public String getAPaterno() {
-        return APaterno;
-    }
-
-    public void setAPaterno(String APaterno) {
-        this.APaterno = APaterno;
-    }
-
-    public String getAMaterno() {
-        return AMaterno;
-    }
-
-    public void setAMaterno(String AMaterno) {
-        this.AMaterno = AMaterno;
-    }
-
-    public int getIdperfil() {
-        return idperfil;
-    }
-
-    public void setIdperfil(int idperfil) {
-        this.idperfil = idperfil;
-    }
-
     public String getSucursal() {
         return Sucursal;
     }
@@ -99,6 +71,14 @@ public class Login {
         this.vigencia = vigencia;
     }
 
+    public int getIdperfil() {
+        return idperfil;
+    }
+
+    public void setIdperfil(int idperfil) {
+        this.idperfil = idperfil;
+    }
+
     public String getTipo_perfil() {
         return tipo_perfil;
     }
@@ -111,8 +91,6 @@ public class Login {
     public void limpiarDatos() {
         this.idusuario = 0;
         this.nombre = null;
-        this.APaterno = null;
-        this.AMaterno = null;
         this.idperfil = 0;
         this.Sucursal = null;
         this.vigencia = null;
