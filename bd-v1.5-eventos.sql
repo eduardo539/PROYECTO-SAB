@@ -51,7 +51,7 @@ CREATE TABLE `tbl_boletos` (
   CONSTRAINT `NumSocio` FOREIGN KEY (`idMesa`) REFERENCES `tbl_mesas` (`idMesa`),
   CONSTRAINT `Origen` FOREIGN KEY (`idEstado`) REFERENCES `tbl_estado_sillas` (`idEstado`),
   CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tbl_boletos` */
 
@@ -184,16 +184,12 @@ DROP TABLE IF EXISTS `tbl_usuarios`;
 
 CREATE TABLE `tbl_usuarios` (
   `id_usuario` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `APaterno` varchar(100) NOT NULL,
-  `AMaterno` varchar(100) NOT NULL,
+  `Nombre` varchar(200) NOT NULL,
   `vchPass` varchar(100) NOT NULL,
-  `vchSucursal` varchar(100) NOT NULL,
   `dtVigencia` date NOT NULL,
   `id_perfil` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `id_perfil` (`id_perfil`),
-  KEY `idSucursal` (`vchSucursal`),
   CONSTRAINT `id_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `tbl_perfil` (`id_perfil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -201,7 +197,7 @@ CREATE TABLE `tbl_usuarios` (
 
 LOCK TABLES `tbl_usuarios` WRITE;
 
-insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`APaterno`,`AMaterno`,`vchPass`,`vchSucursal`,`dtVigencia`,`id_perfil`) values (100,'Eduardo','Hernandez','Hernandez','f83eb54af143e1c220d48cbff2675a4e','Suc Indepe','2025-02-01',1),(539,'Eduardo','Dominguez','Librado','8d0b67f36735af8508e2d72d7aef96b9','Suc Indepe','2025-02-25',4),(540,'Perla','Rivera','Perez','a392100d5a3f7450afa6e8c223d92609','Suc Tauro','2025-03-08',1),(541,'Rogelio','Hernandez','Hernandez','f35e1564a7ae27439f47569bd9fa4d36','Suc Tauro','2025-01-21',4),(542,'asdasd','jdbi','kbkhb','8d0b67f36735af8508e2d72d7aef96b9','Suc Tauro','2025-01-21',4),(543,'dfghdbfjhj','jhbjgvb','hgvhgvhv','8d0b67f36735af8508e2d72d7aef96b9','Suc Tauro','2025-01-21',1),(544,'jsfjsh','uvieru','pokpwoekv','8d0b67f36735af8508e2d72d7aef96b9','Suc Tauro','2025-01-21',1),(600,'Usuario','Usuario','Usuario','8d0b67f36735af8508e2d72d7aef96b9','Suc Tauro','2025-01-21',1);
+insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`) values (100,'Eduardo Hernandez Hernandez','f83eb54af143e1c220d48cbff2675a4e','2025-02-01',1),(540,'Perla','a392100d5a3f7450afa6e8c223d92609','2025-03-08',1),(541,'Rogelio','f35e1564a7ae27439f47569bd9fa4d36','2025-01-21',4),(542,'asdasd','8d0b67f36735af8508e2d72d7aef96b9','2025-01-21',4),(543,'dfghdbfjhj','8d0b67f36735af8508e2d72d7aef96b9','2025-01-21',1),(544,'jsfjsh','8d0b67f36735af8508e2d72d7aef96b9','2025-01-21',1),(600,'Usuario','8d0b67f36735af8508e2d72d7aef96b9','2025-01-21',1),(697,'Eduardo Dominguez librado','8d0b67f36735af8508e2d72d7aef96b9','2025-02-25',4);
 
 UNLOCK TABLES;
 
