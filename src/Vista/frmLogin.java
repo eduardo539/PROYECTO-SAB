@@ -43,25 +43,24 @@ public class frmLogin extends javax.swing.JFrame {
         String pass = new String(txtPassword.getPassword()).trim();
 
         // Validación inicial: datos no vacíos
-        if (usuario.isEmpty() || pass.isEmpty()) { 
+        if (usuario.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, llena los datos solicitados.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
-        } 
+        }
+        
+        int idUsuario;
+        try {
+            idUsuario = Integer.parseInt(usuario); // Convertir texto a entero
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID del usuario debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        try { 
-            lg = login.log(usuario, pass); 
+        try {
+            lg = login.log(idUsuario, pass); 
             
             if (lg != null && lg.getTipo_perfil() != null) { 
                 
-                int idUsuario; 
-
-                try { 
-                    idUsuario = Integer.parseInt(usuario); // Convertir texto a entero
-        
-                } catch (NumberFormatException e) { 
-                    JOptionPane.showMessageDialog(this, "El ID del usuario debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } 
                 
                 // Verificar si el usuario tiene la contraseña predeterminada
                 if (tieneContrasenaPredeterminada(idUsuario)) { 
@@ -81,7 +80,7 @@ public class frmLogin extends javax.swing.JFrame {
                 
                 if (verificarVigencia(idUsuario)) { 
                 
-                 
+    
                     JOptionPane.showMessageDialog( 
                         this,
                         "Su contraseña ha caducado. Es necesario actualizarla.",
@@ -92,7 +91,7 @@ public class frmLogin extends javax.swing.JFrame {
                     // Redirigir al formulario de actualización de contraseña
                     frmActualizarContra frm = new frmActualizarContra(idUsuario); 
                     frm.setLocationRelativeTo(null); 
-                    frm.setVisible(true); 
+                    frm.setVisible(true);
 
                     limpiarEntradas(); 
                     this.dispose(); // Cerrar el formulario de login 
@@ -103,16 +102,16 @@ public class frmLogin extends javax.swing.JFrame {
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) { 
                     case "Sistemas":
-                        abrirVentana(new formMenuAdmin(), "Sistemas");
+                        abrirVentana(new frmMenuSistemas(), "Sistemas");
                         break; 
                     case "Operaciones": 
-                        abrirVentana(new frmOperaciones(), "Operaciones");
+                        abrirVentana(new frmMenuOperaciones(), "Operaciones");
                         break;
                     case "Gerente":
                         abrirVentana(new frmMenuGerente(), "Gerente");
                         break; 
                     case "Cajero":
-                        abrirVentana(new frmCajero(), "Cajero");
+                        abrirVentana(new frmMenuCajero(), "Cajero");
                         break;
                     default:
                         JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -160,7 +159,6 @@ public class frmLogin extends javax.swing.JFrame {
         }
         return false;
     }   
-
 
     private void abrirVentana(JFrame ventana, String perfil) {
         ventana.setLocationRelativeTo(null); // Centrar ventana
