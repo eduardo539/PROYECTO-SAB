@@ -139,11 +139,11 @@ public class GenerarBoleto {
 
                 
                 // ----------DATOS-------------//
-                String nombre1Limite = dataPdf.getNombre().length() > 31 ? dataPdf.getNombre().substring(0, 31) : dataPdf.getNombre();
+                //String nombre1Limite = dataPdf.getNombre().length() > 31 ? dataPdf.getNombre().substring(0, 31) : dataPdf.getNombre();
                 cb.setColorFill(new GrayColor(1));// Color negro
-                cb.setFontAndSize(bf, 6);
+                cb.setFontAndSize(bf, 5);
                 cb.setTextMatrix(50, 47);
-                cb.showText(nombre1Limite);//Nombre
+                cb.showText(dataPdf.getNombre());//Nombre
 
                 cb.setFontAndSize(bf, 6);
                 cb.setTextMatrix(50, 29);
@@ -181,12 +181,12 @@ public class GenerarBoleto {
                 
                 //----------DATOS SEGUNDA PARTE-------------//
                 // Limitar el número de caracteres a 15 (puedes cambiar el número según sea necesario)
-                String nombreLimite = dataPdf.getNombre().length() > 31 ? dataPdf.getNombre().substring(0, 31) : dataPdf.getNombre();
+                //String nombreLimite = dataPdf.getNombre().length() > 31 ? dataPdf.getNombre().substring(0, 31) : dataPdf.getNombre();
 
                 cb.setColorFill(new GrayColor(1));// Color negro
-                cb.setFontAndSize(bf, 4);
+                cb.setFontAndSize(bf, 3);
                 cb.setTextMatrix(292, 98);
-                cb.showText(nombreLimite);//Nombre
+                cb.showText(dataPdf.getNombre());//Nombre
 
                 cb.setFontAndSize(bf, 5);
                 cb.setTextMatrix(293, 82);
