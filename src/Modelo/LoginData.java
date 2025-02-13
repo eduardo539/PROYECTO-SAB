@@ -69,7 +69,6 @@ public class LoginData {
                 // Si hay resultados, agregamos más datos al objeto `Login`
                 if (rs.next()) {
                     l.setSucursal(rs.getString("sucursal"));  // Suponiendo que `Login` tiene un campo `origen`
-                    System.out.println("Se ejecuta la segunda consulta");
                 }
 
             }
