@@ -119,5 +119,14 @@ public class SillasData {
         
         return se;
     }
+    
+    
+    public boolean estadoSillasxMesa(){
+        
+        
+        
+        return true;
+    }
+    
 
 }
