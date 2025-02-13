@@ -21,8 +21,8 @@ public class InsertarData {
     
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia();
     
-    public boolean insertarBoletos(int origen, int grupo, int socio, String nombre, String sucursal, String invitado, 
-                            String telefono, String correo, int idusuario, int idzona, int idmesa, 
+    public boolean insertarBoletos(int origen, int grupo, int socio, String nombre, String sucursalSocio, String invitado, 
+                            String telefono, String correo, int idusuario, String sucursalUsuario, int idzona, int idmesa, 
                             int[] idsilla, double costo, int estatus, double importe, LocalDate vigencia) {
     
         // Convertir LocalDate (fecha) a java.sql.Date
@@ -36,13 +36,13 @@ public class InsertarData {
 
         // Construir la consulta con múltiples valores dinámicamente
         StringBuilder insertBoleto = new StringBuilder(
-            "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, NomSucursal, Invitado, Telefono, Correo, " +
-            "id_usuario, idZona, idMesa, idSilla, Costo, idEstado, Importe, FechaCompra, FechaVigencia) VALUES "
+            "INSERT INTO tbl_boletos (Origen, Grupo, NumSocio, Nombre, OrigenSocio, Invitado, Telefono, Correo, " +
+            "id_usuario, OrigenUsuario, idZona, idMesa, idSilla, Costo, idEstado, Importe, FechaCompra, FechaVigencia) VALUES "
         );
 
         // Agregar los placeholders (?, ?, ...) por cada silla
         for (int i = 0; i < idsilla.length; i++) {
-            insertBoleto.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?),");
+            insertBoleto.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?),");
         }
 
         // Eliminar la última coma para evitar errores de sintaxis
@@ -57,11 +57,12 @@ public class InsertarData {
                 ps.setInt(index++, grupo);
                 ps.setInt(index++, socio);
                 ps.setString(index++, nombre);
-                ps.setString(index++, sucursal);
+                ps.setString(index++, sucursalSocio);
                 ps.setString(index++, invitado);
                 ps.setString(index++, telefono);
                 ps.setString(index++, correo);
                 ps.setInt(index++, idusuario);
+                ps.setString(index++, sucursalUsuario);
                 ps.setInt(index++, idzona);
                 ps.setInt(index++, idmesa);
                 ps.setInt(index++, idSilla);  // ID de la silla

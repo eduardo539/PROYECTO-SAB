@@ -141,11 +141,12 @@ public class frmBoleto extends javax.swing.JFrame {
         int origen = datos.getOrigen();
         int grupo = datos.getGrupo();
         int socio = datos.getSocio();
-        String sucursal = datos.getSucursal();
+        String sucursalSocio = datos.getSucursal();
         String nombre = datos.getNombre();
         String telefono = datos.getNumCelular();
         String correo = datos.getCorreo();
         int idusuario = lg.getIdusuario();
+        String sucursalUsuario = lg.getSucursal();
         int idZona = sE.getIdZona();
         String Zona = sE.getZona();
         int idMesa = sE.getIdMesa();
@@ -241,8 +242,8 @@ public class frmBoleto extends javax.swing.JFrame {
             }
 
             // Enviar los datos a la base de datos
-            boolean datInsert = insert.insertarBoletos(origen, grupo, socio, nombre, sucursal, rInvitado, telefono, correo, 
-                                   idusuario, idZona, idMesa, idsSillas, Costo, estatusSilla, importeDividido, vigencia);
+            boolean datInsert = insert.insertarBoletos(origen, grupo, socio, nombre, sucursalSocio, rInvitado, telefono, correo,
+                                                            idusuario, sucursalUsuario, idZona, idMesa, idsSillas, Costo, estatusSilla, importeDividido, vigencia);
             
             // Se comprueba si la insersión de los datos se realizo de manera correcta.
             //En caso de que no se hayan insertado los datos muestra la alerta y no se ejecuta nada.
@@ -337,7 +338,7 @@ public class frmBoleto extends javax.swing.JFrame {
         txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
 
         txtSucursal.setEditable(false);
-        txtSucursal.setBorder(javax.swing.BorderFactory.createTitledBorder("Sucursal"));
+        txtSucursal.setBorder(javax.swing.BorderFactory.createTitledBorder("Sucursal Socio"));
 
         btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-buy.png"))); // NOI18N
         btnComprar.setText("Comprar");
