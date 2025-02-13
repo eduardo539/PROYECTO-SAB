@@ -337,6 +337,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar sucursales: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
 
     private void cargarDatos(String sucursal, Integer ano, Integer mes) {
