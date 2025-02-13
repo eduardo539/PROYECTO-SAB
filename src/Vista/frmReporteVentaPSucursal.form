@@ -196,7 +196,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Iconos/icon-lupa.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Filtrar Datos"/>
+        <Property name="text" type="java.lang.String" value="Filtrar por Mes y A&#xf1;o"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFiltrarActionPerformed"/>
