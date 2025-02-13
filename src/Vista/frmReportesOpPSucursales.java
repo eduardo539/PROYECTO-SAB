@@ -460,6 +460,4 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
         modelo.setRowCount(0);
     }
-
-    
 }
