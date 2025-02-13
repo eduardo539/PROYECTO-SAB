@@ -397,7 +397,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         
         // Construcción de la consulta SQL con todas las columnas necesarias
         StringBuilder consultaSQL = new StringBuilder("SELECT " +
-                "    b.NomSucursal AS Sucursal, " +  // Cambié de u.vchSucursal a b.vchSucursal
+                "    b.OrigenSocio AS Sucursal, " +  // Cambié de u.vchSucursal a b.vchSucursal
                 "    b.Folio, " +
                 "    b.Origen, " +
                 "    b.Grupo, " +
@@ -420,13 +420,13 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         // Agregar filtros opcionales
         if (sucursal != null && !sucursal.equals("Seleccione una sucursal para filtrar")) {
             // Aquí usamos el valor de sucursal que viene del ComboBox para filtrar en 'b.vchSucursal'
-            consultaSQL.append("AND b.NomSucursal = ? ");
+            consultaSQL.append("AND b.OrigenSocio = ? ");
         }
         if (ano != null && mes != null) {
             consultaSQL.append("AND YEAR(b.FechaCompra) = ? AND MONTH(b.FechaCompra) = ? ");
         }
 
-        consultaSQL.append("GROUP BY b.NomSucursal, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+        consultaSQL.append("GROUP BY b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
                 "u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion " +
                 "ORDER BY b.Folio");
 
@@ -520,8 +520,9 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         modelo.setRowCount(0);
     }
 
+    
     private void cargarDatosPorUsuario(int origen, int numSocio) {
-        String consultaSQL = "SELECT b.NomSucursal AS Sucursal, b.Folio, b.Origen, b.Grupo, "
+        String consultaSQL = "SELECT b.OrigenSocio AS Sucursal, b.Folio, b.Origen, b.Grupo, "
             + "b.NumSocio, b.Nombre, u.Nombre AS Cajero, z.Zona, b.Costo AS Precio_Boleto, "
             + "m.DescMesa AS Mesa, s.vchDescripcion AS Silla, COUNT(b.Folio) AS Total_Boletos_Vendidos "
             + "FROM tbl_boletos b "
@@ -530,7 +531,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             + "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa "
             + "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla "
             + "WHERE b.Origen = ? AND b.NumSocio = ? "
-            + "GROUP BY b.NomSucursal, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion "
+            + "GROUP BY b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion "
             + "ORDER BY b.Folio";
 
         try (Connection conn = conexion.getConnection();

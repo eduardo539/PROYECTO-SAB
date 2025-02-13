@@ -340,7 +340,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         // Construcción de la consulta SQL, filtrando por la sucursal del gerente.
         String consultaSQL = "SELECT " +
-                "    b.NomSucursal AS Sucursal, " +
+                "    b.OrigenUsuario AS Sucursal, " +
                 "    b.Folio AS Folio_Boleto, " +
                 "    b.Origen AS Origen, " +
                 "    b.Grupo AS Grupo, " +
@@ -363,7 +363,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 "LEFT JOIN " +
                 "    tbl_sillas s ON b.idSilla = s.idSilla " +
                 "WHERE " +
-                "    b.NomSucursal = ? ";  // Aquí usamos la sucursal del gerente
+                "    b.OrigenUsuario = ? ";  // Aquí usamos la sucursal del gerente
 
         // Si el año y mes no son nulos, agregar filtros de fecha.
         if (ano != null && mes != null) {
@@ -372,7 +372,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         // Agrupamos los resultados y ordenamos.
         consultaSQL += "GROUP BY " +
-                "    b.NomSucursal, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+                "    b.OrigenUsuario, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
                 "    u.Nombre, b.Costo " +
                 "ORDER BY " +
                 "    b.Folio";
