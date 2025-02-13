@@ -35,8 +35,8 @@ public class DatosBoletosPDF {
     
     
     // Método para agregar un boleto a la lista
-    public void agregarDataPDF(int Folio, int Origen, int Grupo, int NumSocio, String Nombre, String sucursal, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
-        listaDatos.add(new DataPDF(Folio, Origen, Grupo, NumSocio, Nombre, sucursal, Invitado, Telefono, Correo, Zona, DescMesa, vchDescripcion, Costo, Importe, EstadoSilla, FechaCompra, FechaVigencia));
+    public void agregarDataPDF(int Folio, int Origen, int Grupo, int NumSocio, String Nombre, String origenSocio, String Invitado, String Telefono, String Correo, String Zona, String DescMesa, String vchDescripcion, double Costo, double Importe, String EstadoSilla, String FechaCompra, String FechaVigencia) {
+        listaDatos.add(new DataPDF(Folio, Origen, Grupo, NumSocio, Nombre, origenSocio, Invitado, Telefono, Correo, Zona, DescMesa, vchDescripcion, Costo, Importe, EstadoSilla, FechaCompra, FechaVigencia));
     }
     
     
@@ -58,7 +58,7 @@ public class DatosBoletosPDF {
         int Grupo;
         int NumSocio;
         String Nombre;
-        String sucursal;
+        String sucursal; //origenSocio
         String Invitado;
         String Telefono;
         String Correo;
