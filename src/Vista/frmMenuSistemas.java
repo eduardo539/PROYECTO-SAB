@@ -126,7 +126,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
 
         jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
-        jMenuItem4.setText("Reportes");
+        jMenuItem4.setText("Bitacoras");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);

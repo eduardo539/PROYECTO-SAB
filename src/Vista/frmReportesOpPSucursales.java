@@ -444,6 +444,8 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                 stmt.setInt(paramIndex, mes);
             }
             
+            
+            
             // Ejecutar la consulta
             ResultSet rs = stmt.executeQuery();
             DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
