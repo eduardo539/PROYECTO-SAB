@@ -2461,16 +2461,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblUsuario" min="-2" pref="162" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="lblNombre" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="lblUsuario" min="-2" pref="90" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblVersionJava" min="-2" pref="99" max="-2" attributes="0"/>
+                  <Component id="lblNombre" min="-2" pref="208" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblSucursal" min="-2" pref="160" max="-2" attributes="0"/>
+                  <Component id="lblVersionJava" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblSucursal" min="-2" pref="290" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblVersionOS" min="-2" pref="240" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                   <Component id="lblFecha" min="-2" pref="140" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
