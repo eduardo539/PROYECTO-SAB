@@ -10,6 +10,7 @@ import Modelo.DatosBoletosPDF;
 import Modelo.GenerarBoleto;
 import Modelo.InsertarData;
 import Modelo.Login;
+import Modelo.NombreBoleto;
 import Modelo.SillaEstado;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class frmBoleto extends javax.swing.JFrame {
     
     DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
     
+    NombreBoleto nomB = new NombreBoleto();
     
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
     
@@ -270,6 +272,11 @@ public class frmBoleto extends javax.swing.JFrame {
                 bol.boletoPDF();
             }
 
+            
+            //Aqui se va a agregar la funcion para enviar el pdf
+            String nomBoleto = nomB.getNomBoleto();
+            
+            
             // Limpiar los datos seleccionados
             pdf.borrarDatos();
             dataSillas.borrarDatos();
