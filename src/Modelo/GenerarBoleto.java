@@ -180,7 +180,7 @@ public class GenerarBoleto {
                 
                 
                 //----------DATOS SEGUNDA PARTE-------------//
-                // Limitar el número de caracteres a 15 (puedes cambiar el número según sea necesario)
+                // Limitar el número de caracteres a 30 (puedes cambiar el número según sea necesario)
                 //String nombreLimite = dataPdf.getNombre().length() > 31 ? dataPdf.getNombre().substring(0, 31) : dataPdf.getNombre();
 
                 cb.setColorFill(new GrayColor(1));// Color negro

@@ -138,7 +138,7 @@ public class SillasData {
         //Consulta para actualizar sillas despues de la vigencia
         String datoSilla = "SELECT idMesa, idSilla, FechaCompra, FechaVigencia " +
                             "FROM tbl_boletos " +
-                            "WHERE FechaVigencia BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() - INTERVAL 1 DAY;";
+                            "WHERE FechaVigencia BETWEEN CURDATE() - INTERVAL 10 DAY AND CURDATE() - INTERVAL 1 DAY;";
         
         
         try {
