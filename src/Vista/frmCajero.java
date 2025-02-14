@@ -6,12 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 
 /**
  *
- * @author Practicas1
+ * @author Eduardo´s
+ * 
  */
 public class frmCajero extends javax.swing.JFrame {
 
@@ -23,6 +27,7 @@ public class frmCajero extends javax.swing.JFrame {
     
     Precios pre = Precios.getInstancia();
     PreciosData preD = new PreciosData();
+    
 
     public frmCajero() {
         initComponents();
@@ -35,11 +40,43 @@ public class frmCajero extends javax.swing.JFrame {
         setResizable(false);
         consultaEstadoMesas();
         
-        
+        actualizaSillasxVigencia();
 
         pack();
         setLocationRelativeTo(null);
     }
+    
+    
+    public void actualizaSillasxVigencia(){
+        
+        ActualizarData acD = new ActualizarData();
+        SillasData sid = new SillasData();
+        
+        SillasEstatusVigencia sv = SillasEstatusVigencia.getInstancia();
+        sid.vigenciaSillasxBoleto();
+
+        // Obtener la lista de vigencia de boletos
+        java.util.List<SillasEstatusVigencia.VigenciaBoleto> listaVigencia = sv.getListaVigenciaBol();
+
+        // Usar un Set para almacenar idMesa sin duplicados
+        Set<Integer> idMesaSet = new HashSet<>();
+        java.util.List<Integer> idSillaList = new ArrayList<>();
+
+        for (SillasEstatusVigencia.VigenciaBoleto vb : listaVigencia) {
+            idMesaSet.add(vb.getIdMesa()); // Agrega idMesa al Set (evita duplicados)
+            idSillaList.add(vb.getIdSilla()); // Agrega todos los idSilla
+        }
+
+        // Convertir el Set y la Lista a arreglos primitivos
+        int[] idMesas = idMesaSet.stream().mapToInt(Integer::intValue).toArray();
+        int[] idSillas = idSillaList.stream().mapToInt(Integer::intValue).toArray();
+
+        
+        acD.actualizarMesaSillaxVigenciaBoleto(idMesas, idSillas);
+        sv.borrarDatos();
+        
+    }
+    
     
     public void barraEstado(){
         
