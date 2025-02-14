@@ -15,7 +15,6 @@ import Modelo.SillaEstado;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -39,7 +38,7 @@ public class frmBoleto extends javax.swing.JFrame {
     
     DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
     
-    NombreBoleto nomB = new NombreBoleto();
+    NombreBoleto nomB = NombreBoleto.getInstancia();
     
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
     
@@ -275,7 +274,7 @@ public class frmBoleto extends javax.swing.JFrame {
             
             //Aqui se va a agregar la funcion para enviar el pdf
             String nomBoleto = nomB.getNomBoleto();
-            
+            System.out.println(nomBoleto);
             
             // Limpiar los datos seleccionados
             pdf.borrarDatos();
