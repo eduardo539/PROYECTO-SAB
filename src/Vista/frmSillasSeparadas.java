@@ -296,9 +296,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         totalRestante = totalCosto - totalImporte;
         // Imprimir la información en una sola línea por campo
         txtSillas.setText("" + sillas);
-        txtTotal.setText(String.format("%.2f", totalCosto)); // Mostrar el total formateado
-        txtTotalImporte.setText(String.format("%.2f", totalImporte));
-        txtAdeudo.setText(String.format("%.2f", totalRestante));
+        txtTotal.setText(String.format("$" + "%.2f", totalCosto)); // Mostrar el total formateado
+        txtTotalImporte.setText(String.format("$" + "%.2f", totalImporte));
+        txtAdeudo.setText(String.format("$" + "%.2f", totalRestante));
         
         // Convertir la primera vigencia a LocalDate y asignarla a dtNewVigencia
         if (!primeraVigencia.isEmpty()) {
