@@ -24,7 +24,7 @@ import java.util.Calendar;
 public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     
     private final Conexion conexion;
-
+    
     public frmReporteVentaPSucursal() {
         initComponents();
         conexion = new Conexion();
@@ -104,7 +104,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
         btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
-        btnFiltrar.setText("Filtrar Datos");
+        btnFiltrar.setText("Filtrar por Mes y Año");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
@@ -213,9 +213,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                     .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -327,58 +325,66 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     }
    
 
-    private void cargarDatosGerente(String ano, String mes) {
+    void cargarDatosGerente(String ano, String mes) {
         Login login = Login.getInstancia();
-        String sucursalGerente = login.getSucursal();
+        String sucursalGerente = login.getSucursal();  // Obtienes la sucursal del gerente logueado.
+
+        // Verifica que la sucursal del gerente esté configurada correctamente.
+        System.out.println("Sucursal del gerente: " + sucursalGerente);  // Verifica en los logs que la sucursal se esté obteniendo correctamente.
 
         if (sucursalGerente == null || sucursalGerente.isEmpty()) {
+            // Si no se pudo obtener la sucursal, muestra un mensaje de error.
             JOptionPane.showMessageDialog(this, "Error: No se ha podido obtener la sucursal del gerente logueado.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        String consultaSQL = "SELECT \n" +
-                "    u.vchSucursal AS Sucursal, \n" +
-                "    b.Folio AS Folio_Boleto, \n" +
-                "    b.Origen AS Origen, \n" +
-                "    b.Grupo AS Grupo, \n" +
-                "    b.NumSocio AS NumSocio, \n" +
-                "    b.Nombre AS Nombre, \n" +
-                "    CONCAT(u.Nombre, ' ', u.APaterno, ' ', u.AMaterno) AS Cajero, \n" +
-                "    MAX(z.Zona) AS Zona, \n" +
-                "    b.Costo AS Precio_Boleto, \n" +
-                "    MAX(m.DescMesa) AS Mesa, \n" +
-                "    MAX(s.vchDescripcion) AS Silla, \n" +
-                "    COUNT(b.Folio) AS Total_Boletos_Vendidos \n" +
-                "FROM \n" +
-                "    tbl_boletos b \n" +
-                "INNER JOIN \n" +
-                "    tbl_usuarios u ON b.id_usuario = u.id_usuario \n" +
-                "LEFT JOIN \n" +
-                "    tbl_zonas z ON b.idZona = z.idZona \n" +
-                "LEFT JOIN \n" +
-                "    tbl_mesas m ON b.idMesa = m.idMesa \n" +
-                "LEFT JOIN \n" +
-                "    tbl_sillas s ON b.idSilla = s.idSilla \n" +
-                "WHERE \n" +
-                "    u.vchSucursal = ? \n";
+        // Construcción de la consulta SQL, filtrando por la sucursal del gerente.
+        String consultaSQL = "SELECT " +
+                "    b.OrigenUsuario AS Sucursal, " +
+                "    b.Folio AS Folio_Boleto, " +
+                "    b.Origen AS Origen, " +
+                "    b.Grupo AS Grupo, " +
+                "    b.NumSocio AS NumSocio, " +
+                "    b.Nombre AS Nombre, " +
+                "    u.Nombre AS Cajero, " +
+                "    MAX(z.Zona) AS Zona, " +
+                "    b.Costo AS Precio_Boleto, " +
+                "    MAX(m.DescMesa) AS Mesa, " +
+                "    MAX(s.vchDescripcion) AS Silla, " +
+                "    COUNT(b.Folio) AS Total_Boletos_Vendidos " +
+                "FROM " +
+                "    tbl_boletos b " +
+                "INNER JOIN " +
+                "    tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                "LEFT JOIN " +
+                "    tbl_zonas z ON b.idZona = z.idZona " +
+                "LEFT JOIN " +
+                "    tbl_mesas m ON b.idMesa = m.idMesa " +
+                "LEFT JOIN " +
+                "    tbl_sillas s ON b.idSilla = s.idSilla " +
+                "WHERE " +
+                "    b.OrigenUsuario = ? ";  // Aquí usamos la sucursal del gerente
 
+        // Si el año y mes no son nulos, agregar filtros de fecha.
         if (ano != null && mes != null) {
-            consultaSQL += "    AND YEAR(b.FechaCompra) = ? AND MONTH(b.FechaCompra) = ? \n";
+            consultaSQL += "    AND YEAR(b.FechaCompra) = ? AND MONTH(b.FechaCompra) = ? ";
         }
 
-        consultaSQL += "GROUP BY \n" +
-                "    u.vchSucursal, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, \n" +
-                "    u.Nombre, u.APaterno, u.AMaterno, b.Costo \n" +
-                "ORDER BY \n" +
+        // Agrupamos los resultados y ordenamos.
+        consultaSQL += "GROUP BY " +
+                "    b.OrigenUsuario, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+                "    u.Nombre, b.Costo " +
+                "ORDER BY " +
                 "    b.Folio";
 
+        // Crear el modelo para la tabla.
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
         modelo.setRowCount(0);
 
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(consultaSQL)) {
 
-            stmt.setString(1, sucursalGerente);
+            stmt.setString(1, sucursalGerente);  // Establecemos la sucursal en el parámetro 1.
 
             if (ano != null && mes != null) {
                 stmt.setInt(2, Integer.parseInt(ano)); // Año
@@ -387,6 +393,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
             ResultSet rs = stmt.executeQuery();
 
+            // Agregar los resultados al modelo de la tabla.
             while (rs.next()) {
                 Object[] fila = new Object[]{
                         rs.getString("Sucursal"),
@@ -405,6 +412,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 modelo.addRow(fila);
             }
 
+            // Si no hay resultados, mostrar mensaje.
             if (modelo.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "No se encontraron boletos.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
             }

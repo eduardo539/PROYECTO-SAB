@@ -1,5 +1,6 @@
 package Vista;
 
+import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
 import Modelo.Login;
 import Modelo.Mesas;
@@ -10,14 +11,18 @@ import Modelo.Precios;
 import Modelo.PreciosData;
 import Modelo.Sillas;
 import Modelo.SillasData;
+import Modelo.SillasEstatusVigencia;
+import Modelo.SillasEstatusVigencia.VigenciaBoleto;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Window;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.*;
+import java.util.*;
 
 /**
  *
@@ -45,6 +50,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     Sillas s = Sillas.getInstancia();
     SillasData sid = new SillasData();
     
+    
     private int idMesa;
     
     
@@ -63,6 +69,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         
         estadosMesas();
         estadoPrecios();
+        actualizaSillasxVigencia();
         
     }
     
@@ -103,6 +110,34 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         lblFecha = new javax.swing.JLabel();
     }
     
+    public void actualizaSillasxVigencia(){
+        
+        ActualizarData acD = new ActualizarData();
+        
+        SillasEstatusVigencia sv = SillasEstatusVigencia.getInstancia();
+        sid.vigenciaSillasxBoleto();
+
+        // Obtener la lista de vigencia de boletos
+        List<VigenciaBoleto> listaVigencia = sv.getListaVigenciaBol();
+
+        // Usar un Set para almacenar idMesa sin duplicados
+        Set<Integer> idMesaSet = new HashSet<>();
+        List<Integer> idSillaList = new ArrayList<>();
+
+        for (VigenciaBoleto vb : listaVigencia) {
+            idMesaSet.add(vb.getIdMesa()); // Agrega idMesa al Set (evita duplicados)
+            idSillaList.add(vb.getIdSilla()); // Agrega todos los idSilla
+        }
+
+        // Convertir el Set y la Lista a arreglos primitivos
+        int[] idMesas = idMesaSet.stream().mapToInt(Integer::intValue).toArray();
+        int[] idSillas = idSillaList.stream().mapToInt(Integer::intValue).toArray();
+
+        
+        acD.actualizarMesaSillaxVigenciaBoleto(idMesas, idSillas);
+        sv.borrarDatos();
+        
+    }
     
     public void estadoPrecios(){
         // Obtener la instancia de la clase singleton Precios
@@ -2060,6 +2095,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private void jmiActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiActualizarActionPerformed
         mes = mesa.m();
         pre = preD.pr();
+        
+        actualizaSillasxVigencia();
         estadoPrecios();
         estadosMesas();
     }//GEN-LAST:event_jmiActualizarActionPerformed

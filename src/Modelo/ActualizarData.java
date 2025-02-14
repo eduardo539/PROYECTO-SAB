@@ -217,5 +217,87 @@ public class ActualizarData {
     }
 
     
+    public void actualizarMesaSillaxVigenciaBoleto(int[] idMesas, int[] idSillas) {
+
+        // Verificar si hay datos en al menos uno de los arreglos antes de ejecutar las consultas
+        if ((idMesas == null || idMesas.length == 0) || (idSillas == null || idSillas.length == 0)) {
+            System.out.println("No hay mesas ni sillas para actualizar.");
+            return; // Si ninguno de los dos arreglos tiene datos, se sale del método.
+        }
+
+
+        // Crear la cláusula IN dinámica para las mesas
+        StringBuilder mesasPlaceholders = new StringBuilder();
+        if (idMesas != null && idMesas.length > 0) {
+            for (int i = 0; i < idMesas.length; i++) {
+                mesasPlaceholders.append("?");
+                if (i < idMesas.length - 1) {
+                    mesasPlaceholders.append(", ");
+                }
+            }
+        }
+
+        // Crear la cláusula IN dinámica para las sillas
+        StringBuilder sillasPlaceholders = new StringBuilder();
+        if (idSillas != null && idSillas.length > 0) {
+            for (int i = 0; i < idSillas.length; i++) {
+                sillasPlaceholders.append("?");
+                if (i < idSillas.length - 1) {
+                    sillasPlaceholders.append(", ");
+                }
+            }
+        }
+
+        String actualizarMesa = "UPDATE tbl_mesas SET estatus = 'Disponible' WHERE idMesa IN (" + mesasPlaceholders.toString() + ") AND Estatus = 'Ocupado';";
+        String actualizarSillas = "UPDATE tbl_sillas SET idEstado = 1 WHERE idSilla IN (" + sillasPlaceholders.toString() + ");";
+
+        // Declarar objetos de conexión, PreparedStatement y ResultSet
+        Connection con = null;
+        PreparedStatement psMesa = null;
+        PreparedStatement psSilla = null;
+
+        try {
+            // Establecer conexión con la base de datos
+            con = cn.getConnection();
+
+            // Verificar y actualizar las mesas si hay datos
+            if (idMesas != null && idMesas.length > 0) {
+                psMesa = con.prepareStatement(actualizarMesa);
+                for (int i = 0; i < idMesas.length; i++) {
+                    psMesa.setInt(i + 1, idMesas[i]);  // Establecer los parámetros de las mesas
+                }
+                int rowsAffected = psMesa.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Mesas actualizadas a 'Disponible'.");
+                }
+            }
+
+            // Verificar y actualizar las sillas si hay datos
+            if (idSillas != null && idSillas.length > 0) {
+                psSilla = con.prepareStatement(actualizarSillas);
+                for (int i = 0; i < idSillas.length; i++) {
+                    psSilla.setInt(i + 1, idSillas[i]);  // Establecer los parámetros de las sillas
+                }
+                int rowsAffected = psSilla.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Sillas actualizadas.");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar mesas o sillas: " + e.getMessage());
+        } finally {
+            // Cerrar los recursos de forma segura
+            try {
+                if (psMesa != null) psMesa.close();
+                if (psSilla != null) psSilla.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar los recursos: " + e.getMessage());
+            }
+        }
+    }
+
+
     
 }

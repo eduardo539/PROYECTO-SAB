@@ -249,7 +249,7 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarSucursales() {
-        String consultaSQL = "SELECT DISTINCT vchSucursal FROM tbl_usuarios";
+        String consultaSQL = "SELECT DISTINCT OrigenUsuario FROM tbl_boletos";
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(consultaSQL);
              ResultSet rs = stmt.executeQuery()) {
@@ -258,7 +258,7 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
             modelo.addElement("Seleccione una sucursal"); // Opción por defecto
 
             while (rs.next()) {
-                modelo.addElement(rs.getString("vchSucursal"));
+                modelo.addElement(rs.getString("OrigenUsuario"));
             }
 
             jtlSucursales.setModel(modelo);
@@ -269,17 +269,17 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
     }
 
     private void cargarDatos(String sucursal) {
-        String consultaSQL = "SELECT u.vchSucursal AS Sucursal, " +
+        String consultaSQL = "SELECT b.OrigenUsuario AS Sucursal, " +
             "COUNT(b.Folio) AS Numero_Boletos, " +
             "SUM(b.Costo) AS Monto_Total " +
             "FROM tbl_boletos b " +
             "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario ";
 
         if (sucursal != null) {
-            consultaSQL += "WHERE u.vchSucursal = ? ";
+            consultaSQL += "WHERE b.OrigenUsuario = ? ";
         }
 
-        consultaSQL += "GROUP BY u.vchSucursal";
+        consultaSQL += "GROUP BY b.OrigenUsuario";
 
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
         modelo.setRowCount(0);

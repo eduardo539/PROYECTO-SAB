@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,8 +65,13 @@ public class SillasData {
             cn.closeConnection();
 
         } catch (SQLException e) {
-            System.out.println("Error al ejecutar la consulta: " + e.getMessage());
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al ejecutar la consulta: \nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
         }
+        
         
         return s;
     }
@@ -113,11 +119,61 @@ public class SillasData {
             cn.closeConnection();
             
         }catch (SQLException e) {
-            System.out.println("Error, contactar al administrador: " + e.getMessage());
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error, contactar al administrador: \nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
         }
         
         
         return se;
     }
+    
+    
+    public SillasEstatusVigencia vigenciaSillasxBoleto(){
+        
+        SillasEstatusVigencia sv = SillasEstatusVigencia.getInstancia();
+        
+        //Consulta para actualizar sillas despues de la vigencia
+        String datoSilla = "SELECT idMesa, idSilla, FechaCompra, FechaVigencia " +
+                            "FROM tbl_boletos " +
+                            "WHERE FechaVigencia BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() - INTERVAL 1 DAY;";
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(datoSilla); // Preparar consulta
+            rs= ps.executeQuery();
+
+            // Limpiar lista antes de agregar nuevas (si es necesario)
+            sv.getListaVigenciaBol().clear();
+
+            // Iterar sobre el resultado de la consulta
+            while (rs.next()) {
+                // Crear objeto con los datos obtenidos
+                int idMesa = rs.getInt("idMesa");
+                int idSilla = rs.getInt("idSilla");
+                String vigencia = rs.getString("FechaVigencia");
+
+                // Agregar datos a la lista en la instancia de SillasEsatusVigencia
+                sv.agregarSilla(idMesa, idSilla, vigencia);
+            }
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al ejecutar la consulta: \nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        return sv;
+        
+    }
+    
 
 }

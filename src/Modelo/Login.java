@@ -96,7 +96,7 @@ public class Login {
         this.vigencia = null;
         this.tipo_perfil = null;
     }
-    
+
     
     
 }
