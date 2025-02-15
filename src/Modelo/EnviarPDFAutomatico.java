@@ -21,7 +21,8 @@ public class EnviarPDFAutomatico {
     public static boolean enviarPDF(String filePath, String email) {
         File selectedFile = new File(filePath);
         
-        System.out.println("el archivo recuperado que esta en la clase de enviarPDFautomatico con el correo: " + selectedFile);
+        System.out.println("el archivo recuperado que esta en la clase de enviarPDFautomatico: " + selectedFile);
+        System.out.println("el correo recuperado que viene de la vista es : " + email);
 
         if (!selectedFile.exists() || !selectedFile.getName().endsWith(".pdf")) {
             System.err.println("El archivo no es válido o no existe.");
