@@ -259,7 +259,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         String sql = "SELECT DISTINCT b.Nombre FROM tbl_boletos b " +
                      "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
                      "WHERE b.OrigenUsuario = ?";
-
+        
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
