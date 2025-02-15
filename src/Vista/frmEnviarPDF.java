@@ -73,11 +73,11 @@ public class frmEnviarPDF extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(btnSeleccionar)
-                .addGap(32, 32, 32)
+                .addGap(38, 38, 38)
                 .addComponent(btnenviar)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
         );
 
         pack();
