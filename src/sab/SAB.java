@@ -5,6 +5,7 @@ import Vista.frmBoleto;
 import Vista.frmLogin;
 import Vista.frmCajero;
 import Vista.frmCrearPdf;
+import Vista.frmEnvioPDF;
 
 import Vista.frmSillasSeparadas;
 import Vista.frmPosadaMTY;
@@ -26,7 +27,8 @@ public class SAB {
         
        
 
-        frmLogin iniciar = new frmLogin();
+        //frmLogin iniciar = new frmLogin();
+        frmEnvioPDF iniciar = new frmEnvioPDF();
         //frmSillasSeparadas iniciar = new frmSillasSeparadas();
 
         //frmCajero iniciar = new frmCajero();

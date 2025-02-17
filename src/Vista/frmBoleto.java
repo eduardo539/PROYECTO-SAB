@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import Vista.frmEnviarPDF;
+import Vista.frmEnvioPDF;
 
 
 /**
@@ -297,7 +297,7 @@ public class frmBoleto extends javax.swing.JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);
 
                     // Abrir la vista EnviarPDF.java para el envío manual
-                    Vista.frmEnviarPDF enviarPDFManual = new Vista.frmEnviarPDF();
+                    Vista.frmEnvioPDF enviarPDFManual = new Vista.frmEnvioPDF();
                     enviarPDFManual.setVisible(true);
                 }
             } else {
