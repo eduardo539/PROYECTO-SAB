@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import Vista.frmEnvioPDF;
 
 
 /**
@@ -272,15 +273,45 @@ public class frmBoleto extends javax.swing.JFrame {
             }
 
             
-            //Aqui se va a agregar la funcion para enviar el pdf
+            // Aquí se va a agregar la función para enviar el PDF automáticamente
             String nomBoleto = nomB.getNomBoleto();
-            System.out.println(nomBoleto);
+            System.out.println("PDF generado: " + nomBoleto);
+
+            String correoDestino = txtCorreo.getText().trim();
+            if (!correoDestino.isEmpty()) {
+                // Ruta donde se generó el boleto en PDF
+                String pdfFilePath = "C:/PROYECTO-SAB/" + nomBoleto;
+
+                System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
+
+                boolean enviado = Modelo.EnviarPDFAutomatico.enviarPDF(pdfFilePath, correoDestino);
+
+                System.out.println("Después del intento de envío: " + enviado);
+
+                if (enviado) {
+                    JOptionPane.showMessageDialog(null, "El PDF se ha enviado correctamente a " + correoDestino, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, 
+                        "No se pudo enviar el PDF automáticamente.\n" + 
+                        "Por favor, seleccione el archivo y defina el correo manualmente en el siguiente formulario.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
+
+                    // Abrir la vista EnviarPDF.java para el envío manual
+                    Vista.frmEnvioPDF enviarPDFManual = new Vista.frmEnvioPDF();
+                    enviarPDFManual.setVisible(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró un correo válido para enviar el PDF.", "Error", JOptionPane.WARNING_MESSAGE);
+                
+            }
             
             // Limpiar los datos seleccionados
+            nomB.limpiarDatos();
             pdf.borrarDatos();
             dataSillas.borrarDatos();
             dataSillas.borrarCantidadSillas();
             this.dispose();
+            
         } else {
             JOptionPane.showMessageDialog(null, 
                 "Operación cancelada.", 

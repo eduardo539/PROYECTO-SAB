@@ -309,7 +309,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
     private void configurarModeloTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Sucursal");
+        modelo.addColumn("Sucursal de venta");
         modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
@@ -320,7 +320,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         modelo.addColumn("Precio por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
-        modelo.addColumn("Total de boletos vendidos");
         tblReporte.setModel(modelo);
     }
    
@@ -350,8 +349,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 "    MAX(z.Zona) AS Zona, " +
                 "    b.Costo AS Precio_Boleto, " +
                 "    MAX(m.DescMesa) AS Mesa, " +
-                "    MAX(s.vchDescripcion) AS Silla, " +
-                "    COUNT(b.Folio) AS Total_Boletos_Vendidos " +
+                "    MAX(s.vchDescripcion) AS Silla " +
                 "FROM " +
                 "    tbl_boletos b " +
                 "INNER JOIN " +
@@ -363,7 +361,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 "LEFT JOIN " +
                 "    tbl_sillas s ON b.idSilla = s.idSilla " +
                 "WHERE " +
-                "    b.OrigenUsuario = ? ";  // Aquí usamos la sucursal del gerente
+                "    b.OrigenUsuario = ? "; // Aquí usamos la sucursal del gerente
 
         // Si el año y mes no son nulos, agregar filtros de fecha.
         if (ano != null && mes != null) {
@@ -407,7 +405,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                         rs.getDouble("Precio_Boleto"),
                         rs.getString("Mesa"),
                         rs.getString("Silla"),
-                        rs.getInt("Total_Boletos_Vendidos")
                 };
                 modelo.addRow(fila);
             }

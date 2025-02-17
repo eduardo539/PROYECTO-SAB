@@ -80,6 +80,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -132,6 +133,17 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Icono_user.png"))); // NOI18N
+        jMenuItem6.setText("Venta por Socio");
+        jMenuItem6.setBorderPainted(true);
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
 
         jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
@@ -277,6 +289,13 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        frmVentaXSocioXOperacionesGenrl Operaciones = new frmVentaXSocioXOperacionesGenrl();
+        Operaciones.setLocationRelativeTo(null);
+        Operaciones.setVisible(true);
+        this.dispose(); // Cierra la ventana actual  
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -303,6 +322,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
     // End of variables declaration//GEN-END:variables
