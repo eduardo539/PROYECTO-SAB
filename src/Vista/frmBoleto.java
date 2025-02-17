@@ -302,6 +302,7 @@ public class frmBoleto extends javax.swing.JFrame {
 
                     // Abrir la vista EnviarPDF.java para el envío manual
                     Vista.frmEnvioPDF enviarPDFManual = new Vista.frmEnvioPDF();
+                    enviarPDFManual.setLocationRelativeTo(null);
                     enviarPDFManual.setVisible(true);
                 }
             } else {

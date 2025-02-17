@@ -117,7 +117,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jmiCerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiInfo = new javax.swing.JMenuItem();
-        jmiAcercaDe = new javax.swing.JMenuItem();
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         jMenuItem2.setText("Eliminar Usuario");
@@ -362,16 +361,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jmiInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jmiInfo.setText("Info...");
         jMenu2.add(jmiInfo);
-
-        jmiAcercaDe.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jmiAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
-        jmiAcercaDe.setText("Acerca de...");
-        jmiAcercaDe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiAcercaDeActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jmiAcercaDe);
 
         jMenuBar1.add(jMenu2);
 
@@ -849,10 +838,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         btnRegistrar.setEnabled(true);
     }//GEN-LAST:event_jPanel3MouseClicked
 
-    private void jmiAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAcercaDeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiAcercaDeActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         frmMenuSistemas Sistemas = new frmMenuSistemas();
         Sistemas.setLocationRelativeTo(null);
@@ -917,7 +902,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaDatos;
-    private javax.swing.JMenuItem jmiAcercaDe;
     private javax.swing.JMenuItem jmiCerrarSesion;
     private javax.swing.JMenuItem jmiInfo;
     private javax.swing.JLabel lblFecha;
