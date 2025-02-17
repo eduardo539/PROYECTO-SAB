@@ -479,6 +479,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jmiActualizar = new javax.swing.JMenuItem();
         jmiVolverInicio = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Posada Monterrey");
@@ -996,12 +998,12 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         });
         jPanel1.add(btnMesa25, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, 50, 50));
 
-        btnMesa4.setBackground(new java.awt.Color(255, 255, 255));
-        btnMesa4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnMesa4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mesa1.png"))); // NOI18N
         btnMesa4.setText("M-4");
+        btnMesa4.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa4.setBorder(null);
         btnMesa4.setBorderPainted(false);
+        btnMesa4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnMesa4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMesa4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1704,9 +1706,9 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("MENU");
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jmiActualizar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -1740,6 +1742,17 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
+        jMenu2.setText("AYUDA");
+        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
+        jMenuItem2.setText("Info...");
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -2259,8 +2272,10 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenuItem jmiActualizar;
