@@ -1,6 +1,8 @@
 
 package Vista;
 
+import Modelo.Login;
+import java.awt.Window;
 import javax.swing.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -22,6 +24,31 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     
     public frmEnvioPDF() {
         initComponents();
+    }
+    
+    private void abrirLogin() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                frmLogin lg = new frmLogin();
+                lg.setLocationRelativeTo(null);
+                lg.setVisible(true);
+            }
+        });
+    }
+    
+    private void cerrarSesion() {
+        // Si tienes una clase Singleton para manejar la sesión
+        Login sesion = Login.getInstancia();
+        sesion.limpiarDatos();
+        // Si la clase no implementa un método limpiarDatos(), puedes hacer:
+        sesion.setIdusuario(0);
+        sesion.setNombre(null);
+        sesion.setSucursal(null);
+        sesion.setVigencia(null);
+        sesion.setIdperfil(0);
+        sesion.setTipo_perfil(null);
+        // Log de actividad (opcional)
+        System.out.println("Sesión cerrada exitosamente.");
     }
     
     
@@ -130,7 +157,10 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         btnenviar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,7 +196,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
@@ -177,30 +207,57 @@ public class frmEnvioPDF extends javax.swing.JFrame {
                             .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnenviar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72))
+                .addGap(70, 70, 70))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
+                .addGap(30, 30, 30)
                 .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(btnSeleccionar)
-                .addGap(27, 27, 27)
+                .addGap(30, 30, 30)
                 .addComponent(btnenviar)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-home.png"))); // NOI18N
+        jMenuItem1.setText("Volver a Inicio");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
+        jMenuItem2.setText("Cerrar Sesión");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
+        jMenuItem3.setText("Info...");
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -259,6 +316,45 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnenviarActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        frmCajero cajero = new frmCajero();
+        cajero.setLocationRelativeTo(null);
+        cajero.setVisible(true);
+        this.dispose(); // Cierra la ventana actual
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        try {
+            // Confirmar cierre de sesión
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                    "¿Estás seguro de que deseas cerrar sesión?", 
+                    "Cerrar Sesión", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Limpiar datos de la sesión del usuario
+                cerrarSesion();
+
+                // Cerrar todas las ventanas abiertas excepto el login
+                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                for (Window window : Window.getWindows()) {
+                    if (window != topFrame) {
+                        window.dispose();
+                    }
+                }
+                // Redirigir a la ventana de inicio de sesión
+                abrirLogin();
+            }
+        } catch (Exception e) {
+            // Manejo de errores en caso de fallo
+            JOptionPane.showMessageDialog(this,
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -301,6 +397,9 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtcorreo;
     // End of variables declaration//GEN-END:variables
