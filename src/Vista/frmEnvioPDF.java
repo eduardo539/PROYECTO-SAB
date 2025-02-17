@@ -20,7 +20,6 @@ public class frmEnvioPDF extends javax.swing.JFrame {
 
     private File selectedFile;
     
-    
     public frmEnvioPDF() {
         initComponents();
     }
