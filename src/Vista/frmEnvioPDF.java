@@ -1,7 +1,10 @@
 
 package Vista;
 
+import Modelo.CantidadSillasSelect;
+import Modelo.DatosBoletosPDF;
 import Modelo.Login;
+import Modelo.NombreBoleto;
 import java.awt.Window;
 import javax.swing.*;
 import java.io.*;
@@ -22,34 +25,29 @@ public class frmEnvioPDF extends javax.swing.JFrame {
 
     private File selectedFile;
     
+    NombreBoleto nomB = NombreBoleto.getInstancia();
+    DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
+    CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
+    
+    
     public frmEnvioPDF() {
         initComponents();
+        
+        borrarDts();
+        
+        // En el constructor de tu JFrame Form
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
     }
     
-    private void abrirLogin() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                frmLogin lg = new frmLogin();
-                lg.setLocationRelativeTo(null);
-                lg.setVisible(true);
-            }
-        });
+    public void borrarDts(){
+        // Limpiar los datos seleccionados
+        nomB.limpiarDatos();
+        pdf.borrarDatos();
+        dataSillas.borrarDatos();
+        dataSillas.borrarCantidadSillas();
     }
-    
-    private void cerrarSesion() {
-        // Si tienes una clase Singleton para manejar la sesión
-        Login sesion = Login.getInstancia();
-        sesion.limpiarDatos();
-        // Si la clase no implementa un método limpiarDatos(), puedes hacer:
-        sesion.setIdusuario(0);
-        sesion.setNombre(null);
-        sesion.setSucursal(null);
-        sesion.setVigencia(null);
-        sesion.setIdperfil(0);
-        sesion.setTipo_perfil(null);
-        // Log de actividad (opcional)
-        System.out.println("Sesión cerrada exitosamente.");
-    }
+
     
     
     //String serverURL = "https://telesecundaria763.host8b.me/Web_Services/web_servicesPDF/enviarPDF.php"; // URL del Web Service
@@ -158,7 +156,6 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -228,7 +225,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-home.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cerrar.png"))); // NOI18N
         jMenuItem1.setText("Cerrar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,16 +233,6 @@ public class frmEnvioPDF extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
-        jMenuItem2.setText("Cerrar Sesión");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -324,38 +311,6 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        try {
-            // Confirmar cierre de sesión
-            int confirm = JOptionPane.showConfirmDialog(this, 
-                    "¿Estás seguro de que deseas cerrar sesión?", 
-                    "Cerrar Sesión", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Limpiar datos de la sesión del usuario
-                cerrarSesion();
-
-                // Cerrar todas las ventanas abiertas excepto el login
-                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-                for (Window window : Window.getWindows()) {
-                    if (window != topFrame) {
-                        window.dispose();
-                    }
-                }
-                // Redirigir a la ventana de inicio de sesión
-                abrirLogin();
-            }
-        } catch (Exception e) {
-            // Manejo de errores en caso de fallo
-            JOptionPane.showMessageDialog(this,
-                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -399,7 +354,6 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtcorreo;

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import Vista.frmEnvioPDF;
+import javax.swing.JFrame;
 
 
 /**
@@ -47,7 +47,7 @@ public class frmBoleto extends javax.swing.JFrame {
         initComponents();
         
         // En el constructor de tu JFrame Form
-        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
@@ -304,18 +304,13 @@ public class frmBoleto extends javax.swing.JFrame {
                     frmEnvioPDF enviarPDFManual = new frmEnvioPDF();
                     enviarPDFManual.setLocationRelativeTo(null);
                     enviarPDFManual.setVisible(true);
-                    this.dispose();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró un correo válido para enviar el PDF.", "Error", JOptionPane.WARNING_MESSAGE);
                 
             }
             
-            // Limpiar los datos seleccionados
-            nomB.limpiarDatos();
-            pdf.borrarDatos();
-            dataSillas.borrarDatos();
-            dataSillas.borrarCantidadSillas();
+            borrarDts();
             this.dispose();
             
         } else {
@@ -325,6 +320,14 @@ public class frmBoleto extends javax.swing.JFrame {
         }
 
         
+    }
+    
+    public void borrarDts(){
+        // Limpiar los datos seleccionados
+        nomB.limpiarDatos();
+        pdf.borrarDatos();
+        dataSillas.borrarDatos();
+        dataSillas.borrarCantidadSillas();
     }
 
     
