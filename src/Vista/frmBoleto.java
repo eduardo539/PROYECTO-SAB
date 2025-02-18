@@ -405,7 +405,6 @@ public class frmBoleto extends javax.swing.JFrame {
             }
         });
 
-        txtCorreo.setEditable(false);
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder("Correo"));
 
         txtZona.setEditable(false);
