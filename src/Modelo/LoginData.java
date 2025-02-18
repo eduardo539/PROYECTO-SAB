@@ -28,6 +28,7 @@ public class LoginData {
         
         //Se crea un nuevo objeto para realizar la consulta
         Login l = Login.getInstancia();
+        
         String sql = "SELECT tbl_usuarios.id_usuario, tbl_usuarios.Nombre, tbl_usuarios.dtVigencia, " +
                         "tbl_usuarios.id_perfil, tbl_perfil.tipo_perfil " +
                         "FROM tbl_usuarios " +

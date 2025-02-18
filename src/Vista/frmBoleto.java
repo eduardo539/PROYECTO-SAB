@@ -284,7 +284,7 @@ public class frmBoleto extends javax.swing.JFrame {
             String correoDestino = txtCorreo.getText().trim();
             if (!correoDestino.isEmpty()) {
                 // Ruta donde se generó el boleto en PDF
-                String pdfFilePath = "C:/PROYECTO-SAB/" + nomBoleto;
+                String pdfFilePath = "C:\\Users\\Practicas1\\Documents\\NetBeansProjects\\PROYECTO-SAB\\BoletosPDF\\" + nomBoleto;
 
                 System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
 
@@ -301,9 +301,10 @@ public class frmBoleto extends javax.swing.JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);
 
                     // Abrir la vista EnviarPDF.java para el envío manual
-                    Vista.frmEnvioPDF enviarPDFManual = new Vista.frmEnvioPDF();
+                    frmEnvioPDF enviarPDFManual = new frmEnvioPDF();
                     enviarPDFManual.setLocationRelativeTo(null);
                     enviarPDFManual.setVisible(true);
+                    this.dispose();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró un correo válido para enviar el PDF.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -576,6 +577,7 @@ public class frmBoleto extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dataSillas.borrarDatos();
         dataSillas.borrarCantidadSillas();
+        
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
