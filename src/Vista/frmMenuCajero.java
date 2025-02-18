@@ -81,7 +81,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(500, 350));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
@@ -212,7 +211,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jlNombre)))
                     .addComponent(jLabel8))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();

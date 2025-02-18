@@ -238,7 +238,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jlNombre)))
                     .addComponent(jLabel4))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
