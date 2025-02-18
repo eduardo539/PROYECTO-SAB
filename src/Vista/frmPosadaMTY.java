@@ -61,7 +61,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         initComponents();
         
         // En el constructor de tu JFrame Form
-        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
