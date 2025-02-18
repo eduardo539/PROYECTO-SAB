@@ -27,6 +27,10 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         configurarModeloTabla(); // Configurar encabezados de la tabla
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
     }
+    
+    
+    
+    
 
     private void abrirLogin() {
         java.awt.EventQueue.invokeLater(() -> {
