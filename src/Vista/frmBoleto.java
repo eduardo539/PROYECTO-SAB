@@ -282,31 +282,36 @@ public class frmBoleto extends javax.swing.JFrame {
             System.out.println("PDF generado: " + nomBoleto);
 
             String correoDestino = txtCorreo.getText().trim();
-            if (!correoDestino.isEmpty()) {
-                // Ruta donde se generó el boleto en PDF
-                String pdfFilePath = "C:\\Users\\Practicas1\\Documents\\NetBeansProjects\\PROYECTO-SAB\\BoletosPDF\\" + nomBoleto;
+            
+            if("comprar".equals(comboBox)){
+                
+                if (!correoDestino.isEmpty()) {
+                    // Ruta donde se generó el boleto en PDF
+                    String pdfFilePath = "C:\\Users\\Practicas1\\Documents\\NetBeansProjects\\PROYECTO-SAB\\BoletosPDF\\" + nomBoleto;
 
-                System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
+                    System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
 
-                boolean enviado = Modelo.EnviarPDFAutomatico.enviarPDF(pdfFilePath, correoDestino);
+                    boolean enviado = Modelo.EnviarPDFAutomatico.enviarPDF(pdfFilePath, correoDestino);
 
-                System.out.println("Después del intento de envío: " + enviado);
+                    System.out.println("Después del intento de envío: " + enviado);
 
-                if (enviado) {
-                    JOptionPane.showMessageDialog(null, "El PDF se ha enviado correctamente a " + correoDestino, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    if (enviado) {
+                        JOptionPane.showMessageDialog(null, "El PDF se ha enviado correctamente a " + correoDestino, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, 
+                            "No se pudo enviar el PDF automáticamente.\n" + 
+                            "Por favor, seleccione el archivo y defina el correo manualmente en el siguiente formulario.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+
+                        // Abrir la vista EnviarPDF.java para el envío manual
+                        frmEnvioPDF enviarPDFManual = new frmEnvioPDF();
+                        enviarPDFManual.setLocationRelativeTo(null);
+                        enviarPDFManual.setVisible(true);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, 
-                        "No se pudo enviar el PDF automáticamente.\n" + 
-                        "Por favor, seleccione el archivo y defina el correo manualmente en el siguiente formulario.", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No se encontró un correo válido para enviar el PDF.", "Error", JOptionPane.WARNING_MESSAGE);
 
-                    // Abrir la vista EnviarPDF.java para el envío manual
-                    frmEnvioPDF enviarPDFManual = new frmEnvioPDF();
-                    enviarPDFManual.setLocationRelativeTo(null);
-                    enviarPDFManual.setVisible(true);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró un correo válido para enviar el PDF.", "Error", JOptionPane.WARNING_MESSAGE);
                 
             }
             
