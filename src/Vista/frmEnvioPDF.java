@@ -229,7 +229,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-home.png"))); // NOI18N
-        jMenuItem1.setText("Volver a Inicio");
+        jMenuItem1.setText("Cerrar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -310,6 +310,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         boolean success = uploadFile(selectedFile, email);
         if (success) {
             JOptionPane.showMessageDialog(this, "El PDF se envió correctamente. Revisa tu bandeja de entrada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo enviar el PDF. Inténtalo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -317,9 +318,9 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnenviarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        frmCajero cajero = new frmCajero();
-        cajero.setLocationRelativeTo(null);
-        cajero.setVisible(true);
+        //frmCajero cajero = new frmCajero();
+        //cajero.setLocationRelativeTo(null);
+        //cajero.setVisible(true);
         this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

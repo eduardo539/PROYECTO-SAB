@@ -564,10 +564,12 @@ public class frmSillas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        
         Mesas m = Mesas.getInstancia();
         numSillas.borrarDatos();
         numSillas.borrarCantidadSillas();
         m.borrarDatos();
+        
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -620,8 +622,10 @@ public class frmSillas extends javax.swing.JFrame {
         if (sillasSeleccionadas == sillasRequeridas) {
             numSillas.setCostoSilla(sumaCosto);
             frmBoleto boleto = new frmBoleto();
+            
             boleto.setLocationRelativeTo(null);
             boleto.setVisible(true);
+            
             this.dispose();
         } else {
             int faltantes = sillasRequeridas - sillasSeleccionadas;
