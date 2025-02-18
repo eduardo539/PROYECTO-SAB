@@ -80,6 +80,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1220, 550));
 
         tblReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,7 +114,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
         btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar Todo");
+        btnMostrarTodo.setText("Mostrar todos los boletos");
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
@@ -186,14 +187,14 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
-                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
-                        .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                        .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(160, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,8 +208,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                     .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
         );
 
         pack();
@@ -302,15 +302,16 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
     private void configurarModeloTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Sucursal de venta");
-        modelo.addColumn("Folio del boleto");
+        modelo.addColumn("Suc. de Venta");
+        modelo.addColumn("Suc. del Socio");
+        modelo.addColumn("Folio de Boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("NumSocio");
+        modelo.addColumn("Num. Socio");
         modelo.addColumn("Nombre");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
-        modelo.addColumn("Precio por boleto");
+        modelo.addColumn("Prec. de boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
         tblReporte.setModel(modelo);
@@ -333,6 +334,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         // Construcción de la consulta SQL, filtrando por la sucursal del gerente.
         String consultaSQL = "SELECT " +
                 "    b.OrigenUsuario AS Sucursal, " +
+                "    b.OrigenSocio AS SucursalSocio, " +
                 "    b.Folio AS Folio_Boleto, " +
                 "    b.Origen AS Origen, " +
                 "    b.Grupo AS Grupo, " +
@@ -363,7 +365,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         // Agrupamos los resultados y ordenamos.
         consultaSQL += "GROUP BY " +
-                "    b.OrigenUsuario, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+                "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
                 "    u.Nombre, b.Costo " +
                 "ORDER BY " +
                 "    b.Folio";
@@ -388,6 +390,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             while (rs.next()) {
                 Object[] fila = new Object[]{
                         rs.getString("Sucursal"),
+                        rs.getString("SucursalSocio"),
                         rs.getString("Folio_Boleto"),
                         rs.getString("Origen"),
                         rs.getString("Grupo"),
