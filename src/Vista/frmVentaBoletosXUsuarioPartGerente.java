@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,11 +21,49 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     
     private final Conexion conexion;
     
+    Login lg = Login.getInstancia();
+    
     public frmVentaBoletosXUsuarioPartGerente() {
         initComponents();
         conexion = new Conexion();
         configurarModeloTabla(); // Configurar encabezados de la tabla
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
+    }
+    
+    public void barraEstado(){
+        
+        //BARRA DE ESTADO: INFORMACION RELEVANTE
+        // Inicializar datos dinámicos en la barra de estado
+        lblUsuario.setText("User: " + lg.getIdusuario());
+        lblNombre.setText("Nom: " + lg.getNombre() + " | ");
+        lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
+        lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
+        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        
+        // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
+        if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+            try {
+                // Ejecutar comando para obtener la versión del kernel de Linux
+                Process process = Runtime.getRuntime().exec("uname -r");
+                java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
+                String linuxVersion = reader.readLine(); // Leer la salida del comando
+                lblVersionOS.setText("Kernel: " + linuxVersion);
+            } catch (Exception e) {
+                // Manejo de errores en caso de que no se pueda obtener la versión
+                lblVersionOS.setText("Error | ");
+            }
+        }
+        else{
+            lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
+        }
+        
+        //barraEstado = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
     }
     
     private void abrirLogin() {
@@ -59,6 +100,13 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         txtFiltrarXUsuario = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -142,6 +190,53 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblUsuario.setText("jLabel1");
+
+        lblNombre.setText("jLabel1");
+
+        lblVersionJava.setText("jLabel1");
+
+        lblVersionOS.setText("jLabel1");
+
+        lblFecha.setText("jLabel1");
+
+        lblSucursal.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSucursal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(lblNombre)
+                    .addComponent(lblVersionJava)
+                    .addComponent(lblVersionOS)
+                    .addComponent(lblFecha)
+                    .addComponent(lblSucursal)))
+        );
+
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("MENU");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -186,24 +281,29 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(1180, 1180, 1180)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("Filtro venta de boletos por socio dentro de la sucursal");
@@ -301,7 +401,14 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblSucursal;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblVersionJava;
+    private javax.swing.JLabel lblVersionOS;
     private javax.swing.JTable tblReporteXSucursal;
     private javax.swing.JButton txtFiltrarXUsuario;
     private javax.swing.JTextField txtGrupo;

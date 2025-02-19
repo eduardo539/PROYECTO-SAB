@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.Login;
 import java.awt.Window;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -18,6 +19,9 @@ public class frmMenuCajero extends javax.swing.JFrame {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
     }
     
     private void actualizarMensajeBienvenida() {
@@ -80,6 +84,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CAJERO");
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N

@@ -3,7 +3,6 @@ package Vista;
 import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
 import Modelo.Login;
-import Modelo.LoginData;
 import Modelo.Mesas;
 import Modelo.MesasData;
 import Modelo.PosadaMTYData;
@@ -83,7 +82,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Actualizando datos en tiempo real...");
+                //System.out.println("Actualizando datos en tiempo real...");
                 estadosMesas(); 
                 estadoPrecios();
                 barraEstado();
@@ -1779,6 +1778,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
         jMenu2.setText("AYUDA");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
