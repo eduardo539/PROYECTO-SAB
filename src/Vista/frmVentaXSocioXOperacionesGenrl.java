@@ -58,9 +58,14 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbxUsuariosXtodosXOperacionesGenral = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporteXBoletosXUsuariosXOperacionesGenerales = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        txtOrigen = new javax.swing.JTextField();
+        txtGrupo = new javax.swing.JTextField();
+        txtNumSocio = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -69,13 +74,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1170, 499));
-
-        cbxUsuariosXtodosXOperacionesGenral.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxUsuariosXtodosXOperacionesGenralActionPerformed(evt);
-            }
-        });
+        setPreferredSize(new java.awt.Dimension(1200, 500));
 
         tblReporteXBoletosXUsuariosXOperacionesGenerales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,6 +88,74 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblReporteXBoletosXUsuariosXOperacionesGenerales);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro venta de boletos por socio de todas las sucursales"));
+
+        txtOrigen.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen:"));
+
+        txtGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupo:"));
+
+        txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("NumSocio:"));
+        txtNumSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumSocioActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(76, 175, 80));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
+        jButton1.setText("Filtrar por usuario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(76, 175, 80));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
+        jButton2.setText("Mostrar todo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("MENU");
@@ -134,22 +201,22 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cbxUsuariosXtodosXOperacionesGenral, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 15, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbxUsuariosXtodosXOperacionesGenral, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -194,14 +261,18 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void cbxUsuariosXtodosXOperacionesGenralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUsuariosXtodosXOperacionesGenralActionPerformed
-        String usuarioSeleccionado = (String) cbxUsuariosXtodosXOperacionesGenral.getSelectedItem();
-        if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
-            cargarBoletosPorUsuario(usuarioSeleccionado);
-        } else {
-            limpiarTabla(); // Si no se selecciona usuario, limpiar la tabla
-        }
-    }//GEN-LAST:event_cbxUsuariosXtodosXOperacionesGenralActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        filtrarBoletosPorUsuario();
+        limpiarEntradas();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        cargarUsuariosConBoletosComprados();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtNumSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumSocioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumSocioActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -212,15 +283,20 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox cbxUsuariosXtodosXOperacionesGenral;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblReporteXBoletosXUsuariosXOperacionesGenerales;
+    private javax.swing.JTextField txtGrupo;
+    private javax.swing.JTextField txtNumSocio;
+    private javax.swing.JTextField txtOrigen;
     // End of variables declaration//GEN-END:variables
 
     private void configurarModeloTabla() {
@@ -239,64 +315,65 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         tblReporteXBoletosXUsuariosXOperacionesGenerales.setModel(modelo);
     }
     
-    private void limpiarTabla() {
-        DefaultTableModel modelo = (DefaultTableModel) tblReporteXBoletosXUsuariosXOperacionesGenerales.getModel();
-        modelo.setRowCount(0);
-    }
+    private void limpiarEntradas() { 
+        txtOrigen.setText("");
+        txtGrupo.setText("");
+        txtNumSocio.setText("");
+    } 
 
     
     private void cargarUsuariosConBoletosComprados() {
+        // Consulta SQL para obtener los datos (sin filtro de sucursal)
+        String sql = "SELECT " +
+                    "    b.OrigenUsuario AS Sucursal, " +
+                    "    b.OrigenSocio AS SucursalSocio, " +
+                    "    b.Folio AS Folio_Boleto, " +
+                    "    b.Origen AS Origen, " +
+                    "    b.Grupo AS Grupo, " +
+                    "    b.NumSocio AS NumSocio, " +
+                    "    b.Nombre AS Nombre, " +
+                    "    u.Nombre AS Cajero, " +
+                    "    MAX(z.Zona) AS Zona, " +
+                    "    b.Costo AS Precio_Boleto, " +
+                    "    MAX(m.DescMesa) AS Mesa, " +
+                    "    MAX(s.vchDescripcion) AS Silla " +
+                    "FROM " +
+                    "    tbl_boletos b " +
+                    "INNER JOIN " +
+                    "    tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                    "LEFT JOIN " +
+                    "    tbl_zonas z ON b.idZona = z.idZona " +
+                    "LEFT JOIN " +
+                    "    tbl_mesas m ON b.idMesa = m.idMesa " +
+                    "LEFT JOIN " +
+                    "    tbl_sillas s ON b.idSilla = s.idSilla " +
+                    "GROUP BY " +
+                    "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+                    "    u.Nombre, b.Costo " +
+                    "ORDER BY " +
+                    "    b.Folio"; // Esto asegura que se ordene por el Folio de los boletos.
+
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT Nombre FROM tbl_boletos");
-             ResultSet rs = stmt.executeQuery()) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-            modelo.addElement("Seleccione un usuario");
-            while (rs.next()) {
-                modelo.addElement(rs.getString("Nombre"));
-            }
-            cbxUsuariosXtodosXOperacionesGenral.setModel(modelo); // Asignar el modelo al ComboBox
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar usuarios con boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-
-    private void cargarBoletosPorUsuario(String usuario) {
-        System.out.println("Nombre del usuario" + usuario);
-        
-        String sql = ("SELECT " +
-               "    b.OrigenSocio AS Sucursal, " +
-               "    b.Folio, " +
-               "    b.Origen, " +
-               "    b.Grupo, " +
-               "    b.NumSocio, " +
-               "    b.Nombre, " +
-               "    u.Nombre AS Cajero, " +
-               "    z.Zona, " +
-               "    b.Costo AS Precio_Boleto, " +
-               "    m.DescMesa AS Mesa, " +
-               "    s.vchDescripcion AS Silla " +
-               "FROM tbl_boletos b " + 
-               "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +  // 'tbl_usuarios' sigue siendo usada para la información del cajero
-               "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +  // Tabla de zonas
-               "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +  // Tabla de mesas
-               "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +  // Tabla de sillas
-               "WHERE b.Nombre = ?");
-      
-        try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, usuario);
             ResultSet rs = stmt.executeQuery();
 
-            DefaultTableModel modelo = (DefaultTableModel) tblReporteXBoletosXUsuariosXOperacionesGenerales.getModel();
-            modelo.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+            // Modelo de datos para la tabla (suponiendo que tienes un JTable)
+            DefaultTableModel modeloTabla = new DefaultTableModel(
+                new Object[][] {}, 
+                new String[] {
+                    "Sucursal", "SucursalSocio", "Folio", "Origen", "Grupo", "NumSocio", 
+                    "Nombre", "Cajero", "Zona", "Precio_Boleto", "Mesa", "Silla"
+                }
+            );
 
+            // Recorrer los resultados y agregarlos al modelo de la tabla
             while (rs.next()) {
-                modelo.addRow(new Object[]{
+                // Agregar los datos a la tabla
+                modeloTabla.addRow(new Object[] {
                     rs.getString("Sucursal"),
-                    rs.getString("Folio"),
+                    rs.getString("SucursalSocio"),
+                    rs.getString("Folio_Boleto"),
                     rs.getString("Origen"),
                     rs.getString("Grupo"),
                     rs.getString("NumSocio"),
@@ -305,15 +382,75 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                     rs.getString("Zona"),
                     rs.getDouble("Precio_Boleto"),
                     rs.getString("Mesa"),
-                    rs.getString("Silla"),
+                    rs.getString("Silla")
+                });
+            }
+            // Establecer el modelo a la tabla (supongamos que el nombre de tu JTable es 'tabla')
+            tblReporteXBoletosXUsuariosXOperacionesGenerales.setModel(modeloTabla);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void filtrarBoletosPorUsuario() {
+        String origen = txtOrigen.getText();
+        String grupo = txtGrupo.getText();
+        String numSocio = txtNumSocio.getText();
+
+        // Validar que los campos no estén vacíos
+        if (origen.isEmpty() || grupo.isEmpty() || numSocio.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Consulta SQL para obtener los boletos filtrados
+        String sql = "SELECT b.OrigenUsuario AS Sucursal, b.OrigenSocio AS SucursalSocio, b.Folio AS Folio_Boleto, " +
+                    "b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
+                    "b.Costo AS Precio_Boleto, MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla " +
+                    "FROM tbl_boletos b " +
+                    "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                    "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
+                    "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
+                    "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
+                    "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? " +
+                    "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre, b.Costo " +
+                    "ORDER BY b.Folio";
+
+        try (Connection conn = conexion.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, origen);
+            stmt.setString(2, grupo);
+            stmt.setString(3, numSocio);
+            
+            
+            ResultSet rs = stmt.executeQuery();
+            DefaultTableModel modeloTabla = (DefaultTableModel) tblReporteXBoletosXUsuariosXOperacionesGenerales.getModel();
+            modeloTabla.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+
+            // Recorrer los resultados y agregarlos al modelo de la tabla
+            while (rs.next()) {
+                modeloTabla.addRow(new Object[]{
+                    rs.getString("Sucursal"),
+                    rs.getString("SucursalSocio"),
+                    rs.getString("Folio_Boleto"),
+                    rs.getString("Origen"),
+                    rs.getString("Grupo"),
+                    rs.getString("NumSocio"),
+                    rs.getString("Nombre"),
+                    rs.getString("Cajero"),
+                    rs.getString("Zona"),
+                    rs.getDouble("Precio_Boleto"),
+                    rs.getString("Mesa"),
+                    rs.getString("Silla")
                 });
             }
         } catch (SQLException e) {
-   
-             System.out.println("Me da este error: " + e);
-            JOptionPane.showMessageDialog(this, "Error al cargar boletos del usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al filtrar boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
 }
 
 
