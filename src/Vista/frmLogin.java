@@ -1,10 +1,14 @@
 package Vista;
 
+import Modelo.ActualizarData;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import javax.swing.JOptionPane;
 import Modelo.Login;
 import Modelo.LoginData;
+import Modelo.Sillas;
+import Modelo.SillasData;
+import Modelo.SillasEstatusVigencia;
 import javax.swing.JFrame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +16,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.swing.ImageIcon;
 
 /**
@@ -24,6 +32,9 @@ public class frmLogin extends javax.swing.JFrame {
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
     
+    Sillas s = Sillas.getInstancia();
+    SillasData sid = new SillasData();
+    
     // Crear instancia de la clase Conexion
     Conexion conexion = new Conexion(); 
     Connection connection = null;
@@ -35,8 +46,39 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
+        actualizaSillasxVigencia();
+        
         setResizable(false);
-    } 
+    }
+    
+    public void actualizaSillasxVigencia(){
+        
+        ActualizarData acD = new ActualizarData();
+        
+        SillasEstatusVigencia sv = SillasEstatusVigencia.getInstancia();
+        sid.vigenciaSillasxBoleto();
+
+        // Obtener la lista de vigencia de boletos
+        List<SillasEstatusVigencia.VigenciaBoleto> listaVigencia = sv.getListaVigenciaBol();
+
+        // Usar un Set para almacenar idMesa sin duplicados
+        Set<Integer> idMesaSet = new HashSet<>();
+        List<Integer> idSillaList = new ArrayList<>();
+
+        for (SillasEstatusVigencia.VigenciaBoleto vb : listaVigencia) {
+            idMesaSet.add(vb.getIdMesa()); // Agrega idMesa al Set (evita duplicados)
+            idSillaList.add(vb.getIdSilla()); // Agrega todos los idSilla
+        }
+
+        // Convertir el Set y la Lista a arreglos primitivos
+        int[] idMesas = idMesaSet.stream().mapToInt(Integer::intValue).toArray();
+        int[] idSillas = idSillaList.stream().mapToInt(Integer::intValue).toArray();
+
+        
+        acD.actualizarMesaSillaxVigenciaBoleto(idMesas, idSillas);
+        sv.borrarDatos();
+        
+    }
     
     public void Entrar(){ 
         String usuario = txtUsuario.getText().trim();
@@ -195,7 +237,7 @@ public class frmLogin extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOGIN");
+        setTitle("Login");
 
         jPanel1.setBackground(new java.awt.Color(220, 231, 237));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -218,11 +260,11 @@ public class frmLogin extends javax.swing.JFrame {
             }
         });
 
-        btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
-        btnEntrar.setText("Ingresar");
         btnEntrar.setBackground(new java.awt.Color(0, 153, 0));
         btnEntrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
+        btnEntrar.setText("Ingresar");
         btnEntrar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

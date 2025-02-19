@@ -21,15 +21,16 @@ public class EnviarPDFAutomatico {
     public static boolean enviarPDF(String filePath, String email) {
         File selectedFile = new File(filePath);
         
-        System.out.println("el archivo recuperado que esta en la clase de enviarPDFautomatico: " + selectedFile);
-        System.out.println("el correo recuperado que viene de la vista es : " + email);
+        //System.out.println("el archivo recuperado que esta en la clase de enviarPDFautomatico: " + selectedFile);
+        //System.out.println("el correo recuperado que viene de la vista es : " + email);
 
         if (!selectedFile.exists() || !selectedFile.getName().endsWith(".pdf")) {
-            System.err.println("El archivo no es válido o no existe.");
+            //System.err.println("El archivo no es válido o no existe.");
+            JOptionPane.showMessageDialog(null, "El archivo no es válido o no existe.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        String serverURL = "https://telesecundaria763.host8b.me/Web_Services/web_servicesPDF/enviarPDF.php"; // URL del servicio web
+        String serverURL = "https://ccsinterno.cajacerrodelasilla.com.mx/enviarPDF.php"; // URL del servicio web
         String boundary = "----JavaBoundary" + System.currentTimeMillis();
 
         try {
@@ -74,7 +75,10 @@ public class EnviarPDFAutomatico {
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String response = in.readLine();
                 in.close();
-                return response.contains("success");
+                if (response.contains("success")) {
+                    JOptionPane.showMessageDialog(null, "El correo se envió de forma correcta.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    return true;
+                }
             }
             conn.disconnect();
         } catch (Exception ex) {
