@@ -14,7 +14,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.sql.Date; // Para convertir LocalDate a SQL Date
 import java.time.YearMonth; // Para manejar mes y año juntos
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -25,6 +27,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     
     private final Conexion conexion;
     
+    Login lg = Login.getInstancia();
+    
     public frmReporteVentaPSucursal() {
         initComponents();
         conexion = new Conexion();
@@ -32,6 +36,45 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         configurarComboBoxAnos(); // Configura los años en el ComboBox
         configurarComboBoxMeses(); // Configura los meses en el ComboBox
         cargarDatosGerente(null, null); // Carga todos los datos iniciales (sin filtros)
+        
+        barraEstado();
+        
+    }
+    
+    public void barraEstado(){
+        
+        //BARRA DE ESTADO: INFORMACION RELEVANTE
+        // Inicializar datos dinámicos en la barra de estado
+        lblUsuario.setText("User: " + lg.getIdusuario());
+        lblNombre.setText("Nom: " + lg.getNombre() + " | ");
+        lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
+        lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
+        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        
+        // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
+        if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+            try {
+                // Ejecutar comando para obtener la versión del kernel de Linux
+                Process process = Runtime.getRuntime().exec("uname -r");
+                java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
+                String linuxVersion = reader.readLine(); // Leer la salida del comando
+                lblVersionOS.setText("Kernel: " + linuxVersion);
+            } catch (Exception e) {
+                // Manejo de errores en caso de que no se pueda obtener la versión
+                lblVersionOS.setText("Error | ");
+            }
+        }
+        else{
+            lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
+        }
+        
+        //barraEstado = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
     }
     
     private void abrirLogin() {
@@ -67,11 +110,18 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporte = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        btnFiltrar = new javax.swing.JButton();
-        btnMostrarTodo = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jtlAnos = new javax.swing.JComboBox();
         jtlMeses = new javax.swing.JComboBox();
+        btnFiltrar = new javax.swing.JButton();
+        btnMostrarTodo = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -80,6 +130,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1220, 550));
 
         tblReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,7 +149,19 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblReporte);
 
-        jLabel1.setText("Boletos por Sucursal");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Venta de boletos por sucursales."));
+
+        jtlAnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtlAnosActionPerformed(evt);
+            }
+        });
+
+        jtlMeses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtlMesesActionPerformed(evt);
+            }
+        });
 
         btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
         btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,24 +176,86 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
         btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar Todo");
+        btnMostrarTodo.setText("Mostrar todos los boletos");
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
             }
         });
 
-        jtlAnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtlAnosActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        jtlMeses.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtlMesesActionPerformed(evt);
-            }
-        });
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblUsuario.setText("jLabel1");
+
+        lblNombre.setText("jLabel1");
+
+        lblVersionJava.setText("jLabel1");
+
+        lblSucursal.setText("jLabel1");
+
+        lblFecha.setText("jLabel1");
+
+        lblVersionOS.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(lblNombre)
+                    .addComponent(lblVersionJava)
+                    .addComponent(lblSucursal)
+                    .addComponent(lblFecha)
+                    .addComponent(lblVersionOS)))
+        );
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(80, 35));
 
@@ -177,38 +302,25 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -287,30 +399,38 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnMostrarTodo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jtlAnos;
     private javax.swing.JComboBox jtlMeses;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblSucursal;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblVersionJava;
+    private javax.swing.JLabel lblVersionOS;
     private javax.swing.JTable tblReporte;
     // End of variables declaration//GEN-END:variables
 
     private void configurarModeloTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Sucursal de venta");
-        modelo.addColumn("Folio del boleto");
+        modelo.addColumn("Suc. de Venta");
+        modelo.addColumn("Suc. del Socio");
+        modelo.addColumn("Folio de Boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("NumSocio");
+        modelo.addColumn("Num. Socio");
         modelo.addColumn("Nombre");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
-        modelo.addColumn("Precio por boleto");
+        modelo.addColumn("Prec. de boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
         tblReporte.setModel(modelo);
@@ -333,6 +453,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         // Construcción de la consulta SQL, filtrando por la sucursal del gerente.
         String consultaSQL = "SELECT " +
                 "    b.OrigenUsuario AS Sucursal, " +
+                "    b.OrigenSocio AS SucursalSocio, " +
                 "    b.Folio AS Folio_Boleto, " +
                 "    b.Origen AS Origen, " +
                 "    b.Grupo AS Grupo, " +
@@ -363,7 +484,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         // Agrupamos los resultados y ordenamos.
         consultaSQL += "GROUP BY " +
-                "    b.OrigenUsuario, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+                "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
                 "    u.Nombre, b.Costo " +
                 "ORDER BY " +
                 "    b.Folio";
@@ -388,6 +509,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             while (rs.next()) {
                 Object[] fila = new Object[]{
                         rs.getString("Sucursal"),
+                        rs.getString("SucursalSocio"),
                         rs.getString("Folio_Boleto"),
                         rs.getString("Origen"),
                         rs.getString("Grupo"),

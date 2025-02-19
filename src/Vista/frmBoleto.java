@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import Vista.frmEnvioPDF;
 
 
 /**
@@ -47,7 +46,7 @@ public class frmBoleto extends javax.swing.JFrame {
         initComponents();
         
         // En el constructor de tu JFrame Form
-        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
@@ -281,40 +280,42 @@ public class frmBoleto extends javax.swing.JFrame {
             String nomBoleto = nomB.getNomBoleto();
             System.out.println("PDF generado: " + nomBoleto);
 
-            String correoDestino = txtCorreo.getText().trim();
-            if (!correoDestino.isEmpty()) {
-                // Ruta donde se generó el boleto en PDF
-                String pdfFilePath = "C:/PROYECTO-SAB/" + nomBoleto;
+            //String correoDestino = txtCorreo.getText().trim();
+            
+            //Enviar el PDF automaticamente en caso de Comprar el boleto
+            if("Comprar".equals(comboBox)){
+                
+                if (!correo.isEmpty()) {
+                    // Ruta donde se generó el boleto en PDF
+                    String pdfFilePath = nomBoleto;
 
-                System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
+                    //System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
 
-                boolean enviado = Modelo.EnviarPDFAutomatico.enviarPDF(pdfFilePath, correoDestino);
+                    boolean enviado = Modelo.EnviarPDFAutomatico.enviarPDF(pdfFilePath, correo);
 
-                System.out.println("Después del intento de envío: " + enviado);
+                    //System.out.println("Después del intento de envío: " + enviado);
 
-                if (enviado) {
-                    JOptionPane.showMessageDialog(null, "El PDF se ha enviado correctamente a " + correoDestino, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    if (enviado) {
+                        JOptionPane.showMessageDialog(null, "El PDF se ha enviado correctamente a " + correo, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, 
+                            "No se pudo enviar el PDF automáticamente.\n" + 
+                            "Por favor, seleccione el archivo y defina el correo manualmente en el siguiente formulario.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+
+                        // Abrir la vista EnviarPDF.java para el envío manual
+                        frmEnvioPDF enviarPDFManual = new frmEnvioPDF();
+                        enviarPDFManual.setLocationRelativeTo(null);
+                        enviarPDFManual.setVisible(true);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, 
-                        "No se pudo enviar el PDF automáticamente.\n" + 
-                        "Por favor, seleccione el archivo y defina el correo manualmente en el siguiente formulario.", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No se encontró un correo válido para enviar el PDF.", "Error", JOptionPane.WARNING_MESSAGE);
 
-                    // Abrir la vista EnviarPDF.java para el envío manual
-                    Vista.frmEnvioPDF enviarPDFManual = new Vista.frmEnvioPDF();
-                    enviarPDFManual.setLocationRelativeTo(null);
-                    enviarPDFManual.setVisible(true);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró un correo válido para enviar el PDF.", "Error", JOptionPane.WARNING_MESSAGE);
                 
             }
             
-            // Limpiar los datos seleccionados
-            nomB.limpiarDatos();
-            pdf.borrarDatos();
-            dataSillas.borrarDatos();
-            dataSillas.borrarCantidadSillas();
+            borrarDts();
             this.dispose();
             
         } else {
@@ -324,6 +325,14 @@ public class frmBoleto extends javax.swing.JFrame {
         }
 
         
+    }
+    
+    public void borrarDts(){
+        // Limpiar los datos seleccionados
+        nomB.limpiarDatos();
+        pdf.borrarDatos();
+        dataSillas.borrarDatos();
+        dataSillas.borrarCantidadSillas();
     }
 
     
@@ -350,6 +359,8 @@ public class frmBoleto extends javax.swing.JFrame {
         dtVigencia = new com.github.lgooddatepicker.components.DatePicker();
         txtImporte = new javax.swing.JTextField();
         txtSilla = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         txtOrigen = new javax.swing.JTextField();
@@ -404,7 +415,6 @@ public class frmBoleto extends javax.swing.JFrame {
             }
         });
 
-        txtCorreo.setEditable(false);
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder("Correo"));
 
         txtZona.setEditable(false);
@@ -433,21 +443,26 @@ public class frmBoleto extends javax.swing.JFrame {
         txtSilla.setEditable(false);
         txtSilla.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s"));
 
+        jLabel2.setText("Marcar esta opción si el boleto es para");
+
+        jLabel3.setText("invitado/s");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtNumSocio)
-                        .addComponent(txtNombre)
-                        .addComponent(txtSucursal)
-                        .addComponent(txtTelefono)
-                        .addComponent(comboBoleto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(radioInvitado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnComprar, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(txtNumSocio)
+                    .addComponent(txtNombre)
+                    .addComponent(txtSucursal)
+                    .addComponent(txtTelefono)
+                    .addComponent(comboBoleto, 0, 200, Short.MAX_VALUE)
+                    .addComponent(radioInvitado, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -484,12 +499,18 @@ public class frmBoleto extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radioInvitado))
-                .addGap(15, 15, 15)
-                .addComponent(dtVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(dtVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(radioInvitado)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -535,7 +556,7 @@ public class frmBoleto extends javax.swing.JFrame {
                 .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,13 +573,11 @@ public class frmBoleto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,6 +595,7 @@ public class frmBoleto extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dataSillas.borrarDatos();
         dataSillas.borrarCantidadSillas();
+        
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -611,6 +631,8 @@ public class frmBoleto extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoleto;
     private com.github.lgooddatepicker.components.DatePicker dtVigencia;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

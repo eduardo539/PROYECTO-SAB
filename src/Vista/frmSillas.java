@@ -33,7 +33,7 @@ public class frmSillas extends javax.swing.JFrame {
         initComponents();
         
         // En el constructor de tu JFrame Form
-        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
@@ -564,10 +564,12 @@ public class frmSillas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        
         Mesas m = Mesas.getInstancia();
         numSillas.borrarDatos();
         numSillas.borrarCantidadSillas();
         m.borrarDatos();
+        
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -620,8 +622,10 @@ public class frmSillas extends javax.swing.JFrame {
         if (sillasSeleccionadas == sillasRequeridas) {
             numSillas.setCostoSilla(sumaCosto);
             frmBoleto boleto = new frmBoleto();
+            
             boleto.setLocationRelativeTo(null);
             boleto.setVisible(true);
+            
             this.dispose();
         } else {
             int faltantes = sillasRequeridas - sillasSeleccionadas;
