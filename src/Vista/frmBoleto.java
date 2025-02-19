@@ -278,7 +278,7 @@ public class frmBoleto extends javax.swing.JFrame {
             
             // Aquí se va a agregar la función para enviar el PDF automáticamente
             String nomBoleto = nomB.getNomBoleto();
-            System.out.println("PDF generado: " + nomBoleto);
+            //System.out.println("PDF generado: " + nomBoleto);
 
             //String correoDestino = txtCorreo.getText().trim();
             

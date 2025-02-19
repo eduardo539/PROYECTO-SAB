@@ -58,7 +58,7 @@ public class ActualizarData {
 
             cn.closeConnection();
 
-            JOptionPane.showMessageDialog(null, filasActualizadas + " sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, filasActualizadas + " sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
             dataSillas.borrarDatos();
             dataSillas.borrarCantidadSillas();
@@ -116,7 +116,7 @@ public class ActualizarData {
 
             // Mostrar mensaje de éxito si al menos una fila fue actualizada
             if (filasActualizadas > 0) {
-                JOptionPane.showMessageDialog(null, "Sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "No se actualizó ninguna silla. Verifique los folios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
@@ -171,7 +171,7 @@ public class ActualizarData {
             if (filasActualizadas == 0) {
                 JOptionPane.showMessageDialog(null, "No se actualizó ninguna silla.", "Información", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } catch (SQLException e) {
