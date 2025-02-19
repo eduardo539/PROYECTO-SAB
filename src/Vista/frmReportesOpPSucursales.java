@@ -58,14 +58,14 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                 Process process = Runtime.getRuntime().exec("uname -r");
                 java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
                 String linuxVersion = reader.readLine(); // Leer la salida del comando
-                lblSucursal.setText("Kernel: " + linuxVersion);
+                lblVersionOS.setText("Kernel: " + linuxVersion);
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
-                lblSucursal.setText("Error | ");
+                lblVersionOS.setText("Error | ");
             }
         }
         else{
-            lblSucursal.setText("OS: " + System.getProperty("os.name") + " | ");
+            lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
         
         //barraEstado = new javax.swing.JPanel();
@@ -120,7 +120,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         lblVersionJava = new javax.swing.JLabel();
         lblSucursal = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -232,7 +232,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
 
         lblFecha.setText("jLabel1");
 
-        jLabel1.setText("jLabel1");
+        lblVersionOS.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -248,7 +248,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -263,7 +263,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                     .addComponent(lblVersionJava)
                     .addComponent(lblSucursal)
                     .addComponent(lblFecha)
-                    .addComponent(jLabel1)))
+                    .addComponent(lblVersionOS)))
         );
 
         jMenuBar1.setMinimumSize(new java.awt.Dimension(80, 35));
@@ -422,7 +422,6 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnMostrarTodo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -440,6 +439,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private javax.swing.JLabel lblSucursal;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblVersionJava;
+    private javax.swing.JLabel lblVersionOS;
     private javax.swing.JTable tblReporte;
     // End of variables declaration//GEN-END:variables
 
@@ -548,6 +548,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         }
         jtlAnos.setModel(modelo);
     }
+    
     
     private void configurarComboBoxMeses() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
