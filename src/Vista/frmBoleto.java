@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JFrame;
 
 
 /**
@@ -281,22 +280,23 @@ public class frmBoleto extends javax.swing.JFrame {
             String nomBoleto = nomB.getNomBoleto();
             System.out.println("PDF generado: " + nomBoleto);
 
-            String correoDestino = txtCorreo.getText().trim();
+            //String correoDestino = txtCorreo.getText().trim();
             
-            if("comprar".equals(comboBox)){
+            //Enviar el PDF automaticamente en caso de Comprar el boleto
+            if("Comprar".equals(comboBox)){
                 
-                if (!correoDestino.isEmpty()) {
+                if (!correo.isEmpty()) {
                     // Ruta donde se generó el boleto en PDF
-                    String pdfFilePath = "C:\\Users\\Practicas1\\Documents\\NetBeansProjects\\PROYECTO-SAB\\BoletosPDF\\" + nomBoleto;
+                    String pdfFilePath = nomBoleto;
 
-                    System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
+                    //System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
 
-                    boolean enviado = Modelo.EnviarPDFAutomatico.enviarPDF(pdfFilePath, correoDestino);
+                    boolean enviado = Modelo.EnviarPDFAutomatico.enviarPDF(pdfFilePath, correo);
 
-                    System.out.println("Después del intento de envío: " + enviado);
+                    //System.out.println("Después del intento de envío: " + enviado);
 
                     if (enviado) {
-                        JOptionPane.showMessageDialog(null, "El PDF se ha enviado correctamente a " + correoDestino, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "El PDF se ha enviado correctamente a " + correo, "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, 
                             "No se pudo enviar el PDF automáticamente.\n" + 

@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +36,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     public formMenuAdmin() {
         initComponents();
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
         // funcion que manda a llamar a los datos una vez cargada el form menu admin
         mostrarDatos();
         barraStatus ();
@@ -128,6 +132,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jPopupMenu2.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu de Administrador");
         setBackground(new java.awt.Color(220, 231, 237));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

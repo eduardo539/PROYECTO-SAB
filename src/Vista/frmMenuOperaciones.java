@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.Login;
 import java.awt.Window;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -19,6 +20,9 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         setLocationRelativeTo(null); //Abrir la ventana en el centro de la pantalla
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
     }
     
     private void actualizarMensajeBienvenida() {
@@ -87,6 +91,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Operaciones");
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("BIENVENIDO AL SAB");

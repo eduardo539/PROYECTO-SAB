@@ -3,17 +3,11 @@ package Vista;
 
 import Modelo.CantidadSillasSelect;
 import Modelo.DatosBoletosPDF;
-import Modelo.Login;
 import Modelo.NombreBoleto;
-import java.awt.Window;
 import javax.swing.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-import javax.net.ssl.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -35,6 +29,8 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         
         borrarDts();
         
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
         // En el constructor de tu JFrame Form
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -49,9 +45,6 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     }
 
     
-    
-    //String serverURL = "https://telesecundaria763.host8b.me/Web_Services/web_servicesPDF/enviarPDF.php"; // URL del Web Service
-    
     private boolean uploadFile(File selectedFile, String email) {
         if (selectedFile == null || !selectedFile.exists()) {
             JOptionPane.showMessageDialog(null, "El archivo seleccionado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -59,11 +52,10 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         }
 
         // URL del servidor
-        String serverURL = "https://project-sab.kesug.com";
+        String serverURL = "https://ccsinterno.cajacerrodelasilla.com.mx/enviarPDF.php";
         String boundary = "----JavaBoundary" + System.currentTimeMillis();
 
         try {
-            disableSSLVerification();
 
             URL url = new URL(serverURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -116,32 +108,6 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         return false;
     }
     
-    
-    // Método para deshabilitar la validación SSL (solo para pruebas)
-    private static void disableSSLVerification() throws NoSuchAlgorithmException, KeyManagementException {
-            // Crear un TrustManager que no valide ninguna cadena de certificados
-            TrustManager[] trustAllCerts = new TrustManager[]{
-                    new X509TrustManager() {
-                        public X509Certificate[] getAcceptedIssuers() {
-                            return null;
-                        }
-                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                        }
-                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                        }
-                    }
-            };
-
-            // Instalar el TrustManager personalizado
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-            // Crear un HostnameVerifier que acepte todos los nombres de host
-            HostnameVerifier allHostsValid = (hostname, session) -> true;
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-    }
-    
 
     
     @SuppressWarnings("unchecked")
@@ -160,6 +126,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Enviar Boleto");
 
         jPanel1.setBackground(new java.awt.Color(220, 231, 237));
 

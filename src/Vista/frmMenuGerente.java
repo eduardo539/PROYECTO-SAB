@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.Login;
 import java.awt.Window;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -18,6 +19,9 @@ public class frmMenuGerente extends javax.swing.JFrame {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
     }
     
     private void actualizarMensajeBienvenida() {
@@ -86,6 +90,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gerente");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 

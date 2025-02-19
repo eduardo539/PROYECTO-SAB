@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,6 +24,8 @@ import javax.swing.table.DefaultTableModel;
 public class frmReportesOpPSucursales extends javax.swing.JFrame {
 
     private final Conexion conexion;
+    
+    Login lg = Login.getInstancia();
 
     public frmReportesOpPSucursales() {
         initComponents();
@@ -30,7 +35,46 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         // cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
         configurarComboBoxAnos();
         configurarComboBoxMeses();
+        
+        barraEstado();
       
+    }
+    
+    
+    public void barraEstado(){
+        
+        //BARRA DE ESTADO: INFORMACION RELEVANTE
+        // Inicializar datos dinámicos en la barra de estado
+        lblUsuario.setText("User: " + lg.getIdusuario());
+        lblNombre.setText("Nom: " + lg.getNombre() + " | ");
+        lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
+        lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
+        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        
+        // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
+        if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+            try {
+                // Ejecutar comando para obtener la versión del kernel de Linux
+                Process process = Runtime.getRuntime().exec("uname -r");
+                java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
+                String linuxVersion = reader.readLine(); // Leer la salida del comando
+                lblSucursal.setText("Kernel: " + linuxVersion);
+            } catch (Exception e) {
+                // Manejo de errores en caso de que no se pueda obtener la versión
+                lblSucursal.setText("Error | ");
+            }
+        }
+        else{
+            lblSucursal.setText("OS: " + System.getProperty("os.name") + " | ");
+        }
+        
+        //barraEstado = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
     }
     
     private void abrirLogin() {
@@ -70,6 +114,13 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         btnMostrarTodo = new javax.swing.JButton();
         btnFiltrar = new javax.swing.JButton();
         jtlMeses = new javax.swing.JComboBox();
+        jPanel2 = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -168,6 +219,53 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblUsuario.setText("jLabel1");
+
+        lblNombre.setText("jLabel1");
+
+        lblVersionJava.setText("jLabel1");
+
+        lblSucursal.setText("jLabel1");
+
+        lblFecha.setText("jLabel1");
+
+        jLabel1.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(lblNombre)
+                    .addComponent(lblVersionJava)
+                    .addComponent(lblSucursal)
+                    .addComponent(lblFecha)
+                    .addComponent(jLabel1)))
+        );
+
         jMenuBar1.setMinimumSize(new java.awt.Dimension(80, 35));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
@@ -222,15 +320,17 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -322,6 +422,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnMostrarTodo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -329,10 +430,16 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jtlAnos;
     private javax.swing.JComboBox jtlMeses;
     private javax.swing.JComboBox jtlSucursales;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblSucursal;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblVersionJava;
     private javax.swing.JTable tblReporte;
     // End of variables declaration//GEN-END:variables
 

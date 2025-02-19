@@ -32,8 +32,8 @@ public class SillasApartadas {
     }
     
     // Método para agregar una mesa a la lista
-    public void agregarBoleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, int idZona, String zona,int idMesa , String mesa,int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, String fechaCompra, String vigencia) {
-        listaBoletos.add(new Boleto(folio, origen, grupo, numSocio, nombre, invitado, telefono, correo, usuario, nomUsuario, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia));
+    public void agregarBoleto(int folio, int origen, int grupo, int numSocio, String nombre, String sucursalSocio, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursalUsuario, int idZona, String zona,int idMesa , String mesa,int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, String fechaCompra, String vigencia) {
+        listaBoletos.add(new Boleto(folio, origen, grupo, numSocio, nombre, sucursalSocio, invitado, telefono, correo, usuario, nomUsuario, sucursalUsuario, idZona, zona, idMesa, mesa, idSilla, silla, costo, estado, estadoSilla, importe, fechaCompra, vigencia));
     }
 
     // Método para obtener la lista
@@ -53,12 +53,13 @@ public class SillasApartadas {
         int grupo;
         int numSocio;
         String nombre;
+        String sucursalSocio;
         String invitado;
         String telefono;
         String correo;
         int usuario;
         String nomUsuario;
-        //String sucursal;
+        String sucursalUsuario;
         int idZona;
         String zona;
         int idMesa;
@@ -75,17 +76,19 @@ public class SillasApartadas {
         public Boleto() {
         }
 
-        public Boleto(int folio, int origen, int grupo, int numSocio, String nombre, String invitado, String telefono, String correo, int usuario, String nomUsuario, int idZona, String zona, int idMesa, String mesa, int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, String fechaCompra, String vigencia) {
+        public Boleto(int folio, int origen, int grupo, int numSocio, String nombre, String sucursalSocio, String invitado, String telefono, String correo, int usuario, String nomUsuario, String sucursalUsuario, int idZona, String zona, int idMesa, String mesa, int idSilla, String silla, double costo, int estado, String estadoSilla, double importe, String fechaCompra, String vigencia) {
             this.folio = folio;
             this.origen = origen;
             this.grupo = grupo;
             this.numSocio = numSocio;
             this.nombre = nombre;
+            this.sucursalSocio = sucursalSocio;
             this.invitado = invitado;
             this.telefono = telefono;
             this.correo = correo;
             this.usuario = usuario;
             this.nomUsuario = nomUsuario;
+            this.sucursalUsuario = sucursalUsuario;
             this.idZona = idZona;
             this.zona = zona;
             this.idMesa = idMesa;
@@ -140,6 +143,14 @@ public class SillasApartadas {
             this.nombre = nombre;
         }
 
+        public String getSucursalSocio() {
+            return sucursalSocio;
+        }
+
+        public void setSucursalSocio(String sucursalSocio) {
+            this.sucursalSocio = sucursalSocio;
+        }
+
         public String getInvitado() {
             return invitado;
         }
@@ -178,6 +189,14 @@ public class SillasApartadas {
 
         public void setNomUsuario(String nomUsuario) {
             this.nomUsuario = nomUsuario;
+        }
+
+        public String getSucursalUsuario() {
+            return sucursalUsuario;
+        }
+
+        public void setSucursalUsuario(String sucursalUsuario) {
+            this.sucursalUsuario = sucursalUsuario;
         }
 
         public int getIdZona() {
@@ -277,7 +296,6 @@ public class SillasApartadas {
         }
 
         
-        
         @Override
         public String toString() {
             return "Boleto{" +
@@ -286,11 +304,13 @@ public class SillasApartadas {
                     ", grupo='" + grupo + '\'' +
                     ", numSocio='" + numSocio + '\'' +
                     ", nombre='" + nombre + '\'' +
+                    ", sucursalSocio='" + sucursalSocio + '\'' +
                     ", invitado='" + invitado + '\'' +
                     ", telefono='" + telefono + '\'' +
                     ", correo='" + correo + '\'' +
                     ", idusuario='" + usuario + '\'' +
                     ", nomUsuario='" + nomUsuario + '\'' +
+                    ", sucursalUsuario='" + sucursalUsuario + '\'' +
                     ", idzona='" + idZona + '\'' +
                     ", zona='" + zona + '\'' +
                     ", idMesa='" + idMesa + '\'' +
