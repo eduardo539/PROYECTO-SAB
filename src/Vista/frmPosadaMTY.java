@@ -3,6 +3,7 @@ package Vista;
 import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
 import Modelo.Login;
+import Modelo.LoginData;
 import Modelo.Mesas;
 import Modelo.MesasData;
 import Modelo.PosadaMTYData;
@@ -24,6 +25,9 @@ import java.util.Locale;
 import javax.swing.*;
 import java.util.*;
 
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author Eduardo´s
@@ -40,25 +44,24 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     MesasData mesa = new MesasData(); //Se crea un nuevo objeto para actualizar las mesas
     
     
-    Precios pre = Precios.getInstancia();
+    Precios precios = Precios.getInstancia();
     PreciosData preD = new PreciosData();
     
-    
     Login lg = Login.getInstancia();
-    
     
     Sillas s = Sillas.getInstancia();
     SillasData sid = new SillasData();
     
     
     private int idMesa;
+    private Timer timer;  // Agregamos un Timer para las actualizaciones periódicas
     
     
     public frmPosadaMTY() {
         initComponents();
         
         // En el constructor de tu JFrame Form
-        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
@@ -71,7 +74,38 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         estadoPrecios();
         actualizaSillasxVigencia();
         
+        iniciarActualizacionAutomatica(); // Iniciamos la actualización automática
     }
+    
+    
+    private void iniciarActualizacionAutomatica() {
+        // Crea un Timer que ejecuta una acción cada 3 segundos (3000 ms)
+        timer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Actualizando datos en tiempo real...");
+                estadosMesas(); 
+                estadoPrecios();
+                barraEstado();
+                actualizaSillasxVigencia();
+                
+                // Forzar actualización de la interfaz gráfica
+                //revalidate();  // Actualiza el layout si es necesario
+                //repaint();     // Redibuja los componentes
+            }
+        });
+        timer.start(); // Inicia el Timer
+    }
+    
+    // Método para detener el Timer cuando se cierre la ventana
+    @Override
+    public void dispose() {
+        if (timer != null && timer.isRunning()) {
+            timer.stop();
+        }
+        super.dispose();
+    }
+    
     
     
     public void barraEstado(){
@@ -94,7 +128,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 lblVersionOS.setText("Kernel: " + linuxVersion);
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
-                System.err.println("Error al obtener la versión del kernel de Linux: " + e.getMessage());
+                lblVersionOS.setText("Error | ");
             }
         }
         else{
@@ -141,7 +175,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     
     public void estadoPrecios(){
         // Obtener la instancia de la clase singleton Precios
-        Precios precios = Precios.getInstancia();
+        //Precios precios = Precios.getInstancia();
+        precios = preD.pr();
 
         // Obtener la lista de precios
         List<Precios.Precio> listaPrecios = precios.getListaPrecios();
@@ -168,6 +203,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     
     public void estadosMesas(){
         
+        mes = mesa.m();
         
         for (Mesas.Mesa mesa : mes.getListaMesas()) {
             String botonNombre = "btnMesa" + mesa.getId(); // Construir el nombre del botón
@@ -479,6 +515,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jmiActualizar = new javax.swing.JMenuItem();
         jmiVolverInicio = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Posada Monterrey");
@@ -996,12 +1034,12 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         });
         jPanel1.add(btnMesa25, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, 50, 50));
 
-        btnMesa4.setBackground(new java.awt.Color(255, 255, 255));
-        btnMesa4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnMesa4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mesa1.png"))); // NOI18N
         btnMesa4.setText("M-4");
+        btnMesa4.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa4.setBorder(null);
         btnMesa4.setBorderPainted(false);
+        btnMesa4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnMesa4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMesa4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1704,9 +1742,9 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("MENU");
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jmiActualizar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -1740,6 +1778,17 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
+        jMenu2.setText("AYUDA");
+        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
+        jMenuItem2.setText("Info...");
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -2094,7 +2143,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
     private void jmiActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiActualizarActionPerformed
         mes = mesa.m();
-        pre = preD.pr();
+        precios = preD.pr();
         
         actualizaSillasxVigencia();
         estadoPrecios();
@@ -2259,8 +2308,10 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenuItem jmiActualizar;

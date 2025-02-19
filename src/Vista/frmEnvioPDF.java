@@ -1,6 +1,11 @@
 
 package Vista;
 
+import Modelo.CantidadSillasSelect;
+import Modelo.DatosBoletosPDF;
+import Modelo.Login;
+import Modelo.NombreBoleto;
+import java.awt.Window;
 import javax.swing.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -20,10 +25,29 @@ public class frmEnvioPDF extends javax.swing.JFrame {
 
     private File selectedFile;
     
+    NombreBoleto nomB = NombreBoleto.getInstancia();
+    DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
+    CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
+    
     
     public frmEnvioPDF() {
         initComponents();
+        
+        borrarDts();
+        
+        // En el constructor de tu JFrame Form
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
     }
+    
+    public void borrarDts(){
+        // Limpiar los datos seleccionados
+        nomB.limpiarDatos();
+        pdf.borrarDatos();
+        dataSillas.borrarDatos();
+        dataSillas.borrarCantidadSillas();
+    }
+
     
     
     //String serverURL = "https://telesecundaria763.host8b.me/Web_Services/web_servicesPDF/enviarPDF.php"; // URL del Web Service
@@ -131,7 +155,9 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         btnenviar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,7 +193,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
@@ -178,30 +204,47 @@ public class frmEnvioPDF extends javax.swing.JFrame {
                             .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnenviar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72))
+                .addGap(70, 70, 70))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(38, 38, 38)
+                .addGap(30, 30, 30)
                 .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(btnSeleccionar)
-                .addGap(27, 27, 27)
+                .addGap(30, 30, 30)
                 .addComponent(btnenviar)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cerrar.png"))); // NOI18N
+        jMenuItem1.setText("Cerrar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
+        jMenuItem3.setText("Info...");
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -254,11 +297,19 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         boolean success = uploadFile(selectedFile, email);
         if (success) {
             JOptionPane.showMessageDialog(this, "El PDF se envió correctamente. Revisa tu bandeja de entrada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo enviar el PDF. Inténtalo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_btnenviarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //frmCajero cajero = new frmCajero();
+        //cajero.setLocationRelativeTo(null);
+        //cajero.setVisible(true);
+        this.dispose(); // Cierra la ventana actual
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,6 +353,8 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtcorreo;
     // End of variables declaration//GEN-END:variables

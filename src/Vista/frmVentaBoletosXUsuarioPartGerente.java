@@ -1,5 +1,4 @@
 package Vista;
-
 import Modelo.Conexion;
 import Modelo.Login;
 import java.awt.Window;
@@ -16,18 +15,16 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
-
-
+    
     private final Conexion conexion;
-
+    
     public frmVentaBoletosXUsuarioPartGerente() {
         initComponents();
         conexion = new Conexion();
         configurarModeloTabla(); // Configurar encabezados de la tabla
-   
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
     }
-
+    
     private void abrirLogin() {
         java.awt.EventQueue.invokeLater(() -> {
             frmLogin lg = new frmLogin();
@@ -53,10 +50,15 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        cbxUsuarios1 = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporteXSucursal = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        txtOrigen = new javax.swing.JTextField();
+        txtGrupo = new javax.swing.JTextField();
+        txtNumSocio = new javax.swing.JTextField();
+        txtFiltrarXUsuario = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -65,22 +67,6 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setBackground(new java.awt.Color(76, 175, 80));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-limpiar.png"))); // NOI18N
-        jButton1.setText("Limpiar tabla");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        cbxUsuarios1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxUsuarios1ActionPerformed(evt);
-            }
-        });
 
         tblReporteXSucursal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,6 +80,67 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tblReporteXSucursal);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro venta de boletos por socio dentro de la sucursal."));
+
+        txtOrigen.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen:"));
+        txtOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOrigenActionPerformed(evt);
+            }
+        });
+
+        txtGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupo:"));
+
+        txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("Num Socio:"));
+
+        txtFiltrarXUsuario.setBackground(new java.awt.Color(76, 175, 80));
+        txtFiltrarXUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtFiltrarXUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
+        txtFiltrarXUsuario.setText("Filtrar por usuario");
+        txtFiltrarXUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFiltrarXUsuarioActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Mostrar Todo");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(txtFiltrarXUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltrarXUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("MENU");
@@ -140,55 +187,48 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxUsuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jPanel1.getAccessibleContext().setAccessibleName("Filtro venta de boletos por socio dentro de la sucursal");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void configurarModeloTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Sucursal del socio");
+        modelo.addColumn("Suc. venta");
+        modelo.addColumn("Suc. socio");
         modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("NumSocio");
+        modelo.addColumn("Num. Socio");
         modelo.addColumn("Nombre");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
-        modelo.addColumn("Precio por boleto");
+        modelo.addColumn("Prec. por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
+
         tblReporteXSucursal.setModel(modelo);
     }
         
-    private void cbxUsuarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUsuarios1ActionPerformed
-        String usuarioSeleccionado = (String) cbxUsuarios1.getSelectedItem();
-        if (usuarioSeleccionado != null && !usuarioSeleccionado.equals("Seleccione un usuario")) {
-            cargarBoletosPorUsuario(usuarioSeleccionado);
-        } else {
-            limpiarTabla(); // Si no se selecciona usuario, limpiar la tabla
-        }
-    }//GEN-LAST:event_cbxUsuarios1ActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         frmMenuGerente gerente = new frmMenuGerente();
         gerente.setLocationRelativeTo(null);
@@ -200,10 +240,10 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         try {
             // Confirmar cierre de sesión
             int confirm = JOptionPane.showConfirmDialog(this, 
-                    "¿Estás seguro de que deseas cerrar sesión?", 
-                    "Cerrar Sesión", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE);
+                        "¿Estás seguro de que deseas cerrar sesión?", 
+                        "Cerrar Sesión",
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.QUESTION_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
@@ -227,10 +267,21 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+    
+    private void limpiarEntradas() {
+        txtOrigen.setText("");
+        txtGrupo.setText("");
+        txtNumSocio.setText("");
+    }
+    
+    private void txtOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrigenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOrigenActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        limpiarTabla();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void txtFiltrarXUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltrarXUsuarioActionPerformed
+        filtrarBoletosPorUsuario();
+        limpiarEntradas();
+    }//GEN-LAST:event_txtFiltrarXUsuarioActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -241,7 +292,6 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox cbxUsuarios1;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -249,73 +299,76 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblReporteXSucursal;
+    private javax.swing.JButton txtFiltrarXUsuario;
+    private javax.swing.JTextField txtGrupo;
+    private javax.swing.JTextField txtNumSocio;
+    private javax.swing.JTextField txtOrigen;
     // End of variables declaration//GEN-END:variables
 
     private void cargarUsuariosConBoletosComprados() {  // AQUI MANDAR A TRAER SOLAMENTE LOS EMPLEADOS QUE HICIERON LA COMPRA EN LA SUCURSAL DEL GERENTE
-        String sucursalGerente = Login.getInstancia().getSucursal(); // Obtener la sucursal del gerente
+        // Obtener la sucursal del gerente desde Login
+        String sucursalGerente = Login.getInstancia().getSucursal(); 
 
-        String sql = "SELECT DISTINCT b.Nombre FROM tbl_boletos b " +
-                     "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
-                     "WHERE b.OrigenUsuario = ?";
-        
+        // Consulta SQL para obtener los datos
+        String sql = "SELECT " +
+                    "    b.OrigenUsuario AS Sucursal, " +
+                    "    b.OrigenSocio AS SucursalSocio, " +
+                    "    b.Folio AS Folio_Boleto, " +
+                    "    b.Origen AS Origen, " +
+                    "    b.Grupo AS Grupo, " +
+                    "    b.NumSocio AS NumSocio, " +
+                    "    b.Nombre AS Nombre, " +
+                    "    u.Nombre AS Cajero, " +
+                    "    MAX(z.Zona) AS Zona, " +
+                    "    b.Costo AS Precio_Boleto, " +
+                    "    MAX(m.DescMesa) AS Mesa, " +
+                    "    MAX(s.vchDescripcion) AS Silla " +
+                    "FROM " +
+                    "    tbl_boletos b " +
+                    "INNER JOIN " +
+                    "    tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                    "LEFT JOIN " +
+                    "    tbl_zonas z ON b.idZona = z.idZona " +
+                    "LEFT JOIN " +
+                    "    tbl_mesas m ON b.idMesa = m.idMesa " +
+                    "LEFT JOIN " +
+                    "    tbl_sillas s ON b.idSilla = s.idSilla " +
+                    "WHERE " +
+                    "    b.OrigenUsuario = ? " + // Filtrar por la sucursal del gerente
+                    "GROUP BY " +
+                    "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+                    "    u.Nombre, b.Costo " +
+                    "ORDER BY " +
+                    "    b.Folio";
+
+        // Conectar a la base de datos y ejecutar la consulta
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+            
+            // Establecer el valor de la sucursal en la consulta
             stmt.setString(1, sucursalGerente);
             ResultSet rs = stmt.executeQuery();
 
-            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-            modelo.addElement("Seleccione un usuario");
+            // Modelo de datos para la tabla (suponiendo que tienes un JTable)
+            DefaultTableModel modeloTabla = new DefaultTableModel(
+                new Object[][] {}, 
+                new String[] {
+                    "Sucursal", "SucursalSocio", "Folio", "Origen", "Grupo", "NumSocio", 
+                    "Nombre", "Cajero", "Zona", "Precio_Boleto", "Mesa", "Silla"
+                }
+            );
 
+            // Recorrer los resultados y agregarlos al modelo de la tabla
             while (rs.next()) {
-                modelo.addElement(rs.getString("Nombre"));
-            }
-
-            cbxUsuarios1.setModel(modelo); // Asignar el modelo al ComboBox
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar usuarios con boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }
-
-    private void cargarBoletosPorUsuario(String usuario) {
-        String sucursalGerente = Login.getInstancia().getSucursal(); // Obtener la sucursal del gerente
-
-        String sql = "SELECT " +
-                     "    b.OrigenSocio AS Sucursal, " +
-                     "    b.Folio, " +
-                     "    b.Origen, " +
-                     "    b.Grupo, " +
-                     "    b.NumSocio, " +
-                     "    b.Nombre, " +
-                     "    u.Nombre AS Cajero, " +
-                     "    z.Zona, " +
-                     "    b.Costo AS Precio_Boleto, " +
-                     "    m.DescMesa AS Mesa, " +
-                     "    s.vchDescripcion AS Silla " +
-                     "FROM tbl_boletos b " + 
-                     "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +  
-                     "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +  
-                     "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +  
-                     "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +  
-                     "WHERE b.Nombre = ? AND b.OrigenUsuario = ?";
-
-        try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, usuario);
-            stmt.setString(2, sucursalGerente);
-
-            ResultSet rs = stmt.executeQuery();
-            DefaultTableModel modelo = (DefaultTableModel) tblReporteXSucursal.getModel();
-            modelo.setRowCount(0); // Limpiar la tabla antes de cargar los datos
-
-            while (rs.next()) {
-                modelo.addRow(new Object[]{
+                // Agregar los datos a la tabla
+                modeloTabla.addRow(new Object[] {
                     rs.getString("Sucursal"),
-                    rs.getString("Folio"),
+                    rs.getString("SucursalSocio"),
+                    rs.getString("Folio_Boleto"),
                     rs.getString("Origen"),
                     rs.getString("Grupo"),
                     rs.getString("NumSocio"),
@@ -324,19 +377,72 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                     rs.getString("Zona"),
                     rs.getDouble("Precio_Boleto"),
                     rs.getString("Mesa"),
-                    rs.getString("Silla"),
+                    rs.getString("Silla")
                 });
             }
+            // Establecer el modelo a la tabla (supongamos que el nombre de tu JTable es 'tabla')
+            tblReporteXSucursal.setModel(modeloTabla);
+            
         } catch (SQLException e) {
-            System.out.println("Me da este error: " + e);
-            JOptionPane.showMessageDialog(this, "Error al cargar boletos del usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al cargar los boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void limpiarTabla() {
-        DefaultTableModel modelo = (DefaultTableModel) tblReporteXSucursal.getModel();
-        modelo.setRowCount(0);
+    private void filtrarBoletosPorUsuario() {
+        String origen = txtOrigen.getText();
+        String grupo = txtGrupo.getText();
+        String numSocio = txtNumSocio.getText();
+        String sucursalGerente = Login.getInstancia().getSucursal();
+
+        if (origen.isEmpty() || grupo.isEmpty() || numSocio.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String sql = "SELECT b.OrigenUsuario AS Sucursal, b.OrigenSocio AS SucursalSocio, b.Folio AS Folio_Boleto, " +
+                    "b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
+                    "b.Costo AS Precio_Boleto, MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla " +
+                    "FROM tbl_boletos b " +
+                    "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                    "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
+                    "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
+                    "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
+                    "WHERE b.OrigenUsuario = ? AND b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? " +
+                    "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre, b.Costo " +
+                    "ORDER BY b.Folio";
+        
+        try (Connection conn = conexion.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, sucursalGerente);
+            stmt.setString(2, origen);
+            stmt.setString(3, grupo);
+            stmt.setString(4, numSocio);
+            
+            ResultSet rs = stmt.executeQuery();
+            DefaultTableModel modeloTabla = (DefaultTableModel) tblReporteXSucursal.getModel();
+            modeloTabla.setRowCount(0);
+
+            while (rs.next()) {
+                modeloTabla.addRow(new Object[]{
+                    rs.getString("Sucursal"),
+                    rs.getString("SucursalSocio"),
+                    rs.getString("Folio_Boleto"),
+                    rs.getString("Origen"),
+                    rs.getString("Grupo"),
+                    rs.getString("NumSocio"),
+                    rs.getString("Nombre"),
+                    rs.getString("Cajero"),
+                    rs.getString("Zona"),
+                    rs.getDouble("Precio_Boleto"),
+                    rs.getString("Mesa"),
+                    rs.getString("Silla")
+                });
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al filtrar boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
+   
     
-  
 }
