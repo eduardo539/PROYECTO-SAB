@@ -310,7 +310,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblSucursal" min="-2" pref="255" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabel1" max="32767" attributes="0"/>
+                  <Component id="lblVersionOS" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblFecha" min="-2" pref="200" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -327,7 +327,7 @@
                       <Component id="lblVersionJava" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSucursal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblFecha" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblVersionOS" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -359,7 +359,7 @@
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lblVersionOS">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
