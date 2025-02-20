@@ -220,7 +220,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         // Variables para almacenar la primera fila seleccionada
         int numOrigen = 0;
         int numSocio = 0;
-        //String Zona = "";
+        String Zona = "";
         double costo = 0.0;
 
         // Inicializar los contadores de costos e importes
@@ -235,10 +235,31 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         int primeraFila = filasSeleccionadas[0];
         numOrigen = Integer.parseInt(tblBoletos.getValueAt(primeraFila, 1).toString());
         numSocio = Integer.parseInt(tblBoletos.getValueAt(primeraFila, 3).toString());
-        //Zona = tblBoletos.getValueAt(primeraFila, 5).toString();
+        Zona = tblBoletos.getValueAt(primeraFila, 5).toString();
         costo = Double.parseDouble(tblBoletos.getValueAt(primeraFila, 8).toString());
         
-        countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, costo);
+        
+        // Crear un nuevo arreglo para almacenar los folios seleccionados
+        int[] foliosSeleccionados = new int[filasSeleccionadas.length];
+
+        
+        for (int i = 0; i < filasSeleccionadas.length; i++) {
+            Object valor = tblBoletos.getValueAt(filasSeleccionadas[i], 0); // Obtener el valor de la celda
+
+            if (valor instanceof Integer) {
+                foliosSeleccionados[i] = (Integer) valor; // Si ya es Integer, asignarlo directamente
+            } else {
+                try {
+                    foliosSeleccionados[i] = Integer.parseInt(valor.toString().trim()); // Convertir a entero
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Error al convertir folio a número: " + valor, "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Salir de la función en caso de error
+                }
+            }
+        }
+
+        //countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, Zona);
+        countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, costo, foliosSeleccionados);
         
         // Validar si la cantidad de boletos seleccionados es mayor a los permitidos
         if (totalSeleccionados > countBol) {
@@ -263,8 +284,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         StringJoiner importes = new StringJoiner(", ");
         StringJoiner vigencias = new StringJoiner(", ");
         
+        
         // Arreglo de folios para consultas
         int[] foliosArray = new int[filasSeleccionadas.length];
+        
         
         // Variable para almacenar la primera vigencia seleccionada
         String primeraVigencia = "";
@@ -522,7 +545,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jmiCerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiInfo = new javax.swing.JMenuItem();
-        jmiAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sillas Separadas");
@@ -791,11 +813,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jmiInfo.setText("Info...");
         jMenu2.add(jmiInfo);
 
-        jmiAcercaDe.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jmiAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
-        jmiAcercaDe.setText("Acerca de...");
-        jMenu2.add(jmiAcercaDe);
-
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -1026,7 +1043,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuItem jmiAcercaDe;
     private javax.swing.JMenuItem jmiCerrarSesion;
     private javax.swing.JMenuItem jmiInfo;
     private javax.swing.JMenuItem jmiVolverInicio;
