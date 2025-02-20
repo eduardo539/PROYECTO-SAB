@@ -18,7 +18,6 @@ import java.util.Set;
  * 
  */
 public class frmCajero extends javax.swing.JFrame {
-
     Login lg = Login.getInstancia();
     Conexion cn = new Conexion();
 
@@ -46,7 +45,6 @@ public class frmCajero extends javax.swing.JFrame {
     
     
     public void actualizaSillasxVigencia(){
-        
         ActualizarData acD = new ActualizarData();
         SillasData sid = new SillasData();
         

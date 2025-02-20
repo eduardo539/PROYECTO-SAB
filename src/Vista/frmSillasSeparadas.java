@@ -1,4 +1,3 @@
-
 package Vista;
 
 import Modelo.ActualizarData;
@@ -55,12 +54,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         initComponents();
         
         datosTabla();
-        
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
         barraEstado();
-        
         setResizable(false);
     }
 
@@ -100,9 +97,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     }
     
     public void datosTabla(){
-        
         apart = apartD.cajeroBoleto();
-
+        
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
 

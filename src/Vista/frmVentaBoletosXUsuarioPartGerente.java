@@ -20,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
 public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     
     private final Conexion conexion;
-    
     Login lg = Login.getInstancia();
     
     public frmVentaBoletosXUsuarioPartGerente() {
@@ -331,7 +330,6 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         modelo.addColumn("Prec. por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
-
         tblReporteXSucursal.setModel(modelo);
     }
         
