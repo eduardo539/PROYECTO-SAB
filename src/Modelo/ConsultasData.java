@@ -99,32 +99,47 @@ public class ConsultasData {
     }
     
     
-    public int obtenerDatosBoletos(int origen, int numSocio, double costo){
-        
-        /*
-        //String zona
-        String countBoletos = "SELECT COUNT(*) AS Total FROM tbl_boletos " +
-                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
-                                "WHERE tbl_boletos.Origen = ? AND tbl_boletos.NumSocio = ? " +
-                                "AND tbl_zonas.Zona = ?";
-        */
-        
-        String countBoletos = "SELECT COUNT(*) AS Total FROM tbl_boletos " +
-                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
-                                "WHERE tbl_boletos.Origen = ? AND tbl_boletos.NumSocio = ? " +
-                                "AND tbl_boletos.Costo = ?;";
-                
+    public int obtenerDatosBoletos(int origen, int numSocio, double costo, int[] folios) {
         int totalDatos = 0; // Inicializa con 0 en caso de error
-        
-        
+
+        // Validar que el array de folios no esté vacío
+        if (folios == null || folios.length == 0) {
+            JOptionPane.showMessageDialog(null, 
+                    "El arreglo de folios está vacío.", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return totalDatos;
+        }
+
+        // Construcción dinámica de la consulta con múltiples folios
+        StringBuilder consulta = new StringBuilder("SELECT COUNT(*) AS Total FROM tbl_boletos " +
+                                                   "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
+                                                   "WHERE tbl_boletos.Origen = ? AND tbl_boletos.NumSocio = ? " +
+                                                   "AND tbl_boletos.Costo = ? AND tbl_boletos.Folio IN (");
+
+        // Agregar placeholders "?" según la cantidad de folios
+        for (int i = 0; i < folios.length; i++) {
+            consulta.append("?");
+            if (i < folios.length - 1) {
+                consulta.append(", ");
+            }
+        }
+        consulta.append(");");
+
         try {
-            con = cn.getConnection();
-            ps = con.prepareStatement(countBoletos);
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consulta.toString()); // Preparar consulta
+
+            // Asignar valores a los parámetros
             ps.setInt(1, origen);
             ps.setInt(2, numSocio);
             ps.setDouble(3, costo);
-            //ps.setString(3, zona);
-            rs = ps.executeQuery();
+
+            // Asignar los valores del array folios
+            for (int i = 0; i < folios.length; i++) {
+                ps.setInt(i + 4, folios[i]);
+            }
+
+            rs = ps.executeQuery(); // Ejecutar consulta
 
             // Si hay resultado, obtener el número de boletos disponibles
             if (rs.next()) {
@@ -132,7 +147,6 @@ public class ConsultasData {
             }
 
         } catch (SQLException e) {
-            // Mostrar error en un cuadro de diálogo
             JOptionPane.showMessageDialog(null, 
                     "Error al obtener el total de boletos.\nDetalles: " + e.getMessage(), 
                     "Error de Base de Datos", 
@@ -152,9 +166,9 @@ public class ConsultasData {
         }
 
         return totalDatos;
-        
     }
 
+    
     
     public int sillasDisponibles(int idEstado, int idMesa) {
         
@@ -294,3 +308,62 @@ public class ConsultasData {
     
     
 }
+
+
+
+
+
+
+
+/*
+    public int obtenerDatosBoletos(int origen, int numSocio, String zona){
+        
+        
+        
+        String countBoletos = "SELECT COUNT(*) AS Total FROM tbl_boletos " +
+                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
+                                "WHERE tbl_boletos.Origen = ? AND tbl_boletos.NumSocio = ? " +
+                                "AND tbl_zonas.Zona = ?";
+        
+                
+        int totalDatos = 0; // Inicializa con 0 en caso de error
+        
+        
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(countBoletos);
+            ps.setInt(1, origen);
+            ps.setInt(2, numSocio);
+            ps.setString(3, zona);
+            //ps.setString(3, zona);
+            rs = ps.executeQuery();
+
+            // Si hay resultado, obtener el número de boletos disponibles
+            if (rs.next()) {
+                totalDatos = rs.getInt("Total");
+            }
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener el total de boletos.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos para evitar fugas de memoria
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, 
+                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return totalDatos;
+        
+    }
+    */
