@@ -165,6 +165,7 @@ public class frmBoleto extends javax.swing.JFrame {
         double importeDividido;
         int cantidadSillas = dataSillas.getCantidadSillas();
         double totalCosto = dataSillas.getCostoSilla();
+        double cincuentaPorCiento = totalCosto / 2;
 
         String input = txtImporte.getText();
 
@@ -175,7 +176,7 @@ public class frmBoleto extends javax.swing.JFrame {
             try {
                 importe = Double.parseDouble(input);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Entrada no válida. Por favor, introduce un número.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Entrada no válida. Por favor, introduce solo números.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -218,11 +219,11 @@ public class frmBoleto extends javax.swing.JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
             switch (comboBox) {
                 case "Separar":
-                    if (importe > 0 && importe < totalCosto) {
+                    if (importe >= cincuentaPorCiento && importe < totalCosto) {
                         estatusSilla = 2;
                     } else {
                         JOptionPane.showMessageDialog(null, 
-                            "Para 'Separar', ingresa un importe menor al total y mayor a 0.", 
+                            "Para 'Separar', Ingresa un importe minimo del 50% / El importe no puede ser igual o mayor al Costo Total.", 
                             "Alerta", JOptionPane.WARNING_MESSAGE);
                         return;
                     }

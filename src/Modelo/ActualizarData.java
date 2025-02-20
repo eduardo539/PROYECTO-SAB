@@ -116,7 +116,7 @@ public class ActualizarData {
 
             // Mostrar mensaje de éxito si al menos una fila fue actualizada
             if (filasActualizadas > 0) {
-                //JOptionPane.showMessageDialog(null, "Sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sillas compradas o abonados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "No se actualizó ninguna silla. Verifique los folios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
@@ -169,13 +169,13 @@ public class ActualizarData {
 
             // Mostrar mensaje si no se actualizó ninguna fila
             if (filasActualizadas == 0) {
-                JOptionPane.showMessageDialog(null, "No se actualizó ninguna silla.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Surgio un error al intentar pagar las sillas.", "Información", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                //JOptionPane.showMessageDialog(null, "Sillas actualizadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sillas pagadas/liquidadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar las sillas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al actualizar las sillas, ponerse en contacto con el administrador: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             // Cerrar recursos
             try {
@@ -199,7 +199,7 @@ public class ActualizarData {
         } catch (SQLException e) {
             // Mostrar error en un cuadro de diálogo
             JOptionPane.showMessageDialog(null, 
-                    "Error al actualizar el estado de la mesa.\nDetalles: " + e.getMessage(), 
+                    "Error al actualizar el estado de la mesa, Contactar al administrador.\nDetalles: " + e.getMessage(), 
                     "Error de Base de Datos", 
                     JOptionPane.ERROR_MESSAGE);
         } finally {
@@ -285,7 +285,11 @@ public class ActualizarData {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error al actualizar mesas o sillas: " + e.getMessage());
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al actualizar mesas o sillas, Contactar al administrador.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
         } finally {
             // Cerrar los recursos de forma segura
             try {
@@ -293,7 +297,10 @@ public class ActualizarData {
                 if (psSilla != null) psSilla.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error al cerrar los recursos: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, 
+                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
