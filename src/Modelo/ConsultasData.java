@@ -99,13 +99,21 @@ public class ConsultasData {
     }
     
     
-    public int obtenerDatosBoletos(int origen, int numSocio, String zona){
+    public int obtenerDatosBoletos(int origen, int numSocio, double costo){
         
+        /*
+        //String zona
         String countBoletos = "SELECT COUNT(*) AS Total FROM tbl_boletos " +
                                 "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
                                 "WHERE tbl_boletos.Origen = ? AND tbl_boletos.NumSocio = ? " +
                                 "AND tbl_zonas.Zona = ?";
+        */
         
+        String countBoletos = "SELECT COUNT(*) AS Total FROM tbl_boletos " +
+                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
+                                "WHERE tbl_boletos.Origen = ? AND tbl_boletos.NumSocio = ? " +
+                                "AND tbl_boletos.Costo = ?;";
+                
         int totalDatos = 0; // Inicializa con 0 en caso de error
         
         
@@ -114,7 +122,8 @@ public class ConsultasData {
             ps = con.prepareStatement(countBoletos);
             ps.setInt(1, origen);
             ps.setInt(2, numSocio);
-            ps.setString(3, zona);
+            ps.setDouble(3, costo);
+            //ps.setString(3, zona);
             rs = ps.executeQuery();
 
             // Si hay resultado, obtener el número de boletos disponibles

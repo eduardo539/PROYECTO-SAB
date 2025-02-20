@@ -76,7 +76,7 @@ public class InsertarData {
             int filasInsertadas = ps.executeUpdate();
 
             if (filasInsertadas > 0) {
-                JOptionPane.showMessageDialog(null, "La compra se realizó de forma exitosa.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "La compra o separación de sillas se realizó de forma exitosa.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 return true; // Retorna true si la inserción es exitosa
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo completar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
