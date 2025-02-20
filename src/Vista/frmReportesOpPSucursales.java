@@ -269,7 +269,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         jMenuBar1.setMinimumSize(new java.awt.Dimension(80, 35));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
-        jMenu1.setText("MENU");
+        jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
