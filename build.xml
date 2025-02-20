@@ -108,9 +108,14 @@
 
         <!-- Crear un JAR empaquetado con dependencias -->
         <jar destfile="${store.dir}/temp_final.jar" filesetmanifest="merge">
-            <!-- Incluir los JARs en el directorio 'dist' y 'dist/lib' -->
+            <!-- Incluir los JARs en el directorio 'dist' -->
             <zipgroupfileset dir="dist" includes="*.jar"/>
+
+            <!-- Incluir los JARs en el directorio 'lib' (y específicamente el de PostgreSQL) -->
             <zipgroupfileset dir="dist/lib" includes="*.jar"/>
+
+            <!-- Asegurarte de que el JAR de PostgreSQL está siendo incluido -->
+            <zipgroupfileset dir="dist/lib" includes="postgresql-*.jar"/>
 
             <!-- Crear un manifiesto con la clase principal -->
             <manifest>
@@ -127,6 +132,7 @@
         <!-- Limpiar archivo temporal -->
         <delete file="${store.dir}/temp_final.jar"/>
     </target>
+
 
         
 </project>
