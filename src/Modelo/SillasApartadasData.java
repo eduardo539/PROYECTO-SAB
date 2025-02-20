@@ -134,7 +134,7 @@ public class SillasApartadasData {
                                 "JOIN tbl_estado_sillas ON tbl_boletos.idEstado = tbl_estado_sillas.idEstado " +
                                 "WHERE tbl_boletos.NumSocio = ? AND tbl_boletos.Origen = ? " + 
                                 "AND tbl_estado_sillas.EstadoSilla = 'Separado' AND tbl_boletos.OrigenUsuario = ? " +
-                                "ORDER BY tbl_boletos.Folio ASC;";
+                                "ORDER BY tbl_boletos.Costo DESC;";
         
         
         try {

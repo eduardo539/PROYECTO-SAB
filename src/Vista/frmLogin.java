@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
  * @author Eduardo´s SAB
  * 
  */
+
 public class frmLogin extends javax.swing.JFrame { 
 
     Login lg = Login.getInstancia();
@@ -177,8 +178,6 @@ public class frmLogin extends javax.swing.JFrame {
     }
     
     private boolean tieneContrasenaPredeterminada(int idUsuario) {
-        
-
         try {
             // Obtener la conexión
             connection = conexion.getConnection();
@@ -186,13 +185,11 @@ public class frmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-
             // Query para verificar la contraseña predeterminada
             String query = "SELECT COUNT(*) FROM tbl_usuarios WHERE id_usuario = ? AND vchPass = MD5('cambio')";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, idUsuario);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 return rs.getInt(1) > 0; // Devuelve true si tiene la contraseña predeterminada
             }

@@ -12,16 +12,13 @@ import javax.swing.JOptionPane;
  */
 
 public class frmMenuGerente extends javax.swing.JFrame {
-    
     private Login usuario; //objeto para almacenar los datos
     
     public frmMenuGerente() {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
     }
     
     private void actualizarMensajeBienvenida() {
@@ -94,7 +91,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setText("BIENVENIDO AL SAB");
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -121,12 +118,12 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/perfil_usuarioss.png"))); // NOI18N
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
-        jMenu1.setText("MENU");
+        jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ticket_iconos.png"))); // NOI18N
-        jMenuItem1.setText("Venta Boletos por Sucursal");
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_p_sucursal.png"))); // NOI18N
+        jMenuItem1.setText("Ventas por sucursal");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -135,8 +132,8 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/usuario_empleados.png"))); // NOI18N
-        jMenuItem2.setText("Venta por empleado");
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_por_socio.png"))); // NOI18N
+        jMenuItem2.setText("Ventas por socios");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -157,7 +154,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("AYUDA");
+        jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -166,7 +163,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
         jMenuItem5.setText("Acerca de...");
         jMenu2.add(jMenuItem5);
 
@@ -266,7 +263,6 @@ public class frmMenuGerente extends javax.swing.JFrame {
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
                 cerrarSesion();
-
                 // Cerrar todas las ventanas abiertas excepto el login
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
                 for (Window window : Window.getWindows()) {
@@ -315,6 +311,5 @@ public class frmMenuGerente extends javax.swing.JFrame {
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
     // End of variables declaration//GEN-END:variables
-
 
 }

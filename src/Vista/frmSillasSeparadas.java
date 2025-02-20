@@ -8,6 +8,7 @@ import Modelo.ConsultasData;
 import Modelo.DatosBoletosPDF;
 import Modelo.GenerarBoleto;
 import Modelo.Login;
+import Modelo.NombreBoleto;
 import Modelo.SillasApartadas;
 import Modelo.SillasApartadas.Boleto;
 import Modelo.SillasApartadasData;
@@ -42,6 +43,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     
     ConsultasData consulta = new ConsultasData();
     DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
+    
+    NombreBoleto nomB = NombreBoleto.getInstancia();
     
     public double totalImporte = 0.0; // Variable para almacenar la suma de los importes
     double totalCosto = 0.0;
@@ -218,6 +221,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         int numOrigen = 0;
         int numSocio = 0;
         String Zona = "";
+        double costo = 0.0;
 
         // Inicializar los contadores de costos e importes
         totalCosto = 0;
@@ -232,13 +236,35 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         numOrigen = Integer.parseInt(tblBoletos.getValueAt(primeraFila, 1).toString());
         numSocio = Integer.parseInt(tblBoletos.getValueAt(primeraFila, 3).toString());
         Zona = tblBoletos.getValueAt(primeraFila, 5).toString();
+        costo = Double.parseDouble(tblBoletos.getValueAt(primeraFila, 8).toString());
         
-        countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, Zona);
+        
+        // Crear un nuevo arreglo para almacenar los folios seleccionados
+        int[] foliosSeleccionados = new int[filasSeleccionadas.length];
+
+        
+        for (int i = 0; i < filasSeleccionadas.length; i++) {
+            Object valor = tblBoletos.getValueAt(filasSeleccionadas[i], 0); // Obtener el valor de la celda
+
+            if (valor instanceof Integer) {
+                foliosSeleccionados[i] = (Integer) valor; // Si ya es Integer, asignarlo directamente
+            } else {
+                try {
+                    foliosSeleccionados[i] = Integer.parseInt(valor.toString().trim()); // Convertir a entero
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Error al convertir folio a número: " + valor, "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Salir de la función en caso de error
+                }
+            }
+        }
+
+        //countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, Zona);
+        countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, costo, foliosSeleccionados);
         
         // Validar si la cantidad de boletos seleccionados es mayor a los permitidos
         if (totalSeleccionados > countBol) {
             JOptionPane.showMessageDialog(null,
-                    "Debe seleccionar boletos del mismo Origen, Socio y Zona.\n"
+                    "Debe seleccionar boletos del mismo Origen, Socio y Costo(Zona).\n"
                     + "No pueden ser diferentes.",
                     "Selección Inválida",
                     JOptionPane.WARNING_MESSAGE);
@@ -258,8 +284,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         StringJoiner importes = new StringJoiner(", ");
         StringJoiner vigencias = new StringJoiner(", ");
         
+        
         // Arreglo de folios para consultas
         int[] foliosArray = new int[filasSeleccionadas.length];
+        
         
         // Variable para almacenar la primera vigencia seleccionada
         String primeraVigencia = "";
@@ -314,6 +342,17 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     
     public void actualizarEstadoSillas() {
         
+        // Mostrar cuadro de diálogo de confirmación
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de realizar la compra o separar las sillas seleccionadas?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        // Si el usuario selecciona "No", se cancela el proceso
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Proceso cancelado.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+    
+        String correo = "";
+        
         ActualizarData actualiza = new ActualizarData();
         
         // Obtener la lista de boletos
@@ -366,6 +405,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             origen = primerBoleto.getOrigen();
             grupo = primerBoleto.getGrupo();
             socio = primerBoleto.getNumSocio();
+            correo = primerBoleto.getCorreo();
         }
         
         // Extraer solo los folios y id de las sillas
@@ -410,13 +450,53 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Opción no válida. Debes seleccionar 'Abonar' o 'Pagar'.", "Error", JOptionPane.ERROR_MESSAGE);
                 break;
         }
+        
+        // Aquí se va a agregar la función para enviar el PDF automáticamente
+        String nomBoleto = nomB.getNomBoleto();
+        
+        
+        //Enviar el PDF automaticamente en caso de Comprar el boleto
+        if("Pagar".equals(comboBox)){
+
+            if (!correo.isEmpty()) {
+                // Ruta donde se generó el boleto en PDF
+                String pdfFilePath = nomBoleto;
+
+                //System.out.println("PDF listo para enviarse con ruta: " + pdfFilePath);
+
+                boolean enviado = Modelo.EnviarPDFAutomatico.enviarPDF(pdfFilePath, correo);
+
+                //System.out.println("Después del intento de envío: " + enviado);
+
+                if (enviado) {
+                    JOptionPane.showMessageDialog(null, "El PDF se ha enviado correctamente a " + correo, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    nomB.limpiarDatos();
+                } else {
+                    JOptionPane.showMessageDialog(null, 
+                        "No se pudo enviar el PDF automáticamente.\n" + 
+                        "Por favor, seleccione el archivo y defina el correo manualmente en el siguiente formulario.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
+
+                    // Abrir la vista EnviarPDF.java para el envío manual
+                    frmEnvioPDF enviarPDFManual = new frmEnvioPDF();
+                    enviarPDFManual.setLocationRelativeTo(null);
+                    enviarPDFManual.setVisible(true);
+                    
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró un correo válido para enviar el PDF.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        
     }
+    
     
     public void limpiarCamposCompra(){
         datosTabla();
         
         apart.borrarDatos();
         pdf.borrarDatos();
+        
         
         // Limpiar el campo txtSocio
         SelectCombo.setSelectedIndex(0);
@@ -465,7 +545,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jmiCerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiInfo = new javax.swing.JMenuItem();
-        jmiAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sillas Separadas");
@@ -734,11 +813,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jmiInfo.setText("Info...");
         jMenu2.add(jmiInfo);
 
-        jmiAcercaDe.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jmiAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
-        jmiAcercaDe.setText("Acerca de...");
-        jMenu2.add(jmiAcercaDe);
-
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -969,7 +1043,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuItem jmiAcercaDe;
     private javax.swing.JMenuItem jmiCerrarSesion;
     private javax.swing.JMenuItem jmiInfo;
     private javax.swing.JMenuItem jmiVolverInicio;

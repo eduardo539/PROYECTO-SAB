@@ -25,16 +25,13 @@ import static jdk.nashorn.tools.ShellFunctions.input;
 public class frmActualizarContra extends javax.swing.JFrame {
     
     private int idUsuario; // Atributo para almacenar el ID del usuario
-    
     // Actualizar la contraseña en la base de datos
     Conexion conexion = new Conexion();
     Connection connection = null;
-    
     Login lg = Login.getInstancia();
     
     public frmActualizarContra() {
         initComponents();
-        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
     }
 
@@ -156,7 +153,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        
         // Obtener las contraseñas ingresadas
         String nuevaContrasena = String.valueOf(txtContrasenia.getPassword()).trim();
         String confirmaContrasena = String.valueOf(txtConfirmaContrasenia.getPassword()).trim();
@@ -180,7 +176,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
 
         try {
             connection = conexion.getConnection();
-
             if (connection == null) {
                 JOptionPane.showMessageDialog(this, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -194,7 +189,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
 
             if (rs.next()) {
                 String contrasenaActual = rs.getString("vchPass");
-
                 // Compara la nueva contraseña con la actual (MD5 para asegurarse de que coincida encriptada)
                 String nuevaContrasenaMD5 = calcularMD5(nuevaContrasena);
                 if (nuevaContrasenaMD5.equals(contrasenaActual)) {
@@ -221,7 +215,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
 
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(this, "Contraseña actualizada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
                 lg.limpiarDatos();
                 // Abrir el formulario de login y cerrar el formulario actual
                 abrirFormularioLogin();

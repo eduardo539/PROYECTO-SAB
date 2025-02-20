@@ -12,16 +12,13 @@ import javax.swing.JOptionPane;
  */
 
 public class frmMenuCajero extends javax.swing.JFrame {
-    
     private Login usuario; //objeto para almacenar los datos
 
     public frmMenuCajero() {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
     }
     
     private void actualizarMensajeBienvenida() {
@@ -89,7 +86,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setText("BIENVENIDO AL SAB");
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -116,7 +113,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/perfil_usuarioss.png"))); // NOI18N
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
-        jMenu1.setText("MENU");
+        jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -142,7 +139,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("AYUDA");
+        jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -151,7 +148,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
         jMenuItem4.setText("Acerca de...");
         jMenu2.add(jMenuItem4);
 
@@ -239,7 +236,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 cerrarSesion();
-
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
                 for (Window window : Window.getWindows()) {
                     if (window != topFrame) {
@@ -283,7 +279,5 @@ public class frmMenuCajero extends javax.swing.JFrame {
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
     // End of variables declaration//GEN-END:variables
-
-   
 
 }
