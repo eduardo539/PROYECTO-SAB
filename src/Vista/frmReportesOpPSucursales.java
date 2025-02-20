@@ -36,7 +36,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         configurarComboBoxAnos();
         configurarComboBoxMeses();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        barraEstado(); 
+        barraEstado();
     }
     
     
@@ -481,7 +481,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +  // Tabla de mesas
             "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +  // Tabla de sillas
             "WHERE 1=1 ");
-
+        
         // Agregar filtros opcionales
         if (sucursal != null && !sucursal.equals("Seleccione una sucursal para filtrar")) {
             // Aquí usamos el valor de sucursal que viene del ComboBox para filtrar en 'b.vchSucursal'
@@ -490,7 +490,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         if (ano != null && mes != null) {
             consultaSQL.append("AND YEAR(b.FechaCompra) = ? AND MONTH(b.FechaCompra) = ? ");
         }
-
+        
         consultaSQL.append("GROUP BY b.OrigenSocio, b.OrigenSocio,b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
                 "u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion " +
                 "ORDER BY b.Folio");
