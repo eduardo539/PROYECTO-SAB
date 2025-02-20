@@ -1,6 +1,4 @@
-
 package Vista;
-
 import Modelo.CantidadSillasSelect;
 import Modelo.DatosBoletosPDF;
 import Modelo.NombreBoleto;
@@ -15,25 +13,19 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author EDUARDO`S
  * 
  */
-public class frmEnvioPDF extends javax.swing.JFrame {
 
+public class frmEnvioPDF extends javax.swing.JFrame {
     private File selectedFile;
-    
     NombreBoleto nomB = NombreBoleto.getInstancia();
     DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
     
-    
     public frmEnvioPDF() {
         initComponents();
-        
         borrarDts();
-        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
         // En el constructor de tu JFrame Form
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
     }
     
     public void borrarDts(){
@@ -43,20 +35,17 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         dataSillas.borrarDatos();
         dataSillas.borrarCantidadSillas();
     }
-
     
     private boolean uploadFile(File selectedFile, String email) {
         if (selectedFile == null || !selectedFile.exists()) {
             JOptionPane.showMessageDialog(null, "El archivo seleccionado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
         // URL del servidor
         String serverURL = "https://ccsinterno.cajacerrodelasilla.com.mx/enviarPDF.php";
         String boundary = "----JavaBoundary" + System.currentTimeMillis();
 
         try {
-
             URL url = new URL(serverURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
@@ -231,16 +220,13 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        
         JFileChooser fileChooser = new JFileChooser();
-        
         fileChooser.setFileFilter(new FileNameExtensionFilter("PDF Files", "pdf"));
         int returnValue = fileChooser.showOpenDialog(this);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             selectedFile = fileChooser.getSelectedFile();
             JOptionPane.showMessageDialog(this, "Archivo seleccionado: " + selectedFile.getName(), "Archivo Cargado", JOptionPane.INFORMATION_MESSAGE);
         }
-        
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnenviarActionPerformed
@@ -278,34 +264,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmEnvioPDF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmEnvioPDF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmEnvioPDF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmEnvioPDF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmEnvioPDF().setVisible(true);

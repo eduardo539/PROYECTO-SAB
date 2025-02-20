@@ -31,7 +31,6 @@ public class frmCajero extends javax.swing.JFrame {
 
     public frmCajero() {
         initComponents();
-        
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
@@ -39,7 +38,6 @@ public class frmCajero extends javax.swing.JFrame {
         
         setResizable(false);
         consultaEstadoMesas();
-        
         actualizaSillasxVigencia();
 
         pack();
@@ -70,16 +68,13 @@ public class frmCajero extends javax.swing.JFrame {
         // Convertir el Set y la Lista a arreglos primitivos
         int[] idMesas = idMesaSet.stream().mapToInt(Integer::intValue).toArray();
         int[] idSillas = idSillaList.stream().mapToInt(Integer::intValue).toArray();
-
         
         acD.actualizarMesaSillaxVigenciaBoleto(idMesas, idSillas);
         sv.borrarDatos();
         
     }
     
-    
     public void barraEstado(){
-        
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
@@ -104,7 +99,6 @@ public class frmCajero extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        
         //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -118,7 +112,6 @@ public class frmCajero extends javax.swing.JFrame {
         ms = mesa.m();
         pre = preD.pr();
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -479,7 +472,6 @@ public class frmCajero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
-
         try {
             // Confirmar cierre de sesión
             int confirm = JOptionPane.showConfirmDialog(this, 
@@ -499,7 +491,6 @@ public class frmCajero extends javax.swing.JFrame {
                         window.dispose();
                     }
                 }
-
                 // Redirigir a la ventana de inicio de sesión
                 abrirLogin();
             }
