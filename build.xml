@@ -71,7 +71,7 @@
 
     -->
 	
-        <!-- Quitar el comentario para poder generar el archivo JAR
+        
     <target name="package-for-store" depends="jar">
        <property name="store.jar.name" value="SAB"/> 
        <property name="store.dir" value="store"/>
@@ -92,46 +92,8 @@
        </zip>
        <delete file="${store.dir}/temp_final.jar"/>
    </target>
- 	-->
-        
-        
-        
-    <target name="package-for-store" depends="jar">
-        <property name="store.jar.name" value="SAB"/> 
-        <property name="store.dir" value="store"/>
-        <property name="store.jar" value="${store.dir}/${store.jar.name}.jar"/>
-        <echo message="Packaging ${application.title} into a single JAR at ${store.jar}"/>
+ 	
 
-        <!-- Limpiar y preparar el directorio de almacenamiento -->
-        <delete dir="${store.dir}"/>
-        <mkdir dir="${store.dir}"/>
-
-        <!-- Crear un JAR empaquetado con dependencias -->
-        <jar destfile="${store.dir}/temp_final.jar" filesetmanifest="merge">
-            <!-- Incluir los JARs en el directorio 'dist' -->
-            <zipgroupfileset dir="dist" includes="*.jar"/>
-
-            <!-- Incluir los JARs en el directorio 'lib' (y específicamente el de PostgreSQL) -->
-            <zipgroupfileset dir="dist/lib" includes="*.jar"/>
-
-            <!-- Asegurarte de que el JAR de PostgreSQL está siendo incluido -->
-            <zipgroupfileset dir="dist/lib" includes="postgresql-*.jar"/>
-
-            <!-- Crear un manifiesto con la clase principal -->
-            <manifest>
-                <attribute name="Main-Class" value="${main.class}"/>
-            </manifest>
-        </jar>
-
-        <!-- Comprimir el JAR final en un archivo ZIP para distribución -->
-        <zip destfile="${store.jar}">
-            <zipfileset src="${store.dir}/temp_final.jar"
-                excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
-        </zip>
-
-        <!-- Limpiar archivo temporal -->
-        <delete file="${store.dir}/temp_final.jar"/>
-    </target>
 
 
         
