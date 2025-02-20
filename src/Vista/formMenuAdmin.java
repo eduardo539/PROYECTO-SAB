@@ -179,7 +179,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
         btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-agregar.png"))); // NOI18N
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/crear_usuarios_sistemas.png"))); // NOI18N
         btnRegistrar.setText("Registrar Usuario");
         btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +266,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
         btnActualizar.setBackground(new java.awt.Color(76, 175, 80));
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar-datos.png"))); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/actualizar_usuarios.png"))); // NOI18N
         btnActualizar.setText("Actualizar Usuario");
         btnActualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +278,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
         btnRestaurarContra.setBackground(new java.awt.Color(76, 175, 80));
         btnRestaurarContra.setForeground(new java.awt.Color(255, 255, 255));
-        btnRestaurarContra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-reset.png"))); // NOI18N
+        btnRestaurarContra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/restaurar_contraseña.png"))); // NOI18N
         btnRestaurarContra.setText("Restablecer Contraseña");
         btnRestaurarContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
         btnRestaurarContra.addActionListener(new java.awt.event.ActionListener() {

@@ -291,7 +291,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos/icon-agregar.png"/>
+              <Image iconType="3" name="/Iconos/crear_usuarios_sistemas.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Registrar Usuario"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -412,7 +412,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos/icon-actualizar-datos.png"/>
+              <Image iconType="3" name="/Iconos/actualizar_usuarios.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Actualizar Usuario"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -441,7 +441,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos/icon-reset.png"/>
+              <Image iconType="3" name="/Iconos/restaurar_contrase&#xf1;a.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Restablecer Contrase&#xf1;a"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
