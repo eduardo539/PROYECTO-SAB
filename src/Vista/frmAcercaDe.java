@@ -1,5 +1,7 @@
 package Vista;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Stock 2 Sistemas
@@ -9,6 +11,7 @@ public class frmAcercaDe extends javax.swing.JFrame {
     
     public frmAcercaDe() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
     }
     
     @SuppressWarnings("unchecked")

@@ -36,9 +36,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     public formMenuAdmin() {
         initComponents();
-        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
         // funcion que manda a llamar a los datos una vez cargada el form menu admin
         mostrarDatos();
         barraStatus ();
@@ -70,7 +68,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("Kernel: NA");
         }
-        
         //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -85,7 +82,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
         // Añadir la barra de estado a la ventana
         //getContentPane().add(barraEstado, BorderLayout.SOUTH);
-
         pack();
         setLocationRelativeTo(null);
     }

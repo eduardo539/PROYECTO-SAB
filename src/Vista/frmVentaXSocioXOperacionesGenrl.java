@@ -29,9 +29,8 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         conexion = new Conexion();
         
         configurarModeloTabla();
-        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
-        
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
     }
     
@@ -406,6 +405,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
 
     private void configurarModeloTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Sucursal de venta");
         modelo.addColumn("Sucursal del socio");
         modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
@@ -420,6 +420,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         tblReporteXBoletosXUsuariosXOperacionesGenerales.setModel(modelo);
     }
     
+    
     private void limpiarEntradas() { 
         txtOrigen.setText("");
         txtGrupo.setText("");
@@ -430,7 +431,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     private void cargarUsuariosConBoletosComprados() {
         // Consulta SQL para obtener los datos (sin filtro de sucursal)
         String sql = "SELECT " +
-                    "    b.OrigenUsuario AS Sucursal, " +
+                    "    b.OrigenUsuario AS SucursalVenta, " +
                     "    b.OrigenSocio AS SucursalSocio, " +
                     "    b.Folio AS Folio_Boleto, " +
                     "    b.Origen AS Origen, " +
@@ -467,7 +468,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             DefaultTableModel modeloTabla = new DefaultTableModel(
                 new Object[][] {}, 
                 new String[] {
-                    "Sucursal", "SucursalSocio", "Folio", "Origen", "Grupo", "NumSocio", 
+                    "SucursalVenta", "SucursalSocio", "Folio", "Origen", "Grupo", "NumSocio", 
                     "Nombre", "Cajero", "Zona", "Precio_Boleto", "Mesa", "Silla"
                 }
             );
@@ -476,7 +477,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             while (rs.next()) {
                 // Agregar los datos a la tabla
                 modeloTabla.addRow(new Object[] {
-                    rs.getString("Sucursal"),
+                    rs.getString("SucursalVenta"),
                     rs.getString("SucursalSocio"),
                     rs.getString("Folio_Boleto"),
                     rs.getString("Origen"),
@@ -510,7 +511,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         }
 
         // Consulta SQL para obtener los boletos filtrados
-        String sql = "SELECT b.OrigenUsuario AS Sucursal, b.OrigenSocio AS SucursalSocio, b.Folio AS Folio_Boleto, " +
+        String sql = "SELECT b.OrigenUsuario AS SucursalVenta, b.OrigenSocio AS SucursalSocio, b.Folio AS Folio_Boleto, " +
                     "b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
                     "b.Costo AS Precio_Boleto, MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla " +
                     "FROM tbl_boletos b " +
@@ -537,7 +538,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             // Recorrer los resultados y agregarlos al modelo de la tabla
             while (rs.next()) {
                 modeloTabla.addRow(new Object[]{
-                    rs.getString("Sucursal"),
+                    rs.getString("SucursalVenta"),
                     rs.getString("SucursalSocio"),
                     rs.getString("Folio_Boleto"),
                     rs.getString("Origen"),

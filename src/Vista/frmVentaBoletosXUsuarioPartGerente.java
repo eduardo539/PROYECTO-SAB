@@ -26,6 +26,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     public frmVentaBoletosXUsuarioPartGerente() {
         initComponents();
         conexion = new Conexion();
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         configurarModeloTabla(); // Configurar encabezados de la tabla
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
         barraEstado();

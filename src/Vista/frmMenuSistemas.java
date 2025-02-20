@@ -16,16 +16,13 @@ import javax.swing.JOptionPane;
  * @author Stock 2 Sistemas
  */
 public class frmMenuSistemas extends javax.swing.JFrame {
-
     private Login usuario; //objeto para almacenar los datos
         
     public frmMenuSistemas() {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        
-        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());   
     }
     
     private void actualizarMensajeBienvenida() {

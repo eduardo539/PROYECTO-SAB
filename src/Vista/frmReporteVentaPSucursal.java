@@ -24,7 +24,6 @@ import java.util.Locale;
  */
 
 public class frmReporteVentaPSucursal extends javax.swing.JFrame {
-    
     private final Conexion conexion;
     
     Login lg = Login.getInstancia();
@@ -37,12 +36,11 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         configurarComboBoxMeses(); // Configura los meses en el ComboBox
         cargarDatosGerente(null, null); // Carga todos los datos iniciales (sin filtros)
         
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
-        
     }
     
     public void barraEstado(){
-        
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
@@ -67,7 +65,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        
         //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -435,7 +432,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         modelo.addColumn("Silla");
         tblReporte.setModel(modelo);
     }
-   
 
     void cargarDatosGerente(String ano, String mes) {
         Login login = Login.getInstancia();

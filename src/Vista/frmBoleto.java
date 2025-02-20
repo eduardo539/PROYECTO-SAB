@@ -30,7 +30,6 @@ public class frmBoleto extends javax.swing.JFrame {
     CompraBoleto datos = CompraBoleto.getInstancia();
     CompraBoletoData socioData = new CompraBoletoData();
     
-    
     InsertarData insert = new InsertarData();
     ActualizarData actualiza = new ActualizarData();
     ConsultasData consulta = new ConsultasData();
@@ -93,7 +92,7 @@ public class frmBoleto extends javax.swing.JFrame {
             } catch (NumberFormatException e) {
                 // Si ocurre un error al convertir a entero (por ejemplo, el usuario ingresó texto no numérico)
                 JOptionPane.showMessageDialog(null, "Por favor ingrese solo números válidos en los campos de origen, grupo y socio.", 
-                                              "Error", JOptionPane.ERROR_MESSAGE);
+                    "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         

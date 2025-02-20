@@ -58,24 +58,17 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     
     public frmPosadaMTY() {
         initComponents();
-        
         // En el constructor de tu JFrame Form
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
         barraEstado();
-        
         setResizable(false);
-        
         estadosMesas();
         estadoPrecios();
         actualizaSillasxVigencia();
-        
         iniciarActualizacionAutomatica(); // Iniciamos la actualización automática
     }
-    
     
     private void iniciarActualizacionAutomatica() {
         // Crea un Timer que ejecuta una acción cada 3 segundos (3000 ms)
@@ -105,10 +98,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         super.dispose();
     }
     
-    
-    
     public void barraEstado(){
-        
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
@@ -116,7 +106,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
         lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
-        
+       
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
             try {
@@ -133,7 +123,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        
         //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -144,7 +133,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     }
     
     public void actualizaSillasxVigencia(){
-        
         ActualizarData acD = new ActualizarData();
         
         SillasEstatusVigencia sv = SillasEstatusVigencia.getInstancia();
@@ -201,7 +189,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     
     
     public void estadosMesas(){
-        
         mes = mesa.m();
         
         for (Mesas.Mesa mesa : mes.getListaMesas()) {
@@ -230,17 +217,13 @@ public class frmPosadaMTY extends javax.swing.JFrame {
             }
         }
 
-        
-        
     }
     
     
     private void abrirVentana(int mesaNumero) {
-
         CantidadSillasSelect cantidadS = CantidadSillasSelect.getInstancia();
         
         int cantidadSillas = 0;
-        
         this.idMesa = mesaNumero;
 
         try {
@@ -252,7 +235,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 
                 switch (estatusMesa) {
                     case "Disponible":
-                      
                         // Obtener la lista de sillas disponibles
                         s = sid.s(idMesa);
                         
@@ -265,7 +247,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                                 sillasDisponibles++;
                             }
                         }
-                        
 
                         if (sillasDisponibles == 0) {
                             JOptionPane.showMessageDialog(
@@ -277,9 +258,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                             return;
                         }
                         
-                        
                         boolean entradaValida = false;
-
                         // Solicitar al usuario la cantidad de sillas hasta que ingrese una válida
                         do {
                             String input = JOptionPane.showInputDialog(
@@ -2190,30 +2169,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmPosadaMTY.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmPosadaMTY.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmPosadaMTY.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmPosadaMTY.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmPosadaMTY().setVisible(true);

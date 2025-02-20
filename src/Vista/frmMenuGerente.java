@@ -12,16 +12,13 @@ import javax.swing.JOptionPane;
  */
 
 public class frmMenuGerente extends javax.swing.JFrame {
-    
     private Login usuario; //objeto para almacenar los datos
     
     public frmMenuGerente() {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
     }
     
     private void actualizarMensajeBienvenida() {
@@ -266,7 +263,6 @@ public class frmMenuGerente extends javax.swing.JFrame {
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
                 cerrarSesion();
-
                 // Cerrar todas las ventanas abiertas excepto el login
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
                 for (Window window : Window.getWindows()) {
@@ -315,6 +311,5 @@ public class frmMenuGerente extends javax.swing.JFrame {
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
     // End of variables declaration//GEN-END:variables
-
 
 }

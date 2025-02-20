@@ -12,16 +12,13 @@ import javax.swing.JOptionPane;
  */
 
 public class frmMenuCajero extends javax.swing.JFrame {
-    
     private Login usuario; //objeto para almacenar los datos
 
     public frmMenuCajero() {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
     }
     
     private void actualizarMensajeBienvenida() {
@@ -239,7 +236,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 cerrarSesion();
-
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
                 for (Window window : Window.getWindows()) {
                     if (window != topFrame) {
@@ -283,7 +279,5 @@ public class frmMenuCajero extends javax.swing.JFrame {
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
     // End of variables declaration//GEN-END:variables
-
-   
 
 }

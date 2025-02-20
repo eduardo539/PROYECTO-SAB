@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
  */
 
 public class frmMenuOperaciones extends javax.swing.JFrame {
-
     private Login usuario; //objeto para almacenar los datos
         
     public frmMenuOperaciones() {
@@ -20,9 +19,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         setLocationRelativeTo(null); //Abrir la ventana en el centro de la pantalla
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        
-        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());   
     }
     
     private void actualizarMensajeBienvenida() {
