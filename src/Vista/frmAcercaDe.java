@@ -70,12 +70,12 @@ public class frmAcercaDe extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel5.setText("EDUARDO DOMÍNGUEZ LIBRADO");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel7.setText("EDUARDO HERNÁNDEZ HERNÁNDEZ");
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -83,22 +83,22 @@ public class frmAcercaDe extends javax.swing.JFrame {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/desarrollo_project1.png"))); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel10.setText("ING. JOSÉ CECILIO GOMEZ GALDAMEZ");
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/desarrollo_project1.png"))); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel12.setText("ING. EDSON MORENO CLEMENTE");
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/desarrollo_project2.png"))); // NOI18N
 
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel14.setText("ING. AMAIRANI HERNÁNDEZ DE LA CRUZ");
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/desarrollo_project1.png"))); // NOI18N
 
-        jLabel16.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel16.setText("ING. ADAIR GUTIERREZ VITE");
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N

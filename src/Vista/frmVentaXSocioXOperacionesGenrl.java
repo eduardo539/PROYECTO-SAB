@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Stock 2 Sistemas
+ * @author Eduardo`s
  */
 
 public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
