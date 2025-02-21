@@ -16,16 +16,13 @@ import javax.swing.JOptionPane;
  * @author Stock 2 Sistemas
  */
 public class frmMenuSistemas extends javax.swing.JFrame {
-
     private Login usuario; //objeto para almacenar los datos
         
     public frmMenuSistemas() {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        
-        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());   
     }
     
     private void actualizarMensajeBienvenida() {
@@ -98,15 +95,15 @@ public class frmMenuSistemas extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("BIENVENIDO AL SAB");
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("SISTEMA DE ADMINISTRACIÓN DE BOLETOS");
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setToolTipText("");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("SISTEMAS");
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel5.setText("DATOS DEL USUARIO");
 
@@ -121,12 +118,12 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/perfil_usuarioss.png"))); // NOI18N
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
-        jMenu1.setText("MENU");
+        jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Icono_user.png"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/usuarios_generales.png"))); // NOI18N
         jMenuItem3.setText("Usuarios");
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -134,9 +131,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
         jMenuItem4.setText("Bitacoras");
+        jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -157,7 +154,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("AYUDA");
+        jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -165,9 +162,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenuItem5.setText("Info...");
         jMenu2.add(jMenuItem5);
 
-        jMenuItem6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
         jMenuItem6.setText("Acerca de...");
+        jMenuItem6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);

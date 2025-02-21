@@ -24,7 +24,6 @@ import java.util.Locale;
  */
 
 public class frmReporteVentaPSucursal extends javax.swing.JFrame {
-    
     private final Conexion conexion;
     
     Login lg = Login.getInstancia();
@@ -37,12 +36,11 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         configurarComboBoxMeses(); // Configura los meses en el ComboBox
         cargarDatosGerente(null, null); // Carga todos los datos iniciales (sin filtros)
         
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
-        
     }
     
     public void barraEstado(){
-        
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
@@ -67,7 +65,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        
         //barraEstado = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -163,20 +160,20 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             }
         });
 
-        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
         btnFiltrar.setText("Filtrar por Mes y Año");
+        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
             }
         });
 
-        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
-        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
         btnMostrarTodo.setText("Mostrar todos los boletos");
+        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
+        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
@@ -260,7 +257,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jMenuBar1.setPreferredSize(new java.awt.Dimension(80, 35));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
-        jMenu1.setText("MENU");
+        jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -286,7 +283,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("AYUDA");
+        jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -435,7 +432,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         modelo.addColumn("Silla");
         tblReporte.setModel(modelo);
     }
-   
 
     void cargarDatosGerente(String ano, String mes) {
         Login login = Login.getInstancia();

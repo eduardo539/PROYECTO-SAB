@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
 public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     
     private final Conexion conexion;
-    
     Login lg = Login.getInstancia();
     
     public frmVentaBoletosXUsuarioPartGerente() {
         initComponents();
         conexion = new Conexion();
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         configurarModeloTabla(); // Configurar encabezados de la tabla
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
         barraEstado();
@@ -153,6 +153,9 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(76, 175, 80));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ticket_iconos.png"))); // NOI18N
         jButton1.setText("Mostrar Todo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -239,7 +242,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
-        jMenu1.setText("MENU");
+        jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -265,9 +268,10 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("AYUDA");
+        jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem3.setText("Info...");
         jMenu2.add(jMenuItem3);
@@ -326,7 +330,6 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         modelo.addColumn("Prec. por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
-
         tblReporteXSucursal.setModel(modelo);
     }
         

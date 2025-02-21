@@ -9,7 +9,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/icon-menu.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="MENU"/>
+            <Property name="text" type="java.lang.String" value="Menu"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="16" style="0"/>
             </Property>
@@ -21,9 +21,9 @@
                   <Font name="Arial" size="16" style="0"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos/icon-actualizar.png"/>
+                  <Image iconType="3" name="/Iconos/reportes_p_sucursal.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Reportes por Sucursal"/>
+                <Property name="text" type="java.lang.String" value="Ventas por sucursales"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
@@ -35,9 +35,9 @@
                   <Font name="Arial" size="16" style="0"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos/icon-buy.png"/>
+                  <Image iconType="3" name="/Iconos/venta_p_sucursal.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Venta por Sucursal"/>
+                <Property name="text" type="java.lang.String" value="Ventas por sucursal"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
@@ -49,9 +49,9 @@
                   <Font name="Arial" size="16" style="0"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos/Icono_user.png"/>
+                  <Image iconType="3" name="/Iconos/venta_por_socio.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Venta por Socio"/>
+                <Property name="text" type="java.lang.String" value="Ventas por socios"/>
                 <Property name="borderPainted" type="boolean" value="true"/>
               </Properties>
               <Events>
@@ -79,7 +79,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/icon-ayuda.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="AYUDA"/>
+            <Property name="text" type="java.lang.String" value="Ayuda"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="16" style="0"/>
             </Property>
@@ -102,7 +102,7 @@
                   <Font name="Arial" size="16" style="0"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos/icon-programadores.png"/>
+                  <Image iconType="3" name="/Iconos/direccion_proyecto.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Acerca de..."/>
               </Properties>
@@ -219,7 +219,7 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="24" style="0"/>
+          <Font name="Arial" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="BIENVENIDO AL SAB"/>
       </Properties>

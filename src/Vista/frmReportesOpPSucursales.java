@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +23,6 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class frmReportesOpPSucursales extends javax.swing.JFrame {
-
     private final Conexion conexion;
     
     Login lg = Login.getInstancia();
@@ -35,9 +35,8 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         // cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
         configurarComboBoxAnos();
         configurarComboBoxMeses();
-        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
-      
     }
     
     
@@ -269,7 +268,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         jMenuBar1.setMinimumSize(new java.awt.Dimension(80, 35));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
-        jMenu1.setText("MENU");
+        jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -295,7 +294,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("AYUDA");
+        jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -464,26 +463,25 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private void cargarDatos(String sucursal, Integer ano, Integer mes) {
         // Construcción de la consulta SQL con todas las columnas necesarias
         StringBuilder consultaSQL = new StringBuilder("SELECT " +
-                "    b.OrigenUsuario AS Sucursal, " +  // Cambié de u.vchSucursal a b.vchSucursal
-                "    b.OrigenSocio AS Sucursal2, " +  // Cambié de u.vchSucursal a b.vchSucursal
-                "    b.Folio, " +
-                "    b.Origen, " +
-                "    b.Grupo, " +
-                "    b.NumSocio, " +
-                "    b.Nombre, " +
-                "    u.Nombre AS Cajero, " +
-                "    z.Zona, " +
-                "    b.Costo AS Precio_Boleto, " +
-                "    m.DescMesa AS Mesa, " +
-                "    s.vchDescripcion AS Silla " +
-                "FROM tbl_boletos b " +  // La consulta se sigue haciendo sobre la tabla 'tbl_boletos'
-                "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +  // 'tbl_usuarios' sigue siendo usada para la información del cajero
-                "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +  // Tabla de zonas
-                "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +  // Tabla de mesas
-                "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +  // Tabla de sillas
-                "WHERE 1=1 ");
-
-
+            "    b.OrigenUsuario AS Sucursal, " +  // Cambié de u.vchSucursal a b.vchSucursal
+            "    b.OrigenSocio AS Sucursal2, " +  // Cambié de u.vchSucursal a b.vchSucursal
+            "    b.Folio, " +
+            "    b.Origen, " +
+            "    b.Grupo, " +
+            "    b.NumSocio, " +
+            "    b.Nombre, " +
+            "    u.Nombre AS Cajero, " +
+            "    z.Zona, " +
+            "    b.Costo AS Precio_Boleto, " +
+            "    m.DescMesa AS Mesa, " +
+            "    s.vchDescripcion AS Silla " +
+            "FROM tbl_boletos b " +  // La consulta se sigue haciendo sobre la tabla 'tbl_boletos'
+            "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +  // 'tbl_usuarios' sigue siendo usada para la información del cajero
+            "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +  // Tabla de zonas
+            "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +  // Tabla de mesas
+            "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +  // Tabla de sillas
+            "WHERE 1=1 ");
+        
         // Agregar filtros opcionales
         if (sucursal != null && !sucursal.equals("Seleccione una sucursal para filtrar")) {
             // Aquí usamos el valor de sucursal que viene del ComboBox para filtrar en 'b.vchSucursal'
@@ -492,12 +490,11 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         if (ano != null && mes != null) {
             consultaSQL.append("AND YEAR(b.FechaCompra) = ? AND MONTH(b.FechaCompra) = ? ");
         }
-
+        
         consultaSQL.append("GROUP BY b.OrigenSocio, b.OrigenSocio,b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
                 "u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion " +
                 "ORDER BY b.Folio");
-
-
+        
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(consultaSQL.toString())) {
 
@@ -506,12 +503,11 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             if (sucursal != null && !sucursal.equals("Seleccione una sucursal para filtrar")) {
                 stmt.setString(paramIndex++, sucursal);
             }
+            
             if (ano != null && mes != null) {
                 stmt.setInt(paramIndex++, ano);
                 stmt.setInt(paramIndex, mes);
             }
-            
-            
             
             // Ejecutar la consulta
             ResultSet rs = stmt.executeQuery();
@@ -549,7 +545,6 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         jtlAnos.setModel(modelo);
     }
     
-    
     private void configurarComboBoxMeses() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Seleccione un mes");
@@ -580,83 +575,12 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private void limpiarCamposSeleccion() {
         jtlAnos.setSelectedIndex(0);
         jtlMeses.setSelectedIndex(0);
-       
     }
     
     private void limpiarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
         modelo.setRowCount(0);
     }
-
-    /*
-    private void cargarUsuariosConBoletosComprados() {
-        try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT Nombre FROM tbl_boletos");
-             ResultSet rs = stmt.executeQuery()) {
-
-            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-            modelo.addElement("Seleccione un usuario");
-            while (rs.next()) {
-                modelo.addElement(rs.getString("Nombre"));
-            }
-            jtlUsuariosConBoletosComprados.setModel(modelo); // Asignar el modelo al ComboBox
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar usuarios con boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    /*
-    private void cargarBoletosPorUsuario(String usuario) {
-        System.out.println("Nombre del usuario" + usuario);
-        
-        String sql = ("SELECT " +
-               "    b.OrigenSocio AS Sucursal, " +
-               "    b.Folio, " +
-               "    b.Origen, " +
-               "    b.Grupo, " +
-               "    b.NumSocio, " +
-               "    b.Nombre, " +
-               "    u.Nombre AS Cajero, " +
-               "    z.Zona, " +
-               "    b.Costo AS Precio_Boleto, " +
-               "    m.DescMesa AS Mesa, " +
-               "    s.vchDescripcion AS Silla " +
-               "FROM tbl_boletos b " + 
-               "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +  // 'tbl_usuarios' sigue siendo usada para la información del cajero
-               "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +  // Tabla de zonas
-               "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +  // Tabla de mesas
-               "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +  // Tabla de sillas
-               "WHERE b.Nombre = ?");
-      
-        try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, usuario);
-            ResultSet rs = stmt.executeQuery();
-
-            DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
-            modelo.setRowCount(0); // Limpiar la tabla antes de cargar los datos
-
-            while (rs.next()) {
-                modelo.addRow(new Object[]{
-                    rs.getString("Sucursal"),
-                    rs.getString("Folio"),
-                    rs.getString("Origen"),
-                    rs.getString("Grupo"),
-                    rs.getString("NumSocio"),
-                    rs.getString("Nombre"),
-                    rs.getString("Cajero"),
-                    rs.getString("Zona"),
-                    rs.getDouble("Precio_Boleto"),
-                    rs.getString("Mesa"),
-                    rs.getString("Silla"),
-                });
-            }
-        } catch (SQLException e) {
-   
-             System.out.println("Me da este error: " + e);
-            JOptionPane.showMessageDialog(this, "Error al cargar boletos del usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }*/
+    
     
 }
