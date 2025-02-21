@@ -121,9 +121,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/usuarios_generales.png"))); // NOI18N
         jMenuItem3.setText("Usuarios");
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -157,14 +157,19 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem5.setText("Info...");
+        jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenu2.add(jMenuItem5);
 
+        jMenuItem6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
         jMenuItem6.setText("Acerca de...");
-        jMenuItem6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
@@ -277,6 +282,12 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        frmAcercaDe acercade = new frmAcercaDe();
+        acercade.setLocationRelativeTo(null);
+        acercade.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

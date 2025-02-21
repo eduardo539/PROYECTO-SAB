@@ -167,7 +167,7 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
 
         btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
         btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
         btnMostrarTodo.setText("Mostrar Todo");
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
