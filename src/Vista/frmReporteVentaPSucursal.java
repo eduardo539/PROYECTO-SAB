@@ -424,7 +424,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
         modelo.addColumn("Num. Socio");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Nombre Socio");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
         modelo.addColumn("Prec. de boleto");

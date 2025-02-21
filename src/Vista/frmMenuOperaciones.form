@@ -37,7 +37,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Iconos/venta_p_sucursal.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ventas por sucursal"/>
+                <Property name="text" type="java.lang.String" value="Ventas totales"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>

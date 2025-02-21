@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author eduar
+ * @author Eduardo`s
  */
 
 

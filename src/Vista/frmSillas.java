@@ -227,6 +227,7 @@ public class frmSillas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         jPanel1 = new javax.swing.JPanel();
         lblDato1 = new javax.swing.JLabel();
         lblDato2 = new javax.swing.JLabel();
@@ -265,6 +266,9 @@ public class frmSillas extends javax.swing.JFrame {
         btnContinuar = new javax.swing.JButton();
         lblCostoUnit = new javax.swing.JLabel();
         lblCantiSillas = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Selección de Sillas");
@@ -288,7 +292,7 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel1.add(lblDato5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 500, -1, -1));
 
         lblDato6.setText("jLabel2");
-        jPanel1.add(lblDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, -1, -1));
+        jPanel1.add(lblDato6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, -1, -1));
 
         lblDato7.setText("jLabel2");
         jPanel1.add(lblDato7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, -1, -1));
@@ -397,6 +401,7 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 550));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -409,39 +414,56 @@ public class frmSillas extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
+        jPanel2.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 473, 200, -1));
 
         lblMesa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblMesa.setText("Label-Mesa");
+        jPanel2.add(lblMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 273, -1, -1));
 
         lblZona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblZona.setText("Label-Zona");
+        jPanel2.add(lblZona, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 300, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(0, 255, 0));
         jButton1.setEnabled(false);
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 30, 30));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 0));
         jButton2.setEnabled(false);
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 30, 30));
 
         jButton3.setBackground(new java.awt.Color(255, 0, 0));
         jButton3.setEnabled(false);
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 30, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Disponible");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 33, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Separado");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 83, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Comprado");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 133, -1, -1));
 
         lblCosto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCosto.setText("Label-Costo-Total");
+        jPanel2.add(lblCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 381, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Seleccione la silla de su preferencia");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 172, -1, 24));
 
         txtSillasSelect.setEditable(false);
         txtSillasSelect.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s Seleccionada/s"));
+        txtSillasSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSillasSelectActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtSillasSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 214, 200, -1));
 
         btnContinuar.setBackground(new java.awt.Color(0, 153, 0));
         btnContinuar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -453,97 +475,28 @@ public class frmSillas extends javax.swing.JFrame {
                 btnContinuarActionPerformed(evt);
             }
         });
+        jPanel2.add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 418, 200, 35));
 
         lblCostoUnit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCostoUnit.setText("Label-Costo-Unit");
+        jPanel2.add(lblCostoUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 327, -1, -1));
 
         lblCantiSillas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCantiSillas.setText("Label-Cantidad-Sillas");
+        jPanel2.add(lblCantiSillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 354, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnContinuar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCantiSillas)
-                    .addComponent(lblCostoUnit)
-                    .addComponent(lblCosto)
-                    .addComponent(lblZona)
-                    .addComponent(lblMesa)
-                    .addComponent(txtSillasSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel2)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel3)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel5)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtSillasSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblMesa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblZona)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCostoUnit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCantiSillas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCosto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-        );
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
+        jMenu1.setText("Ayuda");
+        jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
+        jMenuItem1.setText("Info..");
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -551,13 +504,16 @@ public class frmSillas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)))
         );
 
         pack();
@@ -642,6 +598,10 @@ public class frmSillas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnContinuarActionPerformed
 
+    private void txtSillasSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSillasSelectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSillasSelectActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -698,8 +658,12 @@ public class frmSillas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JLabel lblCantiSillas;
     private javax.swing.JLabel lblCosto;
     private javax.swing.JLabel lblCostoUnit;

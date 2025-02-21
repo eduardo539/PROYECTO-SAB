@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import FormulariosAyuda.Sistemas.AyudaHomeSistemas;
 import Modelo.Login;
 import java.awt.Window;
 import javax.swing.ImageIcon;
@@ -83,6 +84,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -95,15 +99,15 @@ public class frmMenuSistemas extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
-        jLabel2.setText("BIENVENIDO AL SAB");
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setText("BIENVENIDO AL SAB");
 
-        jLabel3.setText("SISTEMA DE ADMINISTRACIÓN DE BOLETOS");
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setText("SISTEMA DE ADMINISTRACIÓN DE BOLETOS");
         jLabel3.setToolTipText("");
 
-        jLabel4.setText("SISTEMAS");
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setText("SISTEMAS");
 
         jLabel5.setText("DATOS DEL USUARIO");
 
@@ -131,15 +135,45 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
-        jMenuItem4.setText("Bitacoras");
         jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/bitacoras_usuarios.png"))); // NOI18N
+        jMenuItem4.setText("Bitacoras usuarios");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem4);
+
+        jMenuItem8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes_p_sucursal.png"))); // NOI18N
+        jMenuItem8.setText("Ventas por sucursales");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
+
+        jMenuItem7.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_p_sucursal.png"))); // NOI18N
+        jMenuItem7.setText("Ventas totales");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
+        jMenuItem9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_por_socio.png"))); // NOI18N
+        jMenuItem9.setText("Ventas por socios");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem9);
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
@@ -157,9 +191,14 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem5.setText("Info...");
-        jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuItem6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -280,7 +319,10 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        frmBitacorasUsuariosPartSistemas Sistemas = new frmBitacorasUsuariosPartSistemas();
+        Sistemas.setLocationRelativeTo(null);
+        Sistemas.setVisible(true);
+        this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -288,6 +330,33 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         acercade.setLocationRelativeTo(null);
         acercade.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        frmVentaXSucursalesPartSistemas Sistemas = new frmVentaXSucursalesPartSistemas();
+        Sistemas.setLocationRelativeTo(null);
+        Sistemas.setVisible(true);
+        this.dispose(); // Cierra la ventana actual
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        frmVentaXSociosPartSistemas Sistemas = new frmVentaXSociosPartSistemas();
+        Sistemas.setLocationRelativeTo(null);
+        Sistemas.setVisible(true);
+        this.dispose(); // Cierra la ventana actual
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        frmVentaXSucursalPartSistemas Sistemas = new frmVentaXSucursalPartSistemas();
+        Sistemas.setLocationRelativeTo(null);
+        Sistemas.setVisible(true);
+        this.dispose(); // Cierra la ventana actual
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        AyudaHomeSistemas Ayuda = new AyudaHomeSistemas();
+        Ayuda.setLocationRelativeTo(null);
+        Ayuda.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -315,8 +384,12 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
     // End of variables declaration//GEN-END:variables
 
+    
 }

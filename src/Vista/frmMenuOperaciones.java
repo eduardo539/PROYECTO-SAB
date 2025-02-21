@@ -134,7 +134,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
 
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_p_sucursal.png"))); // NOI18N
-        jMenuItem2.setText("Ventas por sucursal");
+        jMenuItem2.setText("Ventas totales");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);

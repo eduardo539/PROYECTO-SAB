@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Sistemas.AyudaUsuarios;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
@@ -361,6 +362,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jmiInfo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jmiInfo.setText("Info...");
+        jmiInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiInfoActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmiInfo);
 
         jMenuBar1.add(jMenu2);
@@ -845,6 +851,12 @@ public class formMenuAdmin extends javax.swing.JFrame {
         Sistemas.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jmiInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInfoActionPerformed
+        AyudaUsuarios Ayuda = new AyudaUsuarios();
+        Ayuda.setLocationRelativeTo(null);
+        Ayuda.setVisible(true);
+    }//GEN-LAST:event_jmiInfoActionPerformed
 
     /**
      * Método para abrir la ventana de inicio de sesión.
