@@ -177,6 +177,11 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
         jMenuItem5.setText("Acerca de...");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
@@ -300,6 +305,12 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         Operaciones.setVisible(true);
         this.dispose(); // Cierra la ventana actual  
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        frmAcercaDe acercade = new frmAcercaDe();
+        acercade.setLocationRelativeTo(null);
+        acercade.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     public static void main(String args[]) {
 

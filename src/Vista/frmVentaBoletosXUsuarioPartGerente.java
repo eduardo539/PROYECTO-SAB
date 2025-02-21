@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author eduar
  */
 
+
 public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     
     private final Conexion conexion;
@@ -145,7 +146,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
 
         txtFiltrarXUsuario.setBackground(new java.awt.Color(76, 175, 80));
         txtFiltrarXUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        txtFiltrarXUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
+        txtFiltrarXUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
         txtFiltrarXUsuario.setText("Filtrar por usuario");
         txtFiltrarXUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +156,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(76, 175, 80));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ticket_iconos.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
         jButton1.setText("Mostrar Todo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
