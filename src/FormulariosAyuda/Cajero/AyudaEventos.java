@@ -9,6 +9,7 @@ public class AyudaEventos extends javax.swing.JFrame {
 
     public AyudaEventos() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
     
     @SuppressWarnings("unchecked")

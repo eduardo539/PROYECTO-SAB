@@ -9,6 +9,7 @@ public class AyudaComprarBoletos extends javax.swing.JFrame {
 
     public AyudaComprarBoletos() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
 
     @SuppressWarnings("unchecked")

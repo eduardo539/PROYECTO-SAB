@@ -59,7 +59,19 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     public frmPosadaMTY() {
         initComponents();
         // En el constructor de tu JFrame Form
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
@@ -69,6 +81,16 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         actualizaSillasxVigencia();
         iniciarActualizacionAutomatica(); // Iniciamos la actualización automática
     }
+    
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmCajero caja = new frmCajero();
+        caja.setLocationRelativeTo(null);
+        caja.setVisible(true);
+    }
+
     
     private void iniciarActualizacionAutomatica() {
         // Crea un Timer que ejecuta una acción cada 3 segundos (3000 ms)
