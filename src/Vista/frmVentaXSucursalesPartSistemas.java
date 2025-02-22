@@ -564,13 +564,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        //barraEstado = new javax.swing.JPanel();
-        lblUsuario = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblVersionJava = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
+
     }
 
     private void limpiarTabla() {
