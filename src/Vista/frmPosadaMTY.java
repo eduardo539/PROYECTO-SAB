@@ -1,5 +1,5 @@
 package Vista;
-
+import FormulariosAyuda.Cajero.AyudaPosadaMonterrey;
 import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
 import Modelo.Login;
@@ -59,7 +59,19 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     public frmPosadaMTY() {
         initComponents();
         // En el constructor de tu JFrame Form
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
@@ -69,6 +81,16 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         actualizaSillasxVigencia();
         iniciarActualizacionAutomatica(); // Iniciamos la actualización automática
     }
+    
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmCajero caja = new frmCajero();
+        caja.setLocationRelativeTo(null);
+        caja.setVisible(true);
+    }
+
     
     private void iniciarActualizacionAutomatica() {
         // Crea un Timer que ejecuta una acción cada 3 segundos (3000 ms)
@@ -314,6 +336,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                         frmSillas sillas = new frmSillas();
                         sillas.setLocationRelativeTo(null);
                         sillas.setVisible(true);
+                        this.dispose();
 
                         break;
 
@@ -1720,9 +1743,9 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jmiActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/actualizar_usuarios.png"))); // NOI18N
@@ -1757,14 +1780,19 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
         jMenu2.setText("Ayuda");
-        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem2.setText("Info...");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -2164,6 +2192,12 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        AyudaPosadaMonterrey Cajero = new AyudaPosadaMonterrey();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

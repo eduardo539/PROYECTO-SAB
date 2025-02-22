@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Gerente.AyudaVentasXSucursal;
 import Modelo.Login;
 import Modelo.Conexion;
 import java.awt.Window;
@@ -160,20 +161,20 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             }
         });
 
-        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
-        btnFiltrar.setText("Filtrar por Mes y Año");
         btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
         btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-pendiente.png"))); // NOI18N
+        btnFiltrar.setText("Filtrar por Mes y Año");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
             }
         });
 
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar todos los boletos");
         btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
         btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
+        btnMostrarTodo.setText("Mostrar todos los boletos");
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
@@ -289,6 +290,11 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem1.setText("Info...");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
@@ -385,6 +391,12 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        AyudaVentasXSucursal Gerente = new AyudaVentasXSucursal();
+        Gerente.setLocationRelativeTo(null);
+        Gerente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -424,7 +436,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
         modelo.addColumn("Num. Socio");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Nombre Socio");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
         modelo.addColumn("Prec. de boleto");

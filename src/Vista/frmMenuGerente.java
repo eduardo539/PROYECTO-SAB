@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Gerente.AyudaHomeGerente;
 import Modelo.Login;
 import java.awt.Window;
 import javax.swing.ImageIcon;
@@ -160,11 +161,21 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem4.setText("Info...");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
         jMenuItem5.setText("Acerca de...");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
@@ -281,6 +292,18 @@ public class frmMenuGerente extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        frmAcercaDe acercade = new frmAcercaDe();
+        acercade.setLocationRelativeTo(null);
+        acercade.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        AyudaHomeGerente Gerente = new AyudaHomeGerente();
+        Gerente.setLocationRelativeTo(null);
+        Gerente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

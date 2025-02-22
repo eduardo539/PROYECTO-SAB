@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -78,7 +79,10 @@ public class LoginData {
             cn2.closeConnection();
             
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, 
+                        "Error al conectarse a la base de datos.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
         }finally {
             try {
                 if (rs != null) rs.close();

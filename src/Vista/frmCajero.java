@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Cajero.AyudaEventos;
 import Modelo.*;
 import Modelo.MesasData;
 import javax.swing.*;
@@ -18,7 +19,7 @@ import java.util.Set;
  * 
  */
 public class frmCajero extends javax.swing.JFrame {
-
+    
     Login lg = Login.getInstancia();
     Conexion cn = new Conexion();
 
@@ -31,6 +32,18 @@ public class frmCajero extends javax.swing.JFrame {
 
     public frmCajero() {
         initComponents();
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
@@ -45,8 +58,16 @@ public class frmCajero extends javax.swing.JFrame {
     }
     
     
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmMenuCajero cajero = new frmMenuCajero();
+        cajero.setLocationRelativeTo(null);
+        cajero.setVisible(true);
+    }
+    
+    
     public void actualizaSillasxVigencia(){
-        
         ActualizarData acD = new ActualizarData();
         SillasData sid = new SillasData();
         
@@ -398,9 +419,9 @@ public class frmCajero extends javax.swing.JFrame {
                 .addComponent(lblFecha))
         );
 
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-pendiente.png"))); // NOI18N
@@ -435,14 +456,19 @@ public class frmCajero extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
         jMenu2.setText("Ayuda");
-        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jmiInfo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jmiInfo.setText("Info...");
+        jmiInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiInfoActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmiInfo);
 
         jMenuBar1.add(jMenu2);
@@ -523,6 +549,12 @@ public class frmCajero extends javax.swing.JFrame {
         cajero.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jmiInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInfoActionPerformed
+        AyudaEventos Cajero = new AyudaEventos();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jmiInfoActionPerformed
 
     /**
     * Método para limpiar los datos de la sesión del usuario.

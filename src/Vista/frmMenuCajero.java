@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Cajero.AyudaHomeCajero;
 import Modelo.Login;
 import java.awt.Window;
 import javax.swing.ImageIcon;
@@ -16,9 +17,29 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
     public frmMenuCajero() {
         initComponents();
+        
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
+        
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        cerrarSesionUsuario();
     }
     
     private void actualizarMensajeBienvenida() {
@@ -56,6 +77,33 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
         // Log de actividad (opcional)
         System.out.println("Sesión cerrada exitosamente.");
+    }
+    
+    
+    public void cerrarSesionUsuario(){
+        try {
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                    "¿Estás seguro que deseas cerrar el programa? Tu sesión se cerrara!", 
+                    "Confirmación", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                cerrarSesion();
+                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                for (Window window : Window.getWindows()) {
+                    if (window != topFrame) {
+                        window.dispose();
+                    }
+                }
+                abrirLogin();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -145,11 +193,21 @@ public class frmMenuCajero extends javax.swing.JFrame {
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem2.setText("Info...");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
         jMenuItem4.setText("Acerca de...");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
@@ -223,34 +281,25 @@ public class frmMenuCajero extends javax.swing.JFrame {
         frmCajero Sistemas = new frmCajero();
         Sistemas.setLocationRelativeTo(null);
         Sistemas.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        try {
-            int confirm = JOptionPane.showConfirmDialog(this, 
-                    "¿Estás seguro de que deseas cerrar sesión?", 
-                    "Cerrar Sesión", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                cerrarSesion();
-                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-                for (Window window : Window.getWindows()) {
-                    if (window != topFrame) {
-                        window.dispose();
-                    }
-                }
-                abrirLogin();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        }
+        cerrarSesionUsuario();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        frmAcercaDe acercade = new frmAcercaDe();
+        acercade.setLocationRelativeTo(null);
+        acercade.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        AyudaHomeCajero Cajero = new AyudaHomeCajero();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
