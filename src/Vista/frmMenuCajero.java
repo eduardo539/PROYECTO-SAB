@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Cajero.AyudaHomeCajero;
 import Modelo.Login;
 import java.awt.Window;
 import javax.swing.ImageIcon;
@@ -145,6 +146,11 @@ public class frmMenuCajero extends javax.swing.JFrame {
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem2.setText("Info...");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -228,6 +234,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         frmCajero Sistemas = new frmCajero();
         Sistemas.setLocationRelativeTo(null);
         Sistemas.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -262,6 +269,12 @@ public class frmMenuCajero extends javax.swing.JFrame {
         acercade.setLocationRelativeTo(null);
         acercade.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        AyudaHomeCajero Cajero = new AyudaHomeCajero();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -1,5 +1,5 @@
 package Vista;
-
+import FormulariosAyuda.Cajero.AyudaPosadaMonterrey;
 import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
 import Modelo.Login;
@@ -314,6 +314,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                         frmSillas sillas = new frmSillas();
                         sillas.setLocationRelativeTo(null);
                         sillas.setVisible(true);
+                        this.dispose();
 
                         break;
 
@@ -1765,6 +1766,11 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem2.setText("Info...");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -2164,6 +2170,12 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        AyudaPosadaMonterrey Cajero = new AyudaPosadaMonterrey();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

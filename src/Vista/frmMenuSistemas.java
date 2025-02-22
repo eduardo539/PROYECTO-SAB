@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class frmMenuSistemas extends javax.swing.JFrame {
     private Login usuario; //objeto para almacenar los datos
-        
+    
     public frmMenuSistemas() {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
@@ -312,12 +312,14 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        formMenuAdmin Sistemas = new formMenuAdmin();
-        Sistemas.setLocationRelativeTo(null);
-        Sistemas.setVisible(true);
-        this.dispose(); // Cierra la ventana actual
+        // Crear la ventana de sistemas
+        formMenuAdmin sistemas = new formMenuAdmin();
+        sistemas.setLocationRelativeTo(null);
+        sistemas.setVisible(true);
+        this.dispose();     
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         frmBitacorasUsuariosPartSistemas Sistemas = new frmBitacorasUsuariosPartSistemas();
         Sistemas.setLocationRelativeTo(null);
@@ -390,6 +392,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
     // End of variables declaration//GEN-END:variables
+
 
     
 }

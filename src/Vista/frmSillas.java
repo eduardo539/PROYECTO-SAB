@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Cajero.AyudaSeleccionSillas;
 import Modelo.CantidadSillasSelect;
 import Modelo.Mesas;
 import Modelo.SillaEstado;
@@ -492,6 +493,11 @@ public class frmSillas extends javax.swing.JFrame {
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem1.setText("Info..");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -520,11 +526,14 @@ public class frmSillas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        
         Mesas m = Mesas.getInstancia();
         numSillas.borrarDatos();
         numSillas.borrarCantidadSillas();
         m.borrarDatos();
+        
+        frmPosadaMTY Cajero = new frmPosadaMTY();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
         
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -601,6 +610,12 @@ public class frmSillas extends javax.swing.JFrame {
     private void txtSillasSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSillasSelectActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSillasSelectActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        AyudaSeleccionSillas Cajero = new AyudaSeleccionSillas();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments

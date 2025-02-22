@@ -1,4 +1,5 @@
 package Vista;
+import FormulariosAyuda.Cajero.AyudaEnviarPdfManual;
 import Modelo.CantidadSillasSelect;
 import Modelo.DatosBoletosPDF;
 import Modelo.NombreBoleto;
@@ -195,6 +196,11 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem3.setText("Info...");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -258,6 +264,12 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         //cajero.setVisible(true);
         this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        AyudaEnviarPdfManual Cajero = new AyudaEnviarPdfManual();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

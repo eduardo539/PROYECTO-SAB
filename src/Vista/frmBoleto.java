@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Cajero.AyudaComprarBoletos;
 import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
 import Modelo.CantidadSillasSelect.tempDataSillas;
@@ -583,9 +584,14 @@ public class frmBoleto extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem1.setText("Info..");
+        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
@@ -616,6 +622,10 @@ public class frmBoleto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        frmPosadaMTY Cajero = new frmPosadaMTY();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+        
         dataSillas.borrarDatos();
         dataSillas.borrarCantidadSillas();
         
@@ -641,6 +651,12 @@ public class frmBoleto extends javax.swing.JFrame {
     private void txtOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrigenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOrigenActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        AyudaComprarBoletos Cajero = new AyudaComprarBoletos();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     
     public static void main(String args[]) {
