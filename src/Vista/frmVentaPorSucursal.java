@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Operaciones.AyudaVentasTotales;
 import Modelo.Conexion;
 import Modelo.Login;
 import java.awt.Window;
@@ -15,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author eduar
+ * @author Eduardo`s
  */
 
 public class frmVentaPorSucursal extends javax.swing.JFrame {
@@ -167,8 +168,8 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
 
         btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
         btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar Todo");
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ticket_iconos.png"))); // NOI18N
+        btnMostrarTodo.setText("Mostrar todo");
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
@@ -224,9 +225,14 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem2.setText("Info...");
-        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -321,6 +327,12 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
     private void txtTotalBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalBoletosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalBoletosActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        AyudaVentasTotales Operaciones = new AyudaVentasTotales();
+        Operaciones.setLocationRelativeTo(null);
+        Operaciones.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

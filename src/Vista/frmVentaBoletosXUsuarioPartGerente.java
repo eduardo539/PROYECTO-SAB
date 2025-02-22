@@ -1,4 +1,5 @@
 package Vista;
+import FormulariosAyuda.Gerente.AyudaVentasXSocios;
 import Modelo.Conexion;
 import Modelo.Login;
 import java.awt.Window;
@@ -14,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author eduar
+ * @author Eduardo`s
  */
 
 
@@ -275,6 +276,11 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem3.setText("Info...");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -387,6 +393,12 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         filtrarBoletosPorUsuario();
         limpiarEntradas();
     }//GEN-LAST:event_txtFiltrarXUsuarioActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        AyudaVentasXSocios Gerente = new AyudaVentasXSocios();
+        Gerente.setLocationRelativeTo(null);
+        Gerente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
