@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Cajero.AyudaSillasSeparadasCajero;
 import Modelo.ActualizarData;
 import Modelo.ConsultaBoleto;
 import Modelo.ConsultaBoleto.listBoleto;
@@ -777,9 +778,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jmiVolverInicio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiVolverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-volver.png"))); // NOI18N
         jmiVolverInicio.setText("Regresar");
+        jmiVolverInicio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiVolverInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiVolverInicioActionPerformed(evt);
@@ -804,9 +805,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jmiInfo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jmiInfo.setText("Info...");
+        jmiInfo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiInfoActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmiInfo);
 
         jMenuBar1.add(jMenu2);
@@ -964,6 +970,12 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private void txtAdeudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdeudoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAdeudoActionPerformed
+
+    private void jmiInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInfoActionPerformed
+        AyudaSillasSeparadasCajero Cajero = new AyudaSillasSeparadasCajero();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+    }//GEN-LAST:event_jmiInfoActionPerformed
 
     private void cerrarSesion() {
        // Si tienes una clase Singleton para manejar la sesión

@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Gerente.AyudaVentasXSucursal;
 import Modelo.Login;
 import Modelo.Conexion;
 import java.awt.Window;
@@ -289,6 +290,11 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem1.setText("Info...");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
@@ -384,6 +390,12 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        AyudaVentasXSucursal Gerente = new AyudaVentasXSucursal();
+        Gerente.setLocationRelativeTo(null);
+        Gerente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

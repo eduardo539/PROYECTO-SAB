@@ -1,5 +1,6 @@
 package Vista;
 
+import FormulariosAyuda.Operaciones.AyudaHomeOperaciones;
 import Modelo.Login;
 import java.awt.Window;
 import javax.swing.ImageIcon;
@@ -172,6 +173,11 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem4.setText("Info...");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -264,7 +270,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         frmVentaPorSucursal Operaciones = new frmVentaPorSucursal();
         Operaciones.setLocationRelativeTo(null);
         Operaciones.setVisible(true);
-        this.dispose(); // Cierra la ventana actual   
+        this.dispose(); // Cierra la ventana actual  
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -311,6 +317,12 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         acercade.setLocationRelativeTo(null);
         acercade.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        AyudaHomeOperaciones Operaciones = new AyudaHomeOperaciones();
+        Operaciones.setLocationRelativeTo(null);
+        Operaciones.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     public static void main(String args[]) {
 
