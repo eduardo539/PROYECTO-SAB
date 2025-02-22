@@ -33,8 +33,16 @@ public class frmSillas extends javax.swing.JFrame {
     public frmSillas() {
         initComponents();
         
-        // En el constructor de tu JFrame Form
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
         
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
@@ -44,6 +52,20 @@ public class frmSillas extends javax.swing.JFrame {
         estadoSillas();
         datos();
         
+    }
+    
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        Mesas m = Mesas.getInstancia();
+        numSillas.borrarDatos();
+        numSillas.borrarCantidadSillas();
+        m.borrarDatos();
+        
+        frmPosadaMTY Cajero = new frmPosadaMTY();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
     }
     
     

@@ -54,12 +54,31 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     public frmSillasSeparadas() {
         initComponents();
         
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
         datosTabla();
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
         barraEstado();
         setResizable(false);
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmCajero cajero = new frmCajero();
+        cajero.setLocationRelativeTo(null);
+        cajero.setVisible(true);
     }
 
     public void barraEstado(){
