@@ -309,8 +309,6 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        jPanel1.getAccessibleContext().setAccessibleName("Filtro venta de boletos por socio de todas las sucursales");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 

@@ -16,33 +16,24 @@ public class EnviarPDFAutomatico {
             return false;
         }
 
-        // Crear la ventana emergente
-        JDialog loadingDialog = new JDialog();
-        loadingDialog.setTitle("Procesando...");
-        loadingDialog.setSize(300, 120);
-        loadingDialog.setLayout(new BorderLayout());
-        loadingDialog.setLocationRelativeTo(null);
-        loadingDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        // Crear el JDialog
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Procesando...");
+        dialog.setSize(300, 120);
+        dialog.setLayout(new BorderLayout());
+        dialog.setLocationRelativeTo(null);
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
-        JLabel loadingLabel = new JLabel("Enviando Boleto por Correo...", SwingConstants.CENTER);
-        loadingLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        loadingDialog.add(loadingLabel, BorderLayout.CENTER);
-        loadingDialog.setVisible(true);
+        // Crear el JLabel con el mensaje
+        JLabel messageLabel = new JLabel("Enviando Correo...", SwingConstants.CENTER);
+        messageLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
-        // Hilo para hacer parpadear el texto cambiando su color
-        Thread blinkThread = new Thread(() -> {
-            try {
-                boolean isBlack = true;
-                while (loadingDialog.isVisible()) {
-                    loadingLabel.setForeground(isBlack ? Color.BLACK : Color.GRAY);
-                    isBlack = !isBlack;
-                    Thread.sleep(500);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        blinkThread.start();
+        // Agregar el JLabel al JDialog
+        dialog.add(messageLabel, BorderLayout.CENTER);
+
+        // Hacer visible el JDialog
+        dialog.setVisible(true);
+
 
         String serverURL = "https://ccsinterno.cajacerrodelasilla.com.mx/enviarPDF.php";
         String boundary = "----JavaBoundary" + System.currentTimeMillis();
@@ -100,7 +91,7 @@ public class EnviarPDFAutomatico {
         }
 
         // Cerrar la ventana de carga automáticamente
-        loadingDialog.dispose();
+        dialog.dispose();
 
         // Mostrar mensaje final
         if (enviado) {
