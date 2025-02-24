@@ -8,6 +8,7 @@ package Vista;
 import FormulariosAyuda.Sistemas.AyudaVentasXSocios;
 import Modelo.Conexion;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -271,9 +272,9 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem3.setText("Info...");
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -320,10 +321,15 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        AyudaVentasXSocios Sistemas = new AyudaVentasXSocios();
-        Sistemas.setLocationRelativeTo(null);
-        Sistemas.setVisible(true);
-        
+        AyudaVentasXSocios Ayuda = new AyudaVentasXSocios();
+        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Ayuda.setLocation(screenWidth - windowWidth, 0);
+        Ayuda.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

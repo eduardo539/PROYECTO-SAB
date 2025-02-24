@@ -17,13 +17,18 @@ public class AyudaEnviarPdfManual extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        textArea1 = new java.awt.TextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel1.setText("ayuda enviar pdf manual  CAJERO");
+
+        textArea1.setEditable(false);
+        textArea1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -48,16 +53,22 @@ public class AyudaEnviarPdfManual extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
+                .addContainerGap(133, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(139, 139, 139))
+                .addGap(127, 127, 127))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel1)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -80,6 +91,7 @@ public class AyudaEnviarPdfManual extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 
 }

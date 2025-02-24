@@ -4,6 +4,7 @@ import FormulariosAyuda.Sistemas.AyudaVentasXSucursales;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -371,9 +372,15 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jtlMesesActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        AyudaVentasXSucursales Sistemas = new AyudaVentasXSucursales();
-        Sistemas.setLocationRelativeTo(null);
-        Sistemas.setVisible(true);
+        AyudaVentasXSucursales Ayuda = new AyudaVentasXSucursales();
+        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Ayuda.setLocation(screenWidth - windowWidth, 0);
+        Ayuda.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
