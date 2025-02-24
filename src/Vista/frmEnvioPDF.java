@@ -3,6 +3,8 @@ import FormulariosAyuda.Cajero.AyudaEnviarPdfManual;
 import Modelo.CantidadSillasSelect;
 import Modelo.DatosBoletosPDF;
 import Modelo.NombreBoleto;
+import java.awt.BorderLayout;
+import java.awt.Font;
 import javax.swing.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -25,9 +27,14 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         initComponents();
         borrarDts();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        // En el constructor de tu JFrame Form
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        //Evitar maximizar la ventana
+        setResizable(false);
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
     }
+    
     
     public void borrarDts(){
         // Limpiar los datos seleccionados
@@ -42,6 +49,27 @@ public class frmEnvioPDF extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El archivo seleccionado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        
+        
+        // Crear el JDialog
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Procesando...");
+        dialog.setSize(300, 120);
+        dialog.setLayout(new BorderLayout());
+        dialog.setLocationRelativeTo(null);
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+
+        // Crear el JLabel con el mensaje
+        JLabel messageLabel = new JLabel("Enviando Correo...", SwingConstants.CENTER);
+        messageLabel.setFont(new Font("Arial", Font.BOLD, 14));
+
+        // Agregar el JLabel al JDialog
+        dialog.add(messageLabel, BorderLayout.CENTER);
+
+        // Hacer visible el JDialog
+        dialog.setVisible(true);
+        
+        
         // URL del servidor
         String serverURL = "https://ccsinterno.cajacerrodelasilla.com.mx/enviarPDF.php";
         String boundary = "----JavaBoundary" + System.currentTimeMillis();
@@ -90,6 +118,9 @@ public class frmEnvioPDF extends javax.swing.JFrame {
                 in.close();
                 return response.contains("success");
             }
+            
+            // Cerrar la ventana de carga automáticamente
+            dialog.dispose();
             conn.disconnect();
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -135,9 +135,6 @@
           </Border>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Filtro venta de boletos por socio de todas las sucursales"/>
-      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
