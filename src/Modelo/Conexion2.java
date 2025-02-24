@@ -3,6 +3,8 @@ package Modelo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,8 +32,12 @@ public class Conexion2 {
      * @return La conexión establecida o null si hay un error.
      */
     
-    public Connection getConnection() {
+    public Connection getConnection(){
         try {
+            
+            // Registrar el controlador JDBC manualmente (si no se carga automáticamente)
+            Class.forName("org.postgresql.Driver");
+            
             // Configura el tiempo de espera para la conexión
             DriverManager.setLoginTimeout(TIMEOUT_SECONDS);
 
@@ -48,6 +54,8 @@ public class Conexion2 {
                         "Error al conectarse a la base de datos.\nDetalles: " + e.getMessage(), 
                         "Error de Conexión", 
                         JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion2.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

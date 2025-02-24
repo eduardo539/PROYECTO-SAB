@@ -7,6 +7,7 @@ package Vista;
 
 import FormulariosAyuda.Sistemas.AyudaHomeSistemas;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -301,7 +302,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // Crear la ventana de sistemas
         formMenuAdmin sistemas = new formMenuAdmin();
         sistemas.setLocationRelativeTo(null);
         sistemas.setVisible(true);
@@ -319,7 +319,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         frmVentaXSucursalesPartSistemas Sistemas = new frmVentaXSucursalesPartSistemas();
         Sistemas.setLocationRelativeTo(null);
         Sistemas.setVisible(true);
-        this.dispose(); // Cierra la ventana actual
+        this.dispose();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -338,8 +338,17 @@ public class frmMenuSistemas extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         AyudaHomeSistemas Ayuda = new AyudaHomeSistemas();
-        Ayuda.setLocationRelativeTo(null);
+        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
+
+        // Establece la posición de la ventana en la esquina superior derecha
+        Ayuda.setLocation(screenWidth - windowWidth, 0);
+
         Ayuda.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     public static void main(String args[]) {
