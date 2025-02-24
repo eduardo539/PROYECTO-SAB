@@ -58,9 +58,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="textArea1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="149" max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="127" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,7 +74,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="243" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="textArea1" pref="318" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,7 +84,19 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ayuda Home sistemas PARTE SISTEMAS"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="16" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Manual de uso Inicio sistemas"/>
+      </Properties>
+    </Component>
+    <Component class="java.awt.TextArea" name="textArea1">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="MEN&#xda; PRINCIPAL&#xa;&#x9;&#xb0; Boton usuarios: Crear y gestionar usuarios.&#xa;&#x9;&#xb0; Boton ventas por sucursales: Visualiza ventas de boletos por sucursales.&#xa;&#x9;&#xb0; Boton ventas totales: Visualiza ventas de boletos por sucursal.&#xa;&#x9;&#xb0; Boton ventas por socio: Visualiza ventas de boletos por socios.&#xa;&#x9;&#xb0; Boton cerrar sei&#xf3;n: Elimina la sesi&#xf3;n del usuario y regresa a modulo login&#xa;&#xa;&#xa;AYUDA&#xa;&#x9;&#xb0; Boton Ayuda: Manual de uso.&#xa;&#x9;&#xb0; Boto Acerca de: Informaci&#xf3;n del sistema.&#xa;&#xa;&#xa;VISUALIZACION DE DATOS&#xa;&#x9;&#xb0; Usuario: muestra el dato de usuario.&#xa;&#x9;&#xb0; Nombre: Nombre completo del usuario." noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>
