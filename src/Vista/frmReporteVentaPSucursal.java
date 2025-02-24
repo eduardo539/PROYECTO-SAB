@@ -66,13 +66,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        //barraEstado = new javax.swing.JPanel();
-        lblUsuario = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblVersionJava = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblVersionOS = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
+
     }
     
     private void abrirLogin() {
@@ -163,7 +157,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
         btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-pendiente.png"))); // NOI18N
+        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
         btnFiltrar.setText("Filtrar por Mes y Año");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +167,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
         btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
         btnMostrarTodo.setText("Mostrar todos los boletos");
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

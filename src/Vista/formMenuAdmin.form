@@ -479,16 +479,16 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                   <Component id="lblUsuario" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                  <Component id="lblNombre" min="-2" pref="110" max="-2" attributes="0"/>
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                  <Component id="lblVersionJava" min="-2" pref="110" max="-2" attributes="0"/>
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                  <Component id="lblSucursal" min="-2" pref="150" max="-2" attributes="0"/>
-                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                  <Component id="lblVersionOS" min="-2" pref="110" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblFecha" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="lblNombre" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lblVersionJava" min="-2" pref="131" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblSucursal" min="-2" pref="180" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblVersionOS" min="-2" pref="190" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblFecha" min="-2" pref="180" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -496,10 +496,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="lblUsuario" min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="lblNombre" min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="lblVersionJava" min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="lblSucursal" min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="lblVersionOS" min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="lblFecha" min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblFecha" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="lblVersionOS" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="lblSucursal" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="lblVersionJava" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
