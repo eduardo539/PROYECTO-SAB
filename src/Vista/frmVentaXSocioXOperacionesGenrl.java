@@ -135,8 +135,18 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro venta de boletos por socio de todas las sucursales"));
 
         txtOrigen.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen:"));
+        txtOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOrigenActionPerformed(evt);
+            }
+        });
 
         txtGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupo:"));
+        txtGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGrupoActionPerformed(evt);
+            }
+        });
 
         txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("NumSocio:"));
         txtNumSocio.addActionListener(new java.awt.event.ActionListener() {
@@ -145,20 +155,20 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(76, 175, 80));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
         jButton1.setText("Filtrar por usuario");
+        jButton1.setBackground(new java.awt.Color(76, 175, 80));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(76, 175, 80));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
         jButton2.setText("Mostrar todo");
+        jButton2.setBackground(new java.awt.Color(76, 175, 80));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -309,7 +319,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -376,6 +386,14 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         Operaciones.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void txtGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGrupoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGrupoActionPerformed
+
+    private void txtOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrigenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOrigenActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -432,7 +450,6 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         txtNumSocio.setText("");
     } 
 
-    
     private void cargarUsuariosConBoletosComprados() {
         // Consulta SQL para obtener los datos (sin filtro de sucursal)
         String sql = "SELECT " +
