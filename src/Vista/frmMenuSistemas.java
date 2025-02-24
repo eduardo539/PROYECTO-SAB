@@ -83,7 +83,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -134,16 +133,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/bitacoras_usuarios.png"))); // NOI18N
-        jMenuItem4.setText("Bitacoras usuarios");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem4);
 
         jMenuItem8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes_p_sucursal.png"))); // NOI18N
@@ -320,13 +309,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        frmBitacorasUsuariosPartSistemas Sistemas = new frmBitacorasUsuariosPartSistemas();
-        Sistemas.setLocationRelativeTo(null);
-        Sistemas.setVisible(true);
-        this.dispose(); // Cierra la ventana actual
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         frmAcercaDe acercade = new frmAcercaDe();
         acercade.setLocationRelativeTo(null);
@@ -383,7 +365,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -394,5 +375,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
+    
     
 }
