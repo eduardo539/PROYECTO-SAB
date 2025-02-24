@@ -41,7 +41,7 @@ public class frmBoleto extends javax.swing.JFrame {
     NombreBoleto nomB = NombreBoleto.getInstancia();
     
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
-    
+  
     public frmBoleto() {
         initComponents();
         
@@ -126,6 +126,9 @@ public class frmBoleto extends javax.swing.JFrame {
         String zona = sE.getZona();
         String mesa = sE.getNomMesa();
         double costoTotal = dataSillas.getCostoSilla();
+        double mitadCosto = costoTotal / 2;
+        
+        
         
         List<tempDataSillas> listaSillas = dataSillas.getListaDatSilla();
         List<String> nombresSillas = new ArrayList<>();
@@ -139,6 +142,7 @@ public class frmBoleto extends javax.swing.JFrame {
         txtMesa.setText(mesa);
         txtSilla.setText(String.join(", ", nombresSillas)); //Solo los nombres de las sillas
         txtCosto.setText(String.valueOf(costoTotal));
+        txtMitad.setText("$" + mitadCosto);
     }
     
     
@@ -190,6 +194,7 @@ public class frmBoleto extends javax.swing.JFrame {
         double cincuentaPorCiento = totalCosto / 2;
 
         String input = txtImporte.getText();
+        
 
         if (input == null || input.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El campo de importe no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -339,7 +344,7 @@ public class frmBoleto extends javax.swing.JFrame {
             }
             
             borrarDts();
-            this.dispose();
+            regresar();
             
         } else {
             JOptionPane.showMessageDialog(null, 
@@ -356,6 +361,14 @@ public class frmBoleto extends javax.swing.JFrame {
         pdf.borrarDatos();
         dataSillas.borrarDatos();
         dataSillas.borrarCantidadSillas();
+    }
+    
+    public void regresar(){
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmPosadaMTY Cajero = new frmPosadaMTY();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+        this.dispose();
     }
 
     
@@ -384,6 +397,7 @@ public class frmBoleto extends javax.swing.JFrame {
         txtSilla = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txtMitad = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         txtOrigen = new javax.swing.JTextField();
         txtGrupo = new javax.swing.JTextField();
@@ -473,6 +487,9 @@ public class frmBoleto extends javax.swing.JFrame {
 
         jLabel3.setText("invitado/s");
 
+        txtMitad.setEditable(false);
+        txtMitad.setBorder(javax.swing.BorderFactory.createTitledBorder("50%"));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -494,9 +511,12 @@ public class frmBoleto extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtZona)
                         .addComponent(txtMesa)
-                        .addComponent(txtCosto)
                         .addComponent(dtVigencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(txtImporte))
+                        .addComponent(txtImporte)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtMitad)))
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -516,8 +536,9 @@ public class frmBoleto extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMitad, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -634,7 +655,7 @@ public class frmBoleto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -710,6 +731,7 @@ public class frmBoleto extends javax.swing.JFrame {
     private javax.swing.JTextField txtGrupo;
     private javax.swing.JTextField txtImporte;
     private javax.swing.JTextField txtMesa;
+    private javax.swing.JTextField txtMitad;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumSocio;
     private javax.swing.JTextField txtOrigen;
