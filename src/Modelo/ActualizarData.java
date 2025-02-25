@@ -221,7 +221,7 @@ public class ActualizarData {
 
         // Verificar si hay datos en al menos uno de los arreglos antes de ejecutar las consultas
         if ((idMesas == null || idMesas.length == 0) || (idSillas == null || idSillas.length == 0)) {
-            System.out.println("No hay mesas ni sillas para actualizar.");
+            //System.out.println("No hay mesas ni sillas para actualizar.");
             return; // Si ninguno de los dos arreglos tiene datos, se sale del método.
         }
 

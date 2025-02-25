@@ -113,7 +113,7 @@ public class SillasApartadasData {
     
     
     
-    public SillasApartadas datosxSocioBoleto(int ori, int socio){
+    public SillasApartadas datosxSocioBoleto(int ori, int grup, int socio){
         
         String sucursalCajero = lg.getSucursal();
         
@@ -132,7 +132,7 @@ public class SillasApartadasData {
                                 "JOIN tbl_mesas ON tbl_boletos.idMesa = tbl_mesas.idMesa " +
                                 "JOIN tbl_sillas ON tbl_boletos.idSilla = tbl_sillas.idSilla " +
                                 "JOIN tbl_estado_sillas ON tbl_boletos.idEstado = tbl_estado_sillas.idEstado " +
-                                "WHERE tbl_boletos.NumSocio = ? AND tbl_boletos.Origen = ? " + 
+                                "WHERE tbl_boletos.NumSocio = ? AND tbl_boletos.Grupo = ? AND tbl_boletos.Origen = ? " + 
                                 "AND tbl_estado_sillas.EstadoSilla = 'Separado' AND tbl_boletos.OrigenUsuario = ? " +
                                 "ORDER BY tbl_boletos.Costo DESC;";
         
@@ -141,8 +141,9 @@ public class SillasApartadasData {
             con = cn.getConnection(); // Obtener conexión
             ps = con.prepareStatement(datosBoletos); // Preparar consulta
             ps.setInt(1, socio);
-            ps.setInt(2, ori);
-            ps.setString(3, sucursalCajero);
+            ps.setInt(2, grup);
+            ps.setInt(3, ori);
+            ps.setString(4, sucursalCajero);
             rs = ps.executeQuery(); // Ejecutar consulta
 
             // Limpiar lista de mesas antes de agregar nuevas (si es necesario)

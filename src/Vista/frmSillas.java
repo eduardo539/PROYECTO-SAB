@@ -426,12 +426,12 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
         btnCancelar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -508,6 +508,7 @@ public class frmSillas extends javax.swing.JFrame {
         lblCantiSillas.setText("Label-Cantidad-Sillas");
         jPanel2.add(lblCantiSillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 354, -1, -1));
 
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
         jMenu1.setText("Ayuda");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N

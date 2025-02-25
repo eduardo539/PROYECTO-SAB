@@ -33,6 +33,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
     public frmActualizarContra() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     /**
