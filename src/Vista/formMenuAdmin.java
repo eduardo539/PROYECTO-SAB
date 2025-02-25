@@ -39,10 +39,33 @@ public class formMenuAdmin extends javax.swing.JFrame {
     public formMenuAdmin() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
+        
+        // En el constructor de tu JFrame Form
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
+        
         // funcion que manda a llamar a los datos una vez cargada el form menu admin
         mostrarDatos();
         barraEstado ();
     }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        frmMenuSistemas Sistemas = new frmMenuSistemas();
+        Sistemas.setLocationRelativeTo(null);
+        Sistemas.setVisible(true);
+    }
+    
     //SUBIENDO EL ULTIMO CAMBIO DE FORMNA YA COMPLETA EN EL APARTADO DE MENU ADMIN
     
     public void barraEstado(){

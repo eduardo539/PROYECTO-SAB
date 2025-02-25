@@ -3,6 +3,7 @@ package Vista;
 import FormulariosAyuda.Operaciones.AyudaVentasXSocios;
 import Modelo.Conexion;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,6 +34,25 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmMenuOperaciones operaciones = new frmMenuOperaciones();
+        operaciones.setLocationRelativeTo(null);
+        operaciones.setVisible(true);
     }
     
     public void barraEstado(){
@@ -382,7 +402,13 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         AyudaVentasXSocios Operaciones = new AyudaVentasXSocios();
-        Operaciones.setLocationRelativeTo(null);
+        Operaciones.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Operaciones.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Operaciones.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Operaciones.setLocation(screenWidth - windowWidth, 0);
         Operaciones.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 

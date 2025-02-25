@@ -2,6 +2,7 @@ package Vista;
 
 import FormulariosAyuda.Operaciones.AyudaHomeOperaciones;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,7 +21,25 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         setLocationRelativeTo(null); //Abrir la ventana en el centro de la pantalla
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());   
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        
+        cerrarSesionUsuario();
     }
     
     private void actualizarMensajeBienvenida() {
@@ -43,6 +62,37 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
                 lg.setVisible(true);
             }
         });
+    }
+    
+    public void cerrarSesionUsuario(){
+        try {
+            // Confirmar cierre de sesión
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                    "¿Estás seguro de que deseas cerrar sesión?", 
+                    "Cerrar Sesión", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Limpiar datos de la sesión del usuario
+                cerrarSesion();
+                // Cerrar todas las ventanas abiertas excepto el login
+                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                for (Window window : Window.getWindows()) {
+                    if (window != topFrame) {
+                        window.dispose();
+                    }
+                }
+                // Redirigir a la ventana de inicio de sesión
+                abrirLogin();
+            }
+        } catch (Exception e) {
+            // Manejo de errores en caso de fallo
+            JOptionPane.showMessageDialog(this,
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     private void cerrarSesion() {
@@ -208,11 +258,11 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
                                 .addGap(39, 39, 39)
                                 .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(140, 140, 140)
-                                .addComponent(jLabel5))))
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(jLabel2))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
@@ -274,35 +324,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        try {
-            // Confirmar cierre de sesión
-            int confirm = JOptionPane.showConfirmDialog(this, 
-                    "¿Estás seguro de que deseas cerrar sesión?", 
-                    "Cerrar Sesión", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Limpiar datos de la sesión del usuario
-                cerrarSesion();
-
-                // Cerrar todas las ventanas abiertas excepto el login
-                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-                for (Window window : Window.getWindows()) {
-                    if (window != topFrame) {
-                        window.dispose();
-                    }
-                }
-                // Redirigir a la ventana de inicio de sesión
-                abrirLogin();
-            }
-        } catch (Exception e) {
-            // Manejo de errores en caso de fallo
-            JOptionPane.showMessageDialog(this,
-                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        }
+        cerrarSesionUsuario();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -320,7 +342,13 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         AyudaHomeOperaciones Operaciones = new AyudaHomeOperaciones();
-        Operaciones.setLocationRelativeTo(null);
+        Operaciones.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Operaciones.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Operaciones.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Operaciones.setLocation(screenWidth - windowWidth, 0);
         Operaciones.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 

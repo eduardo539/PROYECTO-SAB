@@ -9,7 +9,9 @@ public class AyudaHomeOperaciones extends javax.swing.JFrame {
 
     public AyudaHomeOperaciones() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
