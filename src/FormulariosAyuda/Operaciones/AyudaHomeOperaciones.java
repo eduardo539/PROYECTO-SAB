@@ -10,6 +10,7 @@ public class AyudaHomeOperaciones extends javax.swing.JFrame {
     public AyudaHomeOperaciones() {
         initComponents();
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

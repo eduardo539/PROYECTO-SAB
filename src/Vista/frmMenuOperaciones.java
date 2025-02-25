@@ -2,6 +2,7 @@ package Vista;
 
 import FormulariosAyuda.Operaciones.AyudaHomeOperaciones;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -208,11 +209,11 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
                                 .addGap(39, 39, 39)
                                 .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(140, 140, 140)
-                                .addComponent(jLabel5))))
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(jLabel2))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
@@ -320,7 +321,13 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         AyudaHomeOperaciones Operaciones = new AyudaHomeOperaciones();
-        Operaciones.setLocationRelativeTo(null);
+        Operaciones.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Operaciones.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Operaciones.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Operaciones.setLocation(screenWidth - windowWidth, 0);
         Operaciones.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
