@@ -243,8 +243,8 @@
                   <Component id="txtGrupo" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txtSocio" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="txtSaldoDisponible" pref="100" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="txtSaldoDisponible" pref="108" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnBuscar" min="-2" pref="150" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
