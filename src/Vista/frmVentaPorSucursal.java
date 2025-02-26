@@ -106,6 +106,7 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setType(java.awt.Window.Type.UTILITY);
 
         tblReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
