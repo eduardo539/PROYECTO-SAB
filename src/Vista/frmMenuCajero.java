@@ -135,7 +135,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CAJERO");
         setBackground(new java.awt.Color(255, 255, 255));
-        setType(java.awt.Window.Type.UTILITY);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
