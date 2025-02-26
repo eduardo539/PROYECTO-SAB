@@ -131,6 +131,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setType(java.awt.Window.Type.UTILITY);
 
         tblReporteXSucursal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

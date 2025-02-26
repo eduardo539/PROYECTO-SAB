@@ -141,6 +141,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu de Administrador");
         setBackground(new java.awt.Color(220, 231, 237));
+        setType(java.awt.Window.Type.UTILITY);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -242,7 +243,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -253,6 +253,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
+        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setComponentPopupMenu(jPopupMenu2);
         jTablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
