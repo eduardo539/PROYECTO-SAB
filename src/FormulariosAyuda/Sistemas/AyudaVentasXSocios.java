@@ -9,6 +9,7 @@ public class AyudaVentasXSocios extends javax.swing.JFrame {
 
     public AyudaVentasXSocios() {
         initComponents();
+        setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
 
@@ -23,7 +24,6 @@ public class AyudaVentasXSocios extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setType(java.awt.Window.Type.UTILITY);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel1.setText("Ayuda Ventas X Socios SISTEMAS");
