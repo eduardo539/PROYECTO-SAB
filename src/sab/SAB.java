@@ -1,6 +1,7 @@
 package sab;
 
 import Vista.formMenuAdmin;
+import Vista.frmActualizarContra;
 import Vista.frmBoleto;
 import Vista.frmLogin;
 import Vista.frmCajero;
@@ -26,6 +27,7 @@ public class SAB {
         
        
 
+        //frmActualizarContra iniciar = new frmActualizarContra();
         frmLogin iniciar = new frmLogin();
         //frmEnvioPDF iniciar = new frmEnvioPDF();
         //frmSillasSeparadas iniciar = new frmSillasSeparadas();
