@@ -9,6 +9,7 @@ public class AyudaPosadaMonterrey extends javax.swing.JFrame {
 
     public AyudaPosadaMonterrey() {
         initComponents();
+        setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
     

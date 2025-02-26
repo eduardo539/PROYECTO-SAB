@@ -9,6 +9,7 @@ public class AyudaVentasXSucursales extends javax.swing.JFrame {
 
     public AyudaVentasXSucursales() {
         initComponents();
+        setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
 

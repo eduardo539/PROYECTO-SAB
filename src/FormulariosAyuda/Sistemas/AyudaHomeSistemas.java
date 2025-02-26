@@ -9,6 +9,7 @@ public class AyudaHomeSistemas extends javax.swing.JFrame {
 
     public AyudaHomeSistemas() {
         initComponents();
+        setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
         
     }

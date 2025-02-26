@@ -9,6 +9,7 @@ public class AyudaSeleccionSillas extends javax.swing.JFrame {
 
     public AyudaSeleccionSillas() {
         initComponents();
+        setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
 

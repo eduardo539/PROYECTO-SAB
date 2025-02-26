@@ -9,6 +9,7 @@ public class AyudaEnviarPdfManual extends javax.swing.JFrame {
     
     public AyudaEnviarPdfManual() {
         initComponents();
+        setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
 

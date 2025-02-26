@@ -158,20 +158,20 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
 
         txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("Num Socio:"));
 
-        txtFiltrarXUsuario.setBackground(new java.awt.Color(76, 175, 80));
-        txtFiltrarXUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtFiltrarXUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
         txtFiltrarXUsuario.setText("Filtrar por usuario");
+        txtFiltrarXUsuario.setBackground(new java.awt.Color(76, 175, 80));
+        txtFiltrarXUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtFiltrarXUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFiltrarXUsuarioActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(76, 175, 80));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
         jButton1.setText("Mostrar Todo");
+        jButton1.setBackground(new java.awt.Color(76, 175, 80));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

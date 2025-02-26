@@ -63,44 +63,44 @@ public class frmAcercaDe extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         jLabel1.setText("SISTEMA DE ADMINISTRACIÓN DE BOLETOS");
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setText("PROGRAMADORES");
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel5.setText("EDUARDO DOMÍNGUEZ LIBRADO");
+        jLabel5.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-programadores.png"))); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel7.setText("EDUARDO HERNÁNDEZ HERNÁNDEZ");
+        jLabel7.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel8.setText("DIRECCIÓN DEL PROYECTO");
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/desarrollo_project1.png"))); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel10.setText("ING. JOSÉ CECILIO GOMEZ GALDAMEZ");
+        jLabel10.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/desarrollo_project1.png"))); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel12.setText("ING. EDSON MORENO CLEMENTE");
+        jLabel12.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/desarrollo_project2.png"))); // NOI18N
 
-        jLabel14.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel14.setText("ING. AMAIRANI HERNÁNDEZ DE LA CRUZ");
+        jLabel14.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/desarrollo_project1.png"))); // NOI18N
 
-        jLabel16.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel16.setText("ING. ADAIR GUTIERREZ VITE");
+        jLabel16.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");

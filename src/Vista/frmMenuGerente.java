@@ -144,29 +144,29 @@ public class frmMenuGerente extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setText("BIENVENIDO AL SAB");
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("SISTEMA DE ADMINISTRACIÓN DE BOLETOS");
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("GERENTE");
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("DATOS DEL USUARIO");
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("USUARIO:");
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("NOMBRE:");
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jlUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jlUsuario.setText(".");
+        jlUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jlNombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jlNombre.setText(".");
+        jlNombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/perfil_usuarioss.png"))); // NOI18N
 
@@ -194,9 +194,9 @@ public class frmMenuGerente extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jMenuItem3.setText("Cerrar Sesión");
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);

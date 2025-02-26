@@ -9,6 +9,7 @@ public class AyudaVentasTotales extends javax.swing.JFrame {
 
     public AyudaVentasTotales() {
         initComponents();
+        setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
 

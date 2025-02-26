@@ -16,6 +16,25 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`eventos` /*!40100 DEFAULT CHARACTER SET
 
 USE `eventos`;
 
+/*Table structure for table `saldosocio` */
+
+DROP TABLE IF EXISTS `saldosocio`;
+
+CREATE TABLE `saldosocio` (
+  `idSaldo` int(11) NOT NULL AUTO_INCREMENT,
+  `Origen` int(11) NOT NULL,
+  `Grupo` int(11) NOT NULL,
+  `Socio` int(11) NOT NULL,
+  `Saldo` double NOT NULL,
+  PRIMARY KEY (`idSaldo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `saldosocio` */
+
+LOCK TABLES `saldosocio` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `tbl_boletos` */
 
 DROP TABLE IF EXISTS `tbl_boletos`;
@@ -52,7 +71,7 @@ CREATE TABLE `tbl_boletos` (
   CONSTRAINT `NumSocio` FOREIGN KEY (`idMesa`) REFERENCES `tbl_mesas` (`idMesa`),
   CONSTRAINT `Origen` FOREIGN KEY (`idEstado`) REFERENCES `tbl_estado_sillas` (`idEstado`),
   CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tbl_boletos` */
 
@@ -180,7 +199,7 @@ CREATE TABLE `tbl_usuarios` (
 
 LOCK TABLES `tbl_usuarios` WRITE;
 
-insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`) values (100,'Eduardo Hernandez Hernandez','f83eb54af143e1c220d48cbff2675a4e','2025-02-01',1),(540,'Perla','a392100d5a3f7450afa6e8c223d92609','2025-03-08',1),(630,'MARIA ELENA ALVAREZ RAMOS','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4),(697,'Eduardo Dominguez librado','8d0b67f36735af8508e2d72d7aef96b9','2025-02-25',4),(709,'MONICA VALLEJO MARTINEZ','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4);
+insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`) values (113,'Jose Cecilio Gomez Galdamez','5433224b905c997c1f833b046c8a76fe','2025-03-19',4),(539,'Eduardo Dominguez','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-03-26',4),(540,'Perla','a392100d5a3f7450afa6e8c223d92609','2025-03-08',1),(630,'MARIA ELENA ALVAREZ RAMOS','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4),(697,'ADAIR GUTIERREZ VITE','459cd3fb5709975eebcfa2778cfba5e5','2025-03-19',2),(701,'Eduardo Hernandez Hernandez','c65aea2c82a552d83ef8f02d8845ab2d','2025-03-20',1),(709,'MONICA VALLEJO MARTINEZ','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4);
 
 UNLOCK TABLES;
 

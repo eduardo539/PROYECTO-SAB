@@ -181,14 +181,14 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("Crear usuarios");
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/crear_usuarios_sistemas.png"))); // NOI18N
         btnRegistrar.setText("Registrar Usuario");
+        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
         btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -242,7 +242,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -253,6 +252,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
+        jTablaDatos.setBackground(new java.awt.Color(240, 240, 240));
         jTablaDatos.setComponentPopupMenu(jPopupMenu2);
         jTablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

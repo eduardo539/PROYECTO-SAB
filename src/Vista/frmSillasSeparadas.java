@@ -53,7 +53,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     double totalCosto = 0.0;
     double totalRestante = 0.0;
     public int totalSeleccionados = 0;
+    
     double saldo = 0.0;
+    double saldoSocioMySQL = 0.0;
     double saldoDisponible = 0.0;
 
     public frmSillasSeparadas() {
@@ -80,6 +82,12 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     
     // Método que ejecuta funciones previas antes de cerrar la ventana
     private void cerrarVentanaX() {
+        apart.borrarDatos();
+        cb.borrarDatos();
+        
+        saldoDisp.limpiarDatos();
+        saldoDisp.limpiarDatos2();
+        
         // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
         frmCajero cajero = new frmCajero();
         cajero.setLocationRelativeTo(null);
@@ -279,6 +287,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, costo, foliosSeleccionados);
         
         saldoDisp = consulta.saldoDisponibleXSocio(numOrigen, numGrupo, numSocio);
+        saldoDisp = consulta.saldoDiponibleBDLocal(numOrigen, numGrupo, numSocio);
         
         saldo = saldoDisp.getSaldo();
         
@@ -343,13 +352,16 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         }
 
         totalRestante = totalCosto - totalImporte;
+        
+        saldoDisponible = saldo - totalImporte;
+        
         // Imprimir la información en una sola línea por campo
         txtSillas.setText("" + sillas);
         txtTotal.setText(String.format("$" + "%.2f", totalCosto)); // Mostrar el total formateado
         txtTotalImporte.setText(String.format("$" + "%.2f", totalImporte));
         txtAdeudo.setText(String.format("$" + "%.2f", totalRestante));
-        
-        saldoDisponible = saldo - totalImporte;
+        txtSaldoDisponible.setText(String.format("$" + "%.2f", saldoDisponible));
+
         
         // Convertir la primera vigencia a LocalDate y asignarla a dtNewVigencia
         if (!primeraVigencia.isEmpty()) {
@@ -362,8 +374,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         }
         cd.boletosSeleccionados(foliosArray);
         
-        System.out.println("Saldo: $" + saldoDisp.getSaldo());
-        System.out.println("Dispone: $" + saldoDisponible);
+        //System.out.println("Saldo: $" + saldoDisp.getSaldo());
+        //System.out.println("Dispone: $" + saldoDisponible);
     }
     
     public void actualizarEstadoSillas() {
@@ -441,10 +453,12 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             Folios[index++] = boleto.getFolio();
             idSillas[index2++] = boleto.getIdsilla();
         }
-        
-        //saldoDisp = consulta.saldoDisponibleXSocio(origen, grupo, socio);
-        saldo = saldoDisp.getSaldo();
 
+        saldoDisp = consulta.saldoDisponibleXSocio(origen, grupo, socio);
+        saldo = saldoDisp.getSaldo();
+        saldoSocioMySQL = saldoDisp.getSaldoL();
+
+        double sumaSaldoSocioMySQL = saldoSocioMySQL + newImporte;
         
         double importeActualizado = totalImporte + newImporte;
         double importeDividido = importeActualizado / totalSeleccionados;
@@ -453,16 +467,17 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             case "Abonar":
                 int estado1 = 2;
                 if(newImporte > totalRestante){
-                    JOptionPane.showMessageDialog(null, "El importe no puede ser mayor a el adeudo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El importe no puede ser mayor a el adeudo.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 else if(newImporte == totalRestante){
-                    JOptionPane.showMessageDialog(null, "Si desea cubrir el monto restante en su totalidad seleccione 'Pagar'.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Si desea cubrir el monto restante en su totalidad seleccione 'Pagar'.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 else{
-                    if(newImporte <= saldoDisponible){
+                    if(sumaSaldoSocioMySQL <= saldo){
                         actualiza.actualizarSillasSeparadas(Folios, estado1, importeDividido, newVigencia);
+                        actualiza.actualizarSaldoSocio(sumaSaldoSocioMySQL, origen, grupo, socio);
                         limpiarCamposCompra();
                     }else{
                         JOptionPane.showMessageDialog(null, "El saldo del socio es insuficiente para poder Abonar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -473,9 +488,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             case "Pagar":
                 int estado2 = 3;
                 if(totalRestante == newImporte){
-                    if(newImporte <= saldoDisponible){
+                    if(sumaSaldoSocioMySQL <= saldo){
                         actualiza.actualizarSillasSeparadas(Folios, estado2, importeDividido, newVigencia);
                         actualiza.actualizaEstaSillaxFila(estado2, idSillas);
+                        actualiza.actualizarSaldoSocio(sumaSaldoSocioMySQL, origen, grupo, socio);
                         pdf = consulta.datosGenerarBoleto(origen, grupo, socio, idSillas);
                         GenerarBoleto bol = new GenerarBoleto();
                         bol.boletoPDF();
@@ -485,7 +501,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                         return;
                     }
                 }else{
-                    JOptionPane.showMessageDialog(null, "Para liquidar la deuda debe ingresar el monto restante.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Para liquidar la deuda debe ingresar el monto restante.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 break;
@@ -520,6 +536,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                         "Por favor, seleccione el archivo y defina el correo manualmente en el siguiente formulario.", 
                         "Error", JOptionPane.ERROR_MESSAGE);
 
+                    limpiarCamposCompra();
+                    
                     // Abrir la vista EnviarPDF.java para el envío manual
                     frmEnvioPDF enviarPDFManual = new frmEnvioPDF();
                     enviarPDFManual.setLocationRelativeTo(null);
@@ -531,17 +549,26 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             }
         }
         
+        limpiarCamposCompra();
+        
     }
     
     
     public void limpiarCamposCompra(){
         datosTabla();
         
+        nomB.limpiarDatos();
+        
+        cb.borrarDatos();
+        saldoDisp.limpiarDatos();
+        saldoDisp.limpiarDatos2();
+        
         apart.borrarDatos();
         pdf.borrarDatos();
         
         
         // Limpiar el campo txtSocio
+        txtSaldoDisponible.setText("");
         SelectCombo.setSelectedIndex(0);
         txtOrigen.setText("");
         txtSocio.setText("");
@@ -570,6 +597,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         txtOrigen = new javax.swing.JTextField();
         txtGrupo = new javax.swing.JTextField();
+        txtSaldoDisponible = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBoletos = new javax.swing.JTable();
@@ -592,7 +620,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sillas Separadas");
-        setType(java.awt.Window.Type.UTILITY);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -672,18 +699,23 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         txtGrupo.setText("10");
         txtGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupo"));
 
+        txtSaldoDisponible.setEditable(false);
+        txtSaldoDisponible.setBorder(javax.swing.BorderFactory.createTitledBorder("Saldo Disponible"));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSaldoDisponible, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -691,14 +723,15 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtGrupo))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtGrupo)))
+                .addComponent(txtSaldoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Sillas Separadas"));
@@ -841,9 +874,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         });
         jMenu1.add(jmiVolverInicio);
 
-        jmiCerrarSesion.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jmiCerrarSesion.setText("Cerrar Sesión");
+        jmiCerrarSesion.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiCerrarSesionActionPerformed(evt);
@@ -904,6 +937,12 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVolverInicioActionPerformed
+        apart.borrarDatos();
+        cb.borrarDatos();
+        
+        saldoDisp.limpiarDatos();
+        saldoDisp.limpiarDatos2();
+        
         frmCajero cajero = new frmCajero();
         cajero.setLocationRelativeTo(null);
         cajero.setVisible(true);
@@ -945,8 +984,11 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         apart.borrarDatos();
         cb.borrarDatos();
+        saldoDisp.limpiarDatos();
+        saldoDisp.limpiarDatos2();
         
         // Limpiar el campo txtSocio
+        txtSaldoDisponible.setText("");
         SelectCombo.setSelectedIndex(0);
         txtOrigen.setText("");
         txtSocio.setText("");
@@ -1135,6 +1177,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private javax.swing.JTextField txtGrupo;
     private javax.swing.JTextField txtNewImporte;
     private javax.swing.JTextField txtOrigen;
+    private javax.swing.JTextField txtSaldoDisponible;
     private javax.swing.JTextField txtSillas;
     private javax.swing.JTextField txtSocio;
     private javax.swing.JTextField txtTotal;
