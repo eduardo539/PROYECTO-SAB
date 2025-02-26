@@ -79,6 +79,8 @@ public class frmBoleto extends javax.swing.JFrame {
         
         dataSillas.borrarDatos();
         dataSillas.borrarCantidadSillas();
+        saldoDisp.limpiarDatos();
+        saldoDisp.limpiarDatos2();
     }
     
     
@@ -105,6 +107,7 @@ public class frmBoleto extends javax.swing.JFrame {
                 datos = socioData.consultaSocio(origen, grupo, socio);
                 
                 saldoDisp = consulta.saldoDisponibleXSocio(origen, grupo, socio);
+                saldoDisp = consulta.saldoDiponibleBDLocal(origen, grupo, socio);
 
                 System.out.println("Saldo: $" + saldoDisp.getSaldo());
                 
@@ -191,6 +194,7 @@ public class frmBoleto extends javax.swing.JFrame {
         String Mesa = sE.getNomMesa();
         double Costo = sE.getCosto();
         double saldoDisponible = saldoDisp.getSaldo();
+        double saldoMySQL = saldoDisp.getSaldoL();
         int estatusSilla = 0;
         double importe = 0.0;
         
@@ -249,6 +253,7 @@ public class frmBoleto extends javax.swing.JFrame {
         // Mostrar cuadro de diálogo con opciones
         int confirmacion = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar compra", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
+        double sumaSaldoMySQL = saldoMySQL + importe;
         importeDividido = importe / cantidadSillas;
         
         if (confirmacion == JOptionPane.YES_OPTION) {
@@ -256,12 +261,12 @@ public class frmBoleto extends javax.swing.JFrame {
             switch (comboBox) {
                 case "Separar":
                     if (importe >= cincuentaPorCiento && importe < totalCosto) {
-                        if(importeDividido <= saldoDisponible){
+                        if(sumaSaldoMySQL <= saldoDisponible){
                             estatusSilla = 2;
                         }else{
                             JOptionPane.showMessageDialog(null, 
                                 "El saldo del socio es insuficiente para separar las Sillas", 
-                                "Saldo insuficiente", JOptionPane.WARNING_MESSAGE);
+                                "Saldo insuficiente", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     } else if(importe >= totalCosto){
@@ -279,12 +284,12 @@ public class frmBoleto extends javax.swing.JFrame {
 
                 case "Comprar":
                     if (importe == totalCosto) {
-                        if(totalCosto <= saldoDisponible){
+                        if(sumaSaldoMySQL <= saldoDisponible){
                             estatusSilla = 3;
                         }else{
                             JOptionPane.showMessageDialog(null, 
                                 "El saldo del socio es insuficiente para comprar las Sillas", 
-                                "Saldo insuficiente", JOptionPane.WARNING_MESSAGE);
+                                "Saldo insuficiente", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     } else {
@@ -311,6 +316,15 @@ public class frmBoleto extends javax.swing.JFrame {
             if(datInsert != true){
                 JOptionPane.showMessageDialog(null, 
                         "Error al capturar los datos para el boleto, Contactar a Soporte.", 
+                        "Alerta", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            boolean actualizarSaldo = actualiza.actualizarSaldoSocio(sumaSaldoMySQL, origen, grupo, socio);
+
+            if(actualizarSaldo != true){
+                JOptionPane.showMessageDialog(null, 
+                        "Error al actualizar el saldo del socio, Contactar a Soporte.", 
                         "Alerta", JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -373,8 +387,7 @@ public class frmBoleto extends javax.swing.JFrame {
 
             borrarDts();
             regresar();
-                
-            
+
             
         } else {
             JOptionPane.showMessageDialog(null, 
@@ -391,6 +404,8 @@ public class frmBoleto extends javax.swing.JFrame {
         pdf.borrarDatos();
         dataSillas.borrarDatos();
         dataSillas.borrarCantidadSillas();
+        saldoDisp.limpiarDatos();
+        saldoDisp.limpiarDatos2();
     }
     
     public void regresar(){
@@ -438,7 +453,6 @@ public class frmBoleto extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setType(java.awt.Window.Type.UTILITY);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Posada"));
         jPanel1.setForeground(new java.awt.Color(240, 240, 240));
@@ -706,6 +720,8 @@ public class frmBoleto extends javax.swing.JFrame {
         
         dataSillas.borrarDatos();
         dataSillas.borrarCantidadSillas();
+        saldoDisp.limpiarDatos();
+        saldoDisp.limpiarDatos2();
         
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed

@@ -173,6 +173,8 @@ public class ActualizarData {
             } else {
                 JOptionPane.showMessageDialog(null, "Sillas pagadas/liquidadas correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }
+            
+            cn.closeConnection();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar las sillas, ponerse en contacto con el administrador: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -196,6 +198,9 @@ public class ActualizarData {
             ps = con.prepareStatement(actualizaMesa);
             ps.setInt(1, idMesa);
             ps.executeUpdate(); // Se usa executeUpdate() en lugar de executeQuery()
+            
+            cn.closeConnection();
+            
         } catch (SQLException e) {
             // Mostrar error en un cuadro de diálogo
             JOptionPane.showMessageDialog(null, 
@@ -303,6 +308,55 @@ public class ActualizarData {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    
+    
+    public boolean actualizarSaldoSocio(double saldo, int origen, int grupo, int socio){
+        
+        String actualizar = "UPDATE saldoSocio " +
+                                "SET Saldo = ?" +
+                                "WHERE Origen = ? AND " +
+                                "Grupo = ? AND " +
+                                "Socio = ?;";
+        
+        int filasAfectadas = 0;
+        
+        try {
+            // Obtener conexión
+            con = cn.getConnection();
+
+            // Preparar la sentencia SQL
+            ps = con.prepareStatement(actualizar);
+            ps.setDouble(1, saldo); // Establecer el nuevo saldo
+            ps.setInt(2, origen);   // Establecer el origen
+            ps.setInt(3, grupo);    // Establecer el grupo
+            ps.setInt(4, socio);    // Establecer el socio
+
+            // Ejecutar la actualización
+            filasAfectadas = ps.executeUpdate(); // Ejecuta la actualización
+
+            // Si filasAfectadas es mayor a 0, la actualización fue exitosa
+            return filasAfectadas > 0;  // Devuelve true si se actualizó al menos una fila, false si no
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al actualizar el saldo del socio, Contactar al administrador.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+            return false;  // Devuelve false si hubo un error
+        } finally {
+            // Cerrar recursos
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, 
+                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
     }
 
 

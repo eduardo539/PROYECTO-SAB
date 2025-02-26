@@ -311,8 +311,6 @@ public class ConsultasData {
         
         SaldoDisponible sd = SaldoDisponible.getInstancia();
         
-        sd.limpiarDatos();
-        
         String sql = "select idorigen, idgrupo, idsocio, saldo " +
                     "from auxiliares " +
                     "where idorigen = ? and " +
@@ -321,6 +319,7 @@ public class ConsultasData {
                     "idproducto = 709 and " +
                     "saldo >= 0;";
         
+        sd.limpiarDatos();
         
         try {
             con = cn2.getConnection(); // Obtener conexión
@@ -360,11 +359,80 @@ public class ConsultasData {
             }
         }
         
-        
-        
         return sd;
     }
     
+    
+    public SaldoDisponible saldoDiponibleBDLocal(int origen, int grupo, int socio){
+        
+        SaldoDisponible saldo = SaldoDisponible.getInstancia();
+        
+        String obtenerData = "SELECT Origen, Grupo, Socio, Saldo " +
+                                "FROM saldoSocio " +
+                                "WHERE Origen = ? AND " +
+                                "Grupo = ? AND " +
+                                "Socio = ?;";
+        
+        saldo.limpiarDatos2();
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(obtenerData); // Preparar consulta
+            ps.setInt(1, origen);
+            ps.setInt(2, grupo);
+            ps.setInt(3, socio);
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            if(rs.next()){
+                // Iterar sobre el resultado de la consulta
+                do {  // do-while para evitar la llamada doble a rs.next()
+                    saldo = SaldoDisponible.getInstancia();
+
+                    saldo.setOrigenL(rs.getInt("Origen"));
+                    saldo.setGrupoL(rs.getInt("Grupo"));
+                    saldo.setSocioL(rs.getInt("Socio"));
+                    saldo.setSaldoL(rs.getDouble("Saldo"));
+
+                } while (rs.next());  // Iterar mientras haya más resultados
+                
+            }else{
+                // Se debe realizar una inserción de datos
+                System.out.println("No se encontró ningún registro");
+
+                // Preparar la consulta de inserción
+                String insertarData = "INSERT INTO saldoSocio (Origen, Grupo, Socio, Saldo) VALUES (?, ?, ?, ?)";
+                ps = con.prepareStatement(insertarData);
+                ps.setInt(1, origen);
+                ps.setInt(2, grupo);
+                ps.setInt(3, socio);
+                ps.setDouble(4, 0); // Puedes asignar un saldo predeterminado aquí si es necesario
+
+                // Ejecutar la inserción
+                ps.executeUpdate();
+                System.out.println("Datos insertados exitosamente.");
+            }
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+        return saldo;
+    }
     
 }
 

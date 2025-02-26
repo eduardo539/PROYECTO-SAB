@@ -138,7 +138,6 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1200, 500));
-        setType(java.awt.Window.Type.UTILITY);
 
         tblReporteXBoletosXUsuariosXOperacionesGenerales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
