@@ -48,8 +48,7 @@ public class MesasData {
             }
             
             cn.closeConnection();
-
-<<<<<<< HEAD
+            
         } catch (SQLException e) { 
             System.out.println("Error al ejecutar la consulta: " + e.getMessage()); 
         } finally { 
@@ -61,23 +60,7 @@ public class MesasData {
                 System.out.println("Error al cerrar recursos: " + e.getMessage()); 
             } 
         } 
-=======
-        } catch (SQLException e) {
-            // Mostrar error en un cuadro de diálogo
-            JOptionPane.showMessageDialog(null, 
-                    "Error al obtener los datos de las Mesas, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
-                    "Error de Base de Datos", 
-                    JOptionPane.ERROR_MESSAGE);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + e.getMessage());
-            }
-        }
->>>>>>> c19593762cc05d00f57a53289bd7538d96a96d16
+
 
         return m; // Retornar la instancia con los datos actualizados
     }
