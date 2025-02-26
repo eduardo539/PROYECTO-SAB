@@ -109,7 +109,12 @@ public class frmBoleto extends javax.swing.JFrame {
                 saldoDisp = consulta.saldoDisponibleXSocio(origen, grupo, socio);
                 saldoDisp = consulta.saldoDiponibleBDLocal(origen, grupo, socio);
 
-                System.out.println("Saldo: $" + saldoDisp.getSaldo());
+                double saldoPostgress = saldoDisp.getSaldo();
+                double saldoMySQL = saldoDisp.getSaldoL();
+                        
+                double saldoRestante = saldoPostgress - saldoMySQL;
+                
+                //System.out.println("Saldo: $" + saldoDisp.getSaldo());
                 
                 String NumSocio = String.valueOf(datos.getOrigen()) + "-" + 
                                     String.valueOf(datos.getGrupo()) + "-" + 
@@ -122,6 +127,7 @@ public class frmBoleto extends javax.swing.JFrame {
                 txtTelefono.setText(datos.getNumCelular());
                 txtSucursal.setText(datos.getSucursal());
                 txtCorreo.setText(datos.getCorreo());
+                txtSaldoDisponible.setText("$" + saldoRestante);
             } catch (NumberFormatException e) {
                 // Si ocurre un error al convertir a entero (por ejemplo, el usuario ingresó texto no numérico)
                 JOptionPane.showMessageDialog(null, "Por favor ingrese solo números válidos en los campos de origen, grupo y socio.", 
@@ -448,6 +454,7 @@ public class frmBoleto extends javax.swing.JFrame {
         txtGrupo = new javax.swing.JTextField();
         txtSocio = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        txtSaldoDisponible = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -644,20 +651,25 @@ public class frmBoleto extends javax.swing.JFrame {
             }
         });
 
+        txtSaldoDisponible.setEditable(false);
+        txtSaldoDisponible.setBorder(javax.swing.BorderFactory.createTitledBorder("Saldo Disponible"));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtSaldoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -669,6 +681,10 @@ public class frmBoleto extends javax.swing.JFrame {
                     .addComponent(txtSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtSaldoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
@@ -786,6 +802,7 @@ public class frmBoleto extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumSocio;
     private javax.swing.JTextField txtOrigen;
+    private javax.swing.JTextField txtSaldoDisponible;
     private javax.swing.JTextField txtSilla;
     private javax.swing.JTextField txtSocio;
     private javax.swing.JTextField txtSucursal;
