@@ -9,6 +9,7 @@ import Modelo.LoginData;
 import Modelo.Sillas;
 import Modelo.SillasData;
 import Modelo.SillasEstatusVigencia;
+import java.awt.Window;
 import javax.swing.JFrame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -50,6 +51,7 @@ public class frmLogin extends javax.swing.JFrame {
         actualizaSillasxVigencia();
         
         setResizable(false);
+        
     }
     
     public void actualizaSillasxVigencia(){
@@ -235,21 +237,22 @@ public class frmLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        setType(java.awt.Window.Type.UTILITY);
 
         jPanel1.setBackground(new java.awt.Color(220, 231, 237));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Icono-login.png"))); // NOI18N
 
-        txtUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese usuario:"));
         txtUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese usuario:"));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Icono_user.png"))); // NOI18N
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Key.png"))); // NOI18N
 
-        txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder("Contraseña"));
         txtPassword.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder("Contraseña"));
         txtPassword.setPreferredSize(new java.awt.Dimension(6, 28));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

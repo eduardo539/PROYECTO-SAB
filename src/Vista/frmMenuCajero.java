@@ -77,8 +77,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
 
-        // Log de actividad (opcional)
-        System.out.println("Sesión cerrada exitosamente.");
+        
     }
     
     
@@ -99,6 +98,9 @@ public class frmMenuCajero extends javax.swing.JFrame {
                     }
                 }
                 abrirLogin();
+            }else {
+                // Si el usuario elige "No", cancelamos el cierre de la ventana
+                setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);   // Evita que la ventana se cierre
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
@@ -133,6 +135,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CAJERO");
         setBackground(new java.awt.Color(255, 255, 255));
+        setType(java.awt.Window.Type.UTILITY);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 

@@ -85,6 +85,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
                 }
                 // Redirigir a la ventana de inicio de sesión
                 abrirLogin();
+            }else {
+                // Si el usuario elige "No", cancelamos el cierre de la ventana
+                setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);   // Evita que la ventana se cierre
             }
         } catch (Exception e) {
             // Manejo de errores en caso de fallo
