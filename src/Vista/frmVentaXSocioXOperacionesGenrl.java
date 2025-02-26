@@ -3,6 +3,7 @@ package Vista;
 import FormulariosAyuda.Operaciones.AyudaVentasXSocios;
 import Modelo.Conexion;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,6 +34,25 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmMenuOperaciones operaciones = new frmMenuOperaciones();
+        operaciones.setLocationRelativeTo(null);
+        operaciones.setVisible(true);
     }
     
     public void barraEstado(){
@@ -62,13 +82,6 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
         
-        //barraEstado = new javax.swing.JPanel();
-        lblUsuario = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblVersionJava = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblVersionOS = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
     }
     
     private void abrirLogin() {
@@ -142,8 +155,18 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro venta de boletos por socio de todas las sucursales"));
 
         txtOrigen.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen:"));
+        txtOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOrigenActionPerformed(evt);
+            }
+        });
 
         txtGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupo:"));
+        txtGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGrupoActionPerformed(evt);
+            }
+        });
 
         txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("NumSocio:"));
         txtNumSocio.addActionListener(new java.awt.event.ActionListener() {
@@ -152,20 +175,20 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(76, 175, 80));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
         jButton1.setText("Filtrar por usuario");
+        jButton1.setBackground(new java.awt.Color(76, 175, 80));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(76, 175, 80));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
         jButton2.setText("Mostrar todo");
+        jButton2.setBackground(new java.awt.Color(76, 175, 80));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -258,9 +281,9 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-volver.png"))); // NOI18N
         jMenuItem1.setText("Regresar");
+        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -268,9 +291,9 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
         jMenuItem2.setText("Cerrar Sesión");
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -284,9 +307,9 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem3.setText("Info...");
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -316,7 +339,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -379,9 +402,23 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         AyudaVentasXSocios Operaciones = new AyudaVentasXSocios();
-        Operaciones.setLocationRelativeTo(null);
+        Operaciones.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Operaciones.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Operaciones.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Operaciones.setLocation(screenWidth - windowWidth, 0);
         Operaciones.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void txtGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGrupoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGrupoActionPerformed
+
+    private void txtOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrigenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOrigenActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -439,7 +476,6 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         txtNumSocio.setText("");
     } 
 
-    
     private void cargarUsuariosConBoletosComprados() {
         // Consulta SQL para obtener los datos (sin filtro de sucursal)
         String sql = "SELECT " +

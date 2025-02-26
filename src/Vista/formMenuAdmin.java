@@ -4,6 +4,7 @@ import FormulariosAyuda.Sistemas.AyudaUsuarios;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.security.MessageDigest;
 import java.sql.Connection;
@@ -38,13 +39,37 @@ public class formMenuAdmin extends javax.swing.JFrame {
     public formMenuAdmin() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
+        
+        // En el constructor de tu JFrame Form
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
+        
         // funcion que manda a llamar a los datos una vez cargada el form menu admin
         mostrarDatos();
-        barraStatus ();
+        barraEstado ();
     }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        frmMenuSistemas Sistemas = new frmMenuSistemas();
+        Sistemas.setLocationRelativeTo(null);
+        Sistemas.setVisible(true);
+    }
+    
     //SUBIENDO EL ULTIMO CAMBIO DE FORMNA YA COMPLETA EN EL APARTADO DE MENU ADMIN
     
-    private void barraStatus () {
+    public void barraEstado(){
+        
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("Usuario: " + lg.getIdusuario());
@@ -67,24 +92,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         }
         else{
-            lblVersionOS.setText("Kernel: NA");
+            lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        //barraEstado = new javax.swing.JPanel();
-        lblUsuario = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblVersionJava = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblVersionOS = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
-
-        // Configurar la barra de estado
-        //barraEstado.setBorder(BorderFactory.createEtchedBorder());
-        //barraEstado.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        // Añadir la barra de estado a la ventana
-        //getContentPane().add(barraEstado, BorderLayout.SOUTH);
-        pack();
-        setLocationRelativeTo(null);
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -307,24 +317,25 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -854,7 +865,13 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void jmiInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInfoActionPerformed
         AyudaUsuarios Ayuda = new AyudaUsuarios();
-        Ayuda.setLocationRelativeTo(null);
+        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Ayuda.setLocation(screenWidth - windowWidth, 0);
         Ayuda.setVisible(true);
     }//GEN-LAST:event_jmiInfoActionPerformed
 

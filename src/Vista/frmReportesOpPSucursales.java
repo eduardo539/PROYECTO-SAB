@@ -4,6 +4,7 @@ import FormulariosAyuda.Operaciones.AyudaVentaXSucursales;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,6 +39,26 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         configurarComboBoxMeses();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
+        
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmMenuOperaciones operaciones = new frmMenuOperaciones();
+        operaciones.setLocationRelativeTo(null);
+        operaciones.setVisible(true);
     }
     
     
@@ -68,13 +89,6 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
         
-        //barraEstado = new javax.swing.JPanel();
-        lblUsuario = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblVersionJava = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
     }
     
     private void abrirLogin() {
@@ -171,11 +185,11 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             }
         });
 
-        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
+        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-pendiente.png"))); // NOI18N
         btnFiltrar.setText("Filtrar por Mes y Año");
         btnFiltrar.setAutoscrolls(true);
+        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
@@ -418,7 +432,13 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         AyudaVentaXSucursales Operaciones = new AyudaVentaXSucursales();
-        Operaciones.setLocationRelativeTo(null);
+        Operaciones.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Operaciones.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Operaciones.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Operaciones.setLocation(screenWidth - windowWidth, 0);
         Operaciones.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 

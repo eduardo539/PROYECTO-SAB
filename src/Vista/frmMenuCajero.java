@@ -18,6 +18,8 @@ public class frmMenuCajero extends javax.swing.JFrame {
     public frmMenuCajero() {
         initComponents();
         
+        //Evitar maximizar la ventana
+        setResizable(false);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
@@ -75,8 +77,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
 
-        // Log de actividad (opcional)
-        System.out.println("Sesión cerrada exitosamente.");
+        
     }
     
     
@@ -97,6 +98,9 @@ public class frmMenuCajero extends javax.swing.JFrame {
                     }
                 }
                 abrirLogin();
+            }else {
+                // Si el usuario elige "No", cancelamos el cierre de la ventana
+                setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);   // Evita que la ventana se cierre
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
@@ -131,6 +135,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CAJERO");
         setBackground(new java.awt.Color(255, 255, 255));
+        setType(java.awt.Window.Type.UTILITY);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
@@ -225,9 +230,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(166, 166, 166)
                                 .addComponent(jLabel4))
                             .addGroup(layout.createSequentialGroup()
@@ -242,7 +244,10 @@ public class frmMenuCajero extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jlNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                                            .addComponent(jlUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                            .addComponent(jlUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(jLabel2))))
                     .addComponent(jLabel8))
                 .addContainerGap(17, Short.MAX_VALUE))
         );

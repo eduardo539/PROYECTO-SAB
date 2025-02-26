@@ -12,6 +12,7 @@ public class frmAcercaDe extends javax.swing.JFrame {
     public frmAcercaDe() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
     }
     
     @SuppressWarnings("unchecked")

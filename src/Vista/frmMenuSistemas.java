@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista;
 
 import FormulariosAyuda.Sistemas.AyudaHomeSistemas;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,7 +19,27 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         initComponents();
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
-        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());   
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
+        
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        
+        cerrarSesionUsuario();
     }
     
     private void actualizarMensajeBienvenida() {
@@ -46,6 +62,40 @@ public class frmMenuSistemas extends javax.swing.JFrame {
                 lg.setVisible(true);
             }
         });
+    }
+    
+    public void cerrarSesionUsuario(){
+        try {
+            // Confirmar cierre de sesión
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                    "¿Estás seguro de que deseas cerrar sesión?", 
+                    "Cerrar Sesión", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Limpiar datos de la sesión del usuario
+                cerrarSesion();
+                // Cerrar todas las ventanas abiertas excepto el login
+                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                for (Window window : Window.getWindows()) {
+                    if (window != topFrame) {
+                        window.dispose();
+                    }
+                }
+                // Redirigir a la ventana de inicio de sesión
+                abrirLogin();
+            }else {
+                // Si el usuario elige "No", cancelamos el cierre de la ventana
+                setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);   // Evita que la ventana se cierre
+            }
+        } catch (Exception e) {
+            // Manejo de errores en caso de fallo
+            JOptionPane.showMessageDialog(this,
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     private void cerrarSesion() {
@@ -83,7 +133,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -134,16 +183,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/bitacoras_usuarios.png"))); // NOI18N
-        jMenuItem4.setText("Bitacoras usuarios");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem4);
 
         jMenuItem8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes_p_sucursal.png"))); // NOI18N
@@ -226,9 +265,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
@@ -245,7 +281,10 @@ public class frmMenuSistemas extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jlUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                                    .addComponent(jlNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(jlNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel2)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -280,39 +319,10 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        try {
-            // Confirmar cierre de sesión
-            int confirm = JOptionPane.showConfirmDialog(this, 
-                    "¿Estás seguro de que deseas cerrar sesión?", 
-                    "Cerrar Sesión", 
-                    JOptionPane.YES_NO_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Limpiar datos de la sesión del usuario
-                cerrarSesion();
-
-                // Cerrar todas las ventanas abiertas excepto el login
-                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-                for (Window window : Window.getWindows()) {
-                    if (window != topFrame) {
-                        window.dispose();
-                    }
-                }
-                // Redirigir a la ventana de inicio de sesión
-                abrirLogin();
-            }
-        } catch (Exception e) {
-            // Manejo de errores en caso de fallo
-            JOptionPane.showMessageDialog(this,
-                "Ocurrió un error al cerrar sesión: " + e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        }
+        cerrarSesionUsuario();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // Crear la ventana de sistemas
         formMenuAdmin sistemas = new formMenuAdmin();
         sistemas.setLocationRelativeTo(null);
         sistemas.setVisible(true);
@@ -320,13 +330,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        frmBitacorasUsuariosPartSistemas Sistemas = new frmBitacorasUsuariosPartSistemas();
-        Sistemas.setLocationRelativeTo(null);
-        Sistemas.setVisible(true);
-        this.dispose(); // Cierra la ventana actual
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         frmAcercaDe acercade = new frmAcercaDe();
         acercade.setLocationRelativeTo(null);
@@ -337,7 +340,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         frmVentaXSucursalesPartSistemas Sistemas = new frmVentaXSucursalesPartSistemas();
         Sistemas.setLocationRelativeTo(null);
         Sistemas.setVisible(true);
-        this.dispose(); // Cierra la ventana actual
+        this.dispose();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -356,8 +359,17 @@ public class frmMenuSistemas extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         AyudaHomeSistemas Ayuda = new AyudaHomeSistemas();
-        Ayuda.setLocationRelativeTo(null);
+        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
+
+        // Establece la posición de la ventana en la esquina superior derecha
+        Ayuda.setLocation(screenWidth - windowWidth, 0);
+
         Ayuda.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     public static void main(String args[]) {
@@ -383,7 +395,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -394,5 +405,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
+    
     
 }

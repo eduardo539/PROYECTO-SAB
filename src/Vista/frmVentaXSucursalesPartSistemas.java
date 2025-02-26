@@ -4,6 +4,7 @@ import FormulariosAyuda.Sistemas.AyudaVentasXSucursales;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Eduardo`s
  */
 
+
 public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private final Conexion conexion;
     
@@ -38,6 +40,26 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         configurarComboBoxMeses();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmMenuSistemas Sistemas = new frmMenuSistemas();
+        Sistemas.setLocationRelativeTo(null);
+        Sistemas.setVisible(true);
     }
     
     private void abrirLogin() {
@@ -253,9 +275,9 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
         jMenuItem3.setText("Info...");
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -275,9 +297,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
         );
@@ -371,9 +391,15 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jtlMesesActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        AyudaVentasXSucursales Sistemas = new AyudaVentasXSucursales();
-        Sistemas.setLocationRelativeTo(null);
-        Sistemas.setVisible(true);
+        AyudaVentasXSucursales Ayuda = new AyudaVentasXSucursales();
+        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
+        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
+        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
+        // Establece la posición de la ventana en la esquina superior derecha
+        Ayuda.setLocation(screenWidth - windowWidth, 0);
+        Ayuda.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
@@ -564,13 +590,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        //barraEstado = new javax.swing.JPanel();
-        lblUsuario = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblVersionJava = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
+
     }
 
     private void limpiarTabla() {

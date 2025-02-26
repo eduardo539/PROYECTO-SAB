@@ -19,6 +19,8 @@ public class ConsultasData {
     ResultSet rs;
     Conexion cn = new Conexion();
     
+    Conexion2 cn2 = new Conexion2();
+    
     
     public ConsultaBoleto boletosSeleccionados(int[] folios) {
         
@@ -168,8 +170,7 @@ public class ConsultasData {
         return totalDatos;
     }
 
-    
-    
+       
     public int sillasDisponibles(int idEstado, int idMesa) {
         
         String sql = "SELECT COUNT(*) AS Total FROM tbl_sillas " +
@@ -305,6 +306,64 @@ public class ConsultasData {
         return pdf;
     }
 
+    
+    public SaldoDisponible saldoDisponibleXSocio(int origen, int grupo, int socio){
+        
+        SaldoDisponible sd = SaldoDisponible.getInstancia();
+        
+        sd.limpiarDatos();
+        
+        String sql = "select idorigen, idgrupo, idsocio, saldo " +
+                    "from auxiliares " +
+                    "where idorigen = ? and " +
+                    "idgrupo = ? and " +
+                    "idsocio = ? and " +
+                    "idproducto = 709 and " +
+                    "saldo >= 0;";
+        
+        
+        try {
+            con = cn2.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(sql); // Preparar consulta
+            ps.setInt(1, origen);
+            ps.setInt(2, grupo);
+            ps.setInt(3, socio);
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            // Iterar sobre el resultado de la consulta
+            while (rs.next()) {
+                
+                sd = SaldoDisponible.getInstancia();
+                
+                sd.setOrigen(rs.getInt("idorigen"));
+                sd.setGrupo(rs.getInt("idgrupo"));
+                sd.setSocio(rs.getInt("idsocio"));
+                sd.setSaldo(rs.getDouble("saldo"));
+                
+            }
+            
+            cn2.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos postgress", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+        
+        return sd;
+    }
     
     
 }

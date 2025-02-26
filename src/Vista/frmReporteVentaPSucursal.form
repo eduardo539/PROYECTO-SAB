@@ -229,9 +229,21 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+              <Image iconType="3" name="/Iconos/icon-lupa.png"/>
+=======
+              <Image iconType="3" name="/Iconos/icon-pendiente.png"/>
+>>>>>>> fa002db5ebd91ebebe11874ceccde32f01c82b9d
+=======
 
               <Image iconType="3" name="/Iconos/icon-lupa.png"/>
 
+>>>>>>> b90137778a55b7b9f156152de1cd5143712dcdac
+=======
+              <Image iconType="3" name="/Iconos/icon-lupa.png"/>
+>>>>>>> f788c9cd351ad89013509e8bcf1bdd6a08f90d51
             </Property>
             <Property name="text" type="java.lang.String" value="Filtrar por Mes y A&#xf1;o"/>
           </Properties>
@@ -248,9 +260,21 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+              <Image iconType="3" name="/Iconos/icon-actualizar.png"/>
+=======
+              <Image iconType="3" name="/Iconos/mostrar_todoss.png"/>
+>>>>>>> fa002db5ebd91ebebe11874ceccde32f01c82b9d
+=======
 
               <Image iconType="3" name="/Iconos/icon-actualizar.png"/>
 
+>>>>>>> b90137778a55b7b9f156152de1cd5143712dcdac
+=======
+              <Image iconType="3" name="/Iconos/icon-actualizar.png"/>
+>>>>>>> f788c9cd351ad89013509e8bcf1bdd6a08f90d51
             </Property>
             <Property name="text" type="java.lang.String" value="Mostrar todos los boletos"/>
           </Properties>

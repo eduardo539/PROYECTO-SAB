@@ -145,13 +145,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        //barraEstado = new javax.swing.JPanel();
-        lblUsuario = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblVersionJava = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JLabel();
-        lblVersionOS = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
+
     }
     
     public void actualizaSillasxVigencia(){
@@ -514,6 +508,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiActualizar = new javax.swing.JMenuItem();
+        jmiEnvioBoleto = new javax.swing.JMenuItem();
         jmiVolverInicio = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -521,6 +516,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Posada Monterrey");
+        setType(java.awt.Window.Type.UTILITY);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -1748,15 +1744,25 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jmiActualizar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/actualizar_usuarios.png"))); // NOI18N
         jmiActualizar.setText("Actualizar Contenido");
-        jmiActualizar.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiActualizarActionPerformed(evt);
             }
         });
         jMenu1.add(jmiActualizar);
+
+        jmiEnvioBoleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiEnvioBoleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-enviar.png"))); // NOI18N
+        jmiEnvioBoleto.setText("Enviar Boleto");
+        jmiEnvioBoleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEnvioBoletoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiEnvioBoleto);
 
         jmiVolverInicio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiVolverInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-home.png"))); // NOI18N
@@ -2199,6 +2205,12 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         Cajero.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jmiEnvioBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEnvioBoletoActionPerformed
+        frmEnvioPDF pdf = new frmEnvioPDF();
+        pdf.setLocationRelativeTo(null);
+        pdf.setVisible(true);
+    }//GEN-LAST:event_jmiEnvioBoletoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2304,6 +2316,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenuItem jmiActualizar;
+    private javax.swing.JMenuItem jmiEnvioBoleto;
     private javax.swing.JMenuItem jmiVolverInicio;
     private javax.swing.JLabel lblDato1;
     private javax.swing.JLabel lblDato2;

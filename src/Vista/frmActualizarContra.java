@@ -7,15 +7,11 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import Modelo.Login;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
-import static jdk.nashorn.tools.ShellFunctions.input;
 
 /**
  *
@@ -33,6 +29,10 @@ public class frmActualizarContra extends javax.swing.JFrame {
     public frmActualizarContra() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        
+        //Evitar maximizar la ventana
+        setResizable(false);
     }
 
     /**
@@ -62,6 +62,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Actualización de Contraseña");
+        setType(java.awt.Window.Type.UTILITY);
 
         jPanel1.setBackground(new java.awt.Color(220, 231, 237));
 
