@@ -199,7 +199,7 @@ public class frmBoleto extends javax.swing.JFrame {
         int idMesa = sE.getIdMesa();
         String Mesa = sE.getNomMesa();
         double Costo = sE.getCosto();
-        double saldoDisponible = saldoDisp.getSaldo();
+        double saldoPostgress = saldoDisp.getSaldo();
         double saldoMySQL = saldoDisp.getSaldoL();
         int estatusSilla = 0;
         double importe = 0.0;
@@ -267,7 +267,7 @@ public class frmBoleto extends javax.swing.JFrame {
             switch (comboBox) {
                 case "Separar":
                     if (importe >= cincuentaPorCiento && importe < totalCosto) {
-                        if(sumaSaldoMySQL <= saldoDisponible){
+                        if(sumaSaldoMySQL <= saldoPostgress){
                             estatusSilla = 2;
                         }else{
                             JOptionPane.showMessageDialog(null, 
@@ -290,7 +290,7 @@ public class frmBoleto extends javax.swing.JFrame {
 
                 case "Comprar":
                     if (importe == totalCosto) {
-                        if(sumaSaldoMySQL <= saldoDisponible){
+                        if(sumaSaldoMySQL <= saldoPostgress){
                             estatusSilla = 3;
                         }else{
                             JOptionPane.showMessageDialog(null, 

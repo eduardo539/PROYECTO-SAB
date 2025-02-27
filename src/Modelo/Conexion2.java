@@ -47,11 +47,10 @@ public class Conexion2 {
             // Establece la conexión con PostgreSQL
             con = DriverManager.getConnection(dbURL, USER, PASSWORD);
 
-            System.out.println("Conexión exitosa a la base de datos: " + DATABASE);
             return con;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, 
-                        "Error al conectarse a la base de datos.\nDetalles: " + e.getMessage(), 
+                        "Error al conectarse a la base de datos Postgress, Favor de reportar al área de sistemas.\nDetalles: " + e.getMessage(), 
                         "Error de Conexión", 
                         JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {
@@ -69,10 +68,11 @@ public class Conexion2 {
                 con.close();
                 System.out.println("Conexión cerrada correctamente.");
             } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión.");/*
                 JOptionPane.showMessageDialog(null, 
                         "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
                         "Error de Conexión", 
-                        JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.ERROR_MESSAGE);*/
             }
         }
     }
