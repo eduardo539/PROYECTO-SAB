@@ -17,6 +17,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     
     public frmMenuSistemas() {
         initComponents();
+        setResizable(false);
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());

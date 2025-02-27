@@ -18,6 +18,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         
     public frmMenuOperaciones() {
         initComponents();
+        setResizable(false);
         setLocationRelativeTo(null); //Abrir la ventana en el centro de la pantalla
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario

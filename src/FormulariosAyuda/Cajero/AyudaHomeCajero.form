@@ -96,6 +96,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="1"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="MEN&#xda; PRINCIPAL:&#xa;&#x9;&#xb0; Boton eventos: Redirige al apartado de eventos.&#xa;&#x9;&#xb0; Boton cerrar sesi&#xf3;n: Elimina la sesi&#xf3;n del usuario y regresa al modulo login.&#xa;&#xa;&#xa;AYUDA:&#xa;&#x9;&#xb0; Boton ayuda: Manual de uso del sistema.&#xa;&#x9;&#xb0; Boto acerca de: Informaci&#xf3;n del sistema.&#xa;&#xa;&#xa;VISUALIZACION DE DATOS:&#xa;&#x9;&#xb0; Usuario: Muestra el numero de usuario.&#xa;&#x9;&#xb0; Nombre: Nombre completo del usuario."/>
       </Properties>
     </Component>
   </SubComponents>

@@ -38,6 +38,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         configurarModeloTabla();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
+        setResizable(false);
         cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
@@ -151,20 +152,20 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
 
         txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("NumSocio:"));
 
-        jButton1.setBackground(new java.awt.Color(76, 175, 80));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
         jButton1.setText("Filtrar por usuario");
+        jButton1.setBackground(new java.awt.Color(76, 175, 80));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(76, 175, 80));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
         jButton2.setText("Mostrar todo");
+        jButton2.setBackground(new java.awt.Color(76, 175, 80));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

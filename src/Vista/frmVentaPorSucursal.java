@@ -26,6 +26,7 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         
     public frmVentaPorSucursal() {
         initComponents();
+        setResizable(false);
         conexion = new Conexion(); // Inicializa la conexión
         configuracionModeloTabla(); // Configura la tabla vacía
         cargarSucursales(); // Cargar sucursales en el combo box
