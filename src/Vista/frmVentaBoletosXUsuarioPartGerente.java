@@ -74,7 +74,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                 lblVersionOS.setText("Kernel: " + linuxVersion);
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
-                lblVersionOS.setText("Error | ");
+                lblVersionOS.setText("Kernel: Error |");
             }
         }
         else{
@@ -100,7 +100,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         sesion.setVigencia(null);
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
-        System.out.println("Sesión cerrada exitosamente.");
+        
     }
 
     
