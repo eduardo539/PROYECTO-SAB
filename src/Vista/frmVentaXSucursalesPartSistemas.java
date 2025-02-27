@@ -40,6 +40,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         configurarComboBoxMeses();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
+        setResizable(false);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 

@@ -31,7 +31,7 @@ public class AyudaHomeOperaciones extends javax.swing.JFrame {
 
         textArea1.setEditable(false);
         textArea1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        textArea1.setText("MENÚ PRINCIPAL:\n\t° Boton ventas por sucursales: Visualiza ventas de boletos por sucursales.\n\t° Boton ventas totales: Visualiza ventas de boletos por sucursal.\n\t° Boton ventas por socio: Visualiza ventas de boletos por socios.\n\t° Boton cerrar sesión: Elimina la sesión del usuario y regresa al modulo login.\n\n\nAYUDA:\n\t° Boton ayuda: Manual de uso del sistema.\n\t° Boto acerca de: Información del sistema.\n\n\nVISUALIZACION DE DATOS:\n\t° Usuario: Muestra el numero de usuario.\n\t° Nombre: Nombre completo del usuario.");
+        textArea1.setText("MENÚ PRINCIPAL:\n\t° Boton ventas por sucursales: Visualiza ventas de boletos por sucursales.\n\t° Boton ventas totales: Visualiza ventas de boletos por sucursal.\n\t° Boton ventas por socios: Visualiza ventas de boletos por socios.\n\t° Boton cerrar sesión: Elimina la sesión del usuario y regresa al modulo login.\n\n\nAYUDA:\n\t° Boton ayuda: Manual de uso del sistema.\n\t° Boto acerca de: Información del sistema.\n\n\nVISUALIZACION DE DATOS:\n\t° Usuario: Muestra el numero de usuario.\n\t° Nombre: Nombre completo del usuario.");
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
