@@ -54,7 +54,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     double totalRestante = 0.0;
     public int totalSeleccionados = 0;
     
-    double saldo = 0.0;
+    double saldoPostgress = 0.0;
     double saldoSocioMySQL = 0.0;
     double saldoDisponible = 0.0;
 
@@ -289,7 +289,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         saldoDisp = consulta.saldoDisponibleXSocio(numOrigen, numGrupo, numSocio);
         saldoDisp = consulta.saldoDiponibleBDLocal(numOrigen, numGrupo, numSocio);
         
-        saldo = saldoDisp.getSaldo();
+        saldoPostgress = saldoDisp.getSaldo();
         
         // Validar si la cantidad de boletos seleccionados es mayor a los permitidos
         if (totalSeleccionados > countBol) {
@@ -353,7 +353,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         totalRestante = totalCosto - totalImporte;
         
-        saldoDisponible = saldo - totalImporte;
+        saldoDisponible = saldoPostgress - totalImporte;
         
         // Imprimir la información en una sola línea por campo
         txtSillas.setText("" + sillas);
@@ -455,10 +455,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         }
 
         saldoDisp = consulta.saldoDisponibleXSocio(origen, grupo, socio);
-        saldo = saldoDisp.getSaldo();
+        saldoPostgress = saldoDisp.getSaldo();
         saldoSocioMySQL = saldoDisp.getSaldoL();
 
-        double sumaSaldoSocioMySQL = saldoSocioMySQL + newImporte;
+        double sumaSaldoMySQL = saldoSocioMySQL + newImporte;
         
         double importeActualizado = totalImporte + newImporte;
         double importeDividido = importeActualizado / totalSeleccionados;
@@ -475,9 +475,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                     return;
                 }
                 else{
-                    if(sumaSaldoSocioMySQL <= saldo){
+                    if(sumaSaldoMySQL <= saldoPostgress){
                         actualiza.actualizarSillasSeparadas(Folios, estado1, importeDividido, newVigencia);
-                        actualiza.actualizarSaldoSocio(sumaSaldoSocioMySQL, origen, grupo, socio);
+                        actualiza.actualizarSaldoSocio(sumaSaldoMySQL, origen, grupo, socio);
                         limpiarCamposCompra();
                     }else{
                         JOptionPane.showMessageDialog(null, "El saldo del socio es insuficiente para poder Abonar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -488,10 +488,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             case "Pagar":
                 int estado2 = 3;
                 if(totalRestante == newImporte){
-                    if(sumaSaldoSocioMySQL <= saldo){
+                    if(sumaSaldoMySQL <= saldoPostgress){
                         actualiza.actualizarSillasSeparadas(Folios, estado2, importeDividido, newVigencia);
                         actualiza.actualizaEstaSillaxFila(estado2, idSillas);
-                        actualiza.actualizarSaldoSocio(sumaSaldoSocioMySQL, origen, grupo, socio);
+                        actualiza.actualizarSaldoSocio(sumaSaldoMySQL, origen, grupo, socio);
                         pdf = consulta.datosGenerarBoleto(origen, grupo, socio, idSillas);
                         GenerarBoleto bol = new GenerarBoleto();
                         bol.boletoPDF();
@@ -557,9 +557,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     public void limpiarCamposCompra(){
         datosTabla();
         
-        nomB.limpiarDatos();
-        
-        cb.borrarDatos();
         saldoDisp.limpiarDatos();
         saldoDisp.limpiarDatos2();
         
