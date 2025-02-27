@@ -39,7 +39,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         
         cargarTotalBoletos();
         cargarTotalMonto();
-        
+        setResizable(false);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 

@@ -31,6 +31,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
 
     public frmReportesOpPSucursales() {
         initComponents();
+        setResizable(false);
         conexion = new Conexion();
         configuracionModeloTabla();
         cargarSucursales();

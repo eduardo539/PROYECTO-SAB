@@ -20,7 +20,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
         
         //Evitar maximizar la ventana
         setResizable(false);
-        
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
         // Añadir el WindowListener para gestionar el evento de cierre
