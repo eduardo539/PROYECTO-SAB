@@ -81,8 +81,6 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         sesion.setTipo_perfil(null);
 
 
-        // Log de actividad (opcional)
-        System.out.println("Sesión cerrada exitosamente.");
     }
 
     @SuppressWarnings("unchecked")
