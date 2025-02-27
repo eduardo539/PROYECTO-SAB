@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author Stock 2 Sistemas
+ * 
  */
 
 public class frmAcercaDe extends javax.swing.JFrame {

@@ -81,7 +81,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                 lblVersionOS.setText("Kernel: " + linuxVersion);
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
-                lblVersionOS.setText("Error | ");
+                lblVersionOS.setText("Kernel: Error |");
             }
         }
         else{
@@ -112,8 +112,6 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
 
-        // Log de actividad (opcional)
-        System.out.println("Sesión cerrada exitosamente.");
     }
 
     @SuppressWarnings("unchecked")
@@ -152,20 +150,20 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
 
         txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("NumSocio:"));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
-        jButton1.setText("Filtrar por usuario");
         jButton1.setBackground(new java.awt.Color(76, 175, 80));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
+        jButton1.setText("Filtrar por usuario");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
-        jButton2.setText("Mostrar todo");
         jButton2.setBackground(new java.awt.Color(76, 175, 80));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
+        jButton2.setText("Mostrar todo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

@@ -89,7 +89,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 lblVersionOS.setText("Kernel: " + linuxVersion);
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
-                System.err.println("Error al obtener la versión del kernel de Linux: " + e.getMessage());
+                lblVersionOS.setText("Kernel: Error |");
             }
         }
         else{
@@ -877,8 +877,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
        sesion.setIdperfil(0);
        sesion.setTipo_perfil(null);
 
-       // Log de actividad (opcional)
-       System.out.println("Sesión cerrada exitosamente.");
     }
     
     public static void main(String args[]) {
