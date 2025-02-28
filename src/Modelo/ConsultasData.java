@@ -346,7 +346,7 @@ public class ConsultasData {
         } catch (SQLException e) {
             // Mostrar error en un cuadro de diálogo
             JOptionPane.showMessageDialog(null, 
-                    "Error al obtener los datos, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error al obtener los datos postgress, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
                     "Error de Base de Datos postgress", 
                     JOptionPane.ERROR_MESSAGE);
         } finally {
@@ -417,7 +417,7 @@ public class ConsultasData {
         } catch (SQLException e) {
             // Mostrar error en un cuadro de diálogo
             JOptionPane.showMessageDialog(null, 
-                    "Error al obtener los datos, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error al obtener los datos MySQL, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
                     "Error de Base de Datos", 
                     JOptionPane.ERROR_MESSAGE);
         } finally {
@@ -433,6 +433,59 @@ public class ConsultasData {
         
         return saldo;
     }
+    
+    
+    public SaldoSocios saldoSociosBDLocal(){
+        
+        SaldoSocios saldoSocio = SaldoSocios.getInstancia();
+        
+        String consultaSaldo = "SELECT Origen, Grupo, Socio, Saldo " +
+                                "FROM saldosocio;";
+               
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consultaSaldo); // Preparar consulta
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            // Limpiar lista de mesas antes de agregar nuevas (si es necesario)
+            saldoSocio.getListaSaldos().clear();
+            
+            
+            // Iterar sobre el resultado de la consulta
+            while (rs.next()) {
+                
+                int origen = rs.getInt("Origen");
+                int grupo = rs.getInt("Grupo");
+                int socio = rs.getInt("Socio");
+                double saldo = rs.getDouble("Saldo");
+                
+                saldoSocio.agregarSocioSaldo(origen, grupo, socio, saldo);
+                
+            }
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos MySQL, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos MySQL", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        return saldoSocio;
+        
+    }
+    
     
 }
 
