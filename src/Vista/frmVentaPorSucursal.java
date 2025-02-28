@@ -26,6 +26,7 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         
     public frmVentaPorSucursal() {
         initComponents();
+        setResizable(false);
         conexion = new Conexion(); // Inicializa la conexión
         configuracionModeloTabla(); // Configura la tabla vacía
         cargarSucursales(); // Cargar sucursales en el combo box
@@ -80,8 +81,6 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         sesion.setTipo_perfil(null);
 
 
-        // Log de actividad (opcional)
-        System.out.println("Sesión cerrada exitosamente.");
     }
 
     @SuppressWarnings("unchecked")

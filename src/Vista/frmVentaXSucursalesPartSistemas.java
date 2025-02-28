@@ -40,6 +40,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         configurarComboBoxMeses();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
+        setResizable(false);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
@@ -83,8 +84,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         sesion.setVigencia(null);
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
-        // Log de actividad (opcional)
-        System.out.println("Sesión cerrada exitosamente.");
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -584,7 +584,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
                 lblVersionOS.setText("Kernel: " + linuxVersion);
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
-                lblVersionOS.setText("Error | ");
+                lblVersionOS.setText("Kernel: Error |");
             }
         }
         else{

@@ -29,7 +29,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     public frmVentaXSocioXOperacionesGenrl() {
         initComponents();
         conexion = new Conexion();
-        
+        setResizable(false);
         configurarModeloTabla();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
@@ -75,7 +75,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                 lblVersionOS.setText("Kernel: " + linuxVersion);
             } catch (Exception e) {
                 // Manejo de errores en caso de que no se pueda obtener la versión
-                lblVersionOS.setText("Error | ");
+                lblVersionOS.setText("Kernel: Error |");
             }
         }
         else{
@@ -106,8 +106,6 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
 
-        // Log de actividad (opcional)
-        System.out.println("Sesión cerrada exitosamente.");
     }
 
     @SuppressWarnings("unchecked")
