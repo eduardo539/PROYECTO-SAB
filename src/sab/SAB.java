@@ -9,6 +9,7 @@ import Vista.frmEnvioPDF;
 
 import Vista.frmSillasSeparadas;
 import Vista.frmPosadaMTY;
+import Vista.frmSaldoXSocio;
 
 /**
  *
@@ -29,6 +30,7 @@ public class SAB {
 
         //frmActualizarContra iniciar = new frmActualizarContra();
         frmLogin iniciar = new frmLogin();
+        //frmSaldoXSocio iniciar = new frmSaldoXSocio();
         //frmEnvioPDF iniciar = new frmEnvioPDF();
         //frmSillasSeparadas iniciar = new frmSillasSeparadas();
 

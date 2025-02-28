@@ -70,7 +70,7 @@ public class ActualizarData {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
             }
         }
     }
@@ -130,7 +130,7 @@ public class ActualizarData {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
             }
         }
     }
@@ -184,7 +184,7 @@ public class ActualizarData {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error al cerrar conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
             }
         }
     }
@@ -213,10 +213,7 @@ public class ActualizarData {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, 
-                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
-                        "Error de Conexión", 
-                        JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
             }
         }
     }
@@ -302,10 +299,7 @@ public class ActualizarData {
                 if (psSilla != null) psSilla.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, 
-                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
-                        "Error de Conexión", 
-                        JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
             }
         }
     }
@@ -350,15 +344,93 @@ public class ActualizarData {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, 
-                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
-                        "Error de Conexión", 
-                        JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
             }
         }
         
     }
 
+    
+    public void borrarSaldosSocios(){
+        
+        String data = "UPDATE saldosocio SET Saldo = 0;";
+        
+        
+        try {
+            // Obtener conexión
+            con = cn.getConnection();
 
+            // Preparar la sentencia SQL
+            ps = con.prepareStatement(data);
+            ps.executeUpdate();
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null,
+                    "La actualización de los saldos se realizó de forma correcta.",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al actualizar el saldo de los socios, Contactar al administrador.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+    }
+
+    
+    public void actualizarSadoUsadoSocio(double saldo, int origen, int grupo, int socio){
+        
+        String actualiza = "UPDATE saldosocio " +
+                                "SET Saldo = ? " +
+                                "WHERE Origen = ? AND " +
+                                "Grupo = ? AND " +
+                                "Socio = ?;";
+        
+        try {
+            // Obtener conexión
+            con = cn.getConnection();
+
+            // Preparar la sentencia SQL
+            ps = con.prepareStatement(actualiza);
+            ps.setDouble(1, saldo);
+            ps.setInt(2, origen);
+            ps.setInt(3, grupo);
+            ps.setInt(4, socio);
+            ps.executeUpdate();
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null,
+                    "La actualización del saldo se realizó de forma correcta.",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al actualizar el saldo del socio, Contactar al administrador.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+    }
     
 }
