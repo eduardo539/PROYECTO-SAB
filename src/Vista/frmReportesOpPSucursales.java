@@ -175,21 +175,21 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             }
         });
 
-        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
-        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
         btnMostrarTodo.setText("Mostrar todo");
+        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
+        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
             }
         });
 
-        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-pendiente.png"))); // NOI18N
         btnFiltrar.setText("Filtrar por Mes y Año");
         btnFiltrar.setAutoscrolls(true);
+        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
@@ -297,7 +297,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jMenuItem3.setText("Cerrar Sesión");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

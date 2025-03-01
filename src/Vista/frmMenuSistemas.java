@@ -225,7 +225,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jMenuItem1.setText("Cerrar Sesión");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
