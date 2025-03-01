@@ -116,8 +116,8 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         txtTotalMonto.setEditable(false);
         txtTotalMonto.setBorder(javax.swing.BorderFactory.createTitledBorder("Monto total vendido:"));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel1.setText("$");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -170,10 +170,10 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro mostrar todas las sucursales:"));
 
-        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
-        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ticket_iconos.png"))); // NOI18N
         btnMostrarTodo.setText("Mostrar todo");
+        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
+        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
@@ -224,7 +224,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jMenuItem2.setText("Cerrar sesión");
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {

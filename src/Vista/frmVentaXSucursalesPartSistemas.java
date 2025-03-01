@@ -260,8 +260,8 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-login.png"))); // NOI18N
-        jMenuItem2.setText("Cerrar sesión");
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
+        jMenuItem2.setText("Cerrar Sesión");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
