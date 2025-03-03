@@ -1,0 +1,48 @@
+⚙️⚙️
+
+LUNES:
+
+* Creación del procedimiento almacenado de Inserción de usuarios
+* Creación del procedimiento almacenado de Update de usuarios.
+* Creación del procedimiento almacenado de Restablecer contraseña usuarios.
+
+
+Martes:
+
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE updatePasswXUsuariosXBitacXAccion (
+    IN p_contraseniaEncriptada VARCHAR(255),
+    IN p_fechaVigencia VARCHAR(255),
+    IN p_id_usuario INT,
+    IN P_Nombre_usuarios VARCHAR(255),
+    IN p_sucursalNuevoUsuario VARCHAR(255),
+    
+    IN p_sucursal VARCHAR(255),
+    IN p_id_usuario_sistema INT, 
+    IN p_nombre_usuario_sistema VARCHAR(255), 
+    IN p_perfil_usuario_sistema INT
+)
+BEGIN
+    -- 1. Declarar una variable en donde se guardará el id_perfil del usuario
+    DECLARE p_id_perfil_usuario INT;
+    
+    -- 2. Restablecer la contraseña del usuario en la tabla tbl_usuarios.
+    UPDATE tbl_usuarios 
+    SET vchPass = p_contraseniaEncriptada, dtVigencia = p_fechaVigencia 
+    WHERE id_usuario = p_id_usuario;
+
+    -- 3. Con ayuda del id_usuario que se restableció en el paso 2, recuperamos el id_perfil y lo almacenamos en la variable p_id_perfil_usuario
+    SELECT id_perfil INTO p_id_perfil_usuario
+    FROM tbl_usuarios
+    WHERE id_usuario = p_id_usuario;
+
+    -- Ahora, p_id_perfil_usuario tiene el id_perfil del usuario que fue actualizado
+    -- Puedes usar esta variable en otras partes del procedimiento, si lo necesitas.
+
+END $$
+
+DELIMITER ;

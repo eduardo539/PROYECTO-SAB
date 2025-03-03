@@ -1,0 +1,38 @@
+DELIMITER $$
+
+CREATE PROCEDURE updateXUsuariosXBitacXAccionUpdate (
+	IN p_id_perfil INT, 
+	IN p_id_usuario INT,
+	IN p_sucursalNuevoUsuario VARCHAR(255),
+	IN p_sucursal VARCHAR(255), 
+	IN p_id_usuario_sistema INT, 
+	IN p_nombre_usuario_sistema VARCHAR(255), 
+	IN p_perfil_usuario_sistema INT
+)
+BEGIN
+	-- 1. Actualizar el perfil del usuario en la tabla tbl_usuarios.
+	UPDATE tbl_usuarios 
+	SET id_perfil = p_id_perfil
+	WHERE id_usuario = p_id_usuario;
+
+	-- 2. Declarar una variable en donde se guardara el dato de usuario nombre que se ejecute en el paso 3.
+	DECLARE usuario_nombre VARCHAR(255);
+
+	-- 3. Con ayuda del id_usuario que se actualizo en el paso 1, mandar a traer el Nombre del usuario y almacenarlo en el 2.
+	SELECT Nombre INTO usuario_nombre
+	FROM tbl_usuarios
+	WHERE id_usuario = p_id_usuario;
+		
+	-- 4. Insertar en la bitácora la acción del usuario que realizó la actualización.
+	INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+	VALUES (NOW(), p_sucursal, p_id_usuario_sistema, 
+        p_nombre_usuario_sistema, p_perfil_usuario_sistema, 
+        CONCAT(p_nombre_usuario_sistema, ' Actualizó el usuario: ', usuario_nombre));
+
+	-- 5. Insertar en la bitácora la acción de la actualización del usuario
+	INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+	VALUES (NOW(), p_sucursalNuevoUsuario, p_id_usuario, usuario_nombre, p_id_perfil, 'Usuario actualizó datos');
+	
+END $$
+
+DELIMITER ;
