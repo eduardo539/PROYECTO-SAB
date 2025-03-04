@@ -30,12 +30,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
     
     Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
     Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
-
+    
     Conexion2 con2 = new Conexion2();  // Crear una instancia de la clase Conexion2
     Connection cn2 = con2.getConnection();  // Llamar a getConnection() desde la instancia creada
     
     Login lg = Login.getInstancia();
-    
     
     // Recuperar los datos de Login (usuario de sistemas)
     Login usuarioLogin = Login.getInstancia();
@@ -43,8 +42,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     String nombreUsuarioSistema = usuarioLogin.getNombre();
     String sucursalUsuarioSistema = usuarioLogin.getSucursal();
     int perfilUsuarioSistema = usuarioLogin.getIdperfil();
-
-
+    
     public formMenuAdmin() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
@@ -63,7 +61,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
         
-        
         // funcion que manda a llamar a los datos una vez cargada el form menu admin
         mostrarDatos();
         barraEstado ();
@@ -76,11 +73,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
         Sistemas.setVisible(true);
     }
     
-    
     //SUBIENDO EL ULTIMO CAMBIO DE FORMNA YA COMPLETA EN EL APARTADO DE MENU ADMIN
     
     public void barraEstado(){
-        
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("Usuario: " + lg.getIdusuario());
@@ -104,8 +99,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         }
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
-        }
-        
+        }   
     }
     
     @SuppressWarnings("unchecked")
@@ -492,20 +486,21 @@ public class formMenuAdmin extends javax.swing.JFrame {
             // Mandar a traer la sucursal del nuevo usuario, esto para agregarlo en la bitacora
             String sucursalNuevoUsuario = TraerSucursaldelnuevousuario(id_usuario1);
 
-            String sql = "{CALL insertXUsuariosXBitacXAccion(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL insertXUsuariosXBitacXAccionInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement  stmt = cn1.prepareCall(sql);
 
             // Los parámetros del procedimiento almacenado
             stmt.setInt(1, id_usuario1); // ID del nuevo usuario
             stmt.setString(2, nombreUsuario); // Nombre del nuevo usuario
-            stmt.setString(3, contrasenia); // Contraseña encriptada con MD5 (puedes cambiar esto según tu lógica)
+            stmt.setString(3, contrasenia); // Contraseña que va como cambio, y en el P.A. se encriptarda en MD5
             stmt.setDate(4, java.sql.Date.valueOf(LocalDate.now().plusMonths(1))); // Fecha de vigencia
             stmt.setInt(5, idPerfil); // Perfil del nuevo usuario
-            stmt.setString(6, sucursalUsuarioSistema); // Sucursal del usuario que hizo la acción
+            stmt.setString(6, sucursalNuevoUsuario); // sucursal del nuevo usuario (dato que ira en bitacora)
+                        
             stmt.setInt(7, idUsuarioSistema); // ID del usuario que hizo la acción
             stmt.setString(8, nombreUsuarioSistema); // Nombre del usuario que hizo la acción
             stmt.setInt(9, perfilUsuarioSistema); // Perfil del usuario que hizo la acción
-            stmt.setString(10, sucursalNuevoUsuario); // sucursal del nuevo usuario (dato que ira en bitacora)
+            stmt.setString(10, sucursalUsuarioSistema); // Sucursal del usuario que hizo la acción
 
             // Ejecutar el procedimiento almacenado
             stmt.executeUpdate();
@@ -605,7 +600,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             // Mandar a traer la sucursal del nuevo usuario, esto para agregarlo en la bitacora
             String sucursalNuevoUsuario = TraerSucursaldelusuarioAactualizar(id_usuario2);
             
-            String sql = "{CALL updateXUsuariosXBitacXAccion(?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL updateXUsuariosXBitacXAccionUpdate(?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement stmt = cn1.prepareCall(sql);
 
             // Convertir el perfil seleccionado en el ComboBox a su ID correspondiente
@@ -682,12 +677,31 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 
                 Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
                 Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
+                
+                // Obtener el valor del campo de texto y convertirlo a un entero
+                int id_usuario4 = Integer.parseInt(txtid_usuario.getText());
+                
+                String p_sucursalNuevoUsuario = verificarUsuarioExistente4(id_usuario4);
+                
+                System.out.println("id del usuario socio: " + id_usuario4);
+                System.out.println("sucursal del nuevo usuario: " + p_sucursalNuevoUsuario);
+                
+                String sql = "{CALL deleteUsersXBitacXAccionDeleteUser(?, ?, ?, ?, ?, ?)}";
+                PreparedStatement stmt = cn1.prepareCall(sql);
+                
+                stmt.setInt(1, id_usuario4); // el id del usuario a actualizar
+                stmt.setString(2, p_sucursalNuevoUsuario); // Sucursal del usuario que hizo la accion
             
-                PreparedStatement ps = cn1.prepareStatement("DELETE FROM tbl_usuarios WHERE id_usuario = '" + txtid_usuario.getText() + "'");
-                int indice = ps.executeUpdate();
+                stmt.setString(3, sucursalUsuarioSistema); // Sucursal del usuario que hizo la accion
+                stmt.setInt(4, idUsuarioSistema); // ID del usuario que hizo la acción
+                stmt.setString(5, nombreUsuarioSistema); // Nombre del usuario que hizo la acción
+                stmt.setInt(6, perfilUsuarioSistema); // Perfil del usuario que hizo la acción
+                
+                // Ejecutar la consulta de actualización
+                int filasActualizadas = stmt.executeUpdate();
 
-                // Verificar si se eliminó alguna fila
-                if (indice > 0) {
+                // Verificar si se actualizó algún registro
+                if (filasActualizadas > 0) {   
                     mostrarDatos(); // Actualizar la tabla
                     limpiarEntradas();
                 } else {
@@ -782,7 +796,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             String sucursalNuevoUsuario = TraerSucursaldelusuarioAactualizarPassword(id_usuario3);
             
             // Preparar la consulta SQL para actualizar los datos
-            String sql = "{CALL updatePasswXUsuariosXBitacXAccion(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{CALL resetPasswXUsuariosXBitacXAccionReset(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement stmt = cn1.prepareCall(sql);
 
             // Asignar valores a los parámetros
@@ -1187,6 +1201,42 @@ public class formMenuAdmin extends javax.swing.JFrame {
             // Preparar el PreparedStatement
             PreparedStatement ps = cn2.prepareStatement(query);
             ps.setInt(1, id_usuario3);  // Establecer el parámetro id_usuario
+
+            // Ejecutar la consulta
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) { 
+              
+                String SucursalUsuarioNuevo = rs.getString("sucursal");
+
+                return SucursalUsuarioNuevo;
+                
+            } else {
+                return null;
+            }
+            
+        } catch (SQLException e) {
+            // Manejo de excepciones
+            JOptionPane.showMessageDialog(null, "Error al verificar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
+            return null;
+        }
+    }
+
+    private String verificarUsuarioExistente4(int id_usuario4) {
+        try {
+            // Crear una instancia de la clase Conexion2 para PostgreSQL
+            Conexion2 con2 = new Conexion2();
+            Connection cn2 = con2.getConnection();
+
+            // Preparar la consulta SQL
+            String query = "SELECT o.nombre AS sucursal " +
+                           "FROM usuarios u " +
+                           "LEFT JOIN origenes o ON o.idorigen = u.idorigen " +
+                           "WHERE u.idusuario = ?";
+
+            // Preparar el PreparedStatement
+            PreparedStatement ps = cn2.prepareStatement(query);
+            ps.setInt(1, id_usuario4);  // Establecer el parámetro id_usuario
 
             // Ejecutar la consulta
             ResultSet rs = ps.executeQuery();

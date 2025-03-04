@@ -27,11 +27,36 @@ CREATE TABLE `saldosocio` (
   `Socio` int(11) NOT NULL,
   `Saldo` double NOT NULL,
   PRIMARY KEY (`idSaldo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `saldosocio` */
 
 LOCK TABLES `saldosocio` WRITE;
+
+insert  into `saldosocio`(`idSaldo`,`Origen`,`Grupo`,`Socio`,`Saldo`) values (7,30422,10,3674,2180);
+
+UNLOCK TABLES;
+
+/*Table structure for table `tbl_bit_accion_usuarios` */
+
+DROP TABLE IF EXISTS `tbl_bit_accion_usuarios`;
+
+CREATE TABLE `tbl_bit_accion_usuarios` (
+  `id_reg` int(11) NOT NULL AUTO_INCREMENT,
+  `Fecha` datetime NOT NULL,
+  `Sucursal` varchar(100) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `id_perfil` int(11) NOT NULL,
+  `Descripcion` text NOT NULL,
+  PRIMARY KEY (`id_reg`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `tbl_bit_accion_usuarios` */
+
+LOCK TABLES `tbl_bit_accion_usuarios` WRITE;
+
+insert  into `tbl_bit_accion_usuarios`(`id_reg`,`Fecha`,`Sucursal`,`id_usuario`,`Nombre`,`id_perfil`,`Descripcion`) values (17,'2025-03-03 15:19:44','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Actualizo al usuario: 697'),(18,'2025-03-03 15:19:44','Corporativo Cerro de la Silla',697,'ADAIR GUTIERREZ VITE',3,'Actualización de datos'),(19,'2025-03-03 16:43:13','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Restablecio contraseña a usuario: 630'),(20,'2025-03-03 16:43:13','Sucursal Independencia',630,'MARIA ELENA ALVAREZ RAMOS',1,'Actualización de datos'),(21,'2025-03-03 16:44:59','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Restablecio contraseña a usuario: 540'),(22,'2025-03-03 16:44:59','Sucursal Muzquiz',540,'Perla',1,'Restableciminto de contraseña'),(23,'2025-03-03 16:46:40','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Restablecio contraseña a usuario: 113'),(24,'2025-03-03 16:46:40','Sucursal Muzquiz',113,'Jose Cecilio Gomez Galdamez',1,'Restableciminto de contraseña'),(26,'2025-03-04 10:18:08','Sucursal Sabinas',709,'MONICA VALLEJO MARTINEZ',1,'Usuario actualizó datos'),(27,'2025-03-04 10:21:28','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Actualizó al usuario: 709'),(28,'2025-03-04 10:21:28','Sucursal Sabinas',709,'MONICA VALLEJO MARTINEZ',4,'Usuario actualizó datos'),(29,'2025-03-04 10:41:40','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 creó al usuario: 697'),(30,'2025-03-04 10:41:40','Corporativo Cerro de la Silla',697,'ADAIR GUTIERREZ VITE',2,'Nuevo usuario creado.'),(31,'2025-03-04 14:38:00','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Restablecio la contraseña al usuario: 540'),(32,'2025-03-04 14:38:00','Sucursal Muzquiz',540,'Perla',1,'Restablecio su contraseña'),(33,'2025-03-04 15:57:39','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Elimino a usuario: 540'),(34,'2025-03-04 15:57:54','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 creó al usuario: 562'),(35,'2025-03-04 15:57:54','Sucursal Nueva Rosita',562,'Omar Alejandro Flores Reyes',1,'Nuevo usuario creado.'),(36,'2025-03-04 15:57:57','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Elimino a usuario: 562'),(37,'2025-03-04 16:01:02','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 creó al usuario: 569'),(38,'2025-03-04 16:01:02','Sucursal Palau',569,'Maria Yadira Camacho Vazquez',1,'Nuevo usuario creado.'),(39,'2025-03-04 16:01:05','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Elimino a usuario: 569'),(40,'2025-03-04 16:10:00','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 creó al usuario: 499'),(41,'2025-03-04 16:10:00','Corporativo Cerro de la Silla',499,'FRANCISCO JAVIER FLORES GONZALEZ',3,'Nuevo usuario creado.'),(42,'2025-03-04 16:10:04','Sucursal Independencia',701,'Eduardo Hernandez Hernandez',1,'Usuario: 701 Elimino a usuario: 499'),(43,'2025-03-04 16:10:04','Corporativo Cerro de la Silla',499,'FRANCISCO JAVIER FLORES GONZALEZ',3,'Eliminado del sistema');
 
 UNLOCK TABLES;
 
@@ -71,11 +96,13 @@ CREATE TABLE `tbl_boletos` (
   CONSTRAINT `NumSocio` FOREIGN KEY (`idMesa`) REFERENCES `tbl_mesas` (`idMesa`),
   CONSTRAINT `Origen` FOREIGN KEY (`idEstado`) REFERENCES `tbl_estado_sillas` (`idEstado`),
   CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=320 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tbl_boletos` */
 
 LOCK TABLES `tbl_boletos` WRITE;
+
+insert  into `tbl_boletos`(`Folio`,`Origen`,`Grupo`,`NumSocio`,`Nombre`,`OrigenSocio`,`Invitado`,`Telefono`,`Correo`,`id_usuario`,`OrigenUsuario`,`idZona`,`idMesa`,`idSilla`,`Costo`,`idEstado`,`Importe`,`FechaCompra`,`FechaVigencia`) values (316,30422,10,3674,'ROSA ELIA MORENO MEDINA','Sucursal Muzquiz','No','8611252044','eduardo345hdez@gmail.com',701,'Sucursal Independencia',1,1,1,560,3,560,'2025-02-28','2025-02-28'),(317,30422,10,3674,'ROSA ELIA MORENO MEDINA','Sucursal Muzquiz','No','8611252044','eduardo345hdez@gmail.com',701,'Sucursal Independencia',1,1,2,560,3,560,'2025-02-28','2025-02-28'),(318,30422,10,3674,'ROSA ELIA MORENO MEDINA','Sucursal Muzquiz','No','8611252044','eduardo345hdez@gmail.com',701,'Sucursal Independencia',1,1,3,560,2,500,'2025-02-28','2025-02-28'),(319,30422,10,3674,'ROSA ELIA MORENO MEDINA','Sucursal Muzquiz','No','8611252044','eduardo345hdez@gmail.com',701,'Sucursal Independencia',1,1,4,560,3,560,'2025-02-28','2025-02-28');
 
 UNLOCK TABLES;
 
@@ -199,7 +226,7 @@ CREATE TABLE `tbl_usuarios` (
 
 LOCK TABLES `tbl_usuarios` WRITE;
 
-insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`) values (113,'Jose Cecilio Gomez Galdamez','5433224b905c997c1f833b046c8a76fe','2025-03-19',4),(539,'Eduardo Dominguez','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-03-26',4),(540,'Perla','a392100d5a3f7450afa6e8c223d92609','2025-03-08',1),(630,'MARIA ELENA ALVAREZ RAMOS','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4),(697,'ADAIR GUTIERREZ VITE','459cd3fb5709975eebcfa2778cfba5e5','2025-03-19',2),(701,'Eduardo Hernandez Hernandez','c65aea2c82a552d83ef8f02d8845ab2d','2025-03-20',1),(709,'MONICA VALLEJO MARTINEZ','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4);
+insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`) values (113,'Jose Cecilio Gomez Galdamez','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1),(539,'Eduardo Dominguez','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-03-26',4),(630,'MARIA ELENA ALVAREZ RAMOS','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1),(697,'ADAIR GUTIERREZ VITE','f83eb54af143e1c220d48cbff2675a4e','2025-04-04',2),(701,'Eduardo Hernandez Hernandez','f83eb54af143e1c220d48cbff2675a4e','2025-03-27',1),(709,'MONICA VALLEJO MARTINEZ','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4);
 
 UNLOCK TABLES;
 
@@ -223,6 +250,166 @@ LOCK TABLES `tbl_zonas` WRITE;
 insert  into `tbl_zonas`(`idZona`,`Zona`,`idCosto`) values (1,'A1',1),(2,'A2',1),(3,'B1',2),(4,'B2',2),(5,'C1',3),(6,'C2',3);
 
 UNLOCK TABLES;
+
+/* Procedure structure for procedure `deleteUsersXBitacXAccionDeleteUser` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteUsersXBitacXAccionDeleteUser` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteUsersXBitacXAccionDeleteUser`(
+    IN p_id_usuario INT,
+    IN p_sucursalNuevoUsuario VARCHAR(255),
+    IN p_sucursal_sistema VARCHAR(255),
+    IN p_id_usuario_sistema INT, 
+    IN p_nombre_usuario_sistema VARCHAR(255), 
+    IN p_perfil_usuario_sistema INT
+)
+BEGIN
+    -- 1. Declarar una variable en donde se guardará el nombre y el perfil del usuario.
+    DECLARE p_id_perfil_usuario INT;
+    DECLARE p_nombre_usuario VARCHAR(255);
+    
+    -- 2. Con ayuda del id_usuario, recuperamos el nombre y el perfil del usuario.
+    SELECT id_perfil, Nombre INTO p_id_perfil_usuario, p_nombre_usuario
+    FROM tbl_usuarios
+    WHERE id_usuario = p_id_usuario;
+    -- 3. Insertar en la bitácora la acción del usuario que realizó la eliminación.
+    INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+    VALUES (NOW(), p_sucursal_sistema, p_id_usuario_sistema, 
+            p_nombre_usuario_sistema, p_perfil_usuario_sistema, 
+            CONCAT('Usuario: ', p_id_usuario_sistema, ' Elimino a usuario: ', p_id_usuario));
+    
+    -- 4. Insertar en la bitácora la acción de eliminación del usuario.
+    INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+    VALUES (NOW(), p_sucursalNuevoUsuario, p_id_usuario, p_nombre_usuario, p_id_perfil_usuario, 'Eliminado del sistema');
+    -- 5. Eliminar el usuario de la tabla tbl_usuarios.
+    DELETE FROM tbl_usuarios WHERE id_usuario = p_id_usuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertXUsuariosXBitacXAccionInsert` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertXUsuariosXBitacXAccionInsert` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertXUsuariosXBitacXAccionInsert`(
+    IN p_id_usuario INT,
+    IN p_nombre_usuario VARCHAR(255),
+    IN p_contrasenia VARCHAR(255),
+    IN p_dtvigencia DATE,
+    IN p_id_perfil INT,
+    IN p_sucursalNuevoUsuario VARCHAR(255),
+    
+    IN p_id_usuario_sistema INT, 
+    IN p_nombre_usuario_sistema VARCHAR(255), 
+    IN p_perfil_usuario_sistema INT,
+    IN p_sucursal_sistema VARCHAR(255)
+)
+BEGIN
+    -- 2. Insertar el nuevo usuario con la contraseña encriptada usando MD5
+    INSERT INTO tbl_usuarios (id_usuario, Nombre, vchPass, dtVigencia, id_perfil)
+    VALUES (p_id_usuario, p_nombre_usuario, MD5(p_contrasenia), p_dtvigencia, p_id_perfil);
+    
+    -- 4. Insertar en la bitácora la acción de creación del nuevo usuario
+    INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+    VALUES (NOW(), p_sucursal_sistema, p_id_usuario_sistema, 
+            p_nombre_usuario_sistema, p_perfil_usuario_sistema, 
+            CONCAT('Usuario: ', p_id_usuario_sistema, ' creó al usuario: ', p_id_usuario));
+            
+    -- 5. Insertar en la bitácora la acción del usuario que se acaba de crear
+    INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+    VALUES (NOW(), p_sucursalNuevoUsuario, p_id_usuario, p_nombre_usuario, p_id_perfil, 'Nuevo usuario creado.');
+    
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `resetPasswXUsuariosXBitacXAccionReset` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `resetPasswXUsuariosXBitacXAccionReset` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `resetPasswXUsuariosXBitacXAccionReset`(
+    IN p_contraseniaEncriptada VARCHAR(255),
+    IN p_fechaVigencia VARCHAR(255),
+    IN p_id_usuario INT,
+    IN P_nombre_usuario VARCHAR(255),
+    IN p_sucursalNuevoUsuario VARCHAR(255),
+    
+    IN p_sucursal_sistema VARCHAR(255),
+    IN p_id_usuario_sistema INT, 
+    IN p_nombre_usuario_sistema VARCHAR(255), 
+    IN p_perfil_usuario_sistema INT
+)
+BEGIN
+    -- 1. Declarar una variable en donde se guardará el id_perfil del usuario
+    DECLARE p_id_perfil_usuario INT;
+    
+    -- 2. Restablecer la contraseña del usuario en la tabla tbl_usuarios.
+    UPDATE tbl_usuarios 
+    SET vchPass = p_contraseniaEncriptada, dtVigencia = p_fechaVigencia 
+    WHERE id_usuario = p_id_usuario;
+    -- 3. Con ayuda del id_usuario que se restableció en el paso 2, recuperamos el id_perfil y lo almacenamos en la variable p_id_perfil_usuario
+    SELECT id_perfil INTO p_id_perfil_usuario
+    FROM tbl_usuarios
+    WHERE id_usuario = p_id_usuario;
+    
+    -- 4. Insertar en la bitácora la acción del usuario que realizó el restablecimiento de contraseña
+    INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+    VALUES (NOW(), p_sucursal_sistema, p_id_usuario_sistema, 
+            p_nombre_usuario_sistema, p_perfil_usuario_sistema, 
+            CONCAT('Usuario: ', p_id_usuario_sistema, ' Restablecio la contraseña al usuario: ', p_id_usuario));
+            
+    -- 5. Insertar en la bitácora la acción del restablecimiento de la contraseña del usuario.
+    INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+    VALUES (NOW(), p_sucursalNuevoUsuario, p_id_usuario, P_nombre_usuario, p_id_perfil_usuario, 'Restablecio su contraseña');
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateXUsuariosXBitacXAccionUpdate` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateXUsuariosXBitacXAccionUpdate` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateXUsuariosXBitacXAccionUpdate`(
+    IN p_id_perfil INT, 
+    IN p_id_usuario INT,
+    IN p_sucursalNuevoUsuario VARCHAR(255),
+    IN p_sucursal_sistema VARCHAR(255),
+    
+    IN p_id_usuario_sistema INT, 
+    IN p_nombre_usuario_sistema VARCHAR(255), 
+    IN p_perfil_usuario_sistema INT
+)
+BEGIN
+    -- 1. Declarar una variable en donde se guardará el nombre del usuario.
+    DECLARE nombre_usuario VARCHAR(255);
+    
+    -- 2. Actualizar el perfil del usuario en la tabla tbl_usuarios.
+    UPDATE tbl_usuarios 
+    SET id_perfil = p_id_perfil 
+    WHERE id_usuario = p_id_usuario;
+    
+    -- 3. Con ayuda del id_usuario que se actualizó en el paso 1, mandar a traer el Nombre del usuario y almacenarlo en la variable nombre_usuario creada en el paso 1.
+    SELECT Nombre INTO nombre_usuario
+    FROM tbl_usuarios
+    WHERE id_usuario = p_id_usuario;
+    
+    -- 4. Insertar en la bitácora la acción del usuario que realizó la actualización.
+    INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+    VALUES (NOW(), p_sucursal_sistema, p_id_usuario_sistema, 
+            p_nombre_usuario_sistema, p_perfil_usuario_sistema, 
+            CONCAT('Usuario: ', p_id_usuario_sistema, ' Actualizó al usuario: ', p_id_usuario));
+            
+    -- 5. Insertar en la bitácora la acción de la actualización del usuario.
+    INSERT INTO tbl_bit_accion_usuarios (Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion)
+    VALUES (NOW(), p_sucursalNuevoUsuario, p_id_usuario, nombre_usuario, p_id_perfil, 'Usuario actualizó datos');
+    
+END */$$
+DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
