@@ -13,14 +13,12 @@ import Modelo.Sillas;
 import Modelo.SillasData;
 import Modelo.SillasEstatusVigencia;
 import Modelo.SillasEstatusVigencia.VigenciaBoleto;
+import Modelo.TimeGoogle;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Window;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import javax.swing.*;
 import java.util.*;
 
@@ -55,6 +53,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private int idMesa;
     private Timer timer;  // Agregamos un Timer para las actualizaciones periódicas
     
+    TimeGoogle fechaGoogle = new TimeGoogle();
     
     public frmPosadaMTY() {
         initComponents();
@@ -119,15 +118,17 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         }
         super.dispose();
     }
+
     
     public void barraEstado(){
+        fechaGoogle.timeGoogle();
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
         lblNombre.setText("Nom: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
        
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {

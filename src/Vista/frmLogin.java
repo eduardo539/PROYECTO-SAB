@@ -9,12 +9,13 @@ import Modelo.LoginData;
 import Modelo.Sillas;
 import Modelo.SillasData;
 import Modelo.SillasEstatusVigencia;
-import java.awt.Window;
+import java.net.InetAddress;
 import javax.swing.JFrame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -22,7 +23,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.ImageIcon;
-
+import org.apache.commons.net.ntp.NTPUDPClient;
+import org.apache.commons.net.ntp.TimeInfo;
+import java.util.Date;
 /**
  *
  * @author Eduardo´s SAB
@@ -33,6 +36,7 @@ public class frmLogin extends javax.swing.JFrame {
 
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
+        
     
     Sillas s = Sillas.getInstancia();
     SillasData sid = new SillasData();
@@ -53,6 +57,7 @@ public class frmLogin extends javax.swing.JFrame {
         setResizable(false);
         
     }
+
     
     public void actualizaSillasxVigencia(){
         
