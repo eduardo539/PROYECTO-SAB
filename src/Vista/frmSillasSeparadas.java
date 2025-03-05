@@ -13,7 +13,10 @@ import Modelo.SaldoDisponible;
 import Modelo.SillasApartadas;
 import Modelo.SillasApartadas.Boleto;
 import Modelo.SillasApartadasData;
+import Modelo.TimeGoogle;
 import java.awt.Window;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -24,6 +27,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.net.ntp.NTPUDPClient;
+import org.apache.commons.net.ntp.TimeInfo;
 
 /**
  *
@@ -58,6 +63,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     double saldoSocioMySQL = 0.0;
     double saldoDisponible = 0.0;
 
+    
+    TimeGoogle fechaGoogle = new TimeGoogle();
+    
     public frmSillasSeparadas() {
         initComponents();
         
@@ -94,15 +102,16 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         cajero.setVisible(true);
     }
 
+    
     public void barraEstado(){
-        
+        fechaGoogle.timeGoogle();
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("Usuario: " + lg.getIdusuario());
         lblNombre.setText("Nombre: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
@@ -380,14 +389,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     
     public void actualizarEstadoSillas() {
         
-        // Mostrar cuadro de diálogo de confirmación
-        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de realizar la compra o separar las sillas seleccionadas?", "Confirmación", JOptionPane.YES_NO_OPTION);
-
-        // Si el usuario selecciona "No", se cancela el proceso
-        if (confirmacion != JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "Proceso cancelado.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
+        fechaGoogle.newFormatTimeGoogle();
+        
     
         String correo = "";
         
@@ -431,11 +434,40 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
 
         // Validar que la vigencia no sea nula
-        java.time.LocalDate newVigencia = dtNewVigencia.getDate();
+        LocalDate newVigencia = dtNewVigencia.getDate();
         if (newVigencia == null) {
             JOptionPane.showMessageDialog(null, "Debes seleccionar una vigencia.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        String fechaActual = fechaGoogle.getFechaNewFormatGoogle();
+        // Definir el formato de la fecha
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // Convertir el String a LocalDate
+        LocalDate dateValidFecha = LocalDate.parse(fechaActual, formatter);
+        
+       
+        // Verificar si la fecha seleccionada es anterior a la fecha actual
+        if (newVigencia != null && newVigencia.isBefore(dateValidFecha)) {
+            // Mostrar un mensaje de advertencia si la fecha es anterior a la actual
+            JOptionPane.showMessageDialog(this, "La vigencia seleccionada no es válida. Debe seleccionar una fecha a partir de hoy.", "Vigencia inválida", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Verificar si la fecha seleccionada es el día actual
+        if (dateValidFecha.equals(newVigencia)) {
+            // Mostrar un cuadro de confirmación si la fecha es hoy
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que la vigencia para el boleto es correcta?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (respuesta == JOptionPane.NO_OPTION) {
+                // Si el usuario responde "No", cancelar el proceso
+                JOptionPane.showMessageDialog(this, "Revisar correctamente los datos de vigencia y volver a intentar.", "Proceso cancelado", JOptionPane.INFORMATION_MESSAGE);
+                return; // Salir de la función
+            }
+
+        }
+        
+        
         
         if (!listaBoletos.isEmpty()) {
             // Tomar solo el origen, grupo y socio de la primera fila seleccionada
@@ -463,6 +495,17 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         double importeActualizado = totalImporte + newImporte;
         double importeDividido = importeActualizado / totalSeleccionados;
         
+        
+        // Mostrar cuadro de diálogo de confirmación
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de realizar la compra o abono de las sillas seleccionadas?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        
+        
+        // Si el usuario selecciona "No", se cancela el proceso
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Proceso cancelado.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+            
         switch(comboBox){
             case "Abonar":
                 int estado1 = 2;
@@ -507,8 +550,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Opción no válida. Debes seleccionar 'Abonar' o 'Pagar'.", "Error", JOptionPane.ERROR_MESSAGE);
-                break;
+                return;
         }
+
         
         // Aquí se va a agregar la función para enviar el PDF automáticamente
         String nomBoleto = nomB.getNomBoleto();

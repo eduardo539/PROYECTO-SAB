@@ -23,7 +23,7 @@ public class InsertarData {
     
     public boolean insertarBoletos(int origen, int grupo, int socio, String nombre, String sucursalSocio, String invitado, 
                             String telefono, String correo, int idusuario, String sucursalUsuario, int idzona, int idmesa, 
-                            int[] idsilla, double costo, int estatus, double importe, LocalDate vigencia) {
+                            int[] idsilla, double costo, int estatus, double importe, String fechaGoogle, LocalDate vigencia) {
     
         // Convertir LocalDate (fecha) a java.sql.Date
         java.sql.Date sqlDate = java.sql.Date.valueOf(vigencia);
@@ -42,7 +42,7 @@ public class InsertarData {
 
         // Agregar los placeholders (?, ?, ...) por cada silla
         for (int i = 0; i < idsilla.length; i++) {
-            insertBoleto.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?),");
+            insertBoleto.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),");
         }
 
         // Eliminar la última coma para evitar errores de sintaxis
@@ -69,6 +69,7 @@ public class InsertarData {
                 ps.setDouble(index++, costo);
                 ps.setInt(index++, estatus);
                 ps.setDouble(index++, importe);
+                ps.setString(index++, fechaGoogle); //Fecha de compra
                 ps.setDate(index++, sqlDate);
             }
 

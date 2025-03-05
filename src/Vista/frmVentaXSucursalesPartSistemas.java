@@ -4,6 +4,7 @@ import FormulariosAyuda.Sistemas.AyudaVentasXSucursales;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
+import Modelo.TimeGoogle;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
@@ -29,6 +30,8 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private final Conexion conexion;
     
     Login lg = Login.getInstancia();
+    
+    TimeGoogle fechaGoogle = new TimeGoogle();
     
     public frmVentaXSucursalesPartSistemas() {
         initComponents();
@@ -566,13 +569,14 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     }
 
     private void barraEstado() {
+        fechaGoogle.timeGoogle();
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
         lblNombre.setText("Nom: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
