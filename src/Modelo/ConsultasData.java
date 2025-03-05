@@ -385,19 +385,17 @@ public class ConsultasData {
 
             if(rs.next()){
                 // Iterar sobre el resultado de la consulta
-                do {  // do-while para evitar la llamada doble a rs.next()
-                    saldo = SaldoDisponible.getInstancia();
+                saldo = SaldoDisponible.getInstancia();
 
-                    saldo.setOrigenL(rs.getInt("Origen"));
-                    saldo.setGrupoL(rs.getInt("Grupo"));
-                    saldo.setSocioL(rs.getInt("Socio"));
-                    saldo.setSaldoL(rs.getDouble("Saldo"));
+                saldo.setOrigenL(rs.getInt("Origen"));
+                saldo.setGrupoL(rs.getInt("Grupo"));
+                saldo.setSocioL(rs.getInt("Socio"));
+                saldo.setSaldoL(rs.getDouble("Saldo"));
 
-                } while (rs.next());  // Iterar mientras haya más resultados
                 
             }else{
                 // Se debe realizar una inserción de datos
-                System.out.println("No se encontró ningún registro");
+                //System.out.println("No se encontró ningún registro");
 
                 // Preparar la consulta de inserción
                 String insertarData = "INSERT INTO saldoSocio (Origen, Grupo, Socio, Saldo) VALUES (?, ?, ?, ?)";
@@ -409,7 +407,7 @@ public class ConsultasData {
 
                 // Ejecutar la inserción
                 ps.executeUpdate();
-                System.out.println("Datos insertados exitosamente.");
+                //System.out.println("Datos insertados exitosamente.");
             }
             
             cn.closeConnection();

@@ -23,6 +23,9 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
     
+    // Crear el JDialog
+    JDialog dialog = new JDialog();
+        
     public frmEnvioPDF() {
         initComponents();
         borrarDts();
@@ -51,8 +54,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         }
         
         
-        // Crear el JDialog
-        JDialog dialog = new JDialog();
+        
         dialog.setTitle("Procesando...");
         dialog.setSize(300, 120);
         dialog.setLayout(new BorderLayout());
@@ -287,6 +289,8 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo enviar el PDF. Inténtalo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        // Cerrar la ventana de carga automáticamente
+        dialog.dispose();
     }//GEN-LAST:event_btnenviarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
