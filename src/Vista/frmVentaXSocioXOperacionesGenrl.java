@@ -3,15 +3,13 @@ package Vista;
 import FormulariosAyuda.Operaciones.AyudaVentasXSocios;
 import Modelo.Conexion;
 import Modelo.Login;
+import Modelo.TimeGoogle;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +23,8 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     private final Conexion conexion;
     
     Login lg = Login.getInstancia();
+    
+    TimeGoogle fechaGoogle = new TimeGoogle();
     
     public frmVentaXSocioXOperacionesGenrl() {
         initComponents();
@@ -56,14 +56,14 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     }
     
     public void barraEstado(){
-        
+        fechaGoogle.timeGoogle();
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
         lblNombre.setText("Nom: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
@@ -173,20 +173,20 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(76, 175, 80));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
         jButton1.setText("Filtrar por usuario");
+        jButton1.setBackground(new java.awt.Color(76, 175, 80));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(76, 175, 80));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
         jButton2.setText("Mostrar todo");
+        jButton2.setBackground(new java.awt.Color(76, 175, 80));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

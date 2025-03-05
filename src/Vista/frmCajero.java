@@ -5,11 +5,8 @@ import Modelo.*;
 import Modelo.MesasData;
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 
@@ -28,8 +25,9 @@ public class frmCajero extends javax.swing.JFrame {
     
     Precios pre = Precios.getInstancia();
     PreciosData preD = new PreciosData();
-    
 
+    TimeGoogle fechaGoogle = new TimeGoogle();
+    
     public frmCajero() {
         initComponents();
         
@@ -95,14 +93,16 @@ public class frmCajero extends javax.swing.JFrame {
         
     }
     
+    
     public void barraEstado(){
+        fechaGoogle.timeGoogle();
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
         lblNombre.setText("Nom: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {

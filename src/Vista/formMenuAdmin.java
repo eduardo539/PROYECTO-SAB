@@ -4,6 +4,7 @@ import FormulariosAyuda.Sistemas.AyudaUsuarios;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
+import Modelo.TimeGoogle;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.security.MessageDigest;
@@ -14,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -42,6 +42,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
     String nombreUsuarioSistema = usuarioLogin.getNombre();
     String sucursalUsuarioSistema = usuarioLogin.getSucursal();
     int perfilUsuarioSistema = usuarioLogin.getIdperfil();
+    
+    TimeGoogle fechaGoogle = new TimeGoogle();
     
     public formMenuAdmin() {
         initComponents();
@@ -74,15 +76,17 @@ public class formMenuAdmin extends javax.swing.JFrame {
     }
     
     //SUBIENDO EL ULTIMO CAMBIO DE FORMNA YA COMPLETA EN EL APARTADO DE MENU ADMIN
+
     
     public void barraEstado(){
+        fechaGoogle.timeGoogle();
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("Usuario: " + lg.getIdusuario());
         lblNombre.setText("Nombre: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {

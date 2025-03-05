@@ -3,31 +3,27 @@ package Vista;
 import FormulariosAyuda.Gerente.AyudaVentasXSucursal;
 import Modelo.Login;
 import Modelo.Conexion;
+import Modelo.TimeGoogle;
 import java.awt.Window;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.sql.Date; // Para convertir LocalDate a SQL Date
-import java.time.YearMonth; // Para manejar mes y año juntos
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Locale;
 
 /**
  *
- * @author eduardo´s
+ * @author Eduardo´s
+ * 
  */
 
 public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     private final Conexion conexion;
     
     Login lg = Login.getInstancia();
+    
+    TimeGoogle fechaGoogle = new TimeGoogle();
     
     public frmReporteVentaPSucursal() {
         initComponents();
@@ -64,13 +60,14 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     }
     
     public void barraEstado(){
+        fechaGoogle.timeGoogle();
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
         lblNombre.setText("Nom: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {

@@ -14,10 +14,18 @@ import Modelo.Login;
 import Modelo.NombreBoleto;
 import Modelo.SaldoDisponible;
 import Modelo.SillaEstado;
+import Modelo.TimeGoogle;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.apache.commons.net.ntp.NTPUDPClient;
+import org.apache.commons.net.ntp.TimeInfo;
 
 
 /**
@@ -26,6 +34,10 @@ import javax.swing.JOptionPane;
  * 
  */
 public class frmBoleto extends javax.swing.JFrame {
+    
+    String timeServer = "time.google.com"; // Servidor NTP público de Google
+    NTPUDPClient client = new NTPUDPClient();
+    String fechaActualGoogle;
     
     SillaEstado sE = SillaEstado.getInstancia();
     
@@ -44,6 +56,8 @@ public class frmBoleto extends javax.swing.JFrame {
     CantidadSillasSelect dataSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
   
     SaldoDisponible saldoDisp = SaldoDisponible.getInstancia();
+    
+    TimeGoogle fechaGoogle = new TimeGoogle();
     
     public frmBoleto() {
         initComponents();
@@ -69,6 +83,31 @@ public class frmBoleto extends javax.swing.JFrame {
         extraerDatos();
     }
     
+    public void timeGoogle(){
+        
+        client.setDefaultTimeout(10000); // Tiempo de espera para la conexión (10 segundos)
+        
+        try {
+            // Conectarse al servidor NTP
+            InetAddress hostAddr = InetAddress.getByName(timeServer);
+            TimeInfo info = client.getTime(hostAddr);
+            long returnTime = info.getMessage().getTransmitTimeStamp().getTime();
+            Date date = new Date(returnTime);
+
+            // Formatear la fecha al formato "año-mes-día"
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = sdf.format(date);
+
+            fechaActualGoogle = formattedDate;
+            // Imprimir la fecha formateada
+            System.out.println("Fecha actual: " + formattedDate);
+        } catch (Exception e) {
+            System.err.println("Error al obtener la hora: " + e.getMessage());
+        } finally {
+            client.close();
+        }
+        
+    }
     
     // Método que ejecuta funciones previas antes de cerrar la ventana
     private void cerrarVentanaX() {
@@ -166,6 +205,9 @@ public class frmBoleto extends javax.swing.JFrame {
         
         List<tempDataSillas> listaIds = dataSillas.getListaDatSilla();
 
+        fechaGoogle.newFormatTimeGoogle();
+        fechaGoogle.timeGoogle();
+        
         // Verificar que haya sillas seleccionadas
         if (listaIds == null || listaIds.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una silla.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -228,7 +270,7 @@ public class frmBoleto extends javax.swing.JFrame {
 
         String comboBox = comboBoleto.getSelectedItem().toString();
         boolean invitado = radioInvitado.isSelected();
-        java.time.LocalDate vigencia = dtVigencia.getDate();
+        LocalDate vigencia = dtVigencia.getDate();
         String rInvitado = invitado ? "Sí" : "No";
 
         if (origen == 0 || grupo == 0 || socio == 0 || nombre == null || nombre.isEmpty() ||
@@ -242,7 +284,41 @@ public class frmBoleto extends javax.swing.JFrame {
                                           "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        
+        String fechaActual = fechaGoogle.getFechaNewFormatGoogle();
+        // Definir el formato de la fecha
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // Convertir el String a LocalDate
+        LocalDate dateValidFecha = LocalDate.parse(fechaActual, formatter);
+        
+       
+        // Verificar si la fecha seleccionada es anterior a la fecha actual
+        if (vigencia != null && vigencia.isBefore(dateValidFecha)) {
+            // Mostrar un mensaje de advertencia si la fecha es anterior a la actual
+            JOptionPane.showMessageDialog(this, "La vigencia seleccionada no es válida. Debe seleccionar una fecha a partir de hoy.", "Vigencia inválida", JOptionPane.ERROR_MESSAGE);
+            dtVigencia.setDate(dateValidFecha);
+            return;
+        }
+        
+        // Verificar si la fecha seleccionada es el día actual
+        if (dateValidFecha.equals(vigencia)) {
+            // Mostrar un cuadro de confirmación si la fecha es hoy
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Está seguro que la vigencia para el boleto es correcta?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
+            if (respuesta == JOptionPane.NO_OPTION) {
+                // Si el usuario responde "No", cancelar el proceso
+                JOptionPane.showMessageDialog(this, "Revisar correctamente los datos de vigencia y volver a intentar.", "Proceso cancelado", JOptionPane.INFORMATION_MESSAGE);
+                return; // Salir de la función
+            }
+
+        }
+
+        DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy");
+        String newFormatoVigencia = vigencia.format(newFormat);
+            
+        String fechaDetalleCompra = fechaGoogle.getFechaActualGoogle();
+        
         // Crear el mensaje de confirmación con los detalles
         String mensaje = "Detalles de la compra:\n" +
                          "Zona: " + Zona + "\n" +
@@ -252,8 +328,9 @@ public class frmBoleto extends javax.swing.JFrame {
                          "Cantidad: " + cantidadSillas + " Sillas\n" +
                          "Costo Total: $" + totalCosto + "\n" +
                          "Importe: $" + importe + "\n" +
-                         "Vigencia: " + vigencia + "\n" +
+                         "Vigencia Boleto: " + newFormatoVigencia + "\n" +
                          "Invitado: " + rInvitado + "\n\n" +
+                         "Fecha Compra: " + fechaDetalleCompra + "\n\n" +
                          "¿Deseas continuar con la compra?";
 
         // Mostrar cuadro de diálogo con opciones
@@ -263,7 +340,9 @@ public class frmBoleto extends javax.swing.JFrame {
         importeDividido = importe / cantidadSillas;
         
         if (confirmacion == JOptionPane.YES_OPTION) {
-                
+            
+            timeGoogle();
+            
             switch (comboBox) {
                 case "Separar":
                     if (importe >= cincuentaPorCiento && importe < totalCosto) {
@@ -315,7 +394,7 @@ public class frmBoleto extends javax.swing.JFrame {
 
             // Enviar los datos a la base de datos
             boolean datInsert = insert.insertarBoletos(origen, grupo, socio, nombre, sucursalSocio, rInvitado, telefono, correo,
-                                                            idusuario, sucursalUsuario, idZona, idMesa, idsSillas, Costo, estatusSilla, importeDividido, vigencia);
+                                                            idusuario, sucursalUsuario, idZona, idMesa, idsSillas, Costo, estatusSilla, importeDividido, fechaActualGoogle, vigencia);
 
             // Se comprueba si la insersión de los datos se realizo de manera correcta.
             //En caso de que no se hayan insertado los datos muestra la alerta y no se ejecuta nada.

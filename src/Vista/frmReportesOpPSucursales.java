@@ -4,15 +4,13 @@ import FormulariosAyuda.Operaciones.AyudaVentaXSucursales;
 import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
+import Modelo.TimeGoogle;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -29,6 +27,8 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     
     Login lg = Login.getInstancia();
 
+    TimeGoogle fechaGoogle = new TimeGoogle();
+    
     public frmReportesOpPSucursales() {
         initComponents();
         setResizable(false);
@@ -64,14 +64,14 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     
     
     public void barraEstado(){
-        
+        fechaGoogle.timeGoogle();
         //BARRA DE ESTADO: INFORMACION RELEVANTE
         // Inicializar datos dinámicos en la barra de estado
         lblUsuario.setText("User: " + lg.getIdusuario());
         lblNombre.setText("Nom: " + lg.getNombre() + " | ");
         lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
         lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
-        lblFecha.setText("Fecha: " + LocalDate.now().format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("es", "ES"))));
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
         
         // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
         if (System.getProperty("os.name").toLowerCase().contains("linux")) {
