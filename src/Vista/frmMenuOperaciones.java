@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 public class frmMenuOperaciones extends javax.swing.JFrame {
     private Login usuario; //objeto para almacenar los datos
-        
+    
     public frmMenuOperaciones() {
         initComponents();
         setResizable(false);

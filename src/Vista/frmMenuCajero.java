@@ -78,7 +78,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
         
     }
-    
+
     
     public void cerrarSesionUsuario(){
         try {
