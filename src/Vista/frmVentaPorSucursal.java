@@ -400,8 +400,8 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
     private void cargarSucursales() {
         String consultaSQL = "SELECT DISTINCT OrigenUsuario FROM tbl_boletos";
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(consultaSQL);
-             ResultSet rs = stmt.executeQuery()) {
+            PreparedStatement stmt = conn.prepareStatement(consultaSQL);
+            ResultSet rs = stmt.executeQuery()) {
 
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             modelo.addElement("Seleccione una sucursal"); // Opción por defecto
