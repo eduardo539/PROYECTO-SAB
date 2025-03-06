@@ -16,6 +16,24 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`eventos` /*!40100 DEFAULT CHARACTER SET
 
 USE `eventos`;
 
+/*Table structure for table `fechalimite` */
+
+DROP TABLE IF EXISTS `fechalimite`;
+
+CREATE TABLE `fechalimite` (
+  `idFecha` int(11) NOT NULL AUTO_INCREMENT,
+  `fechaLimite` date NOT NULL,
+  PRIMARY KEY (`idFecha`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `fechalimite` */
+
+LOCK TABLES `fechalimite` WRITE;
+
+insert  into `fechalimite`(`idFecha`,`fechaLimite`) values (1,'2025-03-31');
+
+UNLOCK TABLES;
+
 /*Table structure for table `saldosocio` */
 
 DROP TABLE IF EXISTS `saldosocio`;
@@ -32,8 +50,6 @@ CREATE TABLE `saldosocio` (
 /*Data for the table `saldosocio` */
 
 LOCK TABLES `saldosocio` WRITE;
-
-insert  into `saldosocio`(`idSaldo`,`Origen`,`Grupo`,`Socio`,`Saldo`) values (7,30422,10,3674,2180);
 
 UNLOCK TABLES;
 
@@ -101,8 +117,6 @@ CREATE TABLE `tbl_boletos` (
 /*Data for the table `tbl_boletos` */
 
 LOCK TABLES `tbl_boletos` WRITE;
-
-insert  into `tbl_boletos`(`Folio`,`Origen`,`Grupo`,`NumSocio`,`Nombre`,`OrigenSocio`,`Invitado`,`Telefono`,`Correo`,`id_usuario`,`OrigenUsuario`,`idZona`,`idMesa`,`idSilla`,`Costo`,`idEstado`,`Importe`,`FechaCompra`,`FechaVigencia`) values (316,30422,10,3674,'ROSA ELIA MORENO MEDINA','Sucursal Muzquiz','No','8611252044','eduardo345hdez@gmail.com',701,'Sucursal Independencia',1,1,1,560,3,560,'2025-02-28','2025-02-28'),(317,30422,10,3674,'ROSA ELIA MORENO MEDINA','Sucursal Muzquiz','No','8611252044','eduardo345hdez@gmail.com',701,'Sucursal Independencia',1,1,2,560,3,560,'2025-02-28','2025-02-28'),(318,30422,10,3674,'ROSA ELIA MORENO MEDINA','Sucursal Muzquiz','No','8611252044','eduardo345hdez@gmail.com',701,'Sucursal Independencia',1,1,3,560,2,500,'2025-02-28','2025-02-28'),(319,30422,10,3674,'ROSA ELIA MORENO MEDINA','Sucursal Muzquiz','No','8611252044','eduardo345hdez@gmail.com',701,'Sucursal Independencia',1,1,4,560,3,560,'2025-02-28','2025-02-28');
 
 UNLOCK TABLES;
 
@@ -217,6 +231,7 @@ CREATE TABLE `tbl_usuarios` (
   `vchPass` varchar(100) NOT NULL,
   `dtVigencia` date NOT NULL,
   `id_perfil` int(11) NOT NULL,
+  `estado` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `id_perfil` (`id_perfil`),
   CONSTRAINT `id_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `tbl_perfil` (`id_perfil`)
@@ -226,7 +241,7 @@ CREATE TABLE `tbl_usuarios` (
 
 LOCK TABLES `tbl_usuarios` WRITE;
 
-insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`) values (113,'Jose Cecilio Gomez Galdamez','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1),(539,'Eduardo Dominguez','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-03-26',4),(630,'MARIA ELENA ALVAREZ RAMOS','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1),(697,'ADAIR GUTIERREZ VITE','f83eb54af143e1c220d48cbff2675a4e','2025-04-04',2),(701,'Eduardo Hernandez Hernandez','f83eb54af143e1c220d48cbff2675a4e','2025-03-27',1),(709,'MONICA VALLEJO MARTINEZ','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4);
+insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`,`estado`) values (113,'Jose Cecilio Gomez Galdamez','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1,'activo'),(539,'Eduardo Dominguez','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-03-26',4,'activo'),(630,'MARIA ELENA ALVAREZ RAMOS','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1,'activo'),(697,'ADAIR GUTIERREZ VITE','f83eb54af143e1c220d48cbff2675a4e','2025-04-04',2,'activo'),(701,'Eduardo Hernandez Hernandez','f83eb54af143e1c220d48cbff2675a4e','2025-03-27',1,'activo'),(709,'MONICA VALLEJO MARTINEZ','8d0b67f36735af8508e2d72d7aef96b9','2025-03-14',4,'activo');
 
 UNLOCK TABLES;
 

@@ -285,6 +285,15 @@ public class frmBoleto extends javax.swing.JFrame {
             return;
         }
         
+        // Obtener el año de la fecha seleccionada
+        int anio = vigencia.getYear(); // Obtener el año
+        
+        String fechaLimiteCompraStr = consulta.fechaLimite(anio);
+        
+        // Convertir la fechaLimiteCompra de tipo String a LocalDate
+        LocalDate fechaLimiteCompra = LocalDate.parse(fechaLimiteCompraStr);
+        
+        
         
         String fechaActual = fechaGoogle.getFechaNewFormatGoogle();
         // Definir el formato de la fecha
@@ -313,6 +322,14 @@ public class frmBoleto extends javax.swing.JFrame {
             }
 
         }
+        
+        // Verificar si la fecha seleccionada es posterior a la fecha límite de compra
+        if (vigencia.isAfter(fechaLimiteCompra)) {
+            // Mostrar un mensaje de alerta si la fecha seleccionada es posterior a la fecha límite
+            JOptionPane.showMessageDialog(this, "La compra de boletos no está permitida para la fecha seleccionada. La fecha límite de compra es " + fechaLimiteCompra, "Fecha límite de compra alcanzada", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
 
         DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy");
         String newFormatoVigencia = vigencia.format(newFormat);
