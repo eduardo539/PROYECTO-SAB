@@ -9,6 +9,7 @@ import FormulariosAyuda.Sistemas.AyudaVentasXSocios;
 import Modelo.Conexion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
+import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
@@ -21,6 +22,8 @@ import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -116,7 +119,6 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         sesion.setVigencia(null);
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -129,14 +131,15 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         txtNumSocio = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblReporteXBoletosXUsuariosXSistemasGenerales = new javax.swing.JTable();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         lblVersionJava = new javax.swing.JLabel();
         lblSucursal = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
         lblVersionOS = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblReporteXBoletosXUsuariosXSistemasGenerales = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -206,6 +209,20 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblUsuario.setText("jLabel1");
+
+        lblNombre.setText("jLabel2");
+
+        lblVersionJava.setText("jLabel3");
+
+        lblSucursal.setText("jLabel4");
+
+        lblFecha.setText("jLabel5");
+
+        lblVersionOS.setText("jLabel6");
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos a visualizar:"));
+
         tblReporteXBoletosXUsuariosXSistemasGenerales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -219,17 +236,22 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblReporteXBoletosXUsuariosXSistemasGenerales);
 
-        lblUsuario.setText("jLabel1");
-
-        lblNombre.setText("jLabel2");
-
-        lblVersionJava.setText("jLabel3");
-
-        lblSucursal.setText("jLabel4");
-
-        lblFecha.setText("jLabel5");
-
-        lblVersionOS.setText("jLabel6");
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1)
+                .addGap(10, 10, 10))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
+        );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -282,32 +304,36 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuario)
@@ -399,6 +425,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblNombre;
@@ -413,21 +440,66 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void configurarModeloTabla() {
+        // Inicializa el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Sucursal de venta");
         modelo.addColumn("Sucursal del socio");
         modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("NumSocio");
+        modelo.addColumn("Num. Socio");
         modelo.addColumn("Nombre");
+        modelo.addColumn("Invitado");
+        modelo.addColumn("Telefono");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
         modelo.addColumn("Precio por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
+        modelo.addColumn("FechaCompra");
+        modelo.addColumn("FechaVigencia");
+
+        // Establece el modelo de la tabla
         tblReporteXBoletosXUsuariosXSistemasGenerales.setModel(modelo);
+
+        // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
+        tblReporteXBoletosXUsuariosXSistemasGenerales.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        // Ajustar el ancho de las columnas manualmente (puedes modificarlo según sea necesario)
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(0).setPreferredWidth(200); // Sucursal de venta
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(1).setPreferredWidth(200); // Sucursal del socio
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(2).setPreferredWidth(120); // Folio
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(3).setPreferredWidth(120); // Origen
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(4).setPreferredWidth(120); // Grupo
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(5).setPreferredWidth(120); // Num. Socio
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(6).setPreferredWidth(200); // Nombre
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(7).setPreferredWidth(120); // Invitado
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(8).setPreferredWidth(120); // Telefono
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(9).setPreferredWidth(200); // Cajero
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(10).setPreferredWidth(120); // Zona
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(11).setPreferredWidth(150); // Precio por boleto
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(12).setPreferredWidth(100); // Mesa
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(13).setPreferredWidth(100); // Silla
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(14).setPreferredWidth(120); // Fecha compra
+        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(15).setPreferredWidth(120); // Fecha Vigencia
+
+        // Ajustar el tamaño de la tabla para que coincida con el JScrollPane
+        tblReporteXBoletosXUsuariosXSistemasGenerales.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));
+        tblReporteXBoletosXUsuariosXSistemasGenerales.setFillsViewportHeight(true);
+
+        // Crear el JScrollPane con scroll horizontal y vertical
+        jScrollPane1 = new JScrollPane(tblReporteXBoletosXUsuariosXSistemasGenerales);
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        // Ajustar correctamente el panel para que no oculte la tabla
+        jPanel2.setLayout(new BorderLayout()); // Asegurar un layout correcto
+        jPanel2.removeAll(); // Limpiar el panel para evitar superposiciones
+        jPanel2.add(jScrollPane1, BorderLayout.CENTER);
+        jPanel2.revalidate(); // Refrescar el diseño
+        jPanel2.repaint();    // Repintar para asegurarse de que se ve correctamente
     }
+    
     
     private void limpiarEntradas() { 
         txtOrigen.setText("");
@@ -445,11 +517,15 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                     "    b.Grupo AS Grupo, " +
                     "    b.NumSocio AS NumSocio, " +
                     "    b.Nombre AS Nombre, " +
+                    "    b.Invitado, " +
+                    "    b.Telefono, " +
                     "    u.Nombre AS Cajero, " +
                     "    MAX(z.Zona) AS Zona, " +
                     "    b.Costo AS Precio_Boleto, " +
                     "    MAX(m.DescMesa) AS Mesa, " +
-                    "    MAX(s.vchDescripcion) AS Silla " +
+                    "    MAX(s.vchDescripcion) AS Silla, " +
+                    "    b.FechaCompra, " +
+                    "    b.FechaVigencia " +
                     "FROM " +
                     "    tbl_boletos b " +
                     "INNER JOIN " +
@@ -461,7 +537,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                     "LEFT JOIN " +
                     "    tbl_sillas s ON b.idSilla = s.idSilla " +
                     "GROUP BY " +
-                    "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+                    "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, " +
                     "    u.Nombre, b.Costo " +
                     "ORDER BY " +
                     "    b.Folio"; // Esto asegura que se ordene por el Folio de los boletos.
@@ -476,7 +552,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                 new Object[][] {}, 
                 new String[] {
                     "SucursalVenta", "SucursalSocio", "Folio", "Origen", "Grupo", "NumSocio", 
-                    "Nombre", "Cajero", "Zona", "Precio_Boleto", "Mesa", "Silla"
+                    "Nombre", "Invitado", "Telefono", "Cajero", "Zona", "Precio_Boleto", "Mesa", "Silla", "FechaCompra", "FechaVigencia"
                 }
             );
 
@@ -491,11 +567,15 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                     rs.getString("Grupo"),
                     rs.getString("NumSocio"),
                     rs.getString("Nombre"),
+                    rs.getString("Invitado"),
+                    rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
                     rs.getDouble("Precio_Boleto"),
                     rs.getString("Mesa"),
-                    rs.getString("Silla")
+                    rs.getString("Silla"),
+                    rs.getString("FechaCompra"),
+                    rs.getString("FechaVigencia")
                 });
             }
             // Establecer el modelo a la tabla (supongamos que el nombre de tu JTable es 'tabla')
@@ -519,15 +599,15 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
 
         // Consulta SQL para obtener los boletos filtrados
         String sql = "SELECT b.OrigenUsuario AS SucursalVenta, b.OrigenSocio AS SucursalSocio, b.Folio AS Folio_Boleto, " +
-                    "b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
-                    "b.Costo AS Precio_Boleto, MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla " +
+                    "b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
+                    "b.Costo AS Precio_Boleto, MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla, b.FechaCompra, b.FechaVigencia " +
                     "FROM tbl_boletos b " +
                     "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
                     "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
                     "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
                     "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
                     "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? " +
-                    "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre, b.Costo " +
+                    "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
                     "ORDER BY b.Folio";
 
         try (Connection conn = conexion.getConnection();
@@ -552,11 +632,15 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                     rs.getString("Grupo"),
                     rs.getString("NumSocio"),
                     rs.getString("Nombre"),
+                    rs.getString("Invitado"),
+                    rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
                     rs.getDouble("Precio_Boleto"),
                     rs.getString("Mesa"),
-                    rs.getString("Silla")
+                    rs.getString("Silla"),
+                    rs.getString("FechaCompra"),
+                    rs.getString("FechaVigencia")
                 });
             }
         } catch (SQLException e) {
