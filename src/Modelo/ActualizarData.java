@@ -433,4 +433,40 @@ public class ActualizarData {
         
     }
     
+    
+    public void actualizaEstadoUser(int user){
+        
+        String actualizar = "UPDATE tbl_usuarios " +
+                                "SET estado = 'bloqueado' " +
+                                "WHERE id_usuario = ?;";
+        
+        try {
+            // Obtener conexión
+            con = cn.getConnection();
+
+            // Preparar la sentencia SQL
+            ps = con.prepareStatement(actualizar);
+            ps.setInt(1, user);
+            ps.executeUpdate();
+
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error fatal con el estado del usuario, Contactar al administrador.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+    }
+    
 }

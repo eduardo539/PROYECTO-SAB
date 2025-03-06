@@ -286,8 +286,7 @@ public class frmSaldoXSocio extends javax.swing.JFrame {
         btnBorrar.setBackground(new java.awt.Color(255, 51, 51));
         btnBorrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-borrar-saldos.png"))); // NOI18N
-        btnBorrar.setText("Borrar Saldos");
+        btnBorrar.setText("Borrar Todos los Saldos");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);

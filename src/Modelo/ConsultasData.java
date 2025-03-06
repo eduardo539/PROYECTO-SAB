@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -481,6 +483,58 @@ public class ConsultasData {
         }
         
         return saldoSocio;
+        
+    }
+    
+    
+    public String fechaLimite(int anio){
+
+        
+        String consultaFechaLimite = "SELECT fechaLimite FROM fechaLimite " +
+                                        "WHERE YEAR(fechaLimite) = ?;";
+        
+        String limiteFecha = "";
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consultaFechaLimite); // Preparar consulta
+            ps.setInt(1, anio);
+            rs = ps.executeQuery(); // Ejecutar consulta
+            
+            boolean found = false; // Bandera para verificar si encontramos un resultado
+            
+            // Iterar sobre el resultado de la consulta
+            while (rs.next()) {
+                
+                limiteFecha = rs.getString("fechaLimite");
+                found = true; // Si encontramos al menos un resultado, establecemos la bandera
+
+            }
+            
+            // Verificar si no se encontraron resultados
+            if (!found) {
+                JOptionPane.showMessageDialog(null, "Aun no se establece una fecha limite para la venta " + anio, "Sin Resultados", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos MySQL, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos MySQL", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        return limiteFecha;
         
     }
     

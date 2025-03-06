@@ -38,7 +38,7 @@ public class TimeGoogle {
             fechaActualGoogle = sdf.format(date); // Guardamos la fecha formateada en la variable
 
         } catch (Exception e) {
-            fechaActualGoogle = "Error conexión"; // En caso de error, asignamos un mensaje de error
+            System.out.println("Error: Error al obtener la fecha" + e.getMessage()); // Muestra el error en la consola
         } finally {
             client.close();
         }
@@ -66,7 +66,7 @@ public class TimeGoogle {
             newFechaFormat = sdf.format(date); // Guardamos la fecha formateada en la variable
 
         } catch (Exception e) {
-            newFechaFormat = "2000-01-01"; // En caso de error, asignamos un mensaje de error
+            System.out.println("Error: Error al obtener la fecha newFormat" + e.getMessage()); // Muestra el error en la consola
         } finally {
             client.close();
         }
@@ -94,7 +94,7 @@ public class TimeGoogle {
             dateTime = sdf.format(date); // Guardamos la fecha y hora formateada en la variable
 
         } catch (Exception e) {
-            dateTime = "Error al obtener la fecha y hora"; // En caso de error, asignamos un mensaje de error
+            System.out.println("Error: Error al obtener la fecha y hora" + e.getMessage()); // Muestra el error en la consola
         } finally {
             client.close();
         }

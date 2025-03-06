@@ -9,13 +9,11 @@ import Modelo.LoginData;
 import Modelo.Sillas;
 import Modelo.SillasData;
 import Modelo.SillasEstatusVigencia;
-import java.net.InetAddress;
 import javax.swing.JFrame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -23,9 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.ImageIcon;
-import org.apache.commons.net.ntp.NTPUDPClient;
-import org.apache.commons.net.ntp.TimeInfo;
-import java.util.Date;
 /**
  *
  * @author Eduardo´s SAB
@@ -47,6 +42,9 @@ public class frmLogin extends javax.swing.JFrame {
     
     Conexion2 conect = new Conexion2();
     Connection post = null;
+    
+    ActualizarData actualiza = new ActualizarData();
+    int intentos = 0;  // Variable que acumula los intentos fallidos
     
     public frmLogin() {
         initComponents();
@@ -92,29 +90,84 @@ public class frmLogin extends javax.swing.JFrame {
         String usuario = txtUsuario.getText().trim();
         String pass = new String(txtPassword.getPassword()).trim();
 
+        int idUsuario = 0;
+        
         // Validación inicial: datos no vacíos
         if (usuario.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, llena los datos solicitados.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        int idUsuario;
+        
         try {
             idUsuario = Integer.parseInt(usuario); // Convertir texto a entero
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El ID del usuario debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        try {
-            lg = login.log(idUsuario, pass); 
+        
+        boolean restUser = login.comprobarUser(idUsuario);
             
-            if (lg != null && lg.getTipo_perfil() != null) { 
-                
-                
+        if(restUser == false){
+            // Mostrar mensaje indicando que la contraseña es incorrecta
+            JOptionPane.showMessageDialog(this, 
+                "El usuario ingresado no existe o es incorrecto, intentar nuevamente", 
+                "Advertencia", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
+        String status = login.compruebaEstado(idUsuario);
+        
+        if("bloqueado".equals(status)){
+            JOptionPane.showMessageDialog(this, 
+                "Este usuario esta bloqueado, favor de contactar al administrador.", 
+                "Usuario bloqueado", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
+        boolean rest = login.comprobarPass(idUsuario, pass);
+        
+        // Verificar si la contraseña es incorrecta
+        if (rest == false) {
+            // Incrementamos el contador de intentos
+            intentos++;
+
+            // Si el contador de intentos llega a 3, actualizamos el estado del usuario
+            if (intentos >= 3) {
+                // Llamada a la función para actualizar el estado del usuario (bloquearlo)
+                actualiza.actualizaEstadoUser(idUsuario);
+
+                // Mostrar mensaje indicando que el usuario ha sido bloqueado
+                JOptionPane.showMessageDialog(this, 
+                    "Has alcanzado el número máximo de intentos. Tu cuenta ha sido bloqueada.", 
+                    "Cuenta Bloqueada", 
+                    JOptionPane.WARNING_MESSAGE);
+            } else {
+                // Si no se alcanzan los 3 intentos, mostramos el número de intentos restantes
+                JOptionPane.showMessageDialog(this, 
+                    "La contraseña es incorrecta, intenta de nuevo. Intento " + intentos + " de 3.", 
+                    "Contraseña Incorrecta", 
+                    JOptionPane.WARNING_MESSAGE);
+            }
+
+            return;
+            
+        }
+        
+
+        try { 
+            
+            lg = login.log(idUsuario, pass);
+
+            if(lg != null && lg.getTipo_perfil() != null){
+            
                 // Verificar si el usuario tiene la contraseña predeterminada
                 if (tieneContrasenaPredeterminada(idUsuario)) { 
-                    
+
                     // Redirigir al formulario de actualización de contraseña
                     frmActualizarContra frm = new frmActualizarContra(idUsuario); 
                     frm.setLocationRelativeTo(null); 
@@ -126,11 +179,11 @@ public class frmLogin extends javax.swing.JFrame {
 
                     return; // Terminar el flujo hasta que la contraseña se actualice 
                 } 
-               
-                
+
+
                 if (verificarVigencia(idUsuario)) { 
-                
-    
+
+
                     JOptionPane.showMessageDialog( 
                         this,
                         "Su contraseña ha caducado. Es necesario actualizarla.",
@@ -148,7 +201,7 @@ public class frmLogin extends javax.swing.JFrame {
 
                     return; // Terminar el flujo hasta que la contraseña se actualice 
                 }
-                
+
                 // Redirige según el tipo de perfil
                 switch (lg.getTipo_perfil()) { 
                     case "Sistemas":
@@ -167,11 +220,14 @@ public class frmLogin extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Perfil desconocido, contacta al administrador.", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                 }
-                
-            } else {
-                // Credenciales incorrectas
-                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                // Mostrar un mensaje de error con los detalles del problema
+                JOptionPane.showMessageDialog(this, 
+                    "Ocurrió un error al obtener los datos del usuario desde la base de datos.\nDetalles: ", 
+                    "Error al Obtener Datos", 
+                    JOptionPane.ERROR_MESSAGE);
             }
+                
             
         } catch (Exception e) { 
             // Manejo de errores
