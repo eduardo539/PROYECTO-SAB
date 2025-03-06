@@ -168,7 +168,32 @@ END $$
 DELIMITER ;
 
 --------------------------------------------------------------------------------
+Consulta en donde se agregan para las tablas, los datos de Invitado, Telefono, FechaCompra, FechaVigencia
 
+
+    SELECT
+	b.OrigenUsuario AS Sucursal,
+        b.OrigenSocio AS Sucursal2,
+        b.Folio,
+        b.Origen,
+        b.Grupo,
+        b.NumSocio,
+        b.Nombre,
+        b.Invitado,
+        b.Telefono,
+        u.Nombre AS Cajero,
+        z.Zona,
+        b.Costo AS Precio_Boleto,
+        m.DescMesa AS Mesa,
+        s.vchDescripcion AS Silla,
+        b.FechaCompra,
+        b.FechaVigencia
+        FROM tbl_boletos b
+        INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario
+        LEFT JOIN tbl_zonas z ON b.idZona = z.idZona
+        LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa
+        LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla
+        WHERE 1=1 
 
 
 
