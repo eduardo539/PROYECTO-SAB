@@ -15,20 +15,17 @@ import Modelo.SillasApartadas.Boleto;
 import Modelo.SillasApartadasData;
 import Modelo.TimeGoogle;
 import java.awt.Window;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 import java.util.StringJoiner;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import org.apache.commons.net.ntp.NTPUDPClient;
-import org.apache.commons.net.ntp.TimeInfo;
 
 /**
  *
@@ -182,6 +179,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
         // Permitir la selección múltiple de filas
         tblBoletos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
+    
     }
     
     public void datosxSocioTabla(int ori, int grupo, int socio) {
@@ -435,10 +434,20 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         // Validar que la vigencia no sea nula
         LocalDate newVigencia = dtNewVigencia.getDate();
+        
         if (newVigencia == null) {
             JOptionPane.showMessageDialog(null, "Debes seleccionar una vigencia.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        // Obtener el año de la fecha seleccionada
+        int anio = newVigencia.getYear(); // Obtener el año
+        
+        String fechaLimiteCompraStr = consulta.fechaLimite(anio);
+        
+        // Convertir la fechaLimiteCompra de tipo String a LocalDate
+        LocalDate fechaLimiteCompra = LocalDate.parse(fechaLimiteCompraStr);
+        
         
         String fechaActual = fechaGoogle.getFechaNewFormatGoogle();
         // Definir el formato de la fecha
@@ -465,6 +474,13 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 return; // Salir de la función
             }
 
+        }
+        
+        // Verificar si la fecha seleccionada es posterior a la fecha límite de compra
+        if (newVigencia.isAfter(fechaLimiteCompra)) {
+            // Mostrar un mensaje de alerta si la fecha seleccionada es posterior a la fecha límite
+            JOptionPane.showMessageDialog(this, "La compra de boletos no está permitida para la fecha seleccionada. La fecha límite de compra es " + fechaLimiteCompra, "Fecha límite de compra alcanzada", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         
         

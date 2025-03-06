@@ -18,6 +18,7 @@ public class Login {
     private Date vigencia;
     private int idperfil;
     private String tipo_perfil;
+    private String estado;
 
     private Login() {
     }
@@ -30,13 +31,14 @@ public class Login {
         return instancia;
     }
 
-    public Login(int idusuario, String nombre, String Sucursal, Date vigencia, int idperfil, String tipo_perfil) {
+    public Login(int idusuario, String nombre, String Sucursal, Date vigencia, int idperfil, String tipo_perfil, String estado) {
         this.idusuario = idusuario;
         this.nombre = nombre;
         this.Sucursal = Sucursal;
         this.vigencia = vigencia;
         this.idperfil = idperfil;
         this.tipo_perfil = tipo_perfil;
+        this.estado = estado;
     }
 
     public int getIdusuario() {
@@ -86,7 +88,16 @@ public class Login {
     public void setTipo_perfil(String tipo_perfil) {
         this.tipo_perfil = tipo_perfil;
     }
-    
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+
     
     public void limpiarDatos() {
         this.idusuario = 0;
@@ -95,6 +106,7 @@ public class Login {
         this.Sucursal = null;
         this.vigencia = null;
         this.tipo_perfil = null;
+        this.estado = null;
     }
 
     

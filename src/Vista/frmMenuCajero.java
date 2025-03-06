@@ -17,7 +17,7 @@ import java.util.Date;
 
 /**
  *
- * @author Stock 2 Sistemas
+ * @author Eduardo´s
  */
 
 public class frmMenuCajero extends javax.swing.JFrame {
@@ -104,6 +104,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
             jlUsuario.setText("N/A");
             jlNombre.setText("N/A");
         }
+
     }
     
     private void abrirLogin() {
