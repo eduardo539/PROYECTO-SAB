@@ -244,7 +244,7 @@ public class frmBoleto extends javax.swing.JFrame {
         double saldoPostgress = saldoDisp.getSaldo();
         double saldoMySQL = saldoDisp.getSaldoL();
         int estatusSilla = 0;
-        double importe = 0.0;
+        double importe = 0.00;
         
         int idEstadoSilla = 1; // Estado "Disponible"
         
@@ -355,6 +355,7 @@ public class frmBoleto extends javax.swing.JFrame {
 
         double sumaSaldoMySQL = saldoMySQL + importe;
         importeDividido = importe / cantidadSillas;
+        double saldoPostgress1 = 99999999.00;//Borrar para activar la validacion
         
         if (confirmacion == JOptionPane.YES_OPTION) {
             
@@ -363,7 +364,7 @@ public class frmBoleto extends javax.swing.JFrame {
             switch (comboBox) {
                 case "Separar":
                     if (importe >= cincuentaPorCiento && importe < totalCosto) {
-                        if(sumaSaldoMySQL <= saldoPostgress){
+                        if(sumaSaldoMySQL <= saldoPostgress1){
                             estatusSilla = 2;
                         }else{
                             JOptionPane.showMessageDialog(null, 
@@ -386,7 +387,7 @@ public class frmBoleto extends javax.swing.JFrame {
 
                 case "Comprar":
                     if (importe == totalCosto) {
-                        if(sumaSaldoMySQL <= saldoPostgress){
+                        if(sumaSaldoMySQL <= saldoPostgress1){
                             estatusSilla = 3;
                         }else{
                             JOptionPane.showMessageDialog(null, 

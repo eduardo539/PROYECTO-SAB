@@ -7,6 +7,7 @@ import Vista.frmBoleto;
 import Vista.frmLogin;
 import Vista.frmCajero;
 import Vista.frmEnvioPDF;
+import Vista.frmFechaLimiteVenta;
 
 import Vista.frmSillasSeparadas;
 import Vista.frmPosadaMTY;
@@ -29,6 +30,7 @@ public class SAB {
         
        
 
+        //frmFechaLimiteVenta iniciar = new frmFechaLimiteVenta();
         //frmActualizarContra iniciar = new frmActualizarContra();
         frmLogin iniciar = new frmLogin();
         //frmAcercaDe iniciar = new frmAcercaDe();

@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -95,6 +97,14 @@ public class frmSaldoXSocio extends javax.swing.JFrame {
         
         tblSaldos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        // Centrar todos los datos en la tabla
+        DefaultTableCellRenderer centro = new DefaultTableCellRenderer();
+        centro.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Centrar el contenido de cada celda
+        for (int i = 0; i < tblSaldos.getColumnCount(); i++) {
+            tblSaldos.getColumnModel().getColumn(i).setCellRenderer(centro);
+        }
         
     }
     
@@ -135,6 +145,15 @@ public class frmSaldoXSocio extends javax.swing.JFrame {
         
         tblSaldos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        
+        // Centrar todos los datos en la tabla
+        DefaultTableCellRenderer centro = new DefaultTableCellRenderer();
+        centro.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Centrar el contenido de cada celda
+        for (int i = 0; i < tblSaldos.getColumnCount(); i++) {
+            tblSaldos.getColumnModel().getColumn(i).setCellRenderer(centro);
+        }
         
     }
     

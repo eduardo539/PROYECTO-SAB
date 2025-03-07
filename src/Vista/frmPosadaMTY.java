@@ -507,6 +507,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmiActualizar = new javax.swing.JMenuItem();
+        jmiSillasSeparadas = new javax.swing.JMenuItem();
         jmiEnvioBoleto = new javax.swing.JMenuItem();
         jmiVolverInicio = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -1752,6 +1753,16 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         });
         jMenu1.add(jmiActualizar);
 
+        jmiSillasSeparadas.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiSillasSeparadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-pendiente.png"))); // NOI18N
+        jmiSillasSeparadas.setText("Sillas Separadas");
+        jmiSillasSeparadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSillasSeparadasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiSillasSeparadas);
+
         jmiEnvioBoleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiEnvioBoleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-enviar.png"))); // NOI18N
         jmiEnvioBoleto.setText("Enviar Boleto");
@@ -2209,6 +2220,13 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         pdf.setVisible(true);
     }//GEN-LAST:event_jmiEnvioBoletoActionPerformed
 
+    private void jmiSillasSeparadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSillasSeparadasActionPerformed
+        frmSillasSeparadas sillaSep = new frmSillasSeparadas();
+        sillaSep.setLocationRelativeTo(null);
+        sillaSep.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jmiSillasSeparadasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2315,6 +2333,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenuItem jmiActualizar;
     private javax.swing.JMenuItem jmiEnvioBoleto;
+    private javax.swing.JMenuItem jmiSillasSeparadas;
     private javax.swing.JMenuItem jmiVolverInicio;
     private javax.swing.JLabel lblDato1;
     private javax.swing.JLabel lblDato2;

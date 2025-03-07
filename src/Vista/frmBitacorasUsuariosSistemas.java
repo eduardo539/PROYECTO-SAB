@@ -281,9 +281,9 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
         modelo = new DefaultTableModel();
         modelo.addColumn("Fecha");
         modelo.addColumn("Sucursal");
-        modelo.addColumn("id_usuario");
+        modelo.addColumn("Usuario");
         modelo.addColumn("Nombre");
-        modelo.addColumn("id_perfil");
+        modelo.addColumn("ID del perfil");
         modelo.addColumn("Descripcion");
 
         // Establecer el modelo a la tabla
@@ -292,13 +292,10 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
         // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
         tbl_Bitacoras_Usuarios_Sistemas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        // Ajustar el ancho de las columnas manualmente
-        tbl_Bitacoras_Usuarios_Sistemas.getColumnModel().getColumn(0).setPreferredWidth(150);
-        tbl_Bitacoras_Usuarios_Sistemas.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tbl_Bitacoras_Usuarios_Sistemas.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tbl_Bitacoras_Usuarios_Sistemas.getColumnModel().getColumn(3).setPreferredWidth(250);
-        tbl_Bitacoras_Usuarios_Sistemas.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tbl_Bitacoras_Usuarios_Sistemas.getColumnModel().getColumn(5).setPreferredWidth(350);
+        int[] columnWidths = {150, 250, 100, 250, 100, 400};
+        for (int i = 0; i < columnWidths.length; i++) {
+            tbl_Bitacoras_Usuarios_Sistemas.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+        }
 
         // Ajustar el tamaño de la tabla para que coincida con el JScrollPane
         tbl_Bitacoras_Usuarios_Sistemas.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));

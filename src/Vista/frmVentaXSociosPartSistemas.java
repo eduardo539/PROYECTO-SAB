@@ -447,7 +447,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("Num. Socio");
+        modelo.addColumn("Numero de socio");
         modelo.addColumn("Nombre");
         modelo.addColumn("Invitado");
         modelo.addColumn("Telefono");
@@ -456,32 +456,23 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         modelo.addColumn("Precio por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
-        modelo.addColumn("FechaCompra");
-        modelo.addColumn("FechaVigencia");
+        modelo.addColumn("Fecha de compra");
+        modelo.addColumn("Fecha de vigencia");
 
+        
         // Establece el modelo de la tabla
         tblReporteXBoletosXUsuariosXSistemasGenerales.setModel(modelo);
 
         // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
         tblReporteXBoletosXUsuariosXSistemasGenerales.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        // Ajustar el ancho de las columnas manualmente (puedes modificarlo según sea necesario)
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(0).setPreferredWidth(200); // Sucursal de venta
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(1).setPreferredWidth(200); // Sucursal del socio
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(2).setPreferredWidth(120); // Folio
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(3).setPreferredWidth(120); // Origen
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(4).setPreferredWidth(120); // Grupo
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(5).setPreferredWidth(120); // Num. Socio
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(6).setPreferredWidth(200); // Nombre
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(7).setPreferredWidth(120); // Invitado
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(8).setPreferredWidth(120); // Telefono
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(9).setPreferredWidth(200); // Cajero
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(10).setPreferredWidth(120); // Zona
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(11).setPreferredWidth(150); // Precio por boleto
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(12).setPreferredWidth(100); // Mesa
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(13).setPreferredWidth(100); // Silla
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(14).setPreferredWidth(120); // Fecha compra
-        tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(15).setPreferredWidth(120); // Fecha Vigencia
+        int[] columnWidths = {200, 200, 120, 120, 120, 120, 200, 120, 120, 200, 120, 150, 100, 100, 120, 120};
+        for (int i = 0; i < columnWidths.length; i++) {
+            tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+        }
+        
+        tblReporteXBoletosXUsuariosXSistemasGenerales.revalidate(); // Revalida el componente
+        tblReporteXBoletosXUsuariosXSistemasGenerales.repaint();    // Repinta la tabla
 
         // Ajustar el tamaño de la tabla para que coincida con el JScrollPane
         tblReporteXBoletosXUsuariosXSistemasGenerales.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));
@@ -491,7 +482,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         jScrollPane1 = new JScrollPane(tblReporteXBoletosXUsuariosXSistemasGenerales);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
+        
         // Ajustar correctamente el panel para que no oculte la tabla
         jPanel2.setLayout(new BorderLayout()); // Asegurar un layout correcto
         jPanel2.removeAll(); // Limpiar el panel para evitar superposiciones
@@ -593,7 +584,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
 
         // Validar que los campos no estén vacíos
         if (origen.isEmpty() || grupo.isEmpty() || numSocio.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
 

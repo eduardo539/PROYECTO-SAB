@@ -153,7 +153,7 @@ public class frmAcercaDe extends javax.swing.JFrame {
         jLabel28.setText("Versión 1.0.0 (Abril 2025)");
 
         jLabel29.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jLabel29.setText("EDUARDO HERNÁNDEZ HERNÁNDEZ (Backend y Frontend)");
+        jLabel29.setText("EDUARDO DOMÍNGUEZ LIBRADO (Backend y Frontend)");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
