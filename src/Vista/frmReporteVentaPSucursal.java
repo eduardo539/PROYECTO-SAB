@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -572,6 +573,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
             ResultSet rs = stmt.executeQuery();
 
+            DecimalFormat df = new DecimalFormat("0.00");
+                        
             // Agregar los resultados al modelo de la tabla.
             while (rs.next()) {
                 Object[] fila = new Object[]{
@@ -586,7 +589,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                         rs.getString("Telefono"),
                         rs.getString("Cajero"),
                         rs.getString("Zona"),
-                        rs.getDouble("Precio_Boleto"),
+                        df.format(rs.getDouble("Precio_Boleto")), // para agregar los dos 00
                         rs.getString("Mesa"),
                         rs.getString("Silla"),
                         rs.getString("FechaCompra"),

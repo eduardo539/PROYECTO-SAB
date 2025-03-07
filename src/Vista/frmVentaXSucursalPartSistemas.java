@@ -19,6 +19,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.text.DecimalFormat;
+
 
 /**
  *
@@ -422,12 +424,14 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
             }
 
             ResultSet rs = stmt.executeQuery();
+            
+            DecimalFormat df = new DecimalFormat("0.00");
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                         rs.getString("Sucursal"),
                         rs.getInt("Numero_Boletos"),
-                        rs.getDouble("Monto_Total")
+                        df.format(rs.getDouble("Monto_Total"))
                 });
             }
 
@@ -473,6 +477,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
 
             if (rs.next()) {
                 // Obtén el total del monto vendido
+            
                 double totalMonto = rs.getDouble("TotalMonto");
 
                 // Actualiza el JTextField con el valor obtenido, mostrando el monto con dos decimales
