@@ -14,6 +14,7 @@ import Modelo.SillasApartadas;
 import Modelo.SillasApartadas.Boleto;
 import Modelo.SillasApartadasData;
 import Modelo.TimeGoogle;
+import java.awt.Component;
 import java.awt.Window;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,10 +23,10 @@ import java.util.StringJoiner;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -141,14 +142,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         modelo.addColumn("Folio");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("Núm. Socio");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Socio");
+        modelo.addColumn("Nombre Completo");
         modelo.addColumn("Zona");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
         modelo.addColumn("Costo c/u");
         modelo.addColumn("Importe");
-        modelo.addColumn("Vigencia");
+        modelo.addColumn("Vigencia Boleto");
         
         // Obtener los datos en forma de lista o colección
         List<Boleto> listaDatos = apart.getListaBoletos(); // Ajusta según cómo obtienes los datos
@@ -180,6 +181,29 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         // Permitir la selección múltiple de filas
         tblBoletos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         
+        
+        // Asignar el tamaño específico a cada columna
+        tblBoletos.getColumnModel().getColumn(0).setPreferredWidth(70); // "Folio"
+        tblBoletos.getColumnModel().getColumn(1).setPreferredWidth(70); // "Origen"
+        tblBoletos.getColumnModel().getColumn(2).setPreferredWidth(70); // "Grupo"
+        tblBoletos.getColumnModel().getColumn(3).setPreferredWidth(70); // "Núm. Socio"
+        tblBoletos.getColumnModel().getColumn(4).setPreferredWidth(250); // "Nombre Completo"
+        tblBoletos.getColumnModel().getColumn(5).setPreferredWidth(70);  // "Zona"
+        tblBoletos.getColumnModel().getColumn(6).setPreferredWidth(70);  // "Mesa"
+        tblBoletos.getColumnModel().getColumn(7).setPreferredWidth(70);  // "Silla"
+        tblBoletos.getColumnModel().getColumn(8).setPreferredWidth(90);  // "Costo c/u"
+        tblBoletos.getColumnModel().getColumn(9).setPreferredWidth(90);  // "Importe"
+        tblBoletos.getColumnModel().getColumn(10).setPreferredWidth(100); // "Vigencia Boleto"
+
+        
+        // Centrar todos los datos en la tabla
+        DefaultTableCellRenderer centro = new DefaultTableCellRenderer();
+        centro.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Centrar el contenido de cada celda
+        for (int i = 0; i < tblBoletos.getColumnCount(); i++) {
+            tblBoletos.getColumnModel().getColumn(i).setCellRenderer(centro);
+        }
     
     }
     
@@ -196,14 +220,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         modelo.addColumn("Folio");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("Núm. Socio");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Socio");
+        modelo.addColumn("Nombre Completo");
         modelo.addColumn("Zona");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
         modelo.addColumn("Costo c/u");
         modelo.addColumn("Importe");
-        modelo.addColumn("Vigencia");
+        modelo.addColumn("Vigencia Boleto");
         
         // Obtener los datos en forma de lista o colección
         List<Boleto> listaDatos = apart.getListaBoletos(); // Ajusta según cómo obtienes los datos
@@ -233,6 +257,32 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
         // Permitir la selección múltiple de filas
         tblBoletos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);   
+        
+        
+        // Asignar el tamaño específico a cada columna
+        tblBoletos.getColumnModel().getColumn(0).setPreferredWidth(70); // "Folio"
+        tblBoletos.getColumnModel().getColumn(1).setPreferredWidth(70); // "Origen"
+        tblBoletos.getColumnModel().getColumn(2).setPreferredWidth(70); // "Grupo"
+        tblBoletos.getColumnModel().getColumn(3).setPreferredWidth(70); // "Núm. Socio"
+        tblBoletos.getColumnModel().getColumn(4).setPreferredWidth(250); // "Nombre Completo"
+        tblBoletos.getColumnModel().getColumn(5).setPreferredWidth(70);  // "Zona"
+        tblBoletos.getColumnModel().getColumn(6).setPreferredWidth(70);  // "Mesa"
+        tblBoletos.getColumnModel().getColumn(7).setPreferredWidth(70);  // "Silla"
+        tblBoletos.getColumnModel().getColumn(8).setPreferredWidth(90);  // "Costo c/u"
+        tblBoletos.getColumnModel().getColumn(9).setPreferredWidth(90);  // "Importe"
+        tblBoletos.getColumnModel().getColumn(10).setPreferredWidth(100); // "Vigencia Boleto"
+
+        
+        // Centrar todos los datos en la tabla
+        DefaultTableCellRenderer centro = new DefaultTableCellRenderer();
+        centro.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Centrar el contenido de cada celda
+        for (int i = 0; i < tblBoletos.getColumnCount(); i++) {
+            tblBoletos.getColumnModel().getColumn(i).setCellRenderer(centro);
+        }
+        
+        
     }
 
     /**
@@ -804,6 +854,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblBoletos.setAutoResizeMode(0);
         jScrollPane1.setViewportView(tblBoletos);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -819,7 +870,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
 
@@ -911,7 +962,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                 .addComponent(dtNewVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -981,12 +1032,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(10, 10, 10)
+                        .addGap(500, 500, 500))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
