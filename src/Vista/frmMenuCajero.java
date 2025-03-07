@@ -25,6 +25,8 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
     TimeGoogle google = new TimeGoogle();
     
+    private Timer timer;
+    
     public frmMenuCajero() {
         initComponents();
         
@@ -56,7 +58,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
     
     public void tiempoReal() {
         // Crear un Timer que se ejecute cada 1000 milisegundos (1 segundo)
-        Timer timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 google.dateTime();  // Llama al método que obtiene la hora de Google
@@ -74,6 +76,20 @@ public class frmMenuCajero extends javax.swing.JFrame {
         // Inicia el Timer
         timer.start();
     }
+    
+    
+    @Override
+    public void dispose() {
+        // Detener el Timer si está en ejecución
+        if (timer != null && timer.isRunning()) {
+            timer.stop();
+            //System.out.println("El Timer ha sido detenido.");
+        }
+
+        // Llamar al método dispose() de la superclase (JFrame) para asegurarse de que la ventana se cierre correctamente
+        super.dispose();
+    }
+    
     
     private String formatearFechaHora(String fechaHora){
         try {

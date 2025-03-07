@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -280,7 +281,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(80, 35));
@@ -347,8 +348,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -572,6 +573,8 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
             ResultSet rs = stmt.executeQuery();
 
+            DecimalFormat df = new DecimalFormat("0.00");
+                        
             // Agregar los resultados al modelo de la tabla.
             while (rs.next()) {
                 Object[] fila = new Object[]{
@@ -586,7 +589,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                         rs.getString("Telefono"),
                         rs.getString("Cajero"),
                         rs.getString("Zona"),
-                        rs.getDouble("Precio_Boleto"),
+                        df.format(rs.getDouble("Precio_Boleto")), // para agregar los dos 00
                         rs.getString("Mesa"),
                         rs.getString("Silla"),
                         rs.getString("FechaCompra"),

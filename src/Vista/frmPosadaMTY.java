@@ -25,6 +25,7 @@ import java.util.*;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 /**
  *
  * @author Eduardo´s
@@ -102,22 +103,23 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                 barraEstado();
                 actualizaSillasxVigencia();
                 
-                // Forzar actualización de la interfaz gráfica
-                //revalidate();  // Actualiza el layout si es necesario
-                //repaint();     // Redibuja los componentes
             }
         });
         timer.start(); // Inicia el Timer
     }
     
-    // Método para detener el Timer cuando se cierre la ventana
     @Override
     public void dispose() {
+        // Detener el Timer si está en ejecución
         if (timer != null && timer.isRunning()) {
             timer.stop();
+            //System.out.println("El Timer ha sido detenido.");
         }
+
+        // Llamar al método dispose() de la superclase (JFrame) para asegurarse de que la ventana se cierre correctamente
         super.dispose();
     }
+
 
     
     public void barraEstado(){
@@ -177,7 +179,9 @@ public class frmPosadaMTY extends javax.swing.JFrame {
         
     }
     
+    
     public void estadoPrecios(){
+
         // Obtener la instancia de la clase singleton Precios
         //Precios precios = Precios.getInstancia();
         precios = preD.pr();

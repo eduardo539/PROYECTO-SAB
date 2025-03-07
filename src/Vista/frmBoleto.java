@@ -15,17 +15,12 @@ import Modelo.NombreBoleto;
 import Modelo.SaldoDisponible;
 import Modelo.SillaEstado;
 import Modelo.TimeGoogle;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import org.apache.commons.net.ntp.NTPUDPClient;
-import org.apache.commons.net.ntp.TimeInfo;
 
 
 /**
@@ -34,9 +29,7 @@ import org.apache.commons.net.ntp.TimeInfo;
  * 
  */
 public class frmBoleto extends javax.swing.JFrame {
-    
-    String timeServer = "time.google.com"; // Servidor NTP público de Google
-    NTPUDPClient client = new NTPUDPClient();
+
     String fechaActualGoogle;
     
     SillaEstado sE = SillaEstado.getInstancia();
@@ -85,27 +78,8 @@ public class frmBoleto extends javax.swing.JFrame {
     
     public void timeGoogle(){
         
-        client.setDefaultTimeout(10000); // Tiempo de espera para la conexión (10 segundos)
-        
-        try {
-            // Conectarse al servidor NTP
-            InetAddress hostAddr = InetAddress.getByName(timeServer);
-            TimeInfo info = client.getTime(hostAddr);
-            long returnTime = info.getMessage().getTransmitTimeStamp().getTime();
-            Date date = new Date(returnTime);
-
-            // Formatear la fecha al formato "año-mes-día"
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String formattedDate = sdf.format(date);
-
-            fechaActualGoogle = formattedDate;
-            // Imprimir la fecha formateada
-            System.out.println("Fecha actual: " + formattedDate);
-        } catch (Exception e) {
-            System.err.println("Error al obtener la hora: " + e.getMessage());
-        } finally {
-            client.close();
-        }
+        fechaGoogle.newFormatTimeGoogle();
+        fechaActualGoogle = fechaGoogle.getFechaNewFormatGoogle();
         
     }
     

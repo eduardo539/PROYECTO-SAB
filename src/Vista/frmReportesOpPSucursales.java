@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -565,7 +566,9 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery();
             DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
             modelo.setRowCount(0); // Limpia la tabla antes de cargar datos
-
+            
+            DecimalFormat df = new DecimalFormat("0.00");
+            
             // Procesar los resultados
             while (rs.next()) {
                 modelo.addRow(new Object[]{
@@ -580,7 +583,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                     rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
-                    rs.getDouble("Precio_Boleto"),
+                    df.format(rs.getDouble("Precio_Boleto")),// para los 00
                     rs.getString("Mesa"),
                     rs.getString("Silla"),
                     rs.getString("FechaCompra"),

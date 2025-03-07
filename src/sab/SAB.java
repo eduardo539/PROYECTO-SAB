@@ -1,17 +1,8 @@
 package sab;
 
-import Vista.formMenuAdmin;
-import Vista.frmAcercaDe;
-import Vista.frmActualizarContra;
-import Vista.frmBoleto;
 import Vista.frmLogin;
-import Vista.frmCajero;
-import Vista.frmEnvioPDF;
-import Vista.frmFechaLimiteVenta;
 
-import Vista.frmSillasSeparadas;
-import Vista.frmPosadaMTY;
-import Vista.frmSaldoXSocio;
+
 
 /**
  *
@@ -25,25 +16,7 @@ public class SAB {
         //Se crea un objeto para inicializar el formulario de login
 
         
-        //frmLogin iniciar = new frmLogin();
-        // frmSillasSeparadas iniciar = new frmSillasSeparadas();
-        
-       
-
-        //frmFechaLimiteVenta iniciar = new frmFechaLimiteVenta();
-        //frmActualizarContra iniciar = new frmActualizarContra();
         frmLogin iniciar = new frmLogin();
-        //frmAcercaDe iniciar = new frmAcercaDe();
-        //frmSaldoXSocio iniciar = new frmSaldoXSocio();
-        //frmEnvioPDF iniciar = new frmEnvioPDF();
-        //frmSillasSeparadas iniciar = new frmSillasSeparadas();
-
-        //frmCajero iniciar = new frmCajero();
-    
-        //forMenuAdmin iniciar = new forMenuAdmin();
-        
-        //frmBoleto iniciar = new frmBoleto();
-        
 
         
         iniciar.setLocationRelativeTo(null); // Centra la ventana en la pantalla
