@@ -87,6 +87,18 @@ public class frmSillas extends javax.swing.JFrame {
         timer.start(); // Inicia el Timer
     }
     
+    @Override
+    public void dispose() {
+        // Detener el Timer si está en ejecución
+        if (timer != null && timer.isRunning()) {
+            timer.stop();
+            //System.out.println("El Timer ha sido detenido.");
+        }
+
+        // Llamar al método dispose() de la superclase (JFrame) para asegurarse de que la ventana se cierre correctamente
+        super.dispose();
+    }
+    
     
     public void datos() {
 
