@@ -42,6 +42,11 @@ public class Sillas {
         return listaSillas;
     }
     
+    // Método para borrar los datos de la lista
+    public void borrarDatos() {
+        listaSillas.clear();
+    }
+    
     
     public static class Silla{
         private int idSilla;
