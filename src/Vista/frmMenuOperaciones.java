@@ -35,6 +35,8 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
             }
         });
         
+        actualizarMensajeBienvenida();
+        
     }
     
     // Método que ejecuta funciones previas antes de cerrar la ventana
