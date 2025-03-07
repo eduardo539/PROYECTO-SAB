@@ -455,7 +455,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="EDUARDO HERN&#xc1;NDEZ HERN&#xc1;NDEZ (Backend y Frontend)"/>
+                <Property name="text" type="java.lang.String" value="EDUARDO DOM&#xcd;NGUEZ LIBRADO (Backend y Frontend)"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -5,6 +5,7 @@ import Modelo.Conexion;
 import Modelo.Conexion2;
 import Modelo.Login;
 import Modelo.TimeGoogle;
+import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.sql.Connection;
@@ -15,6 +16,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,31 +27,27 @@ import javax.swing.table.DefaultTableModel;
 
 public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private final Conexion conexion;
-    
     Login lg = Login.getInstancia();
-
     TimeGoogle fechaGoogle = new TimeGoogle();
     
     public frmReportesOpPSucursales() {
         initComponents();
         setResizable(false);
         conexion = new Conexion();
-        configuracionModeloTabla();
-        cargarSucursales();
-        // cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
-        configurarComboBoxAnos();
-        configurarComboBoxMeses();
+        
+        configuracionModeloTabla();  // Configurar la tabla vacía
+        cargarSucursales();  // Cargar sucursales en el combo
+        configurarComboBoxAnos();  // Cargar los años en el combo
+        configurarComboBoxMeses();  // Cargar los meses en el combo
+        limpiarTabla(); // Asegurar que la tabla inicie vacía
+        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
         
-        
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
-
-        // Añadir el WindowListener para gestionar el evento de cierre
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                // Llamamos a nuestras funciones previas antes de cerrar la ventana
                 cerrarVentanaX();
             }
         });
@@ -56,12 +55,10 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     
     // Método que ejecuta funciones previas antes de cerrar la ventana
     private void cerrarVentanaX() {
-        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
         frmMenuOperaciones operaciones = new frmMenuOperaciones();
         operaciones.setLocationRelativeTo(null);
         operaciones.setVisible(true);
     }
-    
     
     public void barraEstado(){
         fechaGoogle.timeGoogle();
@@ -89,7 +86,6 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-        
     }
     
     private void abrirLogin() {
@@ -113,15 +109,12 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         sesion.setVigencia(null);
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
-
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblReporte = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jtlSucursales = new javax.swing.JComboBox();
         jtlAnos = new javax.swing.JComboBox();
@@ -135,6 +128,9 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         lblSucursal = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
         lblVersionOS = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblReporte = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -143,19 +139,6 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        tblReporte.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12"
-            }
-        ));
-        jScrollPane1.setViewportView(tblReporte);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Venta de boletos de todas las sucursales."));
 
@@ -175,21 +158,21 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             }
         });
 
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar todo");
         btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
         btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
+        btnMostrarTodo.setText("Mostrar todo");
         btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarTodoActionPerformed(evt);
             }
         });
 
+        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-pendiente.png"))); // NOI18N
         btnFiltrar.setText("Filtrar por Mes y Año");
         btnFiltrar.setAutoscrolls(true);
-        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFiltrarActionPerformed(evt);
@@ -280,6 +263,38 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                     .addComponent(lblVersionOS)))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualización de datos:"));
+
+        tblReporte.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12"
+            }
+        ));
+        jScrollPane1.setViewportView(tblReporte);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addGap(10, 10, 10))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         jMenuBar1.setMinimumSize(new java.awt.Dimension(80, 35));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
@@ -331,24 +346,23 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -461,6 +475,7 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jtlAnos;
     private javax.swing.JComboBox jtlMeses;
@@ -495,18 +510,22 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
     private void cargarDatos(String sucursal, Integer ano, Integer mes) {
         // Construcción de la consulta SQL con todas las columnas necesarias
         StringBuilder consultaSQL = new StringBuilder("SELECT " +
-            "    b.OrigenUsuario AS Sucursal, " +  // Cambié de u.vchSucursal a b.vchSucursal
-            "    b.OrigenSocio AS Sucursal2, " +  // Cambié de u.vchSucursal a b.vchSucursal
+            "    b.OrigenUsuario AS Sucursal, " + 
+            "    b.OrigenSocio AS Sucursal2, " + 
             "    b.Folio, " +
             "    b.Origen, " +
             "    b.Grupo, " +
             "    b.NumSocio, " +
             "    b.Nombre, " +
+            "    b.Invitado, " +
+            "    b.Telefono, " +
             "    u.Nombre AS Cajero, " +
             "    z.Zona, " +
             "    b.Costo AS Precio_Boleto, " +
             "    m.DescMesa AS Mesa, " +
-            "    s.vchDescripcion AS Silla " +
+            "    s.vchDescripcion AS Silla, " +
+            "    b.FechaCompra, " +
+            "    b.FechaVigencia " +
             "FROM tbl_boletos b " +  // La consulta se sigue haciendo sobre la tabla 'tbl_boletos'
             "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +  // 'tbl_usuarios' sigue siendo usada para la información del cajero
             "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +  // Tabla de zonas
@@ -524,8 +543,8 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
             consultaSQL.append("AND YEAR(b.FechaCompra) = ? AND MONTH(b.FechaCompra) = ? ");
         }
         
-        consultaSQL.append("GROUP BY b.OrigenSocio, b.OrigenSocio,b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
-                "u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion " +
+        consultaSQL.append("GROUP BY b.OrigenSocio, b.OrigenSocio,b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, " +
+                "u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion, b.FechaCompra, b.FechaVigencia " +
                 "ORDER BY b.Folio");
         
         try (Connection conn = conexion.getConnection();
@@ -557,11 +576,15 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
                     rs.getString("Grupo"),
                     rs.getString("NumSocio"),
                     rs.getString("Nombre"),
+                    rs.getString("Invitado"),
+                    rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
                     rs.getDouble("Precio_Boleto"),
                     rs.getString("Mesa"),
                     rs.getString("Silla"),
+                    rs.getString("FechaCompra"),
+                    rs.getString("FechaVigencia"),
                 });
             }
         } catch (SQLException e) {
@@ -595,14 +618,38 @@ public class frmReportesOpPSucursales extends javax.swing.JFrame {
         modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("Num. Socio");
+        modelo.addColumn("Numero de socio");
         modelo.addColumn("Nombre");
+        modelo.addColumn("Invitado");
+        modelo.addColumn("Telefono");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
         modelo.addColumn("Precio por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
+        modelo.addColumn("Fecha de compra");
+        modelo.addColumn("Fecha de vigencia");
+
         tblReporte.setModel(modelo);
+        tblReporte.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        int[] columnWidths = {200, 200, 120, 120, 120, 120, 200, 120, 120, 200, 120, 150, 100, 100, 120, 120};
+        for (int i = 0; i < columnWidths.length; i++) {
+            tblReporte.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+        }
+
+        tblReporte.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));
+        tblReporte.setFillsViewportHeight(true);
+
+        jScrollPane1 = new JScrollPane(tblReporte);
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        jPanel3.setLayout(new BorderLayout());
+        jPanel3.removeAll();
+        jPanel3.add(jScrollPane1, BorderLayout.CENTER);
+        jPanel3.revalidate();
+        jPanel3.repaint();
     }
 
     private void limpiarCamposSeleccion() {

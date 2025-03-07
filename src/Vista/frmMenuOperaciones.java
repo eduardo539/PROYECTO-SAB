@@ -21,9 +21,9 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null); //Abrir la ventana en el centro de la pantalla
         usuario = Login.getInstancia(); // Obtener los datos de la sesión actual
-        actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
+        // Actualiza los datos solo cuando el usuario lo decida (no aquí)
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
         // Añadir el WindowListener para gestionar el evento de cierre
@@ -113,9 +113,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         sesion.setTipo_perfil(null);
 
     }
-    
-        
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -589,7 +589,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("Num. Socio");
+        modelo.addColumn("Numero de socio");
         modelo.addColumn("Nombre");
         modelo.addColumn("Invitado");
         modelo.addColumn("Telefono");
@@ -598,8 +598,8 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         modelo.addColumn("Precio por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
-        modelo.addColumn("FechaCompra");
-        modelo.addColumn("FechaVigencia");
+        modelo.addColumn("Fecha de compra");
+        modelo.addColumn("Fecha de vigencia");
 
         // Establece el modelo de la tabla
         tblReporte.setModel(modelo);
@@ -607,23 +607,10 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
         tblReporte.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        // Ajustar el ancho de las columnas manualmente (puedes modificarlo según sea necesario)
-        tblReporte.getColumnModel().getColumn(0).setPreferredWidth(200); // Sucursal de venta
-        tblReporte.getColumnModel().getColumn(1).setPreferredWidth(200); // Sucursal del socio
-        tblReporte.getColumnModel().getColumn(2).setPreferredWidth(120); // Folio
-        tblReporte.getColumnModel().getColumn(3).setPreferredWidth(120); // Origen
-        tblReporte.getColumnModel().getColumn(4).setPreferredWidth(120); // Grupo
-        tblReporte.getColumnModel().getColumn(5).setPreferredWidth(120); // Num. Socio
-        tblReporte.getColumnModel().getColumn(6).setPreferredWidth(200); // Nombre
-        tblReporte.getColumnModel().getColumn(7).setPreferredWidth(120); // Invitado
-        tblReporte.getColumnModel().getColumn(8).setPreferredWidth(120); // Telefono
-        tblReporte.getColumnModel().getColumn(9).setPreferredWidth(200); // Cajero
-        tblReporte.getColumnModel().getColumn(10).setPreferredWidth(120); // Zona
-        tblReporte.getColumnModel().getColumn(11).setPreferredWidth(150); // Precio por boleto
-        tblReporte.getColumnModel().getColumn(12).setPreferredWidth(100); // Mesa
-        tblReporte.getColumnModel().getColumn(13).setPreferredWidth(100); // Silla
-        tblReporte.getColumnModel().getColumn(14).setPreferredWidth(120); // Fecha compra
-        tblReporte.getColumnModel().getColumn(15).setPreferredWidth(120); // Fecha Vigencia
+        int[] columnWidths = {200, 200, 120, 120, 120, 120, 200, 120, 120, 200, 120, 150, 100, 100, 120, 120};
+        for (int i = 0; i < columnWidths.length; i++) {
+            tblReporte.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+        }
 
         // Ajustar el tamaño de la tabla para que coincida con el JScrollPane
         tblReporte.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));
