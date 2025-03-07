@@ -3,6 +3,7 @@ import FormulariosAyuda.Gerente.AyudaVentasXSocios;
 import Modelo.Conexion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
+import java.awt.BorderLayout;
 import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -100,16 +101,12 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         sesion.setVigencia(null);
         sesion.setIdperfil(0);
         sesion.setTipo_perfil(null);
-        
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblReporteXSucursal = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         txtOrigen = new javax.swing.JTextField();
         txtGrupo = new javax.swing.JTextField();
@@ -124,6 +121,9 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         lblVersionOS = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
         lblSucursal = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblReporteXSucursal = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -132,19 +132,6 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        tblReporteXSucursal.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblReporteXSucursal);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro venta de boletos por socio dentro de la sucursal."));
 
@@ -159,20 +146,20 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
 
         txtNumSocio.setBorder(javax.swing.BorderFactory.createTitledBorder("Num Socio:"));
 
-        txtFiltrarXUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
-        txtFiltrarXUsuario.setText("Filtrar por usuario");
         txtFiltrarXUsuario.setBackground(new java.awt.Color(76, 175, 80));
         txtFiltrarXUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtFiltrarXUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
+        txtFiltrarXUsuario.setText("Filtrar por usuario");
         txtFiltrarXUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFiltrarXUsuarioActionPerformed(evt);
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
-        jButton1.setText("Mostrar Todo");
         jButton1.setBackground(new java.awt.Color(76, 175, 80));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
+        jButton1.setText("Mostrar Todo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -257,6 +244,38 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                     .addComponent(lblSucursal)))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizacíon de datos:"));
+
+        tblReporteXSucursal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblReporteXSucursal);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1)
+                .addGap(10, 10, 10))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -316,17 +335,17 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -339,19 +358,47 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
 
     private void configurarModeloTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Suc. venta");
-        modelo.addColumn("Suc. socio");
+        modelo.addColumn("Sucursal de venta");
+        modelo.addColumn("Sucursal del socio");
         modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
-        modelo.addColumn("Num. Socio");
+        modelo.addColumn("Numero de socio");
         modelo.addColumn("Nombre");
+        modelo.addColumn("Invitado");
+        modelo.addColumn("Telefono");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
-        modelo.addColumn("Prec. por boleto");
+        modelo.addColumn("Precio por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
+        modelo.addColumn("Fecha de compra");
+        modelo.addColumn("Fecha de vigencia");
         tblReporteXSucursal.setModel(modelo);
+        
+        // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
+        tblReporteXSucursal.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        int[] columnWidths = {200, 200, 120, 120, 120, 120, 200, 120, 120, 200, 120, 150, 100, 100, 120, 120};
+        for (int i = 0; i < columnWidths.length; i++) {
+            tblReporteXSucursal.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+        }
+        
+        // Ajustar el tamaño de la tabla para que coincida con el JScrollPane
+        tblReporteXSucursal.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));
+        tblReporteXSucursal.setFillsViewportHeight(true);
+
+        // Crear el JScrollPane con scroll horizontal y vertical
+        jScrollPane1 = new JScrollPane(tblReporteXSucursal);
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        // Ajustar correctamente el panel para que no oculte la tabla
+        jPanel3.setLayout(new BorderLayout()); // Asegurar un layout correcto
+        jPanel3.removeAll(); // Limpiar el panel para evitar superposiciones
+        jPanel3.add(jScrollPane1, BorderLayout.CENTER);
+        jPanel3.revalidate(); // Refrescar el diseño
+        jPanel3.repaint();    // Repintar para asegurarse de que se ve correctamente
     }
         
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -432,6 +479,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFecha;
@@ -460,11 +508,15 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                     "    b.Grupo AS Grupo, " +
                     "    b.NumSocio AS NumSocio, " +
                     "    b.Nombre AS Nombre, " +
+                    "    b.Invitado, " +
+                    "    b.Telefono, " +
                     "    u.Nombre AS Cajero, " +
                     "    MAX(z.Zona) AS Zona, " +
                     "    b.Costo AS Precio_Boleto, " +
                     "    MAX(m.DescMesa) AS Mesa, " +
-                    "    MAX(s.vchDescripcion) AS Silla " +
+                    "    MAX(s.vchDescripcion) AS Silla, " +
+                    "    b.FechaCompra, " +
+                    "    b.FechaVigencia " +
                     "FROM " +
                     "    tbl_boletos b " +
                     "INNER JOIN " +
@@ -496,7 +548,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                 new Object[][] {}, 
                 new String[] {
                     "Sucursal", "SucursalSocio", "Folio", "Origen", "Grupo", "NumSocio", 
-                    "Nombre", "Cajero", "Zona", "Precio_Boleto", "Mesa", "Silla"
+                    "Nombre", "Invitado", "Telefono", "Cajero", "Zona", "Precio_Boleto", "Mesa", "Silla", "FechaCompra", "FechaVigencia"
                 }
             );
 
@@ -511,11 +563,15 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                     rs.getString("Grupo"),
                     rs.getString("NumSocio"),
                     rs.getString("Nombre"),
+                    rs.getString("Invitado"),
+                    rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
                     rs.getDouble("Precio_Boleto"),
                     rs.getString("Mesa"),
-                    rs.getString("Silla")
+                    rs.getString("Silla"),
+                    rs.getString("FechaCompra"),
+                    rs.getString("FechaVigencia")
                 });
             }
             // Establecer el modelo a la tabla (supongamos que el nombre de tu JTable es 'tabla')
@@ -533,20 +589,20 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         String sucursalGerente = Login.getInstancia().getSucursal();
 
         if (origen.isEmpty() || grupo.isEmpty() || numSocio.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         String sql = "SELECT b.OrigenUsuario AS Sucursal, b.OrigenSocio AS SucursalSocio, b.Folio AS Folio_Boleto, " +
-                    "b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
-                    "b.Costo AS Precio_Boleto, MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla " +
+                    "b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
+                    "b.Costo AS Precio_Boleto, MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla, b.FechaCompra, b.FechaVigencia " +
                     "FROM tbl_boletos b " +
                     "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
                     "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
                     "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
                     "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
                     "WHERE b.OrigenUsuario = ? AND b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? " +
-                    "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, u.Nombre, b.Costo " +
+                    "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
                     "ORDER BY b.Folio";
         
         try (Connection conn = conexion.getConnection();
@@ -570,11 +626,15 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                     rs.getString("Grupo"),
                     rs.getString("NumSocio"),
                     rs.getString("Nombre"),
+                    rs.getString("Invitado"),
+                    rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
                     rs.getDouble("Precio_Boleto"),
                     rs.getString("Mesa"),
-                    rs.getString("Silla")
+                    rs.getString("Silla"),
+                    rs.getString("FechaCompra"),
+                    rs.getString("FechaVigencia")
                 });
             }
         } catch (SQLException e) {
