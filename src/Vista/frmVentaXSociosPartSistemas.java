@@ -482,6 +482,9 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(13).setPreferredWidth(100); // Silla
         tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(14).setPreferredWidth(120); // Fecha compra
         tblReporteXBoletosXUsuariosXSistemasGenerales.getColumnModel().getColumn(15).setPreferredWidth(120); // Fecha Vigencia
+        
+        tblReporteXBoletosXUsuariosXSistemasGenerales.revalidate(); // Revalida el componente
+        tblReporteXBoletosXUsuariosXSistemasGenerales.repaint();    // Repinta la tabla
 
         // Ajustar el tamaño de la tabla para que coincida con el JScrollPane
         tblReporteXBoletosXUsuariosXSistemasGenerales.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));
@@ -491,7 +494,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         jScrollPane1 = new JScrollPane(tblReporteXBoletosXUsuariosXSistemasGenerales);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
+        
         // Ajustar correctamente el panel para que no oculte la tabla
         jPanel2.setLayout(new BorderLayout()); // Asegurar un layout correcto
         jPanel2.removeAll(); // Limpiar el panel para evitar superposiciones
