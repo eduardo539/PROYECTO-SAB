@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import java.sql.Date;
 
 /**
  *
@@ -468,5 +469,57 @@ public class ActualizarData {
         
         
     }
+    
+    
+    public void actualizarFechaLimite(LocalDate fecha, int id){
+        
+        // Convertir LocalDate a java.sql.Date
+        Date newFecha = Date.valueOf(fecha);
+
+        
+        
+        String actualizarLimite = "UPDATE fechalimite " +
+                                    "SET fechaLimite = ? " +
+                                    "WHERE idFecha = ?";
+        
+        
+        try {
+            // Obtener conexión
+            con = cn.getConnection();
+
+            // Preparar la sentencia SQL
+            ps = con.prepareStatement(actualizarLimite);
+            ps.setDate(1, newFecha);
+            ps.setInt(2, id);
+
+            // Ejecutar la actualización
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "La fecha límite se actualizó correctamente.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar la fecha límite.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al actualizar el saldo de los socios, Contactar al administrador.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+    }
+    
     
 }

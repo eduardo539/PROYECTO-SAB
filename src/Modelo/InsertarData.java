@@ -93,6 +93,50 @@ public class InsertarData {
 
     
     
+    public void insertNewFechaLimiteCompra(LocalDate fecha){
+        
+        String insert = "INSERT INTO fechalimite(fechaLimite) " +
+                            "VALUES(?);";
+
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(insert); // Preparar consulta
+            ps.setDate(1, java.sql.Date.valueOf(fecha)); // Establecer el valor del parámetro (fecha) en el PreparedStatement
+
+            int rowsAffected = ps.executeUpdate(); // Ejecutar la consulta de inserción
+
+            // Verificar si la inserción fue exitosa
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, 
+                        "La fecha límite se insertó correctamente.", 
+                        "Inserción Exitosa", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                        "No se pudo insertar la fecha límite.", 
+                        "Error de Inserción", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al insertar datos en la base de datos.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+    }
+    
     
     
 }

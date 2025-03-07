@@ -539,6 +539,55 @@ public class ConsultasData {
     }
     
     
+    public FechaLimite obtenerFechasLimites(){
+        
+        FechaLimite fl = FechaLimite.getInstancia();
+        
+        String datosFechas = "SELECT * FROM fechalimite;";
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(datosFechas); // Preparar consulta
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            // Limpiar lista antes de agregar nuevas (si es necesario)
+            fl.getListaFechas().clear();
+            
+            
+            // Iterar sobre el resultado de la consulta
+            while (rs.next()) {
+                
+                int id = rs.getInt("idFecha");
+                String fechas = rs.getString("fechaLimite");
+                
+                fl.agregarFechaLimite(id,fechas);
+                
+            }
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos MySQL Fechas Limite, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos MySQL", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+        return fl;
+        
+    }
+    
 }
 
 
