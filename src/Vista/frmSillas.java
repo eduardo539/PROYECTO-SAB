@@ -7,12 +7,15 @@ import Modelo.SillaEstado;
 import Modelo.Sillas;
 import Modelo.SillasData;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -29,6 +32,7 @@ public class frmSillas extends javax.swing.JFrame {
     SillasData sdat = new SillasData();
     Sillas sill = Sillas.getInstancia();
     
+    private Timer timer;
         
     public frmSillas() {
         initComponents();
@@ -47,10 +51,12 @@ public class frmSillas extends javax.swing.JFrame {
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
+        
         setResizable(false);
-        nomSillas();
         estadoSillas();
+        nomSillas();
         datos();
+        actualizaTimeRealSillas();
         
     }
     
@@ -66,6 +72,19 @@ public class frmSillas extends javax.swing.JFrame {
         frmPosadaMTY Cajero = new frmPosadaMTY();
         Cajero.setLocationRelativeTo(null);
         Cajero.setVisible(true);
+    }
+    
+    private void actualizaTimeRealSillas(){
+        // Crea un Timer que ejecuta una acción cada 3 segundos (3000 ms)
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                estadoSillas();
+                nomSillas();
+            }
+        });
+        timer.start(); // Inicia el Timer
     }
     
     
@@ -131,17 +150,24 @@ public class frmSillas extends javax.swing.JFrame {
     
     
     public void estadoSillas(){
+        
         Sillas s = Sillas.getInstancia();
+        
         
         // Asocia los botones en un arreglo para facilitar el acceso
         JButton[] botones = {btnDato1, btnDato2, btnDato3, btnDato4, btnDato5, btnDato6, btnDato7, btnDato8, btnDato9, btnDato10};
 
         // Asegúrate de que la lista de sillas no sea mayor que el número de botones
         List<Sillas.Silla> listaSillas = s.getListaSillas();
-        int numSillas = Math.min(botones.length, listaSillas.size());
+        int numeroSillas = Math.min(botones.length, listaSillas.size());
 
+        // Obtener el idMesa de la primera silla de la lista
+        int idMesa = listaSillas.get(0).getIdMesa();  // Asumiendo que getIdMesa() es el método para obtener idMesa
+
+        sdat.s(idMesa);
+        
         // Iterar sobre las sillas y cambiar el color del botón correspondiente
-        for (int i = 0; i < numSillas; i++) {
+        for (int i = 0; i < numeroSillas; i++) {
             Sillas.Silla silla = listaSillas.get(i); // Obtener el estado de la silla actual
             JButton boton = botones[i]; // Obtener el botón correspondiente
 

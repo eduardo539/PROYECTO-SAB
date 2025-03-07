@@ -44,6 +44,7 @@ public class SillasApartadasData {
                                 "ORDER BY tbl_boletos.Folio ASC;";
         
         
+        
         try {
             con = cn.getConnection(); // Obtener conexión
             ps = con.prepareStatement(datosBoletos); // Preparar consulta

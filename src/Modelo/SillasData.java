@@ -34,6 +34,8 @@ public class SillasData {
                             "WHERE tbl_mesas.idMesa = ? " +
                             "ORDER BY tbl_sillas.idSilla ASC;";
         
+        s.borrarDatos();
+        
         
         try {
             con = cn.getConnection(); // Obtener conexión
