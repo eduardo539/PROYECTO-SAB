@@ -9,9 +9,6 @@ import Vista.frmCajero;
 import Vista.frmEnvioPDF;
 import Vista.frmFechaLimiteVenta;
 
-import Vista.frmSillasSeparadas;
-import Vista.frmPosadaMTY;
-import Vista.frmSaldoXSocio;
 
 /**
  *
