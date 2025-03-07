@@ -14,7 +14,6 @@ import Modelo.SillasApartadas;
 import Modelo.SillasApartadas.Boleto;
 import Modelo.SillasApartadasData;
 import Modelo.TimeGoogle;
-import java.awt.Component;
 import java.awt.Window;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
