@@ -15,6 +15,7 @@ public class Conexion {
     
     // Datos de conexión a la base de datos
     
+    
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String DATABASE = "eventos";
     private static final String USER = "root";
@@ -22,10 +23,10 @@ public class Conexion {
     
     
     /*
-    private static final String URL = "jdbc:mysql://133.145.4.186:3306/";
+    private static final String URL = "jdbc:mysql://133.145.6.36:3306/";
     private static final String DATABASE = "eventos";
     private static final String USER = "root";
-    private static final String PASSWORD = "saccsscl";
+    private static final String PASSWORD = "root";
     */
     
     // Tiempo de espera para la conexión
