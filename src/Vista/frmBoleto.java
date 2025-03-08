@@ -259,13 +259,16 @@ public class frmBoleto extends javax.swing.JFrame {
             return;
         }
         
+        
+        
         // Obtener el año de la fecha seleccionada
         int anio = vigencia.getYear(); // Obtener el año
-        
         String fechaLimiteCompraStr = consulta.fechaLimite(anio);
         
-        // Convertir la fechaLimiteCompra de tipo String a LocalDate
-        LocalDate fechaLimiteCompra = LocalDate.parse(fechaLimiteCompraStr);
+        //Validación en caso de que la fecha consultada este vacia
+        if(fechaLimiteCompraStr == null || fechaLimiteCompraStr.trim().isEmpty()){
+            return;
+        }
         
         
         
@@ -297,10 +300,18 @@ public class frmBoleto extends javax.swing.JFrame {
 
         }
         
+        
+        // Convertir la fechaLimiteCompra de tipo String a LocalDate
+        LocalDate fechaLimiteCompra = LocalDate.parse(fechaLimiteCompraStr);
+        
+        DateTimeFormatter Limit = DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy");
+        String fechaLimiteCompraString = fechaLimiteCompra.format(Limit);
+        
+        
         // Verificar si la fecha seleccionada es posterior a la fecha límite de compra
         if (vigencia.isAfter(fechaLimiteCompra)) {
             // Mostrar un mensaje de alerta si la fecha seleccionada es posterior a la fecha límite
-            JOptionPane.showMessageDialog(this, "La compra de boletos no está permitida para la fecha seleccionada. La fecha límite de compra es " + fechaLimiteCompra, "Fecha límite de compra alcanzada", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La compra de boletos no está permitida para la fecha seleccionada. La fecha límite de compra es el " + fechaLimiteCompraString, "Fecha límite de compra alcanzada", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
