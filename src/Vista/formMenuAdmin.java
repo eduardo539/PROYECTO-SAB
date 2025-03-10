@@ -505,6 +505,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             String sql = "{CALL insertXUsuariosXBitacXAccionInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement  stmt = cn1.prepareCall(sql);
 
+            
             // Los parámetros del procedimiento almacenado
             stmt.setInt(1, id_usuario1); // ID del nuevo usuario
             stmt.setString(2, nombreUsuario); // Nombre del nuevo usuario
