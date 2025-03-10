@@ -285,7 +285,7 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
         modelo.addColumn("Nombre");
         modelo.addColumn("ID del perfil");
         modelo.addColumn("Descripcion");
-
+        
         // Establecer el modelo a la tabla
         tbl_Bitacoras_Usuarios_Sistemas.setModel(modelo);
 
