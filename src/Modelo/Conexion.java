@@ -35,7 +35,7 @@ public class Conexion {
     
     
     // Tiempo de espera para la conexión
-    private static final int TIMEOUT_SECONDS = 10;
+    private static final int TIMEOUT_SECONDS = 20;
 
     
     public Connection getConnection() {
@@ -68,11 +68,7 @@ public class Conexion {
                 con.close();
                 System.out.println("Conexión cerrada correctamente.");
             } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión.");/*
-                JOptionPane.showMessageDialog(null, 
-                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
-                        "Error de Conexión", 
-                        JOptionPane.ERROR_MESSAGE);*/
+                System.out.println("Error al cerrar la conexión.");
             }
         }
     }
