@@ -25,12 +25,8 @@ public class Conexion2 {
     private static final String PASSWORD = "admin2";  // Tu contraseña de PostgreSQL
 
     // Tiempo de espera para la conexión
-    private static final int TIMEOUT_SECONDS = 10;
+    private static final int TIMEOUT_SECONDS = 20;
 
-    /**
-     * Obtiene una conexión a la base de datos.
-     * @return La conexión establecida o null si hay un error.
-     */
     
     public Connection getConnection(){
         try {
@@ -68,11 +64,7 @@ public class Conexion2 {
                 con.close();
                 System.out.println("Conexión cerrada correctamente.");
             } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión.");/*
-                JOptionPane.showMessageDialog(null, 
-                        "Error al cerrar la conexión.\nDetalles: " + e.getMessage(), 
-                        "Error de Conexión", 
-                        JOptionPane.ERROR_MESSAGE);*/
+                System.out.println("Error al cerrar la conexión.");
             }
         }
     }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import Modelo.Login;
+import Modelo.TimeGoogle;
 import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -153,25 +154,21 @@ public class frmActualizarContra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // Obtener las contraseñas ingresadas
         String nuevaContrasena = String.valueOf(txtContrasenia.getPassword()).trim();
         String confirmaContrasena = String.valueOf(txtConfirmaContrasenia.getPassword()).trim();
-        
-        // Validar que los campos no estén vacíos
+
         if (nuevaContrasena.isEmpty() || confirmaContrasena.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Validar que las contraseñas coincidan
         if (!nuevaContrasena.equals(confirmaContrasena)) {
             JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Validar que la contraseña cumple con los requisitos
         if (!validarContrasenia(nuevaContrasena)) {
-            return; // El método ya muestra el mensaje de advertencia
+            return;
         }
 
         try {
@@ -181,7 +178,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
                 return;
             }
 
-            // Consulta la contraseña actual desde la base de datos
             String consultaQuery = "SELECT vchPass FROM tbl_usuarios WHERE id_usuario = ?";
             PreparedStatement consultaPs = connection.prepareStatement(consultaQuery);
             consultaPs.setInt(1, idUsuario);
@@ -189,7 +185,6 @@ public class frmActualizarContra extends javax.swing.JFrame {
 
             if (rs.next()) {
                 String contrasenaActual = rs.getString("vchPass");
-                // Compara la nueva contraseña con la actual (MD5 para asegurarse de que coincida encriptada)
                 String nuevaContrasenaMD5 = calcularMD5(nuevaContrasena);
                 if (nuevaContrasenaMD5.equals(contrasenaActual)) {
                     JOptionPane.showMessageDialog(this, "La nueva contraseña no puede ser igual a la actual.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -200,15 +195,19 @@ public class frmActualizarContra extends javax.swing.JFrame {
                 return;
             }
 
-            // Calcula la fecha de vigencia (un mes después de hoy)
-            LocalDate fechaActual = LocalDate.now();
-            LocalDate fechaVigencia = fechaActual.plusMonths(1);
+            // Obtener fecha desde TimeGoogle y calcular la vigencia
+            TimeGoogle fechaGoogle = new TimeGoogle();
+            fechaGoogle.newFormatTimeGoogle();
+            String fechaDesdeGoogle = fechaGoogle.getFechaNewFormatGoogle();
+
+            LocalDate fechaBase = LocalDate.parse(fechaDesdeGoogle);
+            LocalDate fechaVigencia = fechaBase.plusMonths(1);
             String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             String query = "UPDATE tbl_usuarios SET vchPass = MD5(?), dtVigencia = ? WHERE id_usuario = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, nuevaContrasena);
-            ps.setString(2, fechaVigenciaStr); // Fecha de vigencia calculada
+            ps.setString(2, fechaVigenciaStr);
             ps.setInt(3, idUsuario);
 
             int rowsUpdated = ps.executeUpdate();
@@ -216,17 +215,13 @@ public class frmActualizarContra extends javax.swing.JFrame {
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(this, "Contraseña actualizada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 lg.limpiarDatos();
-                // Abrir el formulario de login y cerrar el formulario actual
                 abrirFormularioLogin();
-                // Llamar a la función de traer datos de otro formulario
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar la contraseña: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-
         } finally {
             if (connection != null) {
                 conexion.closeConnection();
