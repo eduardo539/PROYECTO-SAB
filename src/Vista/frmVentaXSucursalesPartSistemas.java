@@ -37,6 +37,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     
     TimeGoogle fechaGoogle = new TimeGoogle();
     
+    
     public frmVentaXSucursalesPartSistemas() {
         initComponents();
         conexion = new Conexion();

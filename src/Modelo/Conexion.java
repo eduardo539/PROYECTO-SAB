@@ -22,12 +22,6 @@ public class Conexion {
     private static final String USER = "root";
     private static final String PASSWORD = "";
     
-<<<<<<< HEAD
-=======
-    
-    
-    
->>>>>>> ca17d83ff44d1bc3538f0070f8e555bdb4765b3b
     /*
     //Conexion a la base de datos remota
     private static final String URL = "jdbc:mysql://nozomi.proxy.rlwy.net:29622/";
