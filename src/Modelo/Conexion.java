@@ -21,7 +21,6 @@ public class Conexion {
     private static final String USER = "root";
     private static final String PASSWORD = "";
     
-    
     /*
     private static final String URL = "jdbc:mysql://133.145.6.36:3306/";
     private static final String DATABASE = "eventos";
@@ -75,5 +74,6 @@ public class Conexion {
     public Connection getConexion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
     
 }   
