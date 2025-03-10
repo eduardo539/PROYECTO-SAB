@@ -489,6 +489,16 @@ public class formMenuAdmin extends javax.swing.JFrame {
             // Llamar al procedimiento almacenado para insertar el nuevo usuario y registrar las acciones en la bitácora
             // Mandar a traer la sucursal del nuevo usuario, esto para agregarlo en la bitacora
             String sucursalNuevoUsuario = TraerSucursaldelnuevousuario(id_usuario1);
+            
+            // Obtener la fecha desde el servidor de Google
+            TimeGoogle fechaGoogle = new TimeGoogle();
+            fechaGoogle.newFormatTimeGoogle(); // Ejecutar método para obtener la fecha en formato "YYYY-MM-DD"
+
+            // Verificar la fecha obtenida
+            System.out.println("Fecha de vigencia obtenida desde TimeGoogle: " + fechaGoogle.getFechaNewFormatGoogle());
+
+            // Convertir la fecha obtenida a java.sql.Date
+            java.sql.Date dtvigencia = java.sql.Date.valueOf(fechaGoogle.getFechaNewFormatGoogle());
 
             String sql = "{CALL insertXUsuariosXBitacXAccionInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement  stmt = cn1.prepareCall(sql);
@@ -497,7 +507,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             stmt.setInt(1, id_usuario1); // ID del nuevo usuario
             stmt.setString(2, nombreUsuario); // Nombre del nuevo usuario
             stmt.setString(3, contrasenia); // Contraseña que va como cambio, y en el P.A. se encriptarda en MD5
-            stmt.setDate(4, java.sql.Date.valueOf(LocalDate.now().plusMonths(1))); // Fecha de vigencia
+            stmt.setDate(4, dtvigencia); // Fecha que sera marcada como vigencia, dato traido de TimeGoogle
             stmt.setInt(5, idPerfil); // Perfil del nuevo usuario
             stmt.setString(6, sucursalNuevoUsuario); // sucursal del nuevo usuario (dato que ira en bitacora)
                         
@@ -780,42 +790,56 @@ public class formMenuAdmin extends javax.swing.JFrame {
             if (confirmacion != JOptionPane.YES_OPTION) {
                 return; // Salir si el usuario selecciona "No"
             } 
-            
-            // Calcula la fecha de vigencia (un mes después de hoy)
-            LocalDate fechaActual = LocalDate.now();
-            LocalDate fechaVigencia = fechaActual.plusMonths(1);
-            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            
+
+            // Obtener la fecha actual desde TimeGoogle
+            TimeGoogle fechaGoogle = new TimeGoogle();
+            fechaGoogle.newFormatTimeGoogle(); // Obtener la fecha en formato YYYY-MM-DD
+
+            // Verificar la fecha obtenida (antes de convertir)
+            String fechaString = fechaGoogle.getFechaNewFormatGoogle();
+            System.out.println("Fecha obtenida de TimeGoogle: " + fechaString);
+
+            // Convertir la fecha obtenida a LocalDate
+            LocalDate fechaActual = LocalDate.parse(fechaString);
+            System.out.println("Fecha convertida a LocalDate: " + fechaActual);
+
+            // Sumar un mes
+            LocalDate fechaVigencia1 = fechaActual.plusMonths(1);
+            System.out.println("Fecha después de sumar un mes: " + fechaVigencia1);
+
+            // Convertir a java.sql.Date para insertarlo en MySQL
+            java.sql.Date fechaVigencia = java.sql.Date.valueOf(fechaVigencia1);
+            System.out.println("Fecha final en formato SQL Date: " + fechaVigencia);
+
             // Contraseña a actualizar (encriptada con MD5)
             String contrasenia = "cambio"; 
             String contraseniaEncriptada = encriptarMD5(contrasenia); // Método para encriptar con MD5
-            
+
             Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
             Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
-            
+
             String id_usuario = txtid_usuario.getText();
             int id_usuario3 = Integer.parseInt(id_usuario);
-            
-            // Mandar a traer la sucursal del nuevo usuario, esto para agregarlo en la bitacora
+
+            // Mandar a traer la sucursal del nuevo usuario, esto para agregarlo en la bitácora
             String sucursalNuevoUsuario = TraerSucursaldelusuarioAactualizarPassword(id_usuario3);
-            
+
             // Preparar la consulta SQL para actualizar los datos
             String sql = "{CALL resetPasswXUsuariosXBitacXAccionReset(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement stmt = cn1.prepareCall(sql);
 
             // Asignar valores a los parámetros
             stmt.setString(1, contraseniaEncriptada); // Contraseña encriptada
-            stmt.setString(2, fechaVigenciaStr); // Fecha de vigencia calculada
+            stmt.setDate(2, fechaVigencia); // Fecha de vigencia calculada (un mes después)
             stmt.setInt(3, id_usuario3); // ID del usuario a quien se va a actualizar
-            stmt.setString(4, txtNombre.getText()); // Nombre del usuario para bitacora
-            stmt.setString(5, sucursalNuevoUsuario); // Sucursal del usuario para bitacora
-            
+            stmt.setString(4, txtNombre.getText()); // Nombre del usuario para bitácora
+            stmt.setString(5, sucursalNuevoUsuario); // Sucursal del usuario para bitácora
+
             stmt.setString(6, sucursalUsuarioSistema); // Sucursal del usuario que hizo la acción
             stmt.setInt(7, idUsuarioSistema); // ID del usuario que hizo la acción
             stmt.setString(8, nombreUsuarioSistema); // Nombre del usuario que hizo la acción
             stmt.setInt(9, perfilUsuarioSistema); // Perfil del usuario que hizo la acción
-            
-            
+
             // Ejecutar la consulta de actualización
             int filasActualizadas = stmt.executeUpdate();
 
