@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
+/** 
+ * 
  * @author Eduardo´s
  * 
- */
+ */ 
 
 public class Conexion {
     private Connection con;
