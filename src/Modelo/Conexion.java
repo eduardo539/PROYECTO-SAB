@@ -16,18 +16,23 @@ public class Conexion {
     
     // Datos de conexión a la base de datos
 
+    
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String DATABASE = "eventos";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     
     
+    
+    
     /*
-    private static final String URL = "jdbc:mysql://133.145.6.36:3306/";
-    private static final String DATABASE = "eventos";
-    private static final String USER = "eduHdz";
-    private static final String PASSWORD = "root";
+    //Conexion a la base de datos remota
+    private static final String URL = "jdbc:mysql://nozomi.proxy.rlwy.net:29622/";
+    private static final String DATABASE = "railway";
+    private static final String USER = "root";
+    private static final String PASSWORD = "xMqKLrjfqVhjDjJOzKwunZvnMbZhMnLX";
     */
+    
     
     // Tiempo de espera para la conexión
     private static final int TIMEOUT_SECONDS = 10;
