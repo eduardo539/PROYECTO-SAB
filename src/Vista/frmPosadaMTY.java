@@ -2,6 +2,7 @@ package Vista;
 import FormulariosAyuda.Cajero.AyudaPosadaMonterrey;
 import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
+import Modelo.CerrarSesion;
 import Modelo.Login;
 import Modelo.Mesas;
 import Modelo.MesasData;
@@ -37,6 +38,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     PosadaMTY ps = PosadaMTY.getInstancia();
     PosadaMTYData posada = new PosadaMTYData();
     
+    CerrarSesion closeSesion = new CerrarSesion();
     
     Mesas mes = Mesas.getInstancia();
     MesasData mesa = new MesasData(); //Se crea un nuevo objeto para actualizar las mesas
@@ -2191,7 +2193,10 @@ public class frmPosadaMTY extends javax.swing.JFrame {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
-                cerrarSesion();
+                int user = lg.getIdusuario();
+                
+                closeSesion.EliminarSesion(user);
+                closeSesion.cerrarSession();
 
                 // Cerrar todas las ventanas abiertas excepto el login
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
