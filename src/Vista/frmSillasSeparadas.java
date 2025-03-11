@@ -2,6 +2,7 @@ package Vista;
 
 import FormulariosAyuda.Cajero.AyudaSillasSeparadasCajero;
 import Modelo.ActualizarData;
+import Modelo.CerrarSesion;
 import Modelo.ConsultaBoleto;
 import Modelo.ConsultaBoleto.listBoleto;
 import Modelo.ConsultasData;
@@ -62,6 +63,8 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
     
     TimeGoogle fechaGoogle = new TimeGoogle();
+    
+    CerrarSesion closeSesion = new CerrarSesion();
     
     public frmSillasSeparadas() {
         initComponents();
@@ -1083,7 +1086,10 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
-                cerrarSesion();
+                int user = lg.getIdusuario();
+                
+                closeSesion.EliminarSesion(user);
+                closeSesion.cerrarSession();
 
                 // Cerrar todas las ventanas abiertas excepto el login
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);

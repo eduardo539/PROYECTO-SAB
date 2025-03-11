@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.UUID;
 import javax.swing.JOptionPane;
 
 /**
@@ -137,6 +138,42 @@ public class InsertarData {
         
     }
     
+    
+    public void insertarSesion(int idUsuario) {
+        
+        String insertQuery = "INSERT INTO sesiones (id_usuario, token) VALUES (?, ?)";
+
+        // Generar un token único para la sesión
+        String token = UUID.randomUUID().toString();
+
+        try (Connection con = cn.getConnection(); 
+             PreparedStatement ps = con.prepareStatement(insertQuery)) {
+
+            // Establecer los parámetros para la consulta
+            ps.setInt(1, idUsuario);
+            ps.setString(2, token);
+
+            // Ejecutar la consulta de inserción
+            int rowsAffected = ps.executeUpdate();
+
+            // Verificar si la inserción fue exitosa (si se afectó al menos una fila)
+            if (rowsAffected > 0) {
+                // Mostrar un mensaje pequeño indicando que la sesión fue iniciada correctamente
+                JOptionPane.showMessageDialog(null, 
+                    "Sesión iniciada correctamente", 
+                    "Éxito", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, 
+                "Hubo un error al iniciar la sesión. Intenta nuevamente.", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     
     
 }
