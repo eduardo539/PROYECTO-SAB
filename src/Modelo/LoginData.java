@@ -271,8 +271,6 @@ public class LoginData {
                 "Error de Conexión", 
                 JOptionPane.ERROR_MESSAGE);
 
-            // También puedes registrar el error en un log para depuración
-            System.out.println("Error al verificar la sesión activa: " + e.getMessage());
         }
 
         return flag;  // Retorna true si tiene 3 o menos sesiones activas, false si tiene más
