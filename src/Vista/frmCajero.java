@@ -20,6 +20,8 @@ public class frmCajero extends javax.swing.JFrame {
     Login lg = Login.getInstancia();
     Conexion cn = new Conexion();
 
+    CerrarSesion closeSesion = new CerrarSesion();
+    
     Mesas ms = Mesas.getInstancia();
     MesasData mesa = new MesasData();
     
@@ -513,7 +515,10 @@ public class frmCajero extends javax.swing.JFrame {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
-                cerrarSesion();
+                int user = lg.getIdusuario();
+                
+                closeSesion.EliminarSesion(user);
+                closeSesion.cerrarSession();
 
                 // Cerrar todas las ventanas abiertas excepto el login
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
@@ -567,24 +572,6 @@ public class frmCajero extends javax.swing.JFrame {
         pdf.setVisible(true);
     }//GEN-LAST:event_jmiEnvioBoletoActionPerformed
 
-    /**
-    * Método para limpiar los datos de la sesión del usuario.
-    */
-    
-    private void cerrarSesion() {
-       // Si tienes una clase Singleton para manejar la sesión
-       Login sesion = Login.getInstancia();
-       sesion.limpiarDatos();
-
-       // Si la clase no implementa un método limpiarDatos(), puedes hacer:
-       sesion.setIdusuario(0);
-       sesion.setNombre(null);
-       sesion.setSucursal(null);
-       sesion.setVigencia(null);
-       sesion.setIdperfil(0);
-       sesion.setTipo_perfil(null);
-
-    }
     
     /**
      * Método para abrir la ventana de inicio de sesión.

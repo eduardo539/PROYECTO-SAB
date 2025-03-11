@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
+/** 
+ * 
  * @author Eduardo´s
  * 
- */
+ */ 
 
 public class Conexion {
     private Connection con;
@@ -21,9 +21,6 @@ public class Conexion {
     private static final String DATABASE = "eventos";
     private static final String USER = "root";
     private static final String PASSWORD = "";
-    
-    
-    
     
     /*
     //Conexion a la base de datos remota
@@ -76,5 +73,6 @@ public class Conexion {
     public Connection getConexion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
     
 }   

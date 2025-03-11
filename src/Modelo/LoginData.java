@@ -241,4 +241,41 @@ public class LoginData {
     }
     
     
+    public boolean sesionesActivas(int idusuario) {
+        
+        boolean flag = false;
+
+        // Consulta SQL para contar el número de sesiones activas del usuario
+        String sesiones = "SELECT COUNT(*) FROM sesiones WHERE id_usuario = ?";
+
+        // Usar try-with-resources para cerrar automáticamente los recursos
+        try (Connection con = cn.getConnection(); 
+             PreparedStatement ps = con.prepareStatement(sesiones)) {
+
+            ps.setInt(1, idusuario);
+
+            // Ejecutar la consulta
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);  // Obtenemos el número de sesiones activas
+                    if (count <= 3) {
+                        flag = true;  // Si tiene 3 o menos sesiones activas, retornamos true
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            // Manejo de errores
+            JOptionPane.showMessageDialog(null, 
+                "Error al conectarse a la base de datos.\nDetalles: " + e.getMessage(), 
+                "Error de Conexión", 
+                JOptionPane.ERROR_MESSAGE);
+
+        }
+
+        return flag;  // Retorna true si tiene 3 o menos sesiones activas, false si tiene más
+    }
+
+    
+    
 }
