@@ -258,7 +258,7 @@ public class LoginData {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int count = rs.getInt(1);  // Obtenemos el número de sesiones activas
-                    if (count <= 3) {
+                    if (count == 1) {
                         flag = true;  // Si tiene 3 o menos sesiones activas, retornamos true
                     }
                 }
