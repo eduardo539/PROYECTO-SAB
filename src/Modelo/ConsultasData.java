@@ -370,7 +370,7 @@ public class ConsultasData {
         SaldoDisponible saldo = SaldoDisponible.getInstancia();
         
         String obtenerData = "SELECT Origen, Grupo, Socio, Saldo " +
-                                "FROM saldoSocio " +
+                                "FROM saldosocio " +
                                 "WHERE Origen = ? AND " +
                                 "Grupo = ? AND " +
                                 "Socio = ?;";
@@ -490,7 +490,7 @@ public class ConsultasData {
     public String fechaLimite(int anio){
 
         
-        String consultaFechaLimite = "SELECT fechaLimite FROM fechaLimite " +
+        String consultaFechaLimite = "SELECT fechaLimite FROM fechalimite " +
                                         "WHERE YEAR(fechaLimite) = ?;";
         
         String limiteFecha = "";
