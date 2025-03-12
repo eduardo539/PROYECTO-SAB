@@ -513,7 +513,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             stmt.setDate(4, dtvigencia); // Fecha que sera marcada como vigencia, dato traido de TimeGoogle
             stmt.setInt(5, idPerfil); // Perfil del nuevo usuario
             stmt.setString(6, sucursalNuevoUsuario); // sucursal del nuevo usuario (dato que ira en bitacora)
-                        
+            
             stmt.setInt(7, idUsuarioSistema); // ID del usuario que hizo la acción
             stmt.setString(8, nombreUsuarioSistema); // Nombre del usuario que hizo la acción
             stmt.setInt(9, perfilUsuarioSistema); // Perfil del usuario que hizo la acción
