@@ -50,7 +50,10 @@ public class MesasData {
             cn.closeConnection();
             
         } catch (SQLException e) { 
-            System.out.println("Error al ejecutar la consulta: " + e.getMessage()); 
+            JOptionPane.showMessageDialog(null, 
+                        "Error al obtener los datos de las mesas.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
         } finally { 
             try { 
                 if (rs != null) rs.close(); 

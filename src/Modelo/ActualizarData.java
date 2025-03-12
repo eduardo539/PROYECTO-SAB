@@ -308,7 +308,7 @@ public class ActualizarData {
     
     public boolean actualizarSaldoSocio(double saldo, int origen, int grupo, int socio){
         
-        String actualizar = "UPDATE saldoSocio " +
+        String actualizar = "UPDATE saldosocio " +
                                 "SET Saldo = ?" +
                                 "WHERE Origen = ? AND " +
                                 "Grupo = ? AND " +
