@@ -160,8 +160,8 @@ public class InsertarData {
             if (rowsAffected > 0) {
                 // Mostrar un mensaje pequeño indicando que la sesión fue iniciada correctamente
                 JOptionPane.showMessageDialog(null, 
-                    "Sesión iniciada correctamente", 
-                    "Éxito", 
+                    "Hola, Bienvenido", 
+                    "Saludo", 
                     JOptionPane.INFORMATION_MESSAGE);
             }
 

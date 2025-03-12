@@ -64,7 +64,7 @@ public class CerrarSesion {
         } catch (SQLException e) {
             // Si ocurre un error en la base de datos, mostrar el mensaje de error
             JOptionPane.showMessageDialog(null,
-                    "Error al eliminar los datos en la base de datos.\nDetalles: " + e.getMessage(),
+                    "Error al eliminar la sesión en la base de datos.\nDetalles: " + e.getMessage(),
                     "Error de Base de Datos",
                     JOptionPane.ERROR_MESSAGE);
         } finally {
