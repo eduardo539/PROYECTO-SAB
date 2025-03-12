@@ -6,6 +6,7 @@
 package Vista;
 
 import FormulariosAyuda.Sistemas.AyudaVentasXSocios;
+import Modelo.CerrarSesion;
 import Modelo.Conexion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
@@ -109,19 +110,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void cerrarSesion() {
-        // Si tienes una clase Singleton para manejar la sesión
-        Login sesion = Login.getInstancia();
-        sesion.limpiarDatos();
-        // Si la clase no implementa un método limpiarDatos(), puedes hacer:
-        sesion.setIdusuario(0);
-        sesion.setNombre(null);
-        sesion.setSucursal(null);
-        sesion.setVigencia(null);
-        sesion.setIdperfil(0);
-        sesion.setTipo_perfil(null);
-    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -383,7 +372,11 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
-                cerrarSesion();
+                CerrarSesion closeSesion = new CerrarSesion();
+                int user = lg.getIdusuario();
+                
+                closeSesion.EliminarSesion(user);
+                closeSesion.cerrarSession();
 
                 // Cerrar todas las ventanas abiertas excepto el login
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);

@@ -2,6 +2,7 @@ package Vista;
 
 import FormulariosAyuda.Cajero.AyudaSeleccionSillas;
 import Modelo.CantidadSillasSelect;
+import Modelo.CerrarSesion;
 import Modelo.Mesas;
 import Modelo.SillaEstado;
 import Modelo.Sillas;
@@ -25,6 +26,8 @@ import javax.swing.Timer;
 public class frmSillas extends javax.swing.JFrame {
     
     double sumaCosto = 0.0;
+    
+    CerrarSesion closeSesion = new CerrarSesion();
     
     CantidadSillasSelect numSillas = CantidadSillasSelect.getInstancia(); // Obtener la instancia
     

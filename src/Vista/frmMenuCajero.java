@@ -1,6 +1,7 @@
 package Vista;
 
 import FormulariosAyuda.Cajero.AyudaHomeCajero;
+import Modelo.CerrarSesion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
 import java.awt.Window;
@@ -26,6 +27,8 @@ public class frmMenuCajero extends javax.swing.JFrame {
     TimeGoogle google = new TimeGoogle();
     
     private Timer timer;
+    
+    CerrarSesion closeSesion = new CerrarSesion();
     
     public frmMenuCajero() {
         initComponents();
@@ -131,21 +134,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
         });
     }
     
-    private void cerrarSesion() {
-        // Si tienes una clase Singleton para manejar la sesión
-        Login sesion = Login.getInstancia();
-        sesion.limpiarDatos();
-
-        // Si la clase no implementa un método limpiarDatos(), puedes hacer:
-        sesion.setIdusuario(0);
-        sesion.setNombre(null);
-        sesion.setSucursal(null);
-        sesion.setVigencia(null);
-        sesion.setIdperfil(0);
-        sesion.setTipo_perfil(null);
-
-        
-    }
 
     
     public void cerrarSesionUsuario(){
@@ -157,7 +145,13 @@ public class frmMenuCajero extends javax.swing.JFrame {
                     JOptionPane.QUESTION_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                cerrarSesion();
+                
+                // Limpiar datos de la sesión del usuario
+                int user = usuario.getIdusuario();
+                
+                closeSesion.EliminarSesion(user);
+                closeSesion.cerrarSession();
+                
                 JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
                 for (Window window : Window.getWindows()) {
                     if (window != topFrame) {

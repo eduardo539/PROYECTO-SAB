@@ -3,6 +3,7 @@ package Vista;
 import Modelo.ActualizarData;
 import Modelo.Conexion;
 import Modelo.Conexion2;
+import Modelo.InsertarData;
 import javax.swing.JOptionPane;
 import Modelo.Login;
 import Modelo.LoginData;
@@ -32,6 +33,7 @@ public class frmLogin extends javax.swing.JFrame {
     Login lg = Login.getInstancia();
     LoginData login = new LoginData();
         
+    InsertarData insert = new InsertarData();
     
     Sillas s = Sillas.getInstancia();
     SillasData sid = new SillasData();
@@ -85,6 +87,8 @@ public class frmLogin extends javax.swing.JFrame {
         sv.borrarDatos();
         
     }
+   
+    
     
     public void Entrar(){ 
         String usuario = txtUsuario.getText().trim();
@@ -124,6 +128,15 @@ public class frmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, 
                 "Este usuario esta bloqueado, favor de contactar al administrador.", 
                 "Usuario bloqueado", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
+        if("inactivo".equals(status)){
+            JOptionPane.showMessageDialog(this, 
+                "Este usuario actualmente esta inactivo, contactar a soporte en caso de existir un error.", 
+                "Usuario inactivo", 
                 JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -200,6 +213,22 @@ public class frmLogin extends javax.swing.JFrame {
                     this.dispose(); // Cerrar el formulario de login 
 
                     return; // Terminar el flujo hasta que la contraseña se actualice 
+                }
+                
+                
+                boolean sesion = login.sesionesActivas(idUsuario);
+        
+                if(sesion == true){
+                    // Si no se alcanzan los 3 intentos, mostramos el número de intentos restantes
+                    JOptionPane.showMessageDialog(this, 
+                        "El usuario ya cuenta con 1 sesion activa, contactar al administrador", 
+                        "Sesión activa encontrada", 
+                        JOptionPane.WARNING_MESSAGE);
+                    return;
+                }else{
+                    // Si no hay sesión activa, procedemos a insertar la nueva sesión
+                    insert.insertarSesion(idUsuario);
+
                 }
 
                 // Redirige según el tipo de perfil
