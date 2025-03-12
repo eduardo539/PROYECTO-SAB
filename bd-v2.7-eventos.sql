@@ -60,13 +60,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `sesiones`;
 
 CREATE TABLE `sesiones` (
-  `id_sesion` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
+  `idSesion` int(11) NOT NULL AUTO_INCREMENT,
   `token` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_sesion`),
+  `id_usuario` int(11) NOT NULL,
+  PRIMARY KEY (`idSesion`),
   UNIQUE KEY `token` (`token`),
-  UNIQUE KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `sesiones_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`) ON DELETE CASCADE
+  KEY `estado` (`id_usuario`),
+  CONSTRAINT `estado` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `sesiones` */
