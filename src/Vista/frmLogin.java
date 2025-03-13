@@ -221,14 +221,13 @@ public class frmLogin extends javax.swing.JFrame {
                 if(sesion == true){
                     // Si no se alcanzan los 3 intentos, mostramos el número de intentos restantes
                     JOptionPane.showMessageDialog(this, 
-                        "El usuario ya cuenta con sesiones activas, contactar a soporte", 
+                        "El usuario ya cuenta con 1 sesion activa, contactar al administrador", 
                         "Sesión activa encontrada", 
                         JOptionPane.WARNING_MESSAGE);
                     return;
                 }else{
                     // Si no hay sesión activa, procedemos a insertar la nueva sesión
-                    // Aquí, suponemos que tienes un método para insertar la sesión (por ejemplo, en la clase 'login')
-                    insert.insertarSesion(idUsuario);  // Asumimos que insertarSesion es un método que maneja la creación del token y la inserción en la base de datos
+                    insert.insertarSesion(idUsuario);
 
                 }
 

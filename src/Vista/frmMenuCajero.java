@@ -134,21 +134,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
         });
     }
     
-    private void cerrarSesion() {
-        // Si tienes una clase Singleton para manejar la sesión
-        Login sesion = Login.getInstancia();
-        sesion.limpiarDatos();
-
-        // Si la clase no implementa un método limpiarDatos(), puedes hacer:
-        sesion.setIdusuario(0);
-        sesion.setNombre(null);
-        sesion.setSucursal(null);
-        sesion.setVigencia(null);
-        sesion.setIdperfil(0);
-        sesion.setTipo_perfil(null);
-
-        
-    }
 
     
     public void cerrarSesionUsuario(){
