@@ -129,6 +129,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jmiSesiones = new javax.swing.JMenuItem();
+        jmiLimiteVentaBoleto = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -227,6 +228,16 @@ public class frmMenuSistemas extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmiSesiones);
+
+        jmiLimiteVentaBoleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiLimiteVentaBoleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-limite.png"))); // NOI18N
+        jmiLimiteVentaBoleto.setText("Limite Venta Boleto");
+        jmiLimiteVentaBoleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiLimiteVentaBoletoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiLimiteVentaBoleto);
 
         jMenuItem10.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Bitacoras.png"))); // NOI18N
@@ -417,6 +428,14 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jmiSesionesActionPerformed
 
+    private void jmiLimiteVentaBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiLimiteVentaBoletoActionPerformed
+        
+        frmFechaLimiteVenta limite = new frmFechaLimiteVenta();
+        limite.setLocationRelativeTo(null);
+        limite.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jmiLimiteVentaBoletoActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -449,6 +468,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
+    private javax.swing.JMenuItem jmiLimiteVentaBoleto;
     private javax.swing.JMenuItem jmiSesiones;
     // End of variables declaration//GEN-END:variables
 
