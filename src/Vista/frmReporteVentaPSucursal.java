@@ -468,7 +468,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         
         // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
         tblReporte.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
+        
         int[] columnWidths = {200, 200, 120, 120, 120, 120, 200, 120, 120, 200, 120, 150, 100, 100, 120, 120};
         for (int i = 0; i < columnWidths.length; i++) {
             tblReporte.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
