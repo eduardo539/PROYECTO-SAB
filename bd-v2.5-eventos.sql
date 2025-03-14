@@ -30,6 +30,8 @@ CREATE TABLE `fechalimite` (
 
 LOCK TABLES `fechalimite` WRITE;
 
+insert  into `fechalimite`(`idFecha`,`fechaLimite`) values (1,'2025-04-30');
+
 UNLOCK TABLES;
 
 /*Table structure for table `saldosocio` */
@@ -50,25 +52,6 @@ CREATE TABLE `saldosocio` (
 LOCK TABLES `saldosocio` WRITE;
 
 insert  into `saldosocio`(`idSaldo`,`Origen`,`Grupo`,`Socio`,`Saldo`) values (8,30422,10,3674,560),(9,30412,10,1658,1120),(10,30412,10,1655,560),(11,30402,10,6501,500);
-
-UNLOCK TABLES;
-
-/*Table structure for table `sesiones` */
-
-DROP TABLE IF EXISTS `sesiones`;
-
-CREATE TABLE `sesiones` (
-  `idSesion` int(11) NOT NULL AUTO_INCREMENT,
-  `token` varchar(255) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  PRIMARY KEY (`idSesion`),
-  KEY `estado` (`id_usuario`),
-  CONSTRAINT `estado` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `sesiones` */
-
-LOCK TABLES `sesiones` WRITE;
 
 UNLOCK TABLES;
 
