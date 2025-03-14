@@ -50,12 +50,30 @@ public class frmFechaLimiteVenta extends javax.swing.JFrame {
         //Se agrega el logo de la empresa
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
-        // En el constructor de tu JFrame Form
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+        
+        // Añadir el WindowListener para gestionar el evento de cierre
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                cerrarVentanaX();
+            }
+        });
+        
         
         datosTabla();
         barraEstado();
         
+    }
+    
+    // Método que ejecuta funciones previas antes de cerrar la ventana
+    private void cerrarVentanaX() {
+        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        frmMenuSistemas sistemas = new frmMenuSistemas();
+        sistemas.setLocationRelativeTo(null);
+        sistemas.setVisible(true);
     }
     
     public void barraEstado(){
@@ -513,7 +531,12 @@ public class frmFechaLimiteVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void jmiRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegresarActionPerformed
+        
+        frmMenuSistemas sistemas = new frmMenuSistemas();
+        sistemas.setLocationRelativeTo(null);
+        sistemas.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_jmiRegresarActionPerformed
 
     
