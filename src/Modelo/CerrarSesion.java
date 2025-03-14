@@ -56,7 +56,7 @@ public class CerrarSesion {
             if (rowsAffected > 0) {
                 // Si se eliminó correctamente, mostrar mensaje de éxito
                 JOptionPane.showMessageDialog(null,
-                        "Sesión cerrada con éxito",
+                        "Sesión cerrada con éxito, ¡Hasta pronto!",
                         "Éxito",
                         JOptionPane.INFORMATION_MESSAGE);
             }
