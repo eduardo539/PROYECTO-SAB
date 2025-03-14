@@ -30,8 +30,6 @@ CREATE TABLE `fechalimite` (
 
 LOCK TABLES `fechalimite` WRITE;
 
-insert  into `fechalimite`(`idFecha`,`fechaLimite`) values (1,'2025-04-30');
-
 UNLOCK TABLES;
 
 /*Table structure for table `saldosocio` */
@@ -66,7 +64,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`idSesion`),
   KEY `estado` (`id_usuario`),
   CONSTRAINT `estado` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `sesiones` */
 
@@ -264,7 +262,7 @@ CREATE TABLE `tbl_usuarios` (
 
 LOCK TABLES `tbl_usuarios` WRITE;
 
-insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`,`estado`) values (113,'Jose Cecilio Gomez Galdamez','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1,'activo'),(499,'FRANCISCO JAVIER FLORES GONZALEZ','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-10',2,'activo'),(539,'Eduardo Dominguez','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-03-26',3,'activo'),(540,'Maria del Rosario Gonzalez Vas','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-04-06',2,'activo'),(630,'MARIA ELENA ALVAREZ RAMOS','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1,'activo'),(697,'ADAIR GUTIERREZ VITE','f83eb54af143e1c220d48cbff2675a4e','2025-04-04',2,'activo'),(701,'Eduardo Hernandez Hernandez','f83eb54af143e1c220d48cbff2675a4e','2025-03-27',1,'activo'),(709,'MONICA VALLEJO MARTINEZ','b623e6e36421e60f6bb902e2d30a379f','2025-04-08',2,'activo');
+insert  into `tbl_usuarios`(`id_usuario`,`Nombre`,`vchPass`,`dtVigencia`,`id_perfil`,`estado`) values (113,'Jose Cecilio Gomez Galdamez','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1,'activo'),(499,'FRANCISCO JAVIER FLORES GONZALEZ','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-10',2,'activo'),(539,'Eduardo Dominguez','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-03-26',1,'activo'),(540,'Maria del Rosario Gonzalez Vas','8e09099f4cb6ccf3ca4ba8cb4c3bae7e','2025-04-06',2,'activo'),(630,'MARIA ELENA ALVAREZ RAMOS','c65aea2c82a552d83ef8f02d8845ab2d','2025-04-03',1,'activo'),(697,'ADAIR GUTIERREZ VITE','f83eb54af143e1c220d48cbff2675a4e','2025-04-04',2,'activo'),(701,'Eduardo Hernandez Hernandez','f83eb54af143e1c220d48cbff2675a4e','2025-03-27',1,'activo'),(709,'MONICA VALLEJO MARTINEZ','b623e6e36421e60f6bb902e2d30a379f','2025-04-08',2,'activo');
 
 UNLOCK TABLES;
 
