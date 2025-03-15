@@ -10,11 +10,28 @@ import javax.swing.ImageIcon;
 
 public class frmAcercaDe extends javax.swing.JFrame {
     
+    //Cambiar de versión segun los cambios
+    
+    //La versión 1.0.0 se descompone de la siguiente manera:
+
+    //1 (Mayor): Se trata de una versión principal que probablemente podría tener cambios incompatibles con versiones anteriores.
+    //0 (Menor): Esta es una versión menor, indicando que se han añadido nuevas características sin romper la compatibilidad con versiones anteriores.
+    //0 (Parche): Esta es una versión de parche, que implica correcciones menores y mejoras en la estabilidad del sistema sin nuevas funcionalidades.
+    
+    String VERSIONSAB = "1.1.25";
+    
     public frmAcercaDe() {
         initComponents();
         setResizable(false);
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+        
+        version();
+        
+    }
+    
+    public void version(){
+        lbVersion.setText("Versión: " + VERSIONSAB);
     }
     
     @SuppressWarnings("unchecked")
@@ -51,7 +68,7 @@ public class frmAcercaDe extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        lbVersion = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -149,8 +166,8 @@ public class frmAcercaDe extends javax.swing.JFrame {
         jLabel27.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel27.setText("Requisitos del Sistema:");
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel28.setText("Versión 0.1.10 (Abril 2025 Beta)");
+        lbVersion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbVersion.setText("Versión:");
 
         jLabel29.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         jLabel29.setText("EDUARDO DOMÍNGUEZ LIBRADO (Backend y Frontend)");
@@ -177,18 +194,6 @@ public class frmAcercaDe extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel29))))
                     .addComponent(jLabel8)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel15)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel16)))
                     .addComponent(jLabel1)
                     .addComponent(jLabel17)
                     .addComponent(jLabel18)
@@ -201,7 +206,20 @@ public class frmAcercaDe extends javax.swing.JFrame {
                     .addComponent(jLabel25)
                     .addComponent(jLabel26)
                     .addComponent(jLabel27)
-                    .addComponent(jLabel28))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lbVersion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addGap(20, 20, 20)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel16)))))
                 .addGap(0, 74, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -261,7 +279,7 @@ public class frmAcercaDe extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel28)
+                .addComponent(lbVersion)
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -289,13 +307,11 @@ public class frmAcercaDe extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -334,7 +350,6 @@ public class frmAcercaDe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -349,6 +364,7 @@ public class frmAcercaDe extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbVersion;
     // End of variables declaration//GEN-END:variables
 
 }
