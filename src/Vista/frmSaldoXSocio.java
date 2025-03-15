@@ -9,6 +9,8 @@ import Modelo.SaldoDisponible;
 import Modelo.SaldoSocios;
 import Modelo.SaldoSocios.Saldo;
 import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -108,6 +110,25 @@ public class frmSaldoXSocio extends javax.swing.JFrame {
             tblSaldos.getColumnModel().getColumn(i).setCellRenderer(centro);
         }
         
+        
+        // Agregar un MouseListener al contenedor donde se encuentra la tabla y las cajas de texto
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Verificar si el clic fue fuera de la tabla (en cualquier lugar que no sea la tabla)
+                if (!tblSaldos.getBounds().contains(e.getPoint())) {
+                    // Limpiar las cajas de texto si el clic fue fuera de la tabla
+                    txtOrigenA.setText("");
+                    txtGrupoA.setText("");
+                    txtSocioA.setText("");
+                    txtSaldo.setText("");
+                    
+                    // Deseleccionar cualquier fila seleccionada en la tabla
+                    tblSaldos.clearSelection();
+                }
+            }
+        });
+        
     }
     
     
@@ -156,6 +177,26 @@ public class frmSaldoXSocio extends javax.swing.JFrame {
         for (int i = 0; i < tblSaldos.getColumnCount(); i++) {
             tblSaldos.getColumnModel().getColumn(i).setCellRenderer(centro);
         }
+        
+        
+        
+        // Agregar un MouseListener al contenedor donde se encuentra la tabla y las cajas de texto
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Verificar si el clic fue fuera de la tabla (en cualquier lugar que no sea la tabla)
+                if (!tblSaldos.getBounds().contains(e.getPoint())) {
+                    // Limpiar las cajas de texto si el clic fue fuera de la tabla
+                    txtOrigenA.setText("");
+                    txtGrupoA.setText("");
+                    txtSocioA.setText("");
+                    txtSaldo.setText("");
+                    
+                    // Deseleccionar cualquier fila seleccionada en la tabla
+                    tblSaldos.clearSelection();
+                }
+            }
+        });
         
     }
     
