@@ -17,7 +17,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author Stock 2 Sistemas
+ * @author Edurdo´s
  */
 public class frmMenuSistemas extends javax.swing.JFrame {
     private Login usuario; //objeto para almacenar los datos
