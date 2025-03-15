@@ -1,11 +1,6 @@
 package sab;
 
-import Vista.frmFechaLimiteVenta;
 import Vista.frmLogin;
-import Vista.frmReportesOpPSucursales;
-import Vista.frmSesionesActivas;
-import Vista.frmVentaBoletosXUsuarioPartGerente;
-
 
 
 /**
@@ -21,10 +16,6 @@ public class SAB {
 
         
         frmLogin iniciar = new frmLogin();
-        //frmReportesOpPSucursales iniciar = new frmReportesOpPSucursales();
-        //frmVentaBoletosXUsuarioPartGerente iniciar = new frmVentaBoletosXUsuarioPartGerente();
-        //frmSesionesActivas iniciar = new frmSesionesActivas();
-        //frmFechaLimiteVenta iniciar = new frmFechaLimiteVenta();
         
         
         iniciar.setLocationRelativeTo(null); // Centra la ventana en la pantalla

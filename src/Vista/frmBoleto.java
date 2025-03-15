@@ -332,7 +332,7 @@ public class frmBoleto extends javax.swing.JFrame {
                          "Importe: $" + importe + "\n" +
                          "Vigencia Boleto: " + newFormatoVigencia + "\n" +
                          "Invitado: " + rInvitado + "\n\n" +
-                         "Fecha Compra: " + fechaDetalleCompra + "\n\n" +
+                         "Fecha de Compra: " + fechaDetalleCompra + "\n\n" +
                          "¿Deseas continuar con la compra?";
 
         // Mostrar cuadro de diálogo con opciones

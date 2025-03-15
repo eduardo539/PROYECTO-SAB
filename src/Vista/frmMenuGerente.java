@@ -3,10 +3,16 @@ package Vista;
 import FormulariosAyuda.Gerente.AyudaHomeGerente;
 import Modelo.CerrarSesion;
 import Modelo.Login;
+import Modelo.TimeGoogle;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -16,6 +22,10 @@ import javax.swing.JOptionPane;
 public class frmMenuGerente extends javax.swing.JFrame {
     private Login usuario; //objeto para almacenar los datos
     
+    private Timer timer;
+    
+    TimeGoogle google = new TimeGoogle();
+    
     public frmMenuGerente() {
         initComponents();
         setResizable(false);
@@ -23,6 +33,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
+        tiempoReal();
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
@@ -41,6 +52,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
         // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
         cerrarSesionUsuario();
     }
+
     
     private void actualizarMensajeBienvenida() {
         if (usuario != null) {
@@ -51,6 +63,58 @@ public class frmMenuGerente extends javax.swing.JFrame {
             // En caso de que no haya sesión activa, se muestran valores por defecto
             jlUsuario.setText("N/A");
             jlNombre.setText("N/A");
+        }
+    }
+    
+    
+    public void tiempoReal() {
+        // Crear un Timer que se ejecute cada 1000 milisegundos (1 segundo)
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                google.dateTime();  // Llama al método que obtiene la hora de Google
+
+                String fechaHora = google.getDateTime();
+                
+                // Convertimos la fecha y hora a un formato más legible
+                String fechaFormatActual = formatearFechaHora(fechaHora);
+                
+                //Actualiza el JLabel con la nueva hora
+                lblFechaHora.setText("Fecha y Hora: " + fechaFormatActual);
+            }
+        });
+
+        // Inicia el Timer
+        timer.start();
+    }
+    
+    
+    @Override
+    public void dispose() {
+        // Detener el Timer si está en ejecución
+        if (timer != null && timer.isRunning()) {
+            timer.stop();
+            //System.out.println("El Timer ha sido detenido.");
+        }
+
+        // Llamar al método dispose() de la superclase (JFrame) para asegurarse de que la ventana se cierre correctamente
+        super.dispose();
+    }
+    
+    private String formatearFechaHora(String fechaHora){
+        try {
+            // La fecha recibida de google se espera en formato "yyyy-MM-dd HH:mm:ss"
+            SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date fecha = formatoEntrada.parse(fechaHora);  // Parseamos la fecha de entrada
+            
+            // Definir el nuevo formato para la fecha
+            SimpleDateFormat formatoSalida = new SimpleDateFormat("d MMMM yyyy hh:mm:ss a");
+            
+            // Obtener la fecha formateada
+            return formatoSalida.format(fecha);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return fechaHora;  // Si hay un error en el formato, devolvemos la cadena original
         }
     }
     
@@ -118,6 +182,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jlUsuario = new javax.swing.JLabel();
         jlNombre = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lblFechaHora = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -134,31 +199,34 @@ public class frmMenuGerente extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
-        jLabel2.setText("BIENVENIDO AL SAB");
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel2.setText("BIENVENIDO AL SAB");
 
-        jLabel3.setText("SISTEMA DE ADMINISTRACIÓN DE BOLETOS");
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setText("SISTEMA DE ADMINISTRACIÓN DE BOLETOS");
 
-        jLabel5.setText("GERENTE");
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setText("GERENTE");
 
-        jLabel6.setText("DATOS DEL USUARIO");
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel6.setText("DATOS DEL USUARIO");
 
-        jLabel7.setText("USUARIO:");
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setText("USUARIO:");
 
-        jLabel8.setText("NOMBRE:");
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setText("NOMBRE:");
 
-        jlUsuario.setText(".");
         jlUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jlUsuario.setText(".");
 
-        jlNombre.setText(".");
         jlNombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jlNombre.setText(".");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/perfil_usuarioss.png"))); // NOI18N
+
+        lblFechaHora.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblFechaHora.setText("Fecha y Hora");
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -254,10 +322,11 @@ public class frmMenuGerente extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel7))
-                                .addGap(18, 18, 18)
+                                .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jlUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jlUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(lblFechaHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -285,7 +354,9 @@ public class frmMenuGerente extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jlNombre)))
                     .addComponent(jLabel4))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFechaHora)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -349,6 +420,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
+    private javax.swing.JLabel lblFechaHora;
     // End of variables declaration//GEN-END:variables
 
 }
