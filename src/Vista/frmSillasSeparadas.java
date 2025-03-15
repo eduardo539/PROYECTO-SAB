@@ -16,6 +16,8 @@ import Modelo.SillasApartadas.Boleto;
 import Modelo.SillasApartadasData;
 import Modelo.TimeGoogle;
 import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -206,6 +208,25 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         for (int i = 0; i < tblBoletos.getColumnCount(); i++) {
             tblBoletos.getColumnModel().getColumn(i).setCellRenderer(centro);
         }
+        
+        
+        // Agregar un MouseListener al contenedor donde se encuentra la tabla y las cajas de texto
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Verificar si el clic fue fuera de la tabla (en cualquier lugar que no sea la tabla)
+                if (!tblBoletos.getBounds().contains(e.getPoint())) {
+                    // Limpiar las cajas de texto si el clic fue fuera de la tabla
+                    txtSillas.setText("");
+                    txtTotal.setText("");
+                    txtTotalImporte.setText("");
+                    txtAdeudo.setText("");
+                    
+                    // Deseleccionar cualquier fila seleccionada en la tabla
+                    tblBoletos.clearSelection();
+                }
+            }
+        });
     
     }
     
@@ -284,6 +305,24 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
             tblBoletos.getColumnModel().getColumn(i).setCellRenderer(centro);
         }
         
+        
+        // Agregar un MouseListener al contenedor donde se encuentra la tabla y las cajas de texto
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Verificar si el clic fue fuera de la tabla (en cualquier lugar que no sea la tabla)
+                if (!tblBoletos.getBounds().contains(e.getPoint())) {
+                    // Limpiar las cajas de texto si el clic fue fuera de la tabla
+                    txtSillas.setText("");
+                    txtTotal.setText("");
+                    txtTotalImporte.setText("");
+                    txtAdeudo.setText("");
+                    
+                    // Deseleccionar cualquier fila seleccionada en la tabla
+                    tblBoletos.clearSelection();
+                }
+            }
+        });
         
     }
 

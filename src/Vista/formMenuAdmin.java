@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -203,6 +202,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione tipo de usuario", "activo", "inactivo", "bloqueado" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -587,6 +587,24 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     break;
                 case "Cajero":
                     this.ComboPerfil.setSelectedIndex(4); // Índice 4 corresponde a Cajero
+                    break;
+                default:
+                    this.ComboPerfil.setSelectedIndex(0); // Por defecto, si no coincide con ninguno
+                    break;
+            }
+            
+            String estado = this.jTablaDatos.getValueAt(fila, 3).toString();
+            
+            
+            switch (estado) {
+                case "activo":
+                    this.jComboBox1.setSelectedIndex(1); // Índice 1 corresponde a Sistemas
+                    break;
+                case "bloqueado":
+                    this.jComboBox1.setSelectedIndex(2); // Índice 2 corresponde a Operaciones
+                    break;
+                case "inactivo":
+                    this.jComboBox1.setSelectedIndex(3); // Índice 2 corresponde a Operaciones
                     break;
                 default:
                     this.ComboPerfil.setSelectedIndex(0); // Por defecto, si no coincide con ninguno
@@ -1278,8 +1296,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
         jComboBox1.removeAllItems(); // Eliminar cualquier opción existente
         jComboBox1.addItem("Seleccione un estado"); // Opción inicial no válida
         jComboBox1.addItem("activo");
+        jComboBox1.addItem("bloqueado");
         jComboBox1.addItem("inactivo");
-        jComboBox1.addItem("inhabilitado");
     }
     
     

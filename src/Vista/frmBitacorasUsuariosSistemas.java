@@ -8,6 +8,7 @@ import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -28,6 +29,9 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
     
     public frmBitacorasUsuariosSistemas() {
         initComponents();
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
+        
         conexion = new Conexion(); // Inicialización de la conexión
         configuracionModeloTabla();
         
@@ -80,6 +84,7 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bitacora de Usuarios");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizacion de acciones:"));
 
@@ -102,14 +107,14 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 948, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 122, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
@@ -164,8 +169,8 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -235,7 +240,9 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void mostrarBitacoras() {
-        String consultaSQL = "SELECT Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion FROM tbl_bit_accion_usuarios";
+        String consultaSQL = "SELECT Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion " +
+                                "FROM tbl_bit_accion_usuarios " +
+                                "ORDER BY id_reg DESC;";
         datosExistentes = false;  // Inicializamos en false
 
         // Usamos la conexión para obtener la base de datos
