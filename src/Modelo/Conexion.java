@@ -16,12 +16,12 @@ public class Conexion {
     
     // Datos de conexión a la base de datos
 
-    
+    /*
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String DATABASE = "eventos";
     private static final String USER = "root";
     private static final String PASSWORD = "";
-    
+    */
     /*
     //Conexion a la base de datos remota
     private static final String URL = "jdbc:mysql://yamanote.proxy.rlwy.net:31264/";
@@ -32,13 +32,13 @@ public class Conexion {
     
     
     
-    /*
+    
     //Conexion a la base de datos remota local
     private static final String URL = "jdbc:mysql://133.145.6.36:3306/";
     private static final String DATABASE = "eventos";
     private static final String USER = "eduHdz";
     private static final String PASSWORD = "root";
-    */
+    
     
     
     // Tiempo de espera para la conexión
