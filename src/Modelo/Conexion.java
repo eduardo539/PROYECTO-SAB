@@ -20,6 +20,7 @@ public class Conexion {
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String DATABASE = "eventos";
     private static final String USER = "root";
+<<<<<<< HEAD
     private static final String PASSWORD = "";
     */
     /*
@@ -30,6 +31,9 @@ public class Conexion {
     private static final String PASSWORD = "usbZXMwhbeKAhhGttXJNKySQYtiZFHVl";
     */
     
+=======
+    private static final String PASSWORD = "";    
+>>>>>>> b117f6f737119b8afbf1f140c26d6ad4cb5100db
     
     
     

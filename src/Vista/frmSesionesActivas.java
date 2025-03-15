@@ -8,7 +8,10 @@ import Modelo.SesionesData;
 import Modelo.TimeGoogle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -42,6 +45,8 @@ public class frmSesionesActivas extends javax.swing.JFrame {
     public frmSesionesActivas() {
         initComponents();
         setResizable(false);
+        
+        setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
         datosTabla();
         barraEstado();
@@ -184,6 +189,26 @@ public class frmSesionesActivas extends javax.swing.JFrame {
         });
         
         
+        
+        // Agregar un MouseListener al contenedor donde se encuentra la tabla y las cajas de texto
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Verificar si el clic fue fuera de la tabla (en cualquier lugar que no sea la tabla)
+                if (!tblSesiones.getBounds().contains(e.getPoint())) {
+                    // Limpiar las cajas de texto si el clic fue fuera de la tabla
+                    txtId.setText("");
+                    txtUsuario.setText("");
+                    txtNombre.setText("");
+                    txtPerfil.setText("");
+                    
+                    // Deseleccionar cualquier fila seleccionada en la tabla
+                    tblSesiones.clearSelection();
+                }
+            }
+        });
+        
+        
     }
     
     
@@ -262,6 +287,25 @@ public class frmSesionesActivas extends javax.swing.JFrame {
             }
         });
         
+        
+        // Agregar un MouseListener al contenedor donde se encuentra la tabla y las cajas de texto
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Verificar si el clic fue fuera de la tabla (en cualquier lugar que no sea la tabla)
+                if (!tblSesiones.getBounds().contains(e.getPoint())) {
+                    // Limpiar las cajas de texto si el clic fue fuera de la tabla
+                    txtId.setText("");
+                    txtUsuario.setText("");
+                    txtNombre.setText("");
+                    txtPerfil.setText("");
+                    
+                    // Deseleccionar cualquier fila seleccionada en la tabla
+                    tblSesiones.clearSelection();
+                }
+            }
+        });
+        
     }
     
     
@@ -312,6 +356,7 @@ public class frmSesionesActivas extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sesiones Activas");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Sesiones Activas"));
 
@@ -578,7 +623,7 @@ public class frmSesionesActivas extends javax.swing.JFrame {
         // Validar si algún campo está vacío
         if (input1.isEmpty() || input2.isEmpty() || input3.isEmpty() || input4.isEmpty()) {
             // Mostrar mensaje de error si falta algún dato
-            JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor, Seleccione un usuario si desea eliminar la sesión.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
