@@ -46,7 +46,7 @@ public class Conexion2 {
             return con;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, 
-                        "Error al conectarse a la base de datos Postgress, Favor de reportar al área de sistemas.\nDetalles: " + e.getMessage(), 
+                        "Error al conectarse a la base de datos PostgreSQL, Favor de reportar al área de sistemas.\nDetalles: " + e.getMessage(), 
                         "Error de Conexión", 
                         JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException ex) {

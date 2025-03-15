@@ -3,11 +3,17 @@ package Vista;
 import FormulariosAyuda.Sistemas.AyudaHomeSistemas;
 import Modelo.CerrarSesion;
 import Modelo.Login;
+import Modelo.TimeGoogle;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -16,6 +22,10 @@ import javax.swing.JOptionPane;
 public class frmMenuSistemas extends javax.swing.JFrame {
     private Login usuario; //objeto para almacenar los datos
     
+    private Timer timer;
+    
+    TimeGoogle google = new TimeGoogle();
+    
     public frmMenuSistemas() {
         initComponents();
         setResizable(false);
@@ -23,6 +33,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
+        tiempoReal();
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
@@ -55,6 +66,59 @@ public class frmMenuSistemas extends javax.swing.JFrame {
             jlNombre.setText("N/A");
         }
     }
+    
+    
+    public void tiempoReal() {
+        // Crear un Timer que se ejecute cada 1000 milisegundos (1 segundo)
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                google.dateTime();  // Llama al método que obtiene la hora de Google
+
+                String fechaHora = google.getDateTime();
+                
+                // Convertimos la fecha y hora a un formato más legible
+                String fechaFormatActual = formatearFechaHora(fechaHora);
+                
+                //Actualiza el JLabel con la nueva hora
+                lblFechaHora.setText("Fecha y Hora: " + fechaFormatActual);
+            }
+        });
+
+        // Inicia el Timer
+        timer.start();
+    }
+    
+    
+    @Override
+    public void dispose() {
+        // Detener el Timer si está en ejecución
+        if (timer != null && timer.isRunning()) {
+            timer.stop();
+            //System.out.println("El Timer ha sido detenido.");
+        }
+
+        // Llamar al método dispose() de la superclase (JFrame) para asegurarse de que la ventana se cierre correctamente
+        super.dispose();
+    }
+    
+    private String formatearFechaHora(String fechaHora){
+        try {
+            // La fecha recibida de google se espera en formato "yyyy-MM-dd HH:mm:ss"
+            SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date fecha = formatoEntrada.parse(fechaHora);  // Parseamos la fecha de entrada
+            
+            // Definir el nuevo formato para la fecha
+            SimpleDateFormat formatoSalida = new SimpleDateFormat("d MMMM yyyy hh:mm:ss a");
+            
+            // Obtener la fecha formateada
+            return formatoSalida.format(fecha);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return fechaHora;  // Si hay un error en el formato, devolvemos la cadena original
+        }
+    }
+    
     
     private void abrirLogin() {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -121,6 +185,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jlUsuario = new javax.swing.JLabel();
         jlNombre = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        lblFechaHora = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -164,6 +229,8 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jlNombre.setText(".");
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/perfil_usuarioss.png"))); // NOI18N
+
+        lblFechaHora.setText("Fecha y Hora");
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -313,14 +380,17 @@ public class frmMenuSistemas extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7))
-                                .addGap(18, 18, 18)
+                                .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jlUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                                     .addComponent(jlNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(jLabel2)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(jLabel2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,9 +415,11 @@ public class frmMenuSistemas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblFechaHora))
                     .addComponent(jLabel8))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -470,6 +542,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JLabel jlUsuario;
     private javax.swing.JMenuItem jmiLimiteVentaBoleto;
     private javax.swing.JMenuItem jmiSesiones;
+    private javax.swing.JLabel lblFechaHora;
     // End of variables declaration//GEN-END:variables
 
 
