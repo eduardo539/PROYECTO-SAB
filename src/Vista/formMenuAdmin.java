@@ -52,6 +52,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
         
         setResizable(false);
         
+        configurarComboBoxEstado();
+        
         // En el constructor de tu JFrame Form
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
@@ -118,6 +120,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtid_usuario = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaDatos = new javax.swing.JTable();
@@ -200,6 +203,12 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -207,18 +216,22 @@ public class formMenuAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(txtid_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtid_usuario, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,9 +242,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(ComboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de usuarios"));
@@ -261,7 +276,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTablaDatos);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 730, 360));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 730, 390));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -374,10 +389,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
                         .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -387,9 +402,9 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -514,7 +529,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
             stmt.setDate(4, dtvigencia); // Fecha que sera marcada como vigencia, dato traido de TimeGoogle
             stmt.setInt(5, idPerfil); // Perfil del nuevo usuario
             stmt.setString(6, sucursalNuevoUsuario); // sucursal del nuevo usuario (dato que ira en bitacora)
-                        
+            
             stmt.setInt(7, idUsuarioSistema); // ID del usuario que hizo la acción
             stmt.setString(8, nombreUsuarioSistema); // Nombre del usuario que hizo la acción
             stmt.setInt(9, perfilUsuarioSistema); // Perfil del usuario que hizo la acción
@@ -546,7 +561,6 @@ public class formMenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void jTablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaDatosMouseClicked
-
         txtid_usuario.setEnabled(false);
         btnRegistrar.setEnabled(false);
         btnActualizar.setEnabled(true);
@@ -578,6 +592,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
                     this.ComboPerfil.setSelectedIndex(0); // Por defecto, si no coincide con ninguno
                     break;
             }
+            
+            
         } else {
             JOptionPane.showMessageDialog(this, "No se seleccionó una fila válida", "¡Advertencia!", JOptionPane.ERROR_MESSAGE);
         }
@@ -585,18 +601,20 @@ public class formMenuAdmin extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         try {
-            // Validación si se ha seleccionado un usuario (esto aparece con la detección del puro id_usuario)
             if (txtid_usuario.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(
-                    this,
-                    "Por favor, selecciona un usuario antes de intentar editar.",
-                    "Advertencia",
-                    JOptionPane.WARNING_MESSAGE
-                );
-                return; // Detener el proceso si no se seleccionó un usuario
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona un usuario antes de actualizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
             }
-            
-            // Mostrar cuadro de confirmación antes de actualizar los datos
+
+            // Obtener el estado seleccionado del ComboBox
+            String estadoSeleccionado = jComboBox1.getSelectedItem().toString();
+
+            // Verificar que el usuario no deje el estado en "Seleccione un estado"
+            if (estadoSeleccionado.equals("Seleccione un estado")) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un estado antes de actualizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return; // Detener el proceso
+            }
+
             int confirmacion = JOptionPane.showConfirmDialog(
                 null,
                 "¿Está seguro de que desea actualizar los datos de este usuario?",
@@ -604,76 +622,42 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION
             );
 
-            // Verificar si el usuario seleccionó "Sí"
             if (confirmacion != JOptionPane.YES_OPTION) {
-                return; // Salir del método si el usuario selecciona "No"
+                return; // Cancelar actualización
             }
-            
-            Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
-            Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
-            
-            // Obtener el valor del campo de texto y convertirlo a un entero
-            int id_usuario2 = Integer.parseInt(txtid_usuario.getText());
-            
-            // Mandar a traer la sucursal del nuevo usuario, esto para agregarlo en la bitacora
-            String sucursalNuevoUsuario = TraerSucursaldelusuarioAactualizar(id_usuario2);
-            
-            String sql = "{CALL updateXUsuariosXBitacXAccionUpdate(?, ?, ?, ?, ?, ?, ?)}";
+
+            Conexion con = new Conexion();
+            Connection cn1 = con.getConnection();
+
+            int id_usuario = Integer.parseInt(txtid_usuario.getText());
+            int idPerfil = ComboPerfil.getSelectedIndex(); // Obtiene el ID del perfil desde el combo box
+
+            // Obtener la sucursal del usuario actualizado
+            String sucursalNuevoUsuario = TraerSucursaldelusuarioAactualizar(id_usuario);
+
+            String sql = "{CALL updateXUsuariosXBitacXAccionUpdate(?, ?, ?, ?, ?, ?, ?, ?)}";
             PreparedStatement stmt = cn1.prepareCall(sql);
 
-            // Convertir el perfil seleccionado en el ComboBox a su ID correspondiente
-            int idPerfil = 0;
-            switch (ComboPerfil.getSelectedItem().toString()) {
-                case "Sistemas":
-                    idPerfil = 1;
-                    break;
-                case "Operaciones":
-                    idPerfil = 2;
-                    break;
-                case "Gerente":
-                    idPerfil = 3;
-                    break;
-                case "Cajero":
-                    idPerfil = 4;
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(this, "Por favor selecciona un perfil válido", "¡Advertencia!", JOptionPane.WARNING_MESSAGE);
-                    return;
-            }
+            stmt.setInt(1, id_usuario); // ID del usuario a actualizar
+            stmt.setInt(2, idPerfil); // Nuevo perfil
+            stmt.setString(3, estadoSeleccionado); // Estado seleccionado
+            stmt.setString(4, sucursalNuevoUsuario); // Sucursal del usuario
 
-            stmt.setInt(1, idPerfil); // El perfil asignado del ususario a actualizar
-            stmt.setInt(2, Integer.parseInt(txtid_usuario.getText())); // el id del usuario a actualizar
-            stmt.setString(3, sucursalNuevoUsuario); // sucursal del nuevo usuario (dato que ira en bitacora)
-            
-            stmt.setString(4, sucursalUsuarioSistema); // Sucursal del usuario que hizo la accion
-            stmt.setInt(5, idUsuarioSistema); // ID del usuario que hizo la acción
-            stmt.setString(6, nombreUsuarioSistema); // Nombre del usuario que hizo la acción
-            stmt.setInt(7, perfilUsuarioSistema); // Perfil del usuario que hizo la acción
-            
-            // Ejecutar la consulta de actualización
+            stmt.setString(5, sucursalUsuarioSistema); // Sucursal del usuario que realiza la acción
+            stmt.setInt(6, idUsuarioSistema); // ID del usuario que realiza la acción
+            stmt.setString(7, nombreUsuarioSistema); // Nombre del usuario que realiza la acción
+            stmt.setInt(8, perfilUsuarioSistema); // Perfil del usuario que realiza la acción
+
             int filasActualizadas = stmt.executeUpdate();
 
-            // Verificar si se actualizó algún registro
             if (filasActualizadas > 0) {   
-                JOptionPane.showMessageDialog(
-                    this, 
-                    "Datos actualizados correctamente", 
-                    "Éxito", 
-                    JOptionPane.INFORMATION_MESSAGE
-                );
-                mostrarDatos(); // Actualiza la tabla con los datos actualizados
-                limpiarEntradas(); // Limpia los campos del formulario
+                JOptionPane.showMessageDialog(this, "Datos actualizados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                mostrarDatos(); // Refrescar tabla
+                limpiarEntradas(); // Limpiar formulario
             } else {
-                JOptionPane.showMessageDialog(
-                    this, 
-                    "No se actualizó ningún dato. Verifica que el usuario exista.", 
-                    "Advertencia", 
-                    JOptionPane.WARNING_MESSAGE
-                );
+                JOptionPane.showMessageDialog(this, "No se actualizó ningún dato. Verifica el usuario.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
-
-            stmt.close(); // Cierra el PreparedStatement
-
+            stmt.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar los datos: " + e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -937,6 +921,10 @@ public class formMenuAdmin extends javax.swing.JFrame {
         Ayuda.setVisible(true);
     }//GEN-LAST:event_jmiInfoActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     /**
      * Método para abrir la ventana de inicio de sesión.
      */
@@ -965,6 +953,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRestaurarContra;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -994,17 +983,19 @@ public class formMenuAdmin extends javax.swing.JFrame {
         modelo.addColumn("Usuario");
         modelo.addColumn("Nombre");
         modelo.addColumn("Perfil Usuario");
+        modelo.addColumn("Estado Usuario");
 
         jTablaDatos.setModel(modelo);
 
-        String consultaSQL = "SELECT id_usuario, Nombre, id_perfil FROM tbl_usuarios";
-        String data[] = new String[3];
+        String consultaSQL = "SELECT id_usuario, Nombre, id_perfil, estado FROM tbl_usuarios";
+        String data[] = new String[4];  // Corregido: ahora tiene espacio suficiente
         Statement st;
 
         try {
-            Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
-            Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
             
+            Conexion con = new Conexion();  
+            Connection cn1 = con.getConnection();
+
             st = cn1.createStatement();
             ResultSet rs = st.executeQuery(consultaSQL);
 
@@ -1012,8 +1003,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 data[0] = rs.getString("id_usuario");
                 data[1] = rs.getString("Nombre");
                 
-                // validacion sobre los texto del apatado de menu del combo box
                 int idPerfil = rs.getInt("id_perfil");
+                
                 if (idPerfil == 1) {
                     data[2] = "Sistemas";
                 } else if (idPerfil == 2) {
@@ -1025,6 +1016,8 @@ public class formMenuAdmin extends javax.swing.JFrame {
                 } else {
                     data[2] = "Otro";
                 }
+                
+                data[3] = rs.getString("estado"); // Ahora data[3] existe
                 modelo.addRow(data);
             }
 
@@ -1037,6 +1030,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
         txtid_usuario.setText("");
         txtNombre.setText("");
         ComboPerfil.setSelectedIndex(0);
+        jComboBox1.setSelectedIndex(0);
     }
 
     private boolean validarFormulario() {
@@ -1278,6 +1272,14 @@ public class formMenuAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al verificar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
             return null;
         }
+    }
+
+    private void configurarComboBoxEstado() {
+        jComboBox1.removeAllItems(); // Eliminar cualquier opción existente
+        jComboBox1.addItem("Seleccione un estado"); // Opción inicial no válida
+        jComboBox1.addItem("activo");
+        jComboBox1.addItem("inactivo");
+        jComboBox1.addItem("inhabilitado");
     }
     
     
