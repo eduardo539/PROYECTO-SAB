@@ -177,6 +177,7 @@ public class frmFechaLimiteVenta extends javax.swing.JFrame {
                     
                     // Deseleccionar cualquier fila seleccionada en la tabla
                     tblFechas.clearSelection();
+                    dtFechaLimite.setDate(null);
                 }
             }
         });
@@ -204,7 +205,7 @@ public class frmFechaLimiteVenta extends javax.swing.JFrame {
         
         // Verificar que la fecha seleccionada no sea anterior a hoy
         if (fecha.isBefore(hoy)) {
-            JOptionPane.showMessageDialog(null, "La fecha seleccionada no puede ser anterior a hoy.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La fecha no puede ser de días anteriores.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salir del método si la fecha es anterior a hoy
         }
         
