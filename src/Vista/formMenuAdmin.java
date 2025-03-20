@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -981,12 +983,14 @@ txtid_usuario.setEnabled(false);
 
         jTablaDatos.setModel(modelo);
 
+        // Llamar a la función que configura la tabla
+        configurarTabla();
+
         String consultaSQL = "SELECT id_usuario, Nombre, id_perfil, estado FROM tbl_usuarios";
-        String data[] = new String[4];  // Corregido: ahora tiene espacio suficiente
+        String data[] = new String[4];  
         Statement st;
 
         try {
-            
             Conexion con = new Conexion();  
             Connection cn1 = con.getConnection();
 
@@ -996,28 +1000,34 @@ txtid_usuario.setEnabled(false);
             while (rs.next()) {
                 data[0] = rs.getString("id_usuario");
                 data[1] = rs.getString("Nombre");
-                
+
                 int idPerfil = rs.getInt("id_perfil");
-                
-                if (idPerfil == 1) {
-                    data[2] = "Sistemas";
-                } else if (idPerfil == 2) {
-                    data[2] = "Operaciones";
-                } else if (idPerfil == 3) {
-                    data[2] = "Gerente";
-                } else if (idPerfil == 4) {
-                    data[2] = "Cajero";
-                } else {
-                    data[2] = "Otro";
+                switch (idPerfil) {
+                    case 1:
+                        data[2] = "Sistemas";
+                        break;
+                    case 2:
+                        data[2] = "Operaciones";
+                        break;
+                    case 3:
+                        data[2] = "Gerente";
+                        break;
+                    case 4:
+                        data[2] = "Cajero";
+                        break;
+                    default:
+                        data[2] = "Otro";
+                        break;
                 }
-                
-                data[3] = rs.getString("estado"); // Ahora data[3] existe
+
+                data[3] = rs.getString("estado");
                 modelo.addRow(data);
             }
 
         } catch (SQLException e) {
             System.out.println("Error al mostrar los datos: " + e);
         }
+
     }
 
     private void limpiarEntradas() {
@@ -1239,7 +1249,31 @@ txtid_usuario.setEnabled(false);
         jComboBox1.addItem("bloqueado");
         jComboBox1.addItem("inactivo");
     }
+
+    private void configurarTabla() {
+        // Definir un array con los anchos deseados para cada columna
+        int[] anchos = {100, 350, 200, 200}; 
+
+        
+        // Configurar los anchos de las columnas con un for
+        for (int i = 0; i < jTablaDatos.getColumnCount(); i++) {
+            jTablaDatos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        }
+
+        // Habilitar scroll horizontal
+        jTablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        // Configurar el JScrollPane para permitir el desplazamiento horizontal solo cuando sea necesario
+        jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Solo aparece cuando es necesario
+
+        // Asegurar que el JScrollPane está dentro de jPanel3
+        jPanel3.setLayout(new java.awt.BorderLayout());
+        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        // Refrescar la UI para aplicar los cambios
+        jPanel3.revalidate();
+        jPanel3.repaint();
+    }
     
-    
-    
-} 
+}
