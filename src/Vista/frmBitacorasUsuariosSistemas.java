@@ -242,7 +242,7 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
     private void mostrarBitacoras() {
         String consultaSQL = "SELECT Fecha, Sucursal, id_usuario, Nombre, id_perfil, Descripcion " +
                                 "FROM tbl_bit_accion_usuarios " +
-                                "ORDER BY id_reg DESC;";
+                                "ORDER BY Fecha DESC, id_reg DESC;";
         datosExistentes = false;  // Inicializamos en false
 
         // Usamos la conexión para obtener la base de datos
@@ -292,7 +292,7 @@ public class frmBitacorasUsuariosSistemas extends javax.swing.JFrame {
         // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
         tbl_Bitacoras_Usuarios_Sistemas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        int[] columnWidths = {150, 250, 100, 250, 100, 400};
+        int[] columnWidths = {150, 250, 100, 250, 100, 500};
         for (int i = 0; i < columnWidths.length; i++) {
             tbl_Bitacoras_Usuarios_Sistemas.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
         }
