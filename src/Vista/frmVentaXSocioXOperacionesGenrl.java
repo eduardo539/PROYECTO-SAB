@@ -5,9 +5,20 @@ import Modelo.CerrarSesion;
 import Modelo.Conexion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
+import com.lowagie.text.Document;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +26,7 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.text.DecimalFormat;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -109,6 +121,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         txtNumSocio = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnPDFButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -171,22 +184,34 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             }
         });
 
+        btnPDFButton.setBackground(new java.awt.Color(76, 175, 80));
+        btnPDFButton.setForeground(new java.awt.Color(255, 255, 255));
+        btnPDFButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pdf.png"))); // NOI18N
+        btnPDFButton.setText("Descargar boletos PDF");
+        btnPDFButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
                 .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
                 .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
                 .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(btnPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,9 +225,10 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                             .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -299,9 +325,9 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jMenuItem2.setText("Cerrar Sesión");
-        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -334,12 +360,8 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,6 +454,10 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOrigenActionPerformed
 
+    private void btnPDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFButtonActionPerformed
+        exportarTablaAPDF();
+    }//GEN-LAST:event_btnPDFButtonActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -441,6 +467,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPDFButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
@@ -660,6 +687,107 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al filtrar boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    // FUNCIONES PARA CREAR EL PDF DE BOLETOS
+    private void exportarTablaAPDF() {
+        int confirm = JOptionPane.showConfirmDialog(null, 
+            "¿Deseas exportar los datos a PDF?", 
+            "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            String filePath = abrirGestorDeArchivos();
+            
+            if (filePath != null) {
+                try {
+                    guardarTablaEnPDF(tblReporteXBoletosXUsuariosXOperacionesGenerales, filePath);
+                    JOptionPane.showMessageDialog(null, "✅ Archivo guardado correctamente:\n" + filePath);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "❌ Error al exportar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+
+    // 🔹 Función para abrir el gestor de archivos dependiendo del sistema operativo
+    private String abrirGestorDeArchivos() {
+        String os = System.getProperty("os.name").toLowerCase();
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar archivo PDF");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos PDF (*.pdf)", "pdf"));
+
+        int seleccion = fileChooser.showSaveDialog(null);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            String filePath = file.getAbsolutePath();
+            if (!filePath.toLowerCase().endsWith(".pdf")) {
+                filePath += ".pdf";
+            }
+            // 🖥 Abrir el explorador de archivos según el sistema operativo
+            try {
+                if (os.contains("win")) {
+                    // Windows: Abrir carpeta en el Explorador de Archivos
+                    new ProcessBuilder("explorer.exe", "/select,", filePath).start();
+                } else if (os.contains("nux") || os.contains("nix")) {
+                    // Linux: Abrir carpeta en el explorador de archivos predeterminado
+                    new ProcessBuilder("xdg-open", file.getParent()).start();
+                }
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "No se pudo abrir el explorador de archivos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            return filePath;
+        }
+        return null;
+    }
+
+    private void guardarTablaEnPDF(JTable tblReporteXBoletosXUsuariosXOperacionesGenerales, String filePath) throws Exception {
+        // Crear documento en horizontal (landscape)
+        Document document = new Document(PageSize.A4.rotate());
+        PdfWriter.getInstance(document, new FileOutputStream(filePath));
+
+        document.open();
+
+        // **Fuente para el título**
+        Font fontTitulo = new Font(Font.HELVETICA, 18, Font.BOLD);
+        Paragraph titulo = new Paragraph("Reporte de Ventas por Socios", fontTitulo);
+        titulo.setAlignment(Element.ALIGN_CENTER);
+        document.add(titulo);
+        document.add(new Paragraph("\n"));
+
+        int numColumnas = tblReporteXBoletosXUsuariosXOperacionesGenerales.getColumnCount();
+        PdfPTable pdfTable = new PdfPTable(numColumnas);
+        pdfTable.setWidthPercentage(100); // Usar el 100% del ancho disponible
+
+        // **Ancho personalizado para cada columna**
+        float[] anchos = {7f, 7f, 6f, 5f, 5f, 6f, 8f, 6f, 6f, 7f, 5f, 7f, 5f, 5f, 6f, 6f};
+        if (numColumnas == anchos.length) {
+            pdfTable.setWidths(anchos);
+        }
+
+        // **Fuente para encabezados y datos con tamaño 8**
+        Font fontEncabezado = new Font(Font.HELVETICA, 8, Font.BOLD);
+        Font fontDatos = new Font(Font.HELVETICA, 8, Font.NORMAL);
+
+        // **Encabezados**
+        for (int col = 0; col < numColumnas; col++) {
+            PdfPCell celda = new PdfPCell(new Paragraph(tblReporteXBoletosXUsuariosXOperacionesGenerales.getColumnName(col), fontEncabezado));
+            celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+            celda.setPadding(5);
+            pdfTable.addCell(celda);
+        }
+
+        // **Filas de datos**
+        for (int row = 0; row < tblReporteXBoletosXUsuariosXOperacionesGenerales.getRowCount(); row++) {
+            for (int col = 0; col < numColumnas; col++) {
+                Object valor = tblReporteXBoletosXUsuariosXOperacionesGenerales.getValueAt(row, col);
+                PdfPCell celdaDato = new PdfPCell(new Paragraph(valor != null ? valor.toString() : "", fontDatos));
+                celdaDato.setPadding(4);
+                pdfTable.addCell(celdaDato);
+            }
+        }
+        document.add(pdfTable);
+        document.close();
     }
     
     

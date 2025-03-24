@@ -782,7 +782,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
 
         // **Fuente para el título**
         Font fontTitulo = new Font(Font.HELVETICA, 18, Font.BOLD);
-        Paragraph titulo = new Paragraph("Reporte de Ventas por Sucursal", fontTitulo);
+        Paragraph titulo = new Paragraph("Reporte de Ventas por Sucursales", fontTitulo);
         titulo.setAlignment(Element.ALIGN_CENTER);
         document.add(titulo);
         document.add(new Paragraph("\n"));
@@ -818,10 +818,9 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
                 pdfTable.addCell(celdaDato);
             }
         }
-
         document.add(pdfTable);
         document.close();
     }
-
-
+    
+    
 }
