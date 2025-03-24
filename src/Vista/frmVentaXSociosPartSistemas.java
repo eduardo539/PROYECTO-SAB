@@ -734,7 +734,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
     }
 
     private void guardarTablaEnPDF(JTable tblReporteXBoletosXUsuariosXSistemasGenerales, String filePath) throws Exception {
-                // Crear documento en horizontal (landscape)
+        // Crear documento en horizontal (landscape)
         Document document = new Document(PageSize.A4.rotate());
         PdfWriter.getInstance(document, new FileOutputStream(filePath));
 
@@ -742,7 +742,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
 
         // **Fuente para el título**
         Font fontTitulo = new Font(Font.HELVETICA, 18, Font.BOLD);
-        Paragraph titulo = new Paragraph("Reporte de Ventas por Socio", fontTitulo);
+        Paragraph titulo = new Paragraph("Reporte de Ventas por Socios", fontTitulo);
         titulo.setAlignment(Element.ALIGN_CENTER);
         document.add(titulo);
         document.add(new Paragraph("\n"));
@@ -781,7 +781,6 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         document.add(pdfTable);
         document.close();
     }
-    
     
     
 }
