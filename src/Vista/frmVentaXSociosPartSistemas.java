@@ -38,6 +38,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.text.DecimalFormat;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -58,6 +59,9 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         initComponents();
         conexion = new Conexion();
         configurarModeloTabla();
+        cargarAnios();
+
+
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
         setResizable(false);
@@ -142,6 +146,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporteXBoletosXUsuariosXSistemasGenerales = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -216,18 +221,30 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblReporteXBoletosXUsuariosXSistemasGenerales);
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                .addGap(11, 11, 11))
+                .addGap(29, 29, 29))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
@@ -348,12 +365,11 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, 0)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,6 +460,10 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         exportarTablaAPDF();
     }//GEN-LAST:event_btnExportarPDFActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -456,6 +476,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
     private javax.swing.JButton btnExportarPDF;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -623,13 +644,15 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         String grupo = txtGrupo.getText();
         String numSocio = txtNumSocio.getText();
 
-        // Validar que los campos no estén vacíos
-        if (origen.isEmpty() || grupo.isEmpty() || numSocio.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);
+        // Obtener el año seleccionado
+        int selectedYearIndex = jComboBox1.getSelectedIndex();
+        if (origen.isEmpty() || grupo.isEmpty() || numSocio.isEmpty() || selectedYearIndex <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete Origen, Grupo, Número de Socio y seleccione un Año.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Consulta SQL para obtener los boletos filtrados
+        int anioSeleccionado = Integer.parseInt((String) jComboBox1.getSelectedItem());
+
         String sql = "SELECT b.OrigenUsuario AS SucursalVenta, b.OrigenSocio AS SucursalSocio, b.Folio AS Folio_Boleto, " +
                     "b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
                     "b.Costo AS Precio_Boleto, MAX(m.DescMesa) AS Mesa, MAX(s.vchDescripcion) AS Silla, b.FechaCompra, b.FechaVigencia " +
@@ -638,26 +661,27 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                     "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
                     "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
                     "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-                    "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? " +
+                    "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? AND YEAR(b.FechaVigencia) = ? " +
                     "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
                     "ORDER BY b.Folio";
 
         try (Connection conn = conexion.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, origen);
             stmt.setString(2, grupo);
             stmt.setString(3, numSocio);
-            
-            
+            stmt.setInt(4, anioSeleccionado);
+
             ResultSet rs = stmt.executeQuery();
             DefaultTableModel modeloTabla = (DefaultTableModel) tblReporteXBoletosXUsuariosXSistemasGenerales.getModel();
-            modeloTabla.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
-            
-            DecimalFormat df = new DecimalFormat("0.00");
+            modeloTabla.setRowCount(0); // Limpiar la tabla
 
-            // Recorrer los resultados y agregarlos al modelo de la tabla
+            DecimalFormat df = new DecimalFormat("0.00");
+            boolean hayResultados = false;
+
             while (rs.next()) {
+                hayResultados = true;
                 modeloTabla.addRow(new Object[]{
                     rs.getString("SucursalVenta"),
                     rs.getString("SucursalSocio"),
@@ -670,13 +694,18 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                     rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
-                    df.format(rs.getDouble("Precio_Boleto")),// para los 00
+                    df.format(rs.getDouble("Precio_Boleto")),
                     rs.getString("Mesa"),
                     rs.getString("Silla"),
                     rs.getString("FechaCompra"),
                     rs.getString("FechaVigencia")
                 });
             }
+
+            if (!hayResultados) {
+                JOptionPane.showMessageDialog(this, "No se encontraron boletos para ese socio en el año seleccionado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al filtrar boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -781,6 +810,28 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         document.add(pdfTable);
         document.close();
     }
+    
+    private void cargarAnios() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Seleccione un año");
+
+        String sql = "SELECT DISTINCT YEAR(FechaVigencia) AS anio FROM tbl_boletos ORDER BY anio";
+
+        try (Connection conn = conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                modelo.addElement(String.valueOf(rs.getInt("anio")));
+            }
+
+            jComboBox1.setModel(modelo);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     
     
 }

@@ -38,20 +38,18 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         conexion = new Conexion(); // Inicializa la conexión
         configuracionModeloTabla(); // Configura la tabla vacía
         cargarSucursales(); // Cargar sucursales en el combo box
-        
+        configurarComboBoxAnos(); // Cargar años al combo
+
+        // Los totales se cargan hasta que se seleccione un año
+
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
-        cargarTotalBoletos();
-        cargarTotalMonto();
         setResizable(false);
-        
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         // Añadir el WindowListener para gestionar el evento de cierre
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                // Llamamos a nuestras funciones previas antes de cerrar la ventana
                 cerrarVentanaX();
             }
         });
@@ -91,6 +89,8 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporte = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jtlAnio = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -136,7 +136,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 490, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro total por sucursal:"));
 
@@ -163,7 +163,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 84, -1, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, -1, -1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro mostrar todas las sucursales:"));
 
@@ -194,7 +194,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 84, 250, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 250, -1));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualización de datos:"));
 
@@ -228,7 +228,34 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 490, 230));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 490, 230));
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese Año para visualizar datos:"));
+
+        jtlAnio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtlAnioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jtlAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(248, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jtlAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 80));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -244,9 +271,9 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jMenuItem2.setText("Cerrar sesión");
-        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -297,14 +324,37 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jtlSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlSucursalesActionPerformed
+        int selectedIndex = jtlAnio.getSelectedIndex();
         String sucursalSeleccionada = (String) jtlSucursales.getSelectedItem();
-        if (sucursalSeleccionada != null && !sucursalSeleccionada.equals("Seleccione una sucursal")) {
-            cargarDatos(sucursalSeleccionada);
+
+        if (selectedIndex > 0) {
+            int anio = Integer.parseInt((String) jtlAnio.getSelectedItem());
+
+            if (sucursalSeleccionada != null && !sucursalSeleccionada.equals("Seleccione una sucursal")) {
+                cargarDatosPorAnioYSucursal(anio, sucursalSeleccionada);
+            } else {
+                cargarDatosPorAnioYSucursal(anio, null); // Mostrar todas las sucursales de ese año
+            }
+        } else {
+            limpiarTabla();
+            txtTotalBoletos.setText("");
+            txtTotalMonto.setText("");
+            JOptionPane.showMessageDialog(this, "Seleccione primero un año para mostrar los datos.", "Año no seleccionado", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jtlSucursalesActionPerformed
 
     private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
-        cargarDatos(null);
+        int selectedIndex = jtlAnio.getSelectedIndex();
+        if (selectedIndex > 0) {
+            int anio = Integer.parseInt((String) jtlAnio.getSelectedItem());
+            cargarDatosPorAnioYSucursal(anio, null); // Mostrar todas las sucursales del año
+            jtlSucursales.setSelectedIndex(0); // Reinicia selección de sucursal
+        } else {
+            limpiarTabla();
+            txtTotalBoletos.setText("");
+            txtTotalMonto.setText("");
+            JOptionPane.showMessageDialog(this, "Seleccione primero un año para mostrar los datos.", "Año no seleccionado", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -343,6 +393,28 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jtlAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlAnioActionPerformed
+        String sucursalSeleccionada = (String) jtlSucursales.getSelectedItem();
+        int selectedIndex = jtlAnio.getSelectedIndex();
+
+        if (selectedIndex > 0) {
+            int anio = Integer.parseInt((String) jtlAnio.getSelectedItem());
+
+            if (sucursalSeleccionada != null && !sucursalSeleccionada.equals("Seleccione una sucursal")) {
+                cargarDatosPorAnioYSucursal(anio, sucursalSeleccionada);
+            } else {
+                cargarDatosPorAnioYSucursal(anio, null); // Mostrar todas las sucursales de ese año
+            }
+        } else {
+            limpiarTabla();
+            txtTotalBoletos.setText("");
+            txtTotalMonto.setText("");
+            JOptionPane.showMessageDialog(this, "Seleccione primero un año para mostrar los datos.", "Año no seleccionado", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jtlAnioActionPerformed
+
+
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -364,7 +436,9 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox jtlAnio;
     private javax.swing.JComboBox jtlSucursales;
     private javax.swing.JTable tblReporte;
     private javax.swing.JTextField txtTotalBoletos;
@@ -391,43 +465,57 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         }
     }
     
-    private void cargarDatos(String sucursal) {
-        String consultaSQL = "SELECT b.OrigenUsuario AS Sucursal, " +
-            "COUNT(b.Folio) AS Numero_Boletos, " +
-            "SUM(b.Costo) AS Monto_Total " +
-            "FROM tbl_boletos b " +
-            "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario ";
+    private void cargarDatosPorAnioYSucursal(int anio, String sucursal) {
+        StringBuilder consultaSQL = new StringBuilder("SELECT b.OrigenUsuario AS Sucursal, ");
+        consultaSQL.append("COUNT(b.Folio) AS Numero_Boletos, ");
+        consultaSQL.append("SUM(b.Costo) AS Monto_Total ");
+        consultaSQL.append("FROM tbl_boletos b ");
+        consultaSQL.append("INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario ");
+        consultaSQL.append("WHERE YEAR(b.FechaVigencia) = ? ");
 
-        if (sucursal != null) {
-            consultaSQL += "WHERE b.OrigenUsuario = ? ";
+        if (sucursal != null && !sucursal.equals("Seleccione una sucursal")) {
+            consultaSQL.append("AND b.OrigenUsuario = ? ");
         }
 
-        consultaSQL += "GROUP BY b.OrigenUsuario";
+        consultaSQL.append("GROUP BY b.OrigenUsuario");
 
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
-        modelo.setRowCount(0);
+        modelo.setRowCount(0); // Limpia la tabla
 
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(consultaSQL)) {
+             PreparedStatement stmt = conn.prepareStatement(consultaSQL.toString())) {
 
-            if (sucursal != null) {
-                stmt.setString(1, sucursal);
+            stmt.setInt(1, anio);
+            if (sucursal != null && !sucursal.equals("Seleccione una sucursal")) {
+                stmt.setString(2, sucursal);
             }
 
             ResultSet rs = stmt.executeQuery();
-            
+
             DecimalFormat df = new DecimalFormat("0.00");
+            int totalBoletos = 0;
+            double totalMonto = 0;
 
             while (rs.next()) {
+                int boletos = rs.getInt("Numero_Boletos");
+                double monto = rs.getDouble("Monto_Total");
+
+                totalBoletos += boletos;
+                totalMonto += monto;
+
                 modelo.addRow(new Object[]{
-                        rs.getString("Sucursal"),
-                        rs.getInt("Numero_Boletos"),
-                        df.format(rs.getDouble("Monto_Total"))
+                    rs.getString("Sucursal"),
+                    boletos,
+                    df.format(monto)
                 });
             }
 
+            // 👇 Se actualizan los campos de texto con los totales del año seleccionado
+            txtTotalBoletos.setText(String.valueOf(totalBoletos));
+            txtTotalMonto.setText(df.format(totalMonto));
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos por año y sucursal: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
         
@@ -439,44 +527,29 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         tblReporte.setModel(modelo);
     }
 
+    private void configurarComboBoxAnos() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Seleccione un año");
 
+        String sql = "SELECT DISTINCT YEAR(FechaVigencia) AS anio FROM tbl_boletos ORDER BY anio";
 
-    private void cargarTotalBoletos() {
-        String consultaSQL = "SELECT COUNT(Folio) AS TotalBoletos FROM tbl_boletos";
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(consultaSQL);
+             PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
-            if (rs.next()) {
-                // Obtén el total de boletos vendidos
-                int totalBoletos = rs.getInt("TotalBoletos");
-
-                // Actualiza el JTextField con el valor obtenido
-                txtTotalBoletos.setText(String.valueOf(totalBoletos)); // Muestra el total en el campo de texto
+            while (rs.next()) {
+                modelo.addElement(String.valueOf(rs.getInt("anio")));
             }
 
+            jtlAnio.setModel(modelo);
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al obtener el total de boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void cargarTotalMonto() {
-        String consultaSQL = "SELECT SUM(Costo) AS TotalMonto FROM tbl_boletos";
-        try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(consultaSQL);
-             ResultSet rs = stmt.executeQuery()) {
-
-            if (rs.next()) {
-                // Obtén el total del monto vendido
-            
-                double totalMonto = rs.getDouble("TotalMonto");
-
-                // Actualiza el JTextField con el valor obtenido, mostrando el monto con dos decimales
-                txtTotalMonto.setText(String.format("%.2f", totalMonto)); // Muestra el monto total en el campo de texto
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al obtener el total de dinero: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    private void limpiarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
+        modelo.setRowCount(0);
     }
 }

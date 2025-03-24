@@ -44,8 +44,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 // librerias importadas para reporte excel
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -440,7 +438,8 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         String sucursal = (String) jtlSucursales.getSelectedItem();
         if (jtlAnos.getSelectedIndex() > 0 && jtlMeses.getSelectedIndex() > 0) {
             int ano = Integer.parseInt((String) jtlAnos.getSelectedItem());
-            int mes = jtlMeses.getSelectedIndex();
+            int mes = jtlMeses.getSelectedIndex(); // ya está correcto porque tu modelo empieza en índice 1 = Enero
+
             if (!sucursal.equals("Seleccione una sucursal")) {
                 cargarDatos(sucursal, ano, mes);
             } else {
@@ -618,20 +617,51 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private void configurarComboBoxAnos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Seleccione un año");
-        for (int i = 2025; i <= 2050; i++) {
-            modelo.addElement(String.valueOf(i));
+
+        String sql = "SELECT DISTINCT YEAR(FechaVigencia) AS anio FROM tbl_boletos ORDER BY anio";
+
+        try (Connection conn = conexion.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                modelo.addElement(String.valueOf(rs.getInt("anio")));
+            }
+
+            jtlAnos.setModel(modelo);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        jtlAnos.setModel(modelo);
     }
 
     private void configurarComboBoxMeses() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Seleccione un mes");
-        String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
-        for (String mes : meses) {
-            modelo.addElement(mes);
+
+        String sql = "SELECT DISTINCT MONTH(FechaVigencia) AS mes FROM tbl_boletos ORDER BY mes";
+
+        String[] nombresMeses = {
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        };
+
+        try (Connection conn = conexion.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int numeroMes = rs.getInt("mes");
+                if (numeroMes >= 1 && numeroMes <= 12) {
+                    modelo.addElement(nombresMeses[numeroMes - 1]);
+                }
+            }
+
+            jtlMeses.setModel(modelo);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar meses: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        jtlMeses.setModel(modelo);
     }
     
     private void configuracionModeloTabla() {
@@ -708,7 +738,6 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
         }
-
     }
 
     private void limpiarTabla() {
