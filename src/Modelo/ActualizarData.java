@@ -522,4 +522,59 @@ public class ActualizarData {
     }
     
     
+    public void actualizarEstadoSilla(int estado, int[] idSillas){
+        
+        // Generar la parte de la consulta que usa IN con los IDs
+        StringBuilder placeholders = new StringBuilder();
+        for (int i = 0; i < idSillas.length; i++) {
+            placeholders.append("?");
+            if (i < idSillas.length - 1) {
+                placeholders.append(", ");
+            }
+        }
+        
+        String reservarSilla = "UPDATE tbl_sillas " +
+                                "SET idEstado = ? " + //Se actualiza a reservando
+                                "WHERE idSilla IN (" + placeholders.toString() + ");";
+        
+        
+        
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(reservarSilla);
+            ps.setInt(1, estado); // Establecer el estado a actualizar
+
+            // Establecer los valores del arreglo en el PreparedStatement
+            for (int i = 0; i < idSillas.length; i++) {
+                ps.setInt(i + 2, idSillas[i]); // Ajustamos el índice a 2 porque el primer parámetro es el estado
+            }
+
+            int sillasActualizadas = ps.executeUpdate(); // Ejecutar actualización
+            
+            if(sillasActualizadas == 0){
+                // Si no se afectaron filas, mostramos un mensaje de error
+                JOptionPane.showMessageDialog(null, 
+                    "Hubo un error al actualizar los datos.\nPor favor intente nuevamente.",
+                    "Error de actualización", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
+            
+            cn.closeConnection();
+            
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar las sillas 'Reservando': " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+    }
+    
+    
 }
