@@ -22,14 +22,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.text.DecimalFormat;
 
-
 /**
  *
  * @author Eduardo`s
  */
 
 public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
-
     private final Conexion conexion;
     Login lg = Login.getInstancia();
     
@@ -39,9 +37,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         configuracionModeloTabla(); // Configura la tabla vacía
         cargarSucursales(); // Cargar sucursales en el combo box
         configurarComboBoxAnos(); // Cargar años al combo
-
         // Los totales se cargan hasta que se seleccione un año
-
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -73,7 +69,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         });
     }
     
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,8 +79,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jtlSucursales = new javax.swing.JComboBox();
-        jPanel3 = new javax.swing.JPanel();
-        btnMostrarTodo = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporte = new javax.swing.JTable();
@@ -138,7 +131,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 230, 130));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro total por sucursal:"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione sucursal para visualizar ventas"));
 
         jtlSucursales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,43 +151,12 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addComponent(jtlSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 230, -1));
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro mostrar todas las sucursales:"));
-
-        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
-        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ticket_iconos.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar todo");
-        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarTodoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 230, 80));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 230, 80));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualización de datos:"));
 
@@ -222,15 +184,15 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 490, 360));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 490, 280));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese Año para visualizar datos:"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese año para visualizar ventas:"));
 
         jtlAnio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,7 +217,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 230, 70));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 230, 70));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -343,20 +305,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtlSucursalesActionPerformed
 
-    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
-        int selectedIndex = jtlAnio.getSelectedIndex();
-        if (selectedIndex > 0) {
-            int anio = Integer.parseInt((String) jtlAnio.getSelectedItem());
-            cargarDatosPorAnioYSucursal(anio, null); // Mostrar todas las sucursales del año
-            jtlSucursales.setSelectedIndex(0); // Reinicia selección de sucursal
-        } else {
-            limpiarTabla();
-            txtTotalBoletos.setText("");
-            txtTotalMonto.setText("");
-            JOptionPane.showMessageDialog(this, "Seleccione primero un año para mostrar los datos.", "Año no seleccionado", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_btnMostrarTodoActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         try {
             // Confirmar cierre de sesión
@@ -413,8 +361,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtlAnioActionPerformed
 
-
-
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -424,7 +370,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnMostrarTodo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -434,7 +379,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
