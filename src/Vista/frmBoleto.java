@@ -52,8 +52,12 @@ public class frmBoleto extends javax.swing.JFrame {
     
     TimeGoogle fechaGoogle = new TimeGoogle();
     
+    int[] idSillasArray;
+    
     public frmBoleto() {
         initComponents();
+        
+        arregloIdsSillas();
         
         // En el constructor de tu JFrame Form
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
@@ -63,6 +67,10 @@ public class frmBoleto extends javax.swing.JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 // Llamamos a nuestras funciones previas antes de cerrar la ventana
+                
+                //El número 1 representa el estado "Disponible" para la silla
+                actualiza.actualizarEstadoSilla(1, idSillasArray);
+            
                 cerrarVentanaX();
             }
         });
@@ -504,6 +512,22 @@ public class frmBoleto extends javax.swing.JFrame {
         this.dispose();
     }
 
+    public void arregloIdsSillas(){
+        
+        List<tempDataSillas> listaSillas = dataSillas.getListaDatSilla();
+        // Crear un ArrayList para almacenar los IDs de las sillas
+        List<Integer> listaDeIds = new ArrayList<>();
+        
+        // Recorrer la lista de sillas y obtener los IDs
+        for (tempDataSillas silla : listaSillas) {
+            listaDeIds.add(silla.getIdSilla());  // Guardamos el ID de cada silla en la lista
+        }
+        
+        // Convertir la lista de IDs a un arreglo de enteros (int[])
+        idSillasArray = listaDeIds.stream().mapToInt(Integer::intValue).toArray();
+        
+        
+    }
     
     
     @SuppressWarnings("unchecked")
@@ -812,6 +836,11 @@ public class frmBoleto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        
+        //El número 1 representa el estado "Disponible" para la silla
+        actualiza.actualizarEstadoSilla(1, idSillasArray);
+
+        
         frmPosadaMTY Cajero = new frmPosadaMTY();
         Cajero.setLocationRelativeTo(null);
         Cajero.setVisible(true);

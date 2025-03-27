@@ -586,6 +586,72 @@ public class ConsultasData {
         
     }
     
+    
+    public boolean obtenerReservandoSilla(int[] idSillas){
+        
+        int count = 0;
+        
+        // Generar la parte de la consulta que usa IN con los IDs
+        StringBuilder placeholders = new StringBuilder();
+        for (int i = 0; i < idSillas.length; i++) {
+            placeholders.append("?");
+            if (i < idSillas.length - 1) {
+                placeholders.append(", ");
+            }
+        }
+    
+        String consulta = "SELECT COUNT(*) AS Reservando FROM " +
+                            "tbl_sillas s " +
+                            "JOIN tbl_estado_sillas e ON s.idEstado = e.idEstado " +
+                            "WHERE idSilla IN (" + placeholders.toString() + ") " +
+                            "AND e.EstadoSilla = 'Reservando' " +
+                            "ORDER BY s.idSilla ASC;";
+        
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consulta); // Preparar consulta
+            
+            
+            // Establecer los valores del arreglo en el PreparedStatement
+            for (int i = 0; i < idSillas.length; i++) {
+                ps.setInt(i + 1, idSillas[i]); // Ajustamos el índice a 1 porque los parámetros de PreparedStatement comienzan desde 1
+            }
+
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+           
+            if (rs.next()) {
+                count = rs.getInt("Reservando"); // Obtenemos el valor de COUNT(*)
+            }
+
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al comprobar el estado de la silla 'Reservando' MySQL, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos MySQL", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        // Si el count es mayor a 0, significa que hay sillas en estado 'Reservando'
+        return count > 0;  // Si es mayor que 0, retorna true; si es 0, retorna false
+
+    }
+    
+    
+    
+    
 }
 
 

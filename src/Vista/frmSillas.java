@@ -1,8 +1,11 @@
 package Vista;
 
 import FormulariosAyuda.Cajero.AyudaSeleccionSillas;
+import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
+import Modelo.CantidadSillasSelect.tempDataSillas;
 import Modelo.CerrarSesion;
+import Modelo.ConsultasData;
 import Modelo.Mesas;
 import Modelo.SillaEstado;
 import Modelo.Sillas;
@@ -35,6 +38,11 @@ public class frmSillas extends javax.swing.JFrame {
     SillasData sdat = new SillasData();
     Sillas sill = Sillas.getInstancia();
     
+    ConsultasData cons = new ConsultasData();
+    ActualizarData actualiza = new ActualizarData();
+    
+    int[] idSillasArray;
+    
     private Timer timer;
         
     public frmSillas() {
@@ -66,7 +74,7 @@ public class frmSillas extends javax.swing.JFrame {
     
     // Método que ejecuta funciones previas antes de cerrar la ventana
     private void cerrarVentanaX() {
-        // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        
         Mesas m = Mesas.getInstancia();
         numSillas.borrarDatos();
         numSillas.borrarCantidadSillas();
@@ -75,6 +83,22 @@ public class frmSillas extends javax.swing.JFrame {
         frmPosadaMTY Cajero = new frmPosadaMTY();
         Cajero.setLocationRelativeTo(null);
         Cajero.setVisible(true);
+    }
+    
+    
+    public void cancelar(){
+        
+        Mesas m = Mesas.getInstancia();
+        numSillas.borrarDatos();
+        numSillas.borrarCantidadSillas();
+        m.borrarDatos();
+        
+        frmPosadaMTY Cajero = new frmPosadaMTY();
+        Cajero.setLocationRelativeTo(null);
+        Cajero.setVisible(true);
+        
+        this.dispose();
+        
     }
     
     private void actualizaTimeRealSillas(){
@@ -197,6 +221,9 @@ public class frmSillas extends javax.swing.JFrame {
                 case "Pagado":
                     boton.setBackground(Color.RED); // Rojo para comprado
                     break;
+                case "Reservando":
+                    boton.setBackground(Color.CYAN); // CYAN para reservando
+                    break;
                 default:
                     boton.setBackground(Color.GRAY); // Color por defecto si no hay estado
                     break;
@@ -272,7 +299,10 @@ public class frmSillas extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "La silla está Separada/Apartada.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
                     break;
                 case "pagado":
-                    JOptionPane.showMessageDialog(null, "La silla está Comprada.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "La silla está Comprada.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
+                    break;
+                case "reservando":
+                    JOptionPane.showMessageDialog(null, "La silla está siendo Reservada por otro usuario.", "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "El estado de la silla no es válido.", "Estado de la Silla", JOptionPane.ERROR_MESSAGE);
@@ -321,9 +351,11 @@ public class frmSillas extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         lblCosto = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtSillasSelect = new javax.swing.JTextField();
@@ -467,26 +499,26 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cancelar.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
         btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
-        btnCancelar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-cancelar.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 473, 200, -1));
+        jPanel2.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 200, -1));
 
         lblMesa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblMesa.setText("Label-Mesa");
-        jPanel2.add(lblMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 273, -1, -1));
+        jPanel2.add(lblMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
         lblZona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblZona.setText("Label-Zona");
-        jPanel2.add(lblZona, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 300, -1, -1));
+        jPanel2.add(lblZona, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(0, 255, 0));
         jButton1.setEnabled(false);
@@ -496,9 +528,13 @@ public class frmSillas extends javax.swing.JFrame {
         jButton2.setEnabled(false);
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 30, 30));
 
-        jButton3.setBackground(new java.awt.Color(255, 0, 0));
+        jButton3.setBackground(new java.awt.Color(0, 255, 255));
         jButton3.setEnabled(false);
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 30, 30));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 30, 30));
+
+        jButton4.setBackground(new java.awt.Color(255, 0, 0));
+        jButton4.setEnabled(false);
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 30, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Disponible");
@@ -509,16 +545,20 @@ public class frmSillas extends javax.swing.JFrame {
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 83, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Comprado");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 133, -1, -1));
+        jLabel5.setText("Reservando...");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Comprado");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 133, -1, -1));
 
         lblCosto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCosto.setText("Label-Costo-Total");
-        jPanel2.add(lblCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 381, -1, -1));
+        jPanel2.add(lblCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Seleccione la silla de su preferencia");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 172, -1, 24));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, 24));
 
         txtSillasSelect.setEditable(false);
         txtSillasSelect.setBorder(javax.swing.BorderFactory.createTitledBorder("Silla/s Seleccionada/s"));
@@ -527,7 +567,7 @@ public class frmSillas extends javax.swing.JFrame {
                 txtSillasSelectActionPerformed(evt);
             }
         });
-        jPanel2.add(txtSillasSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 214, 200, -1));
+        jPanel2.add(txtSillasSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 200, -1));
 
         btnContinuar.setBackground(new java.awt.Color(0, 153, 0));
         btnContinuar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -539,15 +579,15 @@ public class frmSillas extends javax.swing.JFrame {
                 btnContinuarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 418, 200, 35));
+        jPanel2.add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 200, 35));
 
         lblCostoUnit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCostoUnit.setText("Label-Costo-Unit");
-        jPanel2.add(lblCostoUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 327, -1, -1));
+        jPanel2.add(lblCostoUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
 
         lblCantiSillas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCantiSillas.setText("Label-Cantidad-Sillas");
-        jPanel2.add(lblCantiSillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 354, -1, -1));
+        jPanel2.add(lblCantiSillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
 
         jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
@@ -590,16 +630,9 @@ public class frmSillas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        Mesas m = Mesas.getInstancia();
-        numSillas.borrarDatos();
-        numSillas.borrarCantidadSillas();
-        m.borrarDatos();
-        
-        frmPosadaMTY Cajero = new frmPosadaMTY();
-        Cajero.setLocationRelativeTo(null);
-        Cajero.setVisible(true);
-        
-        this.dispose();
+
+        cancelar();
+                
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnDato1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDato1ActionPerformed
@@ -644,11 +677,40 @@ public class frmSillas extends javax.swing.JFrame {
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
 
+        List<tempDataSillas> listaDeSillas = numSillas.getListaDatSilla();
+        
+        // Crear un ArrayList para almacenar los IDs de las sillas
+        List<Integer> listaDeIds = new ArrayList<>();
+
+        // Recorrer la lista de sillas y obtener los IDs
+        for (tempDataSillas silla : listaDeSillas) {
+            listaDeIds.add(silla.getIdSilla());  // Guardamos el ID de cada silla en la lista
+        }
+        
+        // Convertir la lista de IDs a un arreglo de enteros (int[])
+        idSillasArray = listaDeIds.stream().mapToInt(Integer::intValue).toArray();
+
+        
+        boolean rest = cons.obtenerReservandoSilla(idSillasArray);
+        
+        if(rest == true){
+            JOptionPane.showMessageDialog(null, "Algunas de las sillas seleccionadas ya esta siendo reservada.\nPor favor seleccione otras sillas que esten disponibles",
+                    "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
+            
+            cancelar();
+            
+            return;
+            
+        }
         
         int sillasSeleccionadas = numSillas.getListaDatSilla().size();
         int sillasRequeridas = numSillas.getCantidadSillas();
 
         if (sillasSeleccionadas == sillasRequeridas) {
+            
+            //El número 4 representa el estado "Reservando" para la silla
+            actualiza.actualizarEstadoSilla(4, idSillasArray);
+            
             numSillas.setCostoSilla(sumaCosto);
             frmBoleto boleto = new frmBoleto();
             
@@ -732,11 +794,13 @@ public class frmSillas extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
