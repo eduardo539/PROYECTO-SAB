@@ -831,8 +831,6 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    
     
     
 }
