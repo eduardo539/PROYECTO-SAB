@@ -34,25 +34,23 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 
 public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
-
     private final Conexion conexion;
-    
     Login lg = Login.getInstancia();
-    
     TimeGoogle fechaGoogle = new TimeGoogle();
-    
     
     public frmVentaXSocioXOperacionesGenrl() {
         initComponents();
         conexion = new Conexion();
-        setResizable(false);
         configurarModeloTabla();
+        cargarAnios();
+        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
-        cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
+        setResizable(false);
         
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
-
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana 
+        btnExportarPDF.setEnabled(false);
+        
         // Añadir el WindowListener para gestionar el evento de cierre
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -61,6 +59,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                 cerrarVentanaX();
             }
         });
+        pack();  // Ajusta el tamaño de la ventana al contenido
     }
     
     // Método que ejecuta funciones previas antes de cerrar la ventana
@@ -119,9 +118,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         txtOrigen = new javax.swing.JTextField();
         txtGrupo = new javax.swing.JTextField();
         txtNumSocio = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        btnPDFButton = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -129,8 +126,12 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         lblSucursal = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
         lblVersionOS = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        btnExportarPDF = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tblReporteXBoletosXUsuariosXOperacionesGenerales = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -141,7 +142,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro venta de boletos por socio de todas las sucursales"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese datos del socio:"));
 
         txtOrigen.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen:"));
         txtOrigen.addActionListener(new java.awt.event.ActionListener() {
@@ -164,33 +165,9 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(76, 175, 80));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
-        jButton1.setText("Filtrar por usuario");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(76, 175, 80));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
-        jButton2.setText("Mostrar todo");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        btnPDFButton.setBackground(new java.awt.Color(76, 175, 80));
-        btnPDFButton.setForeground(new java.awt.Color(255, 255, 255));
-        btnPDFButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pdf.png"))); // NOI18N
-        btnPDFButton.setText("Descargar boletos PDF");
-        btnPDFButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPDFButtonActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -199,37 +176,26 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(btnPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(txtNumSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -252,31 +218,91 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblVersionOS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 2, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
                     .addComponent(lblNombre)
                     .addComponent(lblVersionJava)
                     .addComponent(lblSucursal)
                     .addComponent(lblFecha)
-                    .addComponent(lblVersionOS)))
+                    .addComponent(lblVersionOS)
+                    .addComponent(lblUsuario)))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
+
+        jButton1.setBackground(new java.awt.Color(76, 175, 80));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/filtro_x_usuarios.png"))); // NOI18N
+        jButton1.setText("Filtrar por usuario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(76, 175, 80));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/mostrar_todoss.png"))); // NOI18N
+        jButton2.setText("Mostrar todo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        btnExportarPDF.setBackground(new java.awt.Color(76, 175, 80));
+        btnExportarPDF.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pdf.png"))); // NOI18N
+        btnExportarPDF.setText("Descargar boletos PDF");
+        btnExportarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarPDFActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnExportarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnExportarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualización de datos:"));
@@ -292,23 +318,22 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblReporteXBoletosXUsuariosXOperacionesGenerales);
+        jScrollPane2.setViewportView(tblReporteXBoletosXUsuariosXOperacionesGenerales);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1)
-                .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane2)
+                .addGap(0, 0, 0))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
@@ -359,20 +384,28 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -454,9 +487,13 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOrigenActionPerformed
 
-    private void btnPDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFButtonActionPerformed
+    private void btnExportarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPDFActionPerformed
         exportarTablaAPDF();
-    }//GEN-LAST:event_btnPDFButtonActionPerformed
+    }//GEN-LAST:event_btnExportarPDFActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -467,9 +504,10 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPDFButton;
+    private javax.swing.JButton btnExportarPDF;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -479,7 +517,8 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblSucursal;
@@ -526,7 +565,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         tblReporteXBoletosXUsuariosXOperacionesGenerales.setFillsViewportHeight(true);
 
         // Crear el JScrollPane con scroll horizontal y vertical
-        jScrollPane1 = new JScrollPane(tblReporteXBoletosXUsuariosXOperacionesGenerales);
+        JScrollPane jScrollPane1 = new JScrollPane(tblReporteXBoletosXUsuariosXOperacionesGenerales);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -542,9 +581,17 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         txtOrigen.setText("");
         txtGrupo.setText("");
         txtNumSocio.setText("");
-    } 
+    }
 
     private void cargarUsuariosConBoletosComprados() {
+        int selectedYearIndex = jComboBox1.getSelectedIndex();
+        if (selectedYearIndex <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un año para mostrar los boletos.", "Año requerido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int anioSeleccionado = Integer.parseInt((String) jComboBox1.getSelectedItem());
+        
         // Consulta SQL para obtener los datos (sin filtro de sucursal)
         String sql = "SELECT " +
                     "    b.OrigenUsuario AS SucursalVenta, " +
@@ -554,51 +601,42 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                     "    b.Grupo AS Grupo, " +
                     "    b.NumSocio AS NumSocio, " +
                     "    b.Nombre AS Nombre, " +
-                    "    b.Invitado AS Invitado, " +
-                    "    b.Telefono AS Telefono, " +
+                    "    b.Invitado, " +
+                    "    b.Telefono," +
                     "    u.Nombre AS Cajero, " +
                     "    MAX(z.Zona) AS Zona, " +
                     "    b.Costo AS Precio_Boleto, " +
                     "    MAX(m.DescMesa) AS Mesa, " +
                     "    MAX(s.vchDescripcion) AS Silla, " +
-                    "    b.FechaCompra AS FechaCompra, " +
-                    "    b.FechaVigencia AS FechaVigencia " +
-                    "FROM " +
-                    "    tbl_boletos b " +
-                    "INNER JOIN " +
-                    "    tbl_usuarios u ON b.id_usuario = u.id_usuario " +
-                    "LEFT JOIN " +
-                    "    tbl_zonas z ON b.idZona = z.idZona " +
-                    "LEFT JOIN " +
-                    "    tbl_mesas m ON b.idMesa = m.idMesa " +
-                    "LEFT JOIN " +
-                    "    tbl_sillas s ON b.idSilla = s.idSilla " +
-                    "GROUP BY " +
-                    "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, " +
-                    "    u.Nombre, b.Costo " +
-                    "ORDER BY " +
-                    "    b.Folio"; // Esto asegura que se ordene por el Folio de los boletos.
+                    "    b.FechaCompra, " +
+                    "    b.FechaVigencia " +
+                    "FROM tbl_boletos b " +
+                    "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                    "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
+                    "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
+                    "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
+                    "WHERE YEAR(b.FechaVigencia) = ? " +
+                    "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
+                    "ORDER BY b.Folio";
 
         try (Connection conn = conexion.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, anioSeleccionado);
 
             ResultSet rs = stmt.executeQuery();
 
-            // Modelo de datos para la tabla (suponiendo que tienes un JTable)
             DefaultTableModel modeloTabla = new DefaultTableModel(
-                new Object[][] {}, 
-                new String[]
-                {
+                new Object[][] {},
+                new String[] {
                     "SucursalVenta", "SucursalSocio", "Folio", "Origen", "Grupo", "NumSocio", 
                     "Nombre", "Invitado", "Telefono", "Cajero", "Zona", "Precio_Boleto", "Mesa", "Silla", "FechaCompra", "FechaVigencia"
                 }
             );
-            
+
             DecimalFormat df = new DecimalFormat("0.00");
 
-            // Recorrer los resultados y agregarlos al modelo de la tabla
             while (rs.next()) {
-                // Agregar los datos a la tabla
                 modeloTabla.addRow(new Object[] {
                     rs.getString("SucursalVenta"),
                     rs.getString("SucursalSocio"),
@@ -611,15 +649,20 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                     rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
-                    df.format(rs.getDouble("Precio_Boleto")),// para los 00
+                    df.format(rs.getDouble("Precio_Boleto")),
                     rs.getString("Mesa"),
                     rs.getString("Silla"),
                     rs.getString("FechaCompra"),
                     rs.getString("FechaVigencia")
                 });
             }
-            // Establecer el modelo a la tabla (supongamos que el nombre de tu JTable es 'tabla')
+
             tblReporteXBoletosXUsuariosXOperacionesGenerales.setModel(modeloTabla);
+            btnExportarPDF.setEnabled(modeloTabla.getRowCount() > 0);
+
+            if (modeloTabla.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "No hay boletos registrados en el año seleccionado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+            }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar los boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -630,13 +673,15 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         String origen = txtOrigen.getText();
         String grupo = txtGrupo.getText();
         String numSocio = txtNumSocio.getText();
-
-        // Validar que los campos no estén vacíos
-        if (origen.isEmpty() || grupo.isEmpty() || numSocio.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);
+        // Obtener el año seleccionado
+        int selectedYearIndex = jComboBox1.getSelectedIndex();
+        
+        if (origen.isEmpty() || grupo.isEmpty() || numSocio.isEmpty() || selectedYearIndex <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete Origen, Grupo, Número de Socio y seleccione un Año.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
+        int anioSeleccionado = Integer.parseInt((String) jComboBox1.getSelectedItem());
         // Consulta SQL para obtener los boletos filtrados
         String sql = "SELECT b.OrigenUsuario AS SucursalVenta, b.OrigenSocio AS SucursalSocio, b.Folio AS Folio_Boleto, " +
                     "b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre AS Cajero, MAX(z.Zona) AS Zona, " +
@@ -646,25 +691,26 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                     "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
                     "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
                     "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-                    "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? " +
+                    "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? AND YEAR(b.FechaVigencia) = ? " +
                     "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
                     "ORDER BY b.Folio";
 
         try (Connection conn = conexion.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
+
             stmt.setString(1, origen);
             stmt.setString(2, grupo);
             stmt.setString(3, numSocio);
-            
+            stmt.setInt(4, anioSeleccionado);
+
             ResultSet rs = stmt.executeQuery();
             DefaultTableModel modeloTabla = (DefaultTableModel) tblReporteXBoletosXUsuariosXOperacionesGenerales.getModel();
-            modeloTabla.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
-            
+            modeloTabla.setRowCount(0); // Limpiar la tabla
             DecimalFormat df = new DecimalFormat("0.00");
+            boolean hayResultados = false;
 
-            // Recorrer los resultados y agregarlos al modelo de la tabla
             while (rs.next()) {
+                hayResultados = true;
                 modeloTabla.addRow(new Object[]{
                     rs.getString("SucursalVenta"),
                     rs.getString("SucursalSocio"),
@@ -677,13 +723,20 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                     rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
-                    df.format(rs.getDouble("Precio_Boleto")),// para los 00
+                    df.format(rs.getDouble("Precio_Boleto")),
                     rs.getString("Mesa"),
                     rs.getString("Silla"),
                     rs.getString("FechaCompra"),
                     rs.getString("FechaVigencia")
                 });
             }
+
+            if (!hayResultados) {
+                JOptionPane.showMessageDialog(this, "No se encontraron boletos para ese socio en el año seleccionado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            btnExportarPDF.setEnabled(tblReporteXBoletosXUsuariosXOperacionesGenerales.getRowCount() > 0);
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al filtrar boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -789,9 +842,27 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         document.add(pdfTable);
         document.close();
     }
+
+    private void cargarAnios() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        modelo.addElement("Seleccione un año");
+
+        String sql = "SELECT DISTINCT YEAR(FechaVigencia) AS anio FROM tbl_boletos ORDER BY anio";
+
+        try (Connection conn = conexion.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                modelo.addElement(String.valueOf(rs.getInt("anio")));
+            }
+
+            jComboBox1.setModel(modelo);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     
 }
-
-
-
