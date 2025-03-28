@@ -143,6 +143,8 @@ public class frmLogin extends javax.swing.JFrame {
                 "El usuario ingresado no existe o es incorrecto, intentar nuevamente", 
                 "Advertencia", 
                 JOptionPane.WARNING_MESSAGE);
+            
+            intentos = 0;
             return;
         }
         
@@ -154,6 +156,8 @@ public class frmLogin extends javax.swing.JFrame {
                 "Este usuario esta bloqueado, favor de contactar al administrador.", 
                 "Usuario bloqueado", 
                 JOptionPane.WARNING_MESSAGE);
+            
+            intentos = 0;
             return;
         }
         
@@ -163,6 +167,8 @@ public class frmLogin extends javax.swing.JFrame {
                 "Este usuario actualmente esta inactivo, contactar a soporte en caso de existir un error.", 
                 "Usuario inactivo", 
                 JOptionPane.WARNING_MESSAGE);
+            
+            intentos = 0;
             return;
         }
         
