@@ -195,6 +195,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jmiSesiones = new javax.swing.JMenuItem();
         jmiLimiteVentaBoleto = new javax.swing.JMenuItem();
+        jmiEstadoSillas = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -305,6 +306,16 @@ public class frmMenuSistemas extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmiLimiteVentaBoleto);
+
+        jmiEstadoSillas.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiEstadoSillas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar-datos.png"))); // NOI18N
+        jmiEstadoSillas.setText("Estado Sillas");
+        jmiEstadoSillas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEstadoSillasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiEstadoSillas);
 
         jMenuItem10.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Bitacoras.png"))); // NOI18N
@@ -508,6 +519,13 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jmiLimiteVentaBoletoActionPerformed
 
+    private void jmiEstadoSillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEstadoSillasActionPerformed
+        frmEstadoSillas estado = new frmEstadoSillas();
+        estado.setLocationRelativeTo(null);
+        estado.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jmiEstadoSillasActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -540,6 +558,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
+    private javax.swing.JMenuItem jmiEstadoSillas;
     private javax.swing.JMenuItem jmiLimiteVentaBoleto;
     private javax.swing.JMenuItem jmiSesiones;
     private javax.swing.JLabel lblFechaHora;

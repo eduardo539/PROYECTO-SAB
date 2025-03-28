@@ -384,7 +384,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         }
 
         //countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, Zona);
-        countBol = cd.obtenerDatosBoletos(numOrigen, numSocio, costo, foliosSeleccionados);
+        countBol = cd.obtenerDatosBoletos(numOrigen, numGrupo, numSocio, costo);
         
         saldoDisp = consulta.saldoDisponibleXSocio(numOrigen, numGrupo, numSocio);
         saldoDisp = consulta.saldoDiponibleBDLocal(numOrigen, numGrupo, numSocio);
@@ -392,9 +392,9 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         //saldoPostgress = saldoDisp.getSaldo();
         
         // Validar si la cantidad de boletos seleccionados es mayor a los permitidos
-        if (totalSeleccionados > countBol) {
+        if (totalSeleccionados != countBol) {
             JOptionPane.showMessageDialog(null,
-                    "Debe seleccionar boletos del mismo Origen, Socio y Costo(Zona).\n"
+                    "Selecciona todos los boletos del mismo Origen, grupo, Socio y Costo.\n"
                     + "No pueden ser diferentes.",
                     "Selección Inválida",
                     JOptionPane.WARNING_MESSAGE);

@@ -15,6 +15,8 @@ import Modelo.NombreBoleto;
 import Modelo.SaldoDisponible;
 import Modelo.SillaEstado;
 import Modelo.TimeGoogle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -82,7 +84,36 @@ public class frmBoleto extends javax.swing.JFrame {
         
         
         extraerDatos();
+        funcionTeclaEnter();
     }
+    
+    
+    public void funcionTeclaEnter(){
+        txtOrigen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Llamar la función buscarDatosSocio cuando presione Enter
+                buscarDatosSocio();
+            }
+        });
+
+        txtGrupo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Llamar la función buscarDatosSocio cuando presione Enter
+                buscarDatosSocio();
+            }
+        });
+        
+        txtSocio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Llamar la función buscarDatosSocio cuando presione Enter
+                buscarDatosSocio();
+            }
+        });
+    }
+    
     
     public void timeGoogle(){
         
