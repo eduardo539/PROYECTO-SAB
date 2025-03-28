@@ -145,7 +145,7 @@ public class frmSesionesActivas extends javax.swing.JFrame {
         // Asignar el modelo actualizado a la tabla
         tblSesiones.setModel(modelo);
         
-        // Permitir la selección múltiple de filas
+        // Permitir la selección de una fila
         tblSesiones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         // Centrar todos los datos en la tabla
