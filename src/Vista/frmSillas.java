@@ -234,6 +234,8 @@ public class frmSillas extends javax.swing.JFrame {
     
     public void seleccionSillas(int data) {  
         
+        
+        
         try {
             if (sill.getListaSillas().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No hay sillas disponibles.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -244,6 +246,8 @@ public class frmSillas extends javax.swing.JFrame {
             int idSilla = sill.getListaSillas().get(data).getIdSilla();
             String nomSilla = sill.getListaSillas().get(data).getDescripSilla();
 
+            //System.out.println("ID: " + idSilla + ": Nom: " + nomSilla);
+            
             // Comprobar si la silla está disponible
             if (!estadoSilla(idSilla)) {
                 return; // Si no está disponible, salir del método
@@ -689,7 +693,6 @@ public class frmSillas extends javax.swing.JFrame {
         
         // Convertir la lista de IDs a un arreglo de enteros (int[])
         idSillasArray = listaDeIds.stream().mapToInt(Integer::intValue).toArray();
-
         
         boolean rest = cons.obtenerReservandoSilla(idSillasArray);
         

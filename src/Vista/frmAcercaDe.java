@@ -18,7 +18,7 @@ public class frmAcercaDe extends javax.swing.JFrame {
     //0 (Menor): Esta es una versión menor, indicando que se han añadido nuevas características sin romper la compatibilidad con versiones anteriores.
     //0 (Parche): Esta es una versión de parche, que implica correcciones menores y mejoras en la estabilidad del sistema sin nuevas funcionalidades.
     
-    String VERSIONSAB = "1.1.25";
+    String VERSIONSAB = "1.5.25";
     
     public frmAcercaDe() {
         initComponents();
@@ -75,6 +75,7 @@ public class frmAcercaDe extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Acerca del Sistema");
 
         jPanel1.setBackground(new java.awt.Color(76, 175, 80));
 
