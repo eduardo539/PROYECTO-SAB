@@ -11,6 +11,7 @@ import Modelo.PosadaMTY;
 import Modelo.Precios;
 import Modelo.PreciosData;
 import Modelo.Sillas;
+import Modelo.Sillas.Silla;
 import Modelo.SillasData;
 import Modelo.SillasEstatusVigencia;
 import Modelo.SillasEstatusVigencia.VigenciaBoleto;
@@ -260,11 +261,13 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                         // Obtener la lista de sillas disponibles
                         s = sid.s(idMesa);
                         
-                        List<Sillas.Silla> listaSillas = s.getListaSillas(); // Obtener la lista de sillas
+                        List<Silla> listaSillas = s.getListaSillas(); // Obtener la lista de sillas
                         int sillasDisponibles = 0;
                         
+                        System.out.println(listaSillas);
+                        
                         // Contar cuántas sillas están disponibles
-                        for (Sillas.Silla silla : listaSillas) {  
+                        for (Silla silla : listaSillas) {  
                             if (silla.getEstadoSilla().equals("Disponible")) {  
                                 sillasDisponibles++;
                             }
@@ -273,7 +276,8 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                         if (sillasDisponibles == 0) {
                             JOptionPane.showMessageDialog(
                                 this,
-                                "No hay sillas disponibles en esta mesa.",
+                                "Actualmente otro usuario se encuentra reservando\n"
+                                        + "las ultimas sillas disponibles.",
                                 "Sin disponibilidad",
                                 JOptionPane.WARNING_MESSAGE
                             );
