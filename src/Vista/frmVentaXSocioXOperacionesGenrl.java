@@ -95,8 +95,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         }
         else{
             lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
-        }
-        
+        }   
     }
     
     private void abrirLogin() {
@@ -109,7 +108,6 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         });
     }
     
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -594,30 +592,30 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         
         // Consulta SQL para obtener los datos (sin filtro de sucursal)
         String sql = "SELECT " +
-                    "    b.OrigenUsuario AS SucursalVenta, " +
-                    "    b.OrigenSocio AS SucursalSocio, " +
-                    "    b.Folio AS Folio_Boleto, " +
-                    "    b.Origen AS Origen, " +
-                    "    b.Grupo AS Grupo, " +
-                    "    b.NumSocio AS NumSocio, " +
-                    "    b.Nombre AS Nombre, " +
-                    "    b.Invitado, " +
-                    "    b.Telefono," +
-                    "    u.Nombre AS Cajero, " +
-                    "    MAX(z.Zona) AS Zona, " +
-                    "    b.Costo AS Precio_Boleto, " +
-                    "    MAX(m.DescMesa) AS Mesa, " +
-                    "    MAX(s.vchDescripcion) AS Silla, " +
-                    "    b.FechaCompra, " +
-                    "    b.FechaVigencia " +
-                    "FROM tbl_boletos b " +
-                    "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
-                    "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
-                    "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
-                    "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-                    "WHERE YEAR(b.FechaVigencia) = ? " +
-                    "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
-                    "ORDER BY b.Folio";
+                "    b.OrigenUsuario AS SucursalVenta, " +
+                "    b.OrigenSocio AS SucursalSocio, " +
+                "    b.Folio AS Folio_Boleto, " +
+                "    b.Origen AS Origen, " +
+                "    b.Grupo AS Grupo, " +
+                "    b.NumSocio AS NumSocio, " +
+                "    b.Nombre AS Nombre, " +
+                "    b.Invitado, " +
+                "    b.Telefono," +
+                "    u.Nombre AS Cajero, " +
+                "    MAX(z.Zona) AS Zona, " +
+                "    b.Costo AS Precio_Boleto, " +
+                "    MAX(m.DescMesa) AS Mesa, " +
+                "    MAX(s.vchDescripcion) AS Silla, " +
+                "    b.FechaCompra, " +
+                "    b.FechaVigencia " +
+                "FROM tbl_boletos b " +
+                "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
+                "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
+                "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
+                "WHERE YEAR(b.FechaVigencia) = ? " +
+                "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
+                "ORDER BY b.Folio";
 
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

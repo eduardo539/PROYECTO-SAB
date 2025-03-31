@@ -165,7 +165,6 @@ public class frmMenuGerente extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
