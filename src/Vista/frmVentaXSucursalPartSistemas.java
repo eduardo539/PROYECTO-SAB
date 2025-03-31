@@ -94,13 +94,13 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos generales:"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales de Ventas:"));
 
         txtTotalBoletos.setEditable(false);
-        txtTotalBoletos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de boletos vendidos:"));
+        txtTotalBoletos.setBorder(javax.swing.BorderFactory.createTitledBorder("Total de Boletos Vendidos:"));
 
         txtTotalMonto.setEditable(false);
-        txtTotalMonto.setBorder(javax.swing.BorderFactory.createTitledBorder("Monto total vendido:"));
+        txtTotalMonto.setBorder(javax.swing.BorderFactory.createTitledBorder("Monto Total Vendido:"));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel1.setText("$");
@@ -129,9 +129,9 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 230, 130));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 230, 130));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione sucursal para visualizar ventas"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione Sucursal:"));
 
         jtlSucursales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,12 +151,12 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addComponent(jtlSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 230, 80));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, 230, 70));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualización de datos:"));
 
@@ -192,7 +192,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 490, 280));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese año para visualizar ventas:"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione Año:"));
 
         jtlAnio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,10 +214,10 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jtlAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 230, 70));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 230, 80));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
