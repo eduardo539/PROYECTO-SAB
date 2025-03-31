@@ -12,7 +12,6 @@ import Modelo.SillasData;
 import Modelo.SillasEstatusVigencia;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,6 +51,7 @@ public class frmLogin extends javax.swing.JFrame {
     int intentos = 0;  // Variable que acumula los intentos fallidos
     
     public frmLogin() {
+        
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
@@ -59,7 +59,7 @@ public class frmLogin extends javax.swing.JFrame {
         
         setResizable(false);
         
-        funcionTeclaEnter();
+        funcionTeclaEnter(); 
         
     }
     
@@ -143,6 +143,8 @@ public class frmLogin extends javax.swing.JFrame {
                 "El usuario ingresado no existe o es incorrecto, intentar nuevamente", 
                 "Advertencia", 
                 JOptionPane.WARNING_MESSAGE);
+            
+            intentos = 0;
             return;
         }
         
@@ -154,6 +156,8 @@ public class frmLogin extends javax.swing.JFrame {
                 "Este usuario esta bloqueado, favor de contactar al administrador.", 
                 "Usuario bloqueado", 
                 JOptionPane.WARNING_MESSAGE);
+            
+            intentos = 0;
             return;
         }
         
@@ -163,6 +167,8 @@ public class frmLogin extends javax.swing.JFrame {
                 "Este usuario actualmente esta inactivo, contactar a soporte en caso de existir un error.", 
                 "Usuario inactivo", 
                 JOptionPane.WARNING_MESSAGE);
+            
+            intentos = 0;
             return;
         }
         

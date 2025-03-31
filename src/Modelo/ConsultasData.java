@@ -101,45 +101,26 @@ public class ConsultasData {
     }
     
     
-    public int obtenerDatosBoletos(int origen, int numSocio, double costo, int[] folios) {
+    public int obtenerDatosBoletos(int origen, int numGrupo, int numSocio, double costo) {
+        
         int totalDatos = 0; // Inicializa con 0 en caso de error
+        
+        String consulta = "SELECT COUNT(*) AS Total FROM tbl_boletos " +
+                            "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
+                            "WHERE tbl_boletos.Origen = ? AND tbl_boletos.Grupo = ? " +
+                            "AND tbl_boletos.NumSocio = ? " +
+                            "AND tbl_boletos.Costo = ? AND tbl_boletos.idEstado = 2";
 
-        // Validar que el array de folios no esté vacío
-        if (folios == null || folios.length == 0) {
-            JOptionPane.showMessageDialog(null, 
-                    "El arreglo de folios está vacío.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return totalDatos;
-        }
-
-        // Construcción dinámica de la consulta con múltiples folios
-        StringBuilder consulta = new StringBuilder("SELECT COUNT(*) AS Total FROM tbl_boletos " +
-                                                   "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
-                                                   "WHERE tbl_boletos.Origen = ? AND tbl_boletos.NumSocio = ? " +
-                                                   "AND tbl_boletos.Costo = ? AND tbl_boletos.Folio IN (");
-
-        // Agregar placeholders "?" según la cantidad de folios
-        for (int i = 0; i < folios.length; i++) {
-            consulta.append("?");
-            if (i < folios.length - 1) {
-                consulta.append(", ");
-            }
-        }
-        consulta.append(");");
 
         try {
             con = cn.getConnection(); // Obtener conexión
-            ps = con.prepareStatement(consulta.toString()); // Preparar consulta
+            ps = con.prepareStatement(consulta); // Preparar consulta
 
             // Asignar valores a los parámetros
             ps.setInt(1, origen);
-            ps.setInt(2, numSocio);
-            ps.setDouble(3, costo);
-
-            // Asignar los valores del array folios
-            for (int i = 0; i < folios.length; i++) {
-                ps.setInt(i + 4, folios[i]);
-            }
+            ps.setInt(2, numGrupo);
+            ps.setInt(3, numSocio);
+            ps.setDouble(4, costo);
 
             rs = ps.executeQuery(); // Ejecutar consulta
 
