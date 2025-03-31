@@ -63,9 +63,9 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         conexion = new Conexion();
         configuracionModeloTabla();
         cargarSucursales();
-        // cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
         configurarComboBoxAnos();
         configurarComboBoxMeses();
+        
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
         setResizable(false);
@@ -443,36 +443,37 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jtlSucursalesActionPerformed
 
     private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
-        Integer anio = obtenerAnioSeleccionado();
-
-        if (anio == null) {
-            JOptionPane.showMessageDialog(this, "Seleccione un año para mostrar todos los boletos.", "Faltan datos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        cargarDatos(null, anio, null); // filtro por año solamente (todas las sucursales)
+        cargarDatos(null, null, null); // si filtros
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         Integer anio = obtenerAnioSeleccionado();
         Integer mes = obtenerMesSeleccionado();
-
         if (anio == null || mes == null) {
-            JOptionPane.showMessageDialog(this, "Seleccione un año y mes para aplicar el filtro.", "Faltan datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Seleccione un año y mes válidos.", "Faltan datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
         String sucursal = (String) jtlSucursales.getSelectedItem();
-        if (sucursal != null && !sucursal.equals("Seleccione una sucursal")) {
-            cargarDatos(sucursal, anio, mes); // filtro por sucursal + año + mes
-        } else {
-            cargarDatos(null, anio, mes); // filtro por año + mes en todas las sucursales
+        if (sucursal.equals("Todas las sucursales")) {
+            sucursal = null;
         }
+        cargarDatos(sucursal, anio, mes);
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void jtlAnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlAnosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtlAnosActionPerformed
+
+    private Integer obtenerAnioSeleccionado() {
+        Object selected = jtlAnos.getSelectedItem();
+        return selected != null ? Integer.parseInt(selected.toString()) : null;
+    }
+
+
+    private Integer obtenerMesSeleccionado() {
+        int index = jtlMeses.getSelectedIndex();
+        return index >= 0 ? index + 1 : null; // Enero = 1
+    }
 
     private void jtlMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlMesesActionPerformed
         // TODO add your handling code here:
@@ -531,94 +532,60 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
 
 
     private void cargarSucursales() {
-        // Crear una instancia de la clase Conexion2
         Conexion2 con2 = new Conexion2();  
-        // Llamar a getConnection() desde la instancia creada
-        try (Connection conn = con2.getConnection();  // Usar la conexión de Conexion2
-             PreparedStatement stmt = conn.prepareStatement("SELECT nombre FROM origenes")) {
+        try (Connection conn = con2.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT nombre FROM origenes")) {
             ResultSet rs = stmt.executeQuery();
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-            modelo.addElement("Seleccione una sucursal");  // Se agrega una opción por defecto
+            modelo.addElement("Todas las sucursales");
             while (rs.next()) {
-                modelo.addElement(rs.getString("nombre"));  // Usar "nombre" como el campo de la sucursal
+                modelo.addElement(rs.getString("nombre"));
             }
-            jtlSucursales.setModel(modelo);  // Se asigna el modelo al ComboBox
+            jtlSucursales.setModel(modelo);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar sucursales: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void cargarDatos(String sucursal, Integer ano, Integer mes) {
-        // Validar selección de año obligatoriamente
-        int selectedYearIndex = jtlAnos.getSelectedIndex();
-        if (selectedYearIndex <= 0) {
-            JOptionPane.showMessageDialog(this, "Por favor, selecciona un año para mostrar los boletos.", "Año requerido", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+    private void cargarDatos(String sucursal, Integer anio, Integer mes) {
+        StringBuilder sql = new StringBuilder("SELECT b.OrigenUsuario AS Sucursal, b.OrigenSocio AS Sucursal2, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre AS Cajero, z.Zona, b.Costo, m.DescMesa AS Mesa, s.vchDescripcion AS Silla, b.FechaCompra, b.FechaVigencia FROM tbl_boletos b INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario LEFT JOIN tbl_zonas z ON b.idZona = z.idZona LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla WHERE 1=1 ");
+        if (sucursal != null) sql.append("AND b.OrigenUsuario = ? ");
+        if (anio != null) sql.append("AND YEAR(b.FechaVigencia) = ? ");
+        if (mes != null) sql.append("AND MONTH(b.FechaVigencia) = ? ");
+        sql.append("ORDER BY b.Folio");
 
-        // Obtener el año seleccionado del ComboBox si no se pasa como parámetro
-        if (ano == null) {
-            try {
-                ano = Integer.parseInt((String) jtlAnos.getSelectedItem());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "El año seleccionado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
-
-        StringBuilder consultaSQL = new StringBuilder("SELECT " +
-            "b.OrigenUsuario AS Sucursal, " +
-            "b.OrigenSocio AS Sucursal2, " +
-            "b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, " +
-            "u.Nombre AS Cajero, z.Zona, b.Costo AS Precio_Boleto, " +
-            "m.DescMesa AS Mesa, s.vchDescripcion AS Silla, " +
-            "b.FechaCompra, b.FechaVigencia " +
-            "FROM tbl_boletos b " +
-            "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
-            "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
-            "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
-            "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-            "WHERE 1=1 ");
-
-        if (sucursal != null && !sucursal.equals("Seleccione una sucursal para filtrar")) {
-            consultaSQL.append("AND b.OrigenUsuario = ? ");
-        }
-
-        // Año es obligatorio
-        consultaSQL.append("AND YEAR(b.FechaVigencia) = ? ");
-
-        // Mes es opcional
-        if (mes != null) {
-            consultaSQL.append("AND MONTH(b.FechaVigencia) = ? ");
-        }
-
-        consultaSQL.append("GROUP BY b.OrigenSocio, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
-            "b.Invitado, b.Telefono, u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion, b.FechaCompra, b.FechaVigencia " +
-            "ORDER BY b.Folio");
 
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(consultaSQL.toString())) {
+            PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            int idx = 1;
+            if (sucursal != null) stmt.setString(idx++, sucursal);
+            if (anio != null) stmt.setInt(idx++, anio);
+            if (mes != null) stmt.setInt(idx++, mes);
 
-            int paramIndex = 1;
-
-            if (sucursal != null && !sucursal.equals("Seleccione una sucursal para filtrar")) {
-                stmt.setString(paramIndex++, sucursal);
-            }
-
-            stmt.setInt(paramIndex++, ano);
-
-            if (mes != null) {
-                stmt.setInt(paramIndex++, mes);
-            }
 
             ResultSet rs = stmt.executeQuery();
-            DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
-            modelo.setRowCount(0); // Limpia la tabla
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Sucursal de venta");
+            model.addColumn("Sucursal del socio");
+            model.addColumn("Folio del boleto");
+            model.addColumn("Origen");
+            model.addColumn("Grupo");
+            model.addColumn("Número de socio");
+            model.addColumn("Nombre");
+            model.addColumn("Invitado");
+            model.addColumn("Teléfono");
+            model.addColumn("Cajero");
+            model.addColumn("Zona");
+            model.addColumn("Precio por boleto");
+            model.addColumn("Mesa");
+            model.addColumn("Silla");
+            model.addColumn("Fecha de compra");
+            model.addColumn("Fecha de vigencia");
+
 
             DecimalFormat df = new DecimalFormat("0.00");
-
             while (rs.next()) {
-                modelo.addRow(new Object[]{
+                model.addRow(new Object[]{
                     rs.getString("Sucursal"),
                     rs.getString("Sucursal2"),
                     rs.getString("Folio"),
@@ -630,42 +597,29 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
                     rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
-                    df.format(rs.getDouble("Precio_Boleto")),
+                    "$ " + df.format(rs.getDouble("Costo")),
                     rs.getString("Mesa"),
                     rs.getString("Silla"),
                     rs.getString("FechaCompra"),
-                    rs.getString("FechaVigencia"),
+                    rs.getString("FechaVigencia")
                 });
             }
-
-            // Habilita botón PDF solo si hay resultados
-            btnExportarPDF.setEnabled(modelo.getRowCount() > 0);
-
-            if (modelo.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No se encontraron registros para los filtros seleccionados.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
-            }
-
+            tblReporte.setModel(model);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al ejecutar la consulta: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al consultar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
         
     private void configurarComboBoxAnos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        modelo.addElement("Seleccione un año");
-
         String sql = "SELECT DISTINCT YEAR(FechaVigencia) AS anio FROM tbl_boletos ORDER BY anio";
-
         try (Connection conn = conexion.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 modelo.addElement(String.valueOf(rs.getInt("anio")));
             }
-
             jtlAnos.setModel(modelo);
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -673,31 +627,11 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
 
     private void configurarComboBoxMeses() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        modelo.addElement("Seleccione un mes");
-
-        String sql = "SELECT DISTINCT MONTH(FechaVigencia) AS mes FROM tbl_boletos ORDER BY mes";
-
-        String[] nombresMeses = {
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-        };
-
-        try (Connection conn = conexion.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                int numeroMes = rs.getInt("mes");
-                if (numeroMes >= 1 && numeroMes <= 12) {
-                    modelo.addElement(nombresMeses[numeroMes - 1]);
-                }
-            }
-
-            jtlMeses.setModel(modelo);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar meses: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        String[] meses = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+        for (String mes : meses) {
+            modelo.addElement(mes);
         }
+        jtlMeses.setModel(modelo);
     }
     
     private void configuracionModeloTabla() {
@@ -779,11 +713,6 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private void limpiarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
         modelo.setRowCount(0);
-    }
-    
-    private void limpiarCamposSeleccion() {
-        jtlAnos.setSelectedIndex(0);
-        jtlMeses.setSelectedIndex(0);
     }
 
     // FUNCIONES PARA CREAR EL PDF DE BOLETOS
@@ -887,18 +816,5 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         document.close();
     }
     
-    
-    private Integer obtenerAnioSeleccionado() {
-        int selected = jtlAnos.getSelectedIndex();
-        if (selected <= 0) return null;
-        return Integer.parseInt((String) jtlAnos.getSelectedItem());
-    }
-    
-    
-    private Integer obtenerMesSeleccionado() {
-        int selected = jtlMeses.getSelectedIndex();
-        if (selected <= 0) return null;
-        return jtlMeses.getSelectedIndex(); // enero = 1
-    }
-    
+
 }
