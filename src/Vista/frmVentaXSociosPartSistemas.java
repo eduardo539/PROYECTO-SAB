@@ -42,12 +42,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
 /**
  *
  * @author Eduardo`s
  */
-
 
 public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
     private final Conexion conexion;
@@ -550,7 +548,6 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
         }
     }
     
-    
     private void limpiarEntradas() { 
         txtOrigen.setText("");
         txtGrupo.setText("");
@@ -578,7 +575,7 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                 "ORDER BY b.Folio";
 
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, anioSeleccionado);
             ResultSet rs = stmt.executeQuery();
@@ -607,9 +604,8 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                     rs.getString("FechaVigencia")
                 });
             }
-
+            
             btnExportarPDF.setEnabled(modelo.getRowCount() > 0);
-
             if (modelo.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay boletos registrados en el año seleccionado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -652,11 +648,12 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
             stmt.setString(2, grupo);
             stmt.setString(3, numSocio);
             stmt.setInt(4, anioSeleccionado);
-
             ResultSet rs = stmt.executeQuery();
+            
             DefaultTableModel modeloTabla = (DefaultTableModel) tblReporteXBoletosXUsuariosXSistemasGenerales.getModel();
             modeloTabla.setRowCount(0); // Limpiar la tabla
             DecimalFormat df = new DecimalFormat("0.00");
+            
             boolean hayResultados = false;
 
             while (rs.next()) {
@@ -680,13 +677,11 @@ public class frmVentaXSociosPartSistemas extends javax.swing.JFrame {
                     rs.getString("FechaVigencia")
                 });
             }
-
             if (!hayResultados) {
                 JOptionPane.showMessageDialog(this, "No se encontraron boletos para ese socio en el año seleccionado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
             }
-            
             btnExportarPDF.setEnabled(tblReporteXBoletosXUsuariosXSistemasGenerales.getRowCount() > 0);
-
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al filtrar boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
