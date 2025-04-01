@@ -43,8 +43,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-// librerias importadas para reporte excel
-
 /**
  *
  * @author Eduardo`s
@@ -52,37 +50,28 @@ import java.io.IOException;
 
 public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private final Conexion conexion;
-    
     Login lg = Login.getInstancia();
-    
     TimeGoogle fechaGoogle = new TimeGoogle();
-    
     
     public frmVentaXSucursalesPartSistemas() {
         initComponents();
         conexion = new Conexion();
         configuracionModeloTabla();
-        cargarSucursales();
-        // cargarUsuariosConBoletosComprados(); // Cargar los usuarios al iniciar
         configurarComboBoxAnos();
         configurarComboBoxMeses();
+        cargarSucursales();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
         setResizable(false);
-        
         btnExportarPDF.setEnabled(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
-
-        // Añadir el WindowListener para gestionar el evento de cierre
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                // Llamamos a nuestras funciones previas antes de cerrar la ventana
                 cerrarVentanaX();
             }
         });
-        
     }
     
     // Método que ejecuta funciones previas antes de cerrar la ventana
@@ -103,7 +92,6 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         });
     }
     
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -358,14 +346,13 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 0, 0)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,7 +364,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -399,6 +386,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
                     "Cerrar Sesión", 
                     JOptionPane.YES_NO_OPTION, 
                     JOptionPane.QUESTION_MESSAGE);
+            
             if (confirm == JOptionPane.YES_OPTION) {
                 // Limpiar datos de la sesión del usuario
                 CerrarSesion closeSesion = new CerrarSesion();
@@ -444,35 +432,42 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
 
     private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
         Integer anio = obtenerAnioSeleccionado();
-
+        Integer mes = obtenerMesSeleccionado();
         if (anio == null) {
-            JOptionPane.showMessageDialog(this, "Seleccione un año para mostrar todos los boletos.", "Faltan datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor selecciona un año.", "Año requerido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        cargarDatos(null, anio, null); // filtro por año solamente (todas las sucursales)
+        cargarDatos(null, anio, mes); // Si mes es null, trae todos del año; si tiene valor, filtra por año y mes
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         Integer anio = obtenerAnioSeleccionado();
         Integer mes = obtenerMesSeleccionado();
-
+        String sucursal = (String) jtlSucursales.getSelectedItem();
         if (anio == null || mes == null) {
-            JOptionPane.showMessageDialog(this, "Seleccione un año y mes para aplicar el filtro.", "Faltan datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Seleccione un año y mes válidos.", "Faltan datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        String sucursal = (String) jtlSucursales.getSelectedItem();
-        if (sucursal != null && !sucursal.equals("Seleccione una sucursal")) {
-            cargarDatos(sucursal, anio, mes); // filtro por sucursal + año + mes
-        } else {
-            cargarDatos(null, anio, mes); // filtro por año + mes en todas las sucursales
+        if (sucursal == null || sucursal.equals("Seleccione una sucursal")) {
+            JOptionPane.showMessageDialog(this, "Seleccione una sucursal para aplicar el filtro.", "Sucursal requerida", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+        cargarDatos(sucursal, anio, mes);
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void jtlAnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlAnosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtlAnosActionPerformed
+
+    private Integer obtenerAnioSeleccionado() {
+        Object selected = jtlAnos.getSelectedItem();
+        return (selected != null && !selected.toString().equals("Seleccione un año")) ? Integer.parseInt(selected.toString()) : null;
+    }
+
+    private Integer obtenerMesSeleccionado() {
+        int index = jtlMeses.getSelectedIndex();
+        return (index > 0) ? index : null; // Enero = 1
+    }
 
     private void jtlMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlMesesActionPerformed
         // TODO add your handling code here:
@@ -529,94 +524,42 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private javax.swing.JTable tblReporte;
     // End of variables declaration//GEN-END:variables
 
-
     private void cargarSucursales() {
-        // Crear una instancia de la clase Conexion2
-        Conexion2 con2 = new Conexion2();  
-        // Llamar a getConnection() desde la instancia creada
-        try (Connection conn = con2.getConnection();  // Usar la conexión de Conexion2
+        Conexion2 con2 = new Conexion2();
+        try (Connection conn = con2.getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT nombre FROM origenes")) {
             ResultSet rs = stmt.executeQuery();
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-            modelo.addElement("Seleccione una sucursal");  // Se agrega una opción por defecto
+            modelo.addElement("Seleccione una sucursal");
             while (rs.next()) {
-                modelo.addElement(rs.getString("nombre"));  // Usar "nombre" como el campo de la sucursal
+                modelo.addElement(rs.getString("nombre"));
             }
-            jtlSucursales.setModel(modelo);  // Se asigna el modelo al ComboBox
+            jtlSucursales.setModel(modelo);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar sucursales: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void cargarDatos(String sucursal, Integer ano, Integer mes) {
-        // Validar selección de año obligatoriamente
-        int selectedYearIndex = jtlAnos.getSelectedIndex();
-        if (selectedYearIndex <= 0) {
-            JOptionPane.showMessageDialog(this, "Por favor, selecciona un año para mostrar los boletos.", "Año requerido", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // Obtener el año seleccionado del ComboBox si no se pasa como parámetro
-        if (ano == null) {
-            try {
-                ano = Integer.parseInt((String) jtlAnos.getSelectedItem());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "El año seleccionado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
-
-        StringBuilder consultaSQL = new StringBuilder("SELECT " +
-            "b.OrigenUsuario AS Sucursal, " +
-            "b.OrigenSocio AS Sucursal2, " +
-            "b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, " +
-            "u.Nombre AS Cajero, z.Zona, b.Costo AS Precio_Boleto, " +
-            "m.DescMesa AS Mesa, s.vchDescripcion AS Silla, " +
-            "b.FechaCompra, b.FechaVigencia " +
-            "FROM tbl_boletos b " +
-            "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
-            "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
-            "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
-            "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-            "WHERE 1=1 ");
-
-        if (sucursal != null && !sucursal.equals("Seleccione una sucursal para filtrar")) {
-            consultaSQL.append("AND b.OrigenUsuario = ? ");
-        }
-
-        // Año es obligatorio
-        consultaSQL.append("AND YEAR(b.FechaVigencia) = ? ");
-
-        // Mes es opcional
-        if (mes != null) {
-            consultaSQL.append("AND MONTH(b.FechaVigencia) = ? ");
-        }
-
-        consultaSQL.append("GROUP BY b.OrigenSocio, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
-            "b.Invitado, b.Telefono, u.Nombre, z.Zona, b.Costo, m.DescMesa, s.vchDescripcion, b.FechaCompra, b.FechaVigencia " +
-            "ORDER BY b.Folio");
+    private void cargarDatos(String sucursal, Integer anio, Integer mes) {
+        StringBuilder sql = new StringBuilder("SELECT b.OrigenUsuario AS Sucursal, b.OrigenSocio AS Sucursal2, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre AS Cajero, z.Zona, b.Costo, m.DescMesa AS Mesa, s.vchDescripcion AS Silla, b.FechaCompra, b.FechaVigencia FROM tbl_boletos b INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario LEFT JOIN tbl_zonas z ON b.idZona = z.idZona LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla WHERE 1=1 ");
+        if (sucursal != null) sql.append("AND b.OrigenUsuario = ? ");
+        if (anio != null) sql.append("AND YEAR(b.FechaCompra) = ? ");
+        if (mes != null) sql.append("AND MONTH(b.FechaCompra) = ? ");
+        sql.append("ORDER BY b.Folio");
 
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(consultaSQL.toString())) {
-
-            int paramIndex = 1;
-
-            if (sucursal != null && !sucursal.equals("Seleccione una sucursal para filtrar")) {
-                stmt.setString(paramIndex++, sucursal);
-            }
-
-            stmt.setInt(paramIndex++, ano);
-
-            if (mes != null) {
-                stmt.setInt(paramIndex++, mes);
-            }
-
+            PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            
+            int idx = 1;
+            if (sucursal != null) stmt.setString(idx++, sucursal);
+            if (anio != null) stmt.setInt(idx++, anio);
+            if (mes != null) stmt.setInt(idx++, mes);
             ResultSet rs = stmt.executeQuery();
+            
             DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
-            modelo.setRowCount(0); // Limpia la tabla
-
+            modelo.setRowCount(0);
             DecimalFormat df = new DecimalFormat("0.00");
-
+            
             while (rs.next()) {
                 modelo.addRow(new Object[]{
                     rs.getString("Sucursal"),
@@ -630,42 +573,31 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
                     rs.getString("Telefono"),
                     rs.getString("Cajero"),
                     rs.getString("Zona"),
-                    df.format(rs.getDouble("Precio_Boleto")),
+                    "$ " + df.format(rs.getDouble("Costo")),
                     rs.getString("Mesa"),
                     rs.getString("Silla"),
                     rs.getString("FechaCompra"),
-                    rs.getString("FechaVigencia"),
+                    rs.getString("FechaVigencia")
                 });
             }
-
-            // Habilita botón PDF solo si hay resultados
-            btnExportarPDF.setEnabled(modelo.getRowCount() > 0);
-
-            if (modelo.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No se encontraron registros para los filtros seleccionados.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
-            }
-
+            tblReporte.setModel(modelo);
+            btnExportarPDF.setEnabled(modelo.getRowCount() > 0 );
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al ejecutar la consulta: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al consultar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
         
     private void configurarComboBoxAnos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Seleccione un año");
-
-        String sql = "SELECT DISTINCT YEAR(FechaVigencia) AS anio FROM tbl_boletos ORDER BY anio";
-
+        String sql = "SELECT DISTINCT YEAR(FechaCompra) AS anio FROM tbl_boletos ORDER BY anio";
         try (Connection conn = conexion.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()) {
-
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 modelo.addElement(String.valueOf(rs.getInt("anio")));
             }
-
             jtlAnos.setModel(modelo);
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -674,34 +606,14 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private void configurarComboBoxMeses() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Seleccione un mes");
-
-        String sql = "SELECT DISTINCT MONTH(FechaVigencia) AS mes FROM tbl_boletos ORDER BY mes";
-
-        String[] nombresMeses = {
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-        };
-
-        try (Connection conn = conexion.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                int numeroMes = rs.getInt("mes");
-                if (numeroMes >= 1 && numeroMes <= 12) {
-                    modelo.addElement(nombresMeses[numeroMes - 1]);
-                }
-            }
-
-            jtlMeses.setModel(modelo);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar meses: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        for (String mes : meses) {
+            modelo.addElement(mes);
         }
+        jtlMeses.setModel(modelo);
     }
     
     private void configuracionModeloTabla() {
-        // Inicializa el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Sucursal de venta");
         modelo.addColumn("Sucursal del socio");
@@ -720,32 +632,13 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         modelo.addColumn("Fecha de compra");
         modelo.addColumn("Fecha de vigencia");
 
-        // Establece el modelo de la tabla
         tblReporte.setModel(modelo);
-
-        // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
         tblReporte.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         int[] columnWidths = {200, 200, 120, 120, 120, 120, 200, 120, 120, 200, 120, 150, 100, 100, 120, 120};
         for (int i = 0; i < columnWidths.length; i++) {
             tblReporte.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
         }
-
-        // Ajustar el tamaño de la tabla para que coincida con el JScrollPane
-        tblReporte.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));
-        tblReporte.setFillsViewportHeight(true);
-
-        // Crear el JScrollPane con scroll horizontal y vertical
-        jScrollPane1 = new JScrollPane(tblReporte);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-        // Ajustar correctamente el panel para que no oculte la tabla
-        jPanel3.setLayout(new BorderLayout()); // Asegurar un layout correcto
-        jPanel3.removeAll(); // Limpiar el panel para evitar superposiciones
-        jPanel3.add(jScrollPane1, BorderLayout.CENTER);
-        jPanel3.revalidate(); // Refrescar el diseño
-        jPanel3.repaint();    // Repintar para asegurarse de que se ve correctamente
     }
 
     private void barraEstado() {
@@ -779,11 +672,7 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private void limpiarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
         modelo.setRowCount(0);
-    }
-    
-    private void limpiarCamposSeleccion() {
-        jtlAnos.setSelectedIndex(0);
-        jtlMeses.setSelectedIndex(0);
+        btnExportarPDF.setEnabled(false);
     }
 
     // FUNCIONES PARA CREAR EL PDF DE BOLETOS
@@ -885,20 +774,6 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         }
         document.add(pdfTable);
         document.close();
-    }
-    
-    
-    private Integer obtenerAnioSeleccionado() {
-        int selected = jtlAnos.getSelectedIndex();
-        if (selected <= 0) return null;
-        return Integer.parseInt((String) jtlAnos.getSelectedItem());
-    }
-    
-    
-    private Integer obtenerMesSeleccionado() {
-        int selected = jtlMeses.getSelectedIndex();
-        if (selected <= 0) return null;
-        return jtlMeses.getSelectedIndex(); // enero = 1
     }
     
 }
