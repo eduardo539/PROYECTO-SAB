@@ -1,7 +1,8 @@
 package sab;
 
-import Vista.frmEstadoSillas;
+
 import Vista.frmLogin;
+
 
 
 /**
@@ -17,7 +18,6 @@ public class SAB {
 
         
         frmLogin iniciar = new frmLogin();
-        //frmEstadoSillas iniciar = new frmEstadoSillas();
         
         
         iniciar.setLocationRelativeTo(null); // Centra la ventana en la pantalla
