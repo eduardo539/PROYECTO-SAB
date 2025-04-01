@@ -5,6 +5,8 @@ import Modelo.DatosGenerarBoletosPDF;
 import Modelo.GenerarBoleto2;
 import Modelo.GenerarNewBoleto.DataPDF;
 import Modelo.GenerarNewBoleto;
+import Modelo.Login;
+import Modelo.TimeGoogle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -31,6 +33,10 @@ public class frmGenerarBoleto extends javax.swing.JFrame {
     
     GenerarBoleto2 Boleto2 = new GenerarBoleto2();
     
+    Login lg = Login.getInstancia();
+    
+    TimeGoogle fechaGoogle = new TimeGoogle();
+    
     int[] filasSeleccionadas;
     int[] foliosSeleccionados;
 
@@ -53,6 +59,8 @@ public class frmGenerarBoleto extends javax.swing.JFrame {
         });
         
         
+        barraEstado();
+        
         verAniosComboBox();
         setResizable(false);
         datosTabla();
@@ -66,6 +74,36 @@ public class frmGenerarBoleto extends javax.swing.JFrame {
         mostrarTablaDatos();
         
         
+    }
+    
+    
+    public void barraEstado(){
+        fechaGoogle.timeGoogle();
+        //BARRA DE ESTADO: INFORMACION RELEVANTE
+        // Inicializar datos dinámicos en la barra de estado
+        lblUsuario.setText("User: " + lg.getIdusuario());
+        lblNombre.setText("Nom: " + lg.getNombre() + " | ");
+        lblVersionJava.setText("Java: " + System.getProperty("java.version") + " | ");
+        lblSucursal.setText("Suc: " + lg.getSucursal() + " | ");
+        lblFecha.setText("Fecha: " + fechaGoogle.getFechaActualGoogle());
+       
+        // Verificar y mostrar la versión del kernel de Linux (solo si es Linux)
+        if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+            try {
+                // Ejecutar comando para obtener la versión del kernel de Linux
+                Process process = Runtime.getRuntime().exec("uname -r");
+                java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream()));
+                String linuxVersion = reader.readLine(); // Leer la salida del comando
+                lblVersionOS.setText("Kernel: " + linuxVersion);
+            } catch (Exception e) {
+                // Manejo de errores en caso de que no se pueda obtener la versión
+                lblVersionOS.setText("Kernel: Error |");
+            }
+        }
+        else{
+            lblVersionOS.setText("OS: " + System.getProperty("os.name") + " | ");
+        }
+
     }
     
     
@@ -396,7 +434,12 @@ public class frmGenerarBoleto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBoletosPagados = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblVersionJava = new javax.swing.JLabel();
+        lblSucursal = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        lblVersionOS = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtNombres = new javax.swing.JTextArea();
@@ -522,7 +565,17 @@ public class frmGenerarBoleto extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText("User");
+        lblUsuario.setText("User");
+
+        lblNombre.setText("Nombre");
+
+        lblVersionJava.setText("Ver. Java");
+
+        lblSucursal.setText("Sucursal");
+
+        lblFecha.setText("Fecha");
+
+        lblVersionOS.setText("Ver.OS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -530,14 +583,30 @@ public class frmGenerarBoleto extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(lblNombre)
+                    .addComponent(lblVersionJava)
+                    .addComponent(lblSucursal)
+                    .addComponent(lblFecha)
+                    .addComponent(lblVersionOS)))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Vista Previa"));
@@ -770,7 +839,6 @@ public class frmGenerarBoleto extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox comboAnio;
     private javax.swing.JComboBox comboMes;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
@@ -783,6 +851,12 @@ public class frmGenerarBoleto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuItem jmiRegresar;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblSucursal;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblVersionJava;
+    private javax.swing.JLabel lblVersionOS;
     private javax.swing.JTable tblBoletosPagados;
     private javax.swing.JTextField txtFolios;
     private javax.swing.JTextField txtGrupo;
