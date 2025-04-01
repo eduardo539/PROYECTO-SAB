@@ -194,6 +194,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jmiBoletosVendidos = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -267,6 +268,16 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem6);
+
+        jmiBoletosVendidos.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiBoletosVendidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ticket_iconos.png"))); // NOI18N
+        jmiBoletosVendidos.setText("Boletos Vendidos");
+        jmiBoletosVendidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiBoletosVendidosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiBoletosVendidos);
 
         jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
@@ -420,6 +431,15 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         Operaciones.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jmiBoletosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBoletosVendidosActionPerformed
+        
+        frmGenerarBoleto genBoleto = new frmGenerarBoleto();
+        genBoleto.setLocationRelativeTo(null);
+        genBoleto.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jmiBoletosVendidosActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -449,6 +469,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
+    private javax.swing.JMenuItem jmiBoletosVendidos;
     private javax.swing.JLabel lblFechaHora;
     // End of variables declaration//GEN-END:variables
 
