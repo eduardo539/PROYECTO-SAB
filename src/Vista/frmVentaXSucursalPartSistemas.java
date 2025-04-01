@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista;
 
 import FormulariosAyuda.Sistemas.AyudaVentasTotales;
@@ -392,8 +387,8 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
     private void cargarSucursales() {
         String consultaSQL = "SELECT DISTINCT OrigenUsuario FROM tbl_boletos";
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(consultaSQL);
-             ResultSet rs = stmt.executeQuery()) {
+            PreparedStatement stmt = conn.prepareStatement(consultaSQL);
+            ResultSet rs = stmt.executeQuery()) {
 
             DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
             modelo.addElement("Seleccione una sucursal"); // Opción por defecto
@@ -415,7 +410,7 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         consultaSQL.append("SUM(b.Costo) AS Monto_Total ");
         consultaSQL.append("FROM tbl_boletos b ");
         consultaSQL.append("INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario ");
-        consultaSQL.append("WHERE YEAR(b.FechaVigencia) = ? ");
+        consultaSQL.append("WHERE YEAR(b.FechaCompra) = ? ");
 
         if (sucursal != null && !sucursal.equals("Seleccione una sucursal")) {
             consultaSQL.append("AND b.OrigenUsuario = ? ");

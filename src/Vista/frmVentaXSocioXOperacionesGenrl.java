@@ -560,11 +560,12 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
 
     private void cargarUsuariosConBoletosComprados() {
         int selectedYearIndex = jComboBox1.getSelectedIndex();
+        
         if (selectedYearIndex <= 0) {
             JOptionPane.showMessageDialog(this, "Por favor, selecciona un año para mostrar los boletos.", "Año requerido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         int anioSeleccionado = Integer.parseInt((String) jComboBox1.getSelectedItem());
         
         // Consulta SQL para obtener los datos (sin filtro de sucursal)
@@ -590,7 +591,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                 "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
                 "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
                 "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-                "WHERE YEAR(b.FechaVigencia) = ? " +
+                "WHERE YEAR(b.FechaCompra) = ? " +
                 "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
                 "ORDER BY b.Folio";
 
@@ -626,9 +627,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                     rs.getString("FechaVigencia")
                 });
             }
-
             btnExportarPDF.setEnabled(modeloTabla.getRowCount() > 0);
-
             if (modeloTabla.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay boletos registrados en el año seleccionado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -660,7 +659,7 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
                     "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
                     "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
                     "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-                    "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? AND YEAR(b.FechaVigencia) = ? " +
+                    "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? AND YEAR(b.FechaCompra) = ? " +
                     "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
                     "ORDER BY b.Folio";
 
@@ -819,8 +818,8 @@ public class frmVentaXSocioXOperacionesGenrl extends javax.swing.JFrame {
         String sql = "SELECT DISTINCT YEAR(FechaVigencia) AS anio FROM tbl_boletos ORDER BY anio";
 
         try (Connection conn = conexion.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 modelo.addElement(String.valueOf(rs.getInt("anio")));
