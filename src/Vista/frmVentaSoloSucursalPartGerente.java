@@ -59,7 +59,6 @@ public class frmVentaSoloSucursalPartGerente extends javax.swing.JFrame {
         jTable1.setModel(modelo);
     }
     
-    
     private void cargarVentasPorSucursalGerente() {
         int index = jComboBox1.getSelectedIndex();
         if (index <= 0) {
@@ -71,10 +70,10 @@ public class frmVentaSoloSucursalPartGerente extends javax.swing.JFrame {
         String sucursalGerente = login.getSucursal();
 
         String sql = "SELECT b.OrigenUsuario AS Sucursal, COUNT(b.Folio) AS BoletosVendidos, SUM(b.Costo) AS MontoTotal " +
-                     "FROM tbl_boletos b " +
-                     "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
-                     "WHERE YEAR(b.FechaVigencia) = ? AND b.OrigenUsuario = ? " +
-                     "GROUP BY b.OrigenUsuario";
+                    "FROM tbl_boletos b " +
+                    "INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario " +
+                    "WHERE YEAR(b.FechaCompra) = ? AND b.OrigenUsuario = ? " +
+                    "GROUP BY b.OrigenUsuario";
 
         try (Connection conn = new Conexion().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -104,7 +103,6 @@ public class frmVentaSoloSucursalPartGerente extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al consultar el resumen: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
     
     private void abrirLogin() {
@@ -157,18 +155,18 @@ public class frmVentaSoloSucursalPartGerente extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 500, 180));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 430, 160));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione Año:"));
 
@@ -185,7 +183,7 @@ public class frmVentaSoloSucursalPartGerente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +193,7 @@ public class frmVentaSoloSucursalPartGerente extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 500, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 430, -1));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -312,20 +310,17 @@ public class frmVentaSoloSucursalPartGerente extends javax.swing.JFrame {
         jComboBox1.removeAllItems();
         jComboBox1.addItem("Seleccionar año");
 
-        String sql = "SELECT DISTINCT YEAR(FechaCompra) AS anio FROM tbl_boletos ORDER BY anio DESC";
+        String sql = "SELECT DISTINCT YEAR(FechaVigencia) AS anio FROM tbl_boletos ORDER BY anio DESC";
 
         try (Connection conn = new Conexion().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 jComboBox1.addItem(String.valueOf(rs.getInt("anio")));
             }
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
 }
