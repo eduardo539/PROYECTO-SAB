@@ -40,24 +40,19 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     
     public frmReporteVentaPSucursal() {
         initComponents();
-        setResizable(false);
         conexion = new Conexion();
-        configurarModeloTabla(); // Configura los encabezados correctos
-        configurarComboBoxAnos(); // Configura los años en el ComboBox
-        configurarComboBoxMeses(); // Configura los meses en el ComboBox
-        cargarDatosGerente(null, null); // Carga todos los datos iniciales (sin filtros)
-        
+        configurarModeloTabla();
+        configurarComboBoxAnos(); 
+        configurarComboBoxMeses();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         barraEstado();
-        
-        
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
+        setResizable(false);
+        btnExportarPDF.setEnabled(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        // Añadir el WindowListener para gestionar el evento de cierre
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                // Llamamos a nuestras funciones previas antes de cerrar la ventana
                 cerrarVentanaX();
             }
         });
@@ -109,7 +104,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         });
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -117,9 +111,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jtlAnos = new javax.swing.JComboBox();
         jtlMeses = new javax.swing.JComboBox();
-        btnFiltrar = new javax.swing.JButton();
-        btnMostrarTodo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -130,6 +121,10 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporte = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        btnMostrarTodo = new javax.swing.JButton();
+        btnFiltrar = new javax.swing.JButton();
+        btnExportarPDF = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -153,63 +148,26 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             }
         });
 
-        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
-        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
-        btnFiltrar.setText("Filtrar por Mes y Año");
-        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFiltrarActionPerformed(evt);
-            }
-        });
-
-        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
-        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
-        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
-        btnMostrarTodo.setText("Mostrar Todo");
-        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarTodoActionPerformed(evt);
-            }
-        });
-
-        jButton1.setBackground(new java.awt.Color(76, 175, 80));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pdf.png"))); // NOI18N
-        jButton1.setText("Descargar boletos PDF");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(10, 10, 10)
                 .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jtlAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jtlMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -234,17 +192,17 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblVersionJava, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblVersionOS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblVersionJava, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblVersionOS, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -283,16 +241,66 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones:"));
+
+        btnMostrarTodo.setBackground(new java.awt.Color(76, 175, 80));
+        btnMostrarTodo.setForeground(new java.awt.Color(255, 255, 255));
+        btnMostrarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar.png"))); // NOI18N
+        btnMostrarTodo.setText("Mostrar Todo");
+        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodoActionPerformed(evt);
+            }
+        });
+
+        btnFiltrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-lupa.png"))); // NOI18N
+        btnFiltrar.setText("Filtrar por Mes y Año");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
+        btnExportarPDF.setBackground(new java.awt.Color(76, 175, 80));
+        btnExportarPDF.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/pdf.png"))); // NOI18N
+        btnExportarPDF.setText("Descargar boletos PDF");
+        btnExportarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarPDFActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExportarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnMostrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnExportarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -346,18 +354,28 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -365,18 +383,37 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
-        filtrarPorFecha();
+        Integer anio = obtenerAnioSeleccionado();
+        Integer mes = obtenerMesSeleccionado();
+        if (anio == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un año válido.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        cargarDatosGerente(anio, mes);
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
-        // Llama al método para cargar todos los boletos sin filtros
-        cargarDatosGerente(null, null);
-        limpiarCamposSeleccion();
+        Integer anio = obtenerAnioSeleccionado();
+        Integer mes = obtenerMesSeleccionado();
+        if (anio == null) {
+            JOptionPane.showMessageDialog(this, "Por favor selecciona un año.", "Año requerido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        cargarDatosGerente(anio, mes);
+    }
+    
+    private Integer obtenerAnioSeleccionado() {
+        Object selected = jtlAnos.getSelectedItem();
+        return (selected != null && !selected.toString().equals("Seleccione un año")) ? Integer.parseInt(selected.toString()) : null;
+    }
+
+    private Integer obtenerMesSeleccionado() {
+        int index = jtlMeses.getSelectedIndex();
+        return (index > 0) ? index : null; // Enero = 1
     }
 
     private void limpiarCamposSeleccion() {
-        jtlAnos.setSelectedIndex(0);
-        jtlMeses.setSelectedIndex(0);
+
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -436,9 +473,9 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         Gerente.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnExportarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPDFActionPerformed
         exportarTablaAPDF();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnExportarPDFActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -449,9 +486,9 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExportarPDF;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnMostrarTodo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -461,6 +498,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jtlAnos;
     private javax.swing.JComboBox jtlMeses;
@@ -477,61 +515,39 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Sucursal de venta");
         modelo.addColumn("Sucursal del socio");
-        modelo.addColumn("Folio de boleto");
+        modelo.addColumn("Folio del boleto");
         modelo.addColumn("Origen");
         modelo.addColumn("Grupo");
         modelo.addColumn("Numero de socio");
-        modelo.addColumn("Nombre del socio");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Invitado");
         modelo.addColumn("Telefono");
         modelo.addColumn("Cajero");
         modelo.addColumn("Zona");
-        modelo.addColumn("Precio de boleto");
+        modelo.addColumn("Precio por boleto");
         modelo.addColumn("Mesa");
         modelo.addColumn("Silla");
         modelo.addColumn("Fecha de compra");
         modelo.addColumn("Fecha de vigencia");
+
         tblReporte.setModel(modelo);
-        
-        // Desactivar el ajuste automático de las columnas para permitir el scroll horizontal
         tblReporte.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        
+
         int[] columnWidths = {200, 200, 120, 120, 120, 120, 200, 120, 120, 200, 120, 150, 100, 100, 120, 120};
         for (int i = 0; i < columnWidths.length; i++) {
             tblReporte.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
         }
-        
-        // Ajustar el tamaño de la tabla para que coincida con el JScrollPane
-        tblReporte.setPreferredScrollableViewportSize(new java.awt.Dimension(1200, 400));
-        tblReporte.setFillsViewportHeight(true);
-
-        // Crear el JScrollPane con scroll horizontal y vertical
-        jScrollPane1 = new JScrollPane(tblReporte);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-        // Ajustar correctamente el panel para que no oculte la tabla
-        jPanel3.setLayout(new BorderLayout()); // Asegurar un layout correcto
-        jPanel3.removeAll(); // Limpiar el panel para evitar superposiciones
-        jPanel3.add(jScrollPane1, BorderLayout.CENTER);
-        jPanel3.revalidate(); // Refrescar el diseño
-        jPanel3.repaint();    // Repintar para asegurarse de que se ve correctamente
     }
 
-    void cargarDatosGerente(String ano, String mes) {
+    void cargarDatosGerente(Integer anio, Integer mes) {
         Login login = Login.getInstancia();
-        String sucursalGerente = login.getSucursal();  // Obtienes la sucursal del gerente logueado.
-
-        // Verifica que la sucursal del gerente esté configurada correctamente.
-        System.out.println("Sucursal del gerente: " + sucursalGerente);  // Verifica en los logs que la sucursal se esté obteniendo correctamente.
+        String sucursalGerente = login.getSucursal();
 
         if (sucursalGerente == null || sucursalGerente.isEmpty()) {
-            // Si no se pudo obtener la sucursal, muestra un mensaje de error.
             JOptionPane.showMessageDialog(this, "Error: No se ha podido obtener la sucursal del gerente logueado.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Construcción de la consulta SQL, filtrando por la sucursal del gerente.
         String consultaSQL = "SELECT " +
                 "    b.OrigenUsuario AS Sucursal, " +
                 "    b.OrigenSocio AS SucursalSocio, " +
@@ -560,39 +576,39 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 "LEFT JOIN " +
                 "    tbl_sillas s ON b.idSilla = s.idSilla " +
                 "WHERE " +
-                "    b.OrigenUsuario = ? "; // Aquí usamos la sucursal del gerente
+                "    b.OrigenUsuario = ? ";
 
-        // Si el año y mes no son nulos, agregar filtros de fecha.
-        if (ano != null && mes != null) {
-            consultaSQL += "    AND YEAR(b.FechaCompra) = ? AND MONTH(b.FechaCompra) = ? ";
+        if (anio != null) {
+            consultaSQL += " AND YEAR(b.FechaCompra) = ? ";
+            if (mes != null) {
+                consultaSQL += " AND MONTH(b.FechaCompra) = ? ";
+            }
         }
 
-        // Agrupamos los resultados y ordenamos.
         consultaSQL += "GROUP BY " +
-                "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono," +
+                "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, " +
                 "    u.Nombre, b.Costo " +
                 "ORDER BY " +
                 "    b.Folio";
 
-        // Crear el modelo para la tabla.
         DefaultTableModel modelo = (DefaultTableModel) tblReporte.getModel();
         modelo.setRowCount(0);
 
         try (Connection conn = conexion.getConnection();
              PreparedStatement stmt = conn.prepareStatement(consultaSQL)) {
 
-            stmt.setString(1, sucursalGerente);  // Establecemos la sucursal en el parámetro 1.
-
-            if (ano != null && mes != null) {
-                stmt.setInt(2, Integer.parseInt(ano)); // Año
-                stmt.setInt(3, Integer.parseInt(mes)); // Mes
+            stmt.setString(1, sucursalGerente);
+            int index = 2;
+            if (anio != null) {
+                stmt.setInt(index++, anio);
+                if (mes != null) {
+                    stmt.setInt(index++, mes);
+                }
             }
 
             ResultSet rs = stmt.executeQuery();
-
             DecimalFormat df = new DecimalFormat("0.00");
-                        
-            // Agregar los resultados al modelo de la tabla.
+
             while (rs.next()) {
                 Object[] fila = new Object[]{
                         rs.getString("Sucursal"),
@@ -606,7 +622,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                         rs.getString("Telefono"),
                         rs.getString("Cajero"),
                         rs.getString("Zona"),
-                        df.format(rs.getDouble("Precio_Boleto")), // para agregar los dos 00
+                        "$ " + df.format(rs.getDouble("Precio_Boleto")),
                         rs.getString("Mesa"),
                         rs.getString("Silla"),
                         rs.getString("FechaCompra"),
@@ -614,31 +630,28 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
                 };
                 modelo.addRow(fila);
             }
-
+            tblReporte.setModel(modelo);
+            btnExportarPDF.setEnabled(modelo.getRowCount() > 0);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
     
-    private void filtrarPorFecha() {
-        String ano = (String) jtlAnos.getSelectedItem();
-        String mes = jtlMeses.getSelectedIndex() > 0 ? String.valueOf(jtlMeses.getSelectedIndex()) : null;
-
-        if (ano == null || mes == null || jtlAnos.getSelectedIndex() == 0 || jtlMeses.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un año y un mes.", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        cargarDatosGerente(ano, mes);
-    }
-
     private void configurarComboBoxAnos() {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Seleccione un año");
-        for (int i = 2025; i <= 2050; i++) {
-            modelo.addElement(String.valueOf(i));
+        String sql = "SELECT DISTINCT YEAR(FechaCompra) AS anio FROM tbl_boletos ORDER BY anio";
+        try (Connection conn = conexion.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                modelo.addElement(String.valueOf(rs.getInt("anio")));
+            }
+            jtlAnos.setModel(modelo);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar años: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        jtlAnos.setModel(modelo);
     }
 
     private void configurarComboBoxMeses() {
