@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -630,6 +632,292 @@ public class ConsultasData {
 
     }
     
+    
+    public GenerarNewBoleto obtenerDataBoletos(){
+        
+        GenerarNewBoleto genBol = GenerarNewBoleto.getInstancia();
+        
+        String consulta = "SELECT b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
+                            "b.OrigenSocio, b.Invitado, b.Telefono, " +
+                            "z.Zona, m.DescMesa, s.vchDescripcion, b.FechaVigencia " +
+                            "FROM tbl_boletos b " +
+                            "JOIN tbl_zonas z ON b.idZona = z.idZona " +
+                            "JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
+                            "JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
+                            "WHERE b.idEstado = 3 " +
+                            "ORDER BY b.Folio DESC;";
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consulta); // Preparar consulta
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            // Limpiar lista antes de agregar nuevas (si es necesario)
+            genBol.getListaDataPDF().clear();
+            
+            
+            // Iterar sobre el resultado de la consulta
+            while (rs.next()) {
+                
+                int folio = rs.getInt("Folio");
+                int origen = rs.getInt("Origen");
+                int grupo = rs.getInt("Grupo");
+                int socio = rs.getInt("NumSocio");
+                String nombre = rs.getString("Nombre");
+                String origSocio = rs.getString("OrigenSocio");
+                String invitado = rs.getString("Invitado");
+                String telefono = rs.getString("Telefono");
+                String zona = rs.getString("Zona");
+                String mesa = rs.getString("DescMesa");
+                String silla = rs.getString("vchDescripcion");
+                String vigencia = rs.getString("FechaVigencia");
+                
+                genBol.agregarDataPDF(folio, origen, grupo, socio, nombre, origSocio, invitado, telefono, zona, mesa, silla, vigencia);
+                
+            }
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos MySQL, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos MySQL", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+        return genBol;
+        
+    }
+    
+    
+    public GenerarNewBoleto obtenerDataBoletosXFiltro(int orig, int grup, int sociio, int mes, int anio){
+        
+        GenerarNewBoleto genBol = GenerarNewBoleto.getInstancia();
+        
+        String consulta = "SELECT b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.OrigenSocio, b.Invitado, b.Telefono, " +
+                            "z.Zona, m.DescMesa, s.vchDescripcion, b.FechaVigencia " +
+                            "FROM tbl_boletos b " +
+                            "JOIN tbl_zonas z ON b.idZona = z.idZona " +
+                            "JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
+                            "JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
+                            "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? " +
+                            "AND MONTH(FechaVigencia) = ? AND YEAR(FechaVigencia) = ? " +
+                            "AND b.idEstado = 3" +
+                            "ORDER BY b.Folio DESC;";
+        
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consulta); // Preparar consulta
+            ps.setInt(1, orig);
+            ps.setInt(2, grup);
+            ps.setInt(3, sociio);
+            ps.setInt(4, mes);
+            ps.setInt(5, anio);
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            // Limpiar lista antes de agregar nuevas (si es necesario)
+            genBol.getListaDataPDF().clear();
+            
+            
+            // Verificar si hay resultados
+            if (!rs.next()) {
+                // Si no hay datos, mostrar un mensaje y retornar
+                JOptionPane.showMessageDialog(null, 
+                        "No se encontraron boletos registrados con los filtros seleccionados.", 
+                        "Sin Datos", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                return genBol; // Salir del método si no hay datos
+            }
+
+            // Si hay datos, iterar sobre el resultado de la consulta
+            do {
+                int folio = rs.getInt("Folio");
+                int origen = rs.getInt("Origen");
+                int grupo = rs.getInt("Grupo");
+                int socio = rs.getInt("NumSocio");
+                String nombre = rs.getString("Nombre");
+                String origSocio = rs.getString("OrigenSocio");
+                String invitado = rs.getString("Invitado");
+                String telefono = rs.getString("Telefono");
+                String zona = rs.getString("Zona");
+                String mesa = rs.getString("DescMesa");
+                String silla = rs.getString("vchDescripcion");
+                String vigencia = rs.getString("FechaVigencia");
+
+                genBol.agregarDataPDF(folio, origen, grupo, socio, nombre, origSocio, invitado, telefono, zona, mesa, silla, vigencia);
+
+            } while (rs.next());
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos MySQL, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos MySQL", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+        return genBol;
+    }
+            
+    
+    public int[] obtenerAnios(){
+        
+        String consulta = "SELECT DISTINCT YEAR(FechaVigencia) AS Vigencia " +
+                            "FROM tbl_boletos " +
+                            "ORDER BY Vigencia DESC;";
+        
+        // Lista para almacenar los años antes de convertirlos en arreglo
+        List<Integer> aniosList = new ArrayList<>();
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consulta); // Preparar consulta
+            rs = ps.executeQuery(); // Ejecutar consulta
+            
+            
+            // Iterar sobre el resultado de la consulta
+            while (rs.next()) {
+                
+                int anio = rs.getInt("Vigencia");
+                aniosList.add(anio);
+            }
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos MySQL Años, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos MySQL", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        // Convertir la lista en un arreglo de enteros
+        int[] aniosArray = new int[aniosList.size()];
+        for (int i = 0; i < aniosList.size(); i++) {
+            aniosArray[i] = aniosList.get(i);
+        }
+
+        return aniosArray;  // Devolver el arreglo de años
+
+    }
+    
+    
+    public DatosGenerarBoletosPDF consultaBoletosXFolios(int[] folios){
+        
+        DatosGenerarBoletosPDF genBolPDF = DatosGenerarBoletosPDF.getInstancia();
+        
+        
+        // Generar la parte de la consulta que usa IN con los Folios
+        StringBuilder placeholders = new StringBuilder();
+            for (int i = 0; i < folios.length; i++) {
+                placeholders.append("?");
+                if (i < folios.length - 1) {
+                    placeholders.append(", ");
+                }
+            }
+        
+        
+        String consult = "SELECT b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.OrigenSocio, b.Invitado, b.Telefono, " +
+                            "z.Zona, m.DescMesa, s.vchDescripcion, b.FechaVigencia " +
+                            "FROM tbl_boletos b " +
+                            "JOIN tbl_zonas z ON b.idZona = z.idZona " +
+                            "JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
+                            "JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
+                            "WHERE b.Folio IN (" + placeholders.toString() + ");";
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consult); // Preparar consulta
+            
+            // Asignar los valores de folios al PreparedStatement
+            for (int i = 0; i < folios.length; i++) {
+                ps.setInt(i + 1, folios[i]);
+            }
+
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            // Limpiar lista antes de agregar nuevas (si es necesario)
+            genBolPDF.getListaDataPDF().clear();
+            
+
+            // Si hay datos, iterar sobre el resultado de la consulta
+            while(rs.next()){
+                int folio = rs.getInt("Folio");
+                int origen = rs.getInt("Origen");
+                int grupo = rs.getInt("Grupo");
+                int socio = rs.getInt("NumSocio");
+                String nombre = rs.getString("Nombre");
+                String origSocio = rs.getString("OrigenSocio");
+                String invitado = rs.getString("Invitado");
+                String telefono = rs.getString("Telefono");
+                String zona = rs.getString("Zona");
+                String mesa = rs.getString("DescMesa");
+                String silla = rs.getString("vchDescripcion");
+                String vigencia = rs.getString("FechaVigencia");
+
+                genBolPDF.agregarDataPDF(folio, origen, grupo, socio, nombre, origSocio, invitado, telefono, zona, mesa, silla, vigencia);
+
+            }
+            
+            // Mostrar el mensaje de éxito
+            JOptionPane.showMessageDialog(null, "La copia del Boleto se ha generado de forma correcta", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al obtener los datos MySQL, Hubo un error con los datos para el boleto, Contactar a Soporte.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos MySQL", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+        return genBolPDF;
+        
+    }
     
     
     
