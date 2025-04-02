@@ -25,17 +25,30 @@ public class frmEnvioPDF extends javax.swing.JFrame {
     
     // Crear el JDialog
     JDialog dialog = new JDialog();
+    
+    private JFrame ventanaAnterior;
         
-    public frmEnvioPDF() {
+    public frmEnvioPDF(JFrame ventanaAnterior) {
+        this.ventanaAnterior = ventanaAnterior;
+        
         initComponents();
         borrarDts();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
-        
-        //Evitar maximizar la ventana
-        setResizable(false);
-        
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
+        // Evitar maximizar la ventana
+        setResizable(false);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        // Detectar cierre (incluye clic en la "X")
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                if (ventanaAnterior != null) {
+                    ventanaAnterior.setVisible(true); // ← Reabrir la ventana anterior
+                }
+            }
+        });
     }
     
     
