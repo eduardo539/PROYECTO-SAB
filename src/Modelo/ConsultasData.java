@@ -713,7 +713,7 @@ public class ConsultasData {
                             "JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
                             "WHERE b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? " +
                             "AND MONTH(FechaVigencia) = ? AND YEAR(FechaVigencia) = ? " +
-                            "AND b.idEstado = 3" +
+                            "AND b.idEstado = 3 " +
                             "ORDER BY b.Folio DESC;";
         
         
