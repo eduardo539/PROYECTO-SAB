@@ -320,7 +320,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
 
         jMenuItem11.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-enviar.png"))); // NOI18N
-        jMenuItem11.setText("Envio Reporte por Correo");
+        jMenuItem11.setText("Envío de Reporte por Correo");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem11ActionPerformed(evt);
@@ -538,10 +538,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiEstadoSillasActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        frmEnvioPDF envio = new frmEnvioPDF(this); // ← Pasamos la ventana actual como referencia
-        envio.setLocationRelativeTo(null);
-        envio.setVisible(true);
-        this.setVisible(false); // Ocultamos la actual temporalmente
+        frmEnvioPDF estado = new frmEnvioPDF();
+        estado.setLocationRelativeTo(null);
+        estado.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     public static void main(String args[]) {
@@ -584,6 +583,4 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    
-    
 }

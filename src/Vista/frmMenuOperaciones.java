@@ -195,6 +195,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jmiBoletosVendidos = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -203,36 +204,36 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Operaciones");
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setText("BIENVENIDO AL SAB");
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagen1.png"))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("SISTEMA DE ADMINISTRACIÓN DE BOLETOS");
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("OPERACIONES");
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("DATOS DEL USUARIO");
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("USUARIO:");
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("NOMBRE:");
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jlUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jlUsuario.setText(".");
+        jlUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jlNombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jlNombre.setText(".");
+        jlNombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/perfil_usuarioss.png"))); // NOI18N
 
-        lblFechaHora.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lblFechaHora.setText("Fecha y Hora");
+        lblFechaHora.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
         jMenu1.setText("Menu");
@@ -269,9 +270,9 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem6);
 
-        jmiBoletosVendidos.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiBoletosVendidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ticket_iconos.png"))); // NOI18N
         jmiBoletosVendidos.setText("Boletos Vendidos");
+        jmiBoletosVendidos.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiBoletosVendidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiBoletosVendidosActionPerformed(evt);
@@ -279,9 +280,19 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         });
         jMenu1.add(jmiBoletosVendidos);
 
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem7.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-enviar.png"))); // NOI18N
+        jMenuItem7.setText("Envío de Reporte por Correo");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
         jMenuItem3.setText("Cerrar Sesión");
+        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -432,13 +443,17 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jmiBoletosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBoletosVendidosActionPerformed
-        
         frmGenerarBoleto genBoleto = new frmGenerarBoleto();
         genBoleto.setLocationRelativeTo(null);
         genBoleto.setVisible(true);
         this.dispose();
-        
     }//GEN-LAST:event_jmiBoletosVendidosActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        frmEnvioPDF estado = new frmEnvioPDF();
+        estado.setLocationRelativeTo(null);
+        estado.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     public static void main(String args[]) {
 
@@ -467,6 +482,7 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
     private javax.swing.JMenuItem jmiBoletosVendidos;
