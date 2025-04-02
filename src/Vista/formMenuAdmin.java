@@ -865,7 +865,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaDatosMouseClicked
-txtid_usuario.setEnabled(false);
+        txtid_usuario.setEnabled(false);
         btnRegistrar.setEnabled(false);
         btnActualizar.setEnabled(true);
         btnRestaurarContra.setEnabled(true);
@@ -896,9 +896,7 @@ txtid_usuario.setEnabled(false);
                     this.ComboPerfil.setSelectedIndex(0); // Por defecto, si no coincide con ninguno
                     break;
             }
-            
             String estado = this.jTablaDatos.getValueAt(fila, 3).toString();
-            
             
             switch (estado) {
                 case "activo":
@@ -914,17 +912,11 @@ txtid_usuario.setEnabled(false);
                     this.ComboPerfil.setSelectedIndex(0); // Por defecto, si no coincide con ninguno
                     break;
             }
-            
-            
         } else {
             JOptionPane.showMessageDialog(this, "No se seleccionó una fila válida", "¡Advertencia!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTablaDatosMouseClicked
 
-    /**
-     * Método para abrir la ventana de inicio de sesión.
-     */
-    
     private void abrirLogin() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -934,7 +926,6 @@ txtid_usuario.setEnabled(false);
             }
         });
     }
-    
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1019,15 +1010,12 @@ txtid_usuario.setEnabled(false);
                         data[2] = "Otro";
                         break;
                 }
-
                 data[3] = rs.getString("estado");
                 modelo.addRow(data);
             }
-
         } catch (SQLException e) {
             System.out.println("Error al mostrar los datos: " + e);
         }
-
     }
 
     private void limpiarEntradas() {
@@ -1092,7 +1080,6 @@ txtid_usuario.setEnabled(false);
                 }
                 hashHex.append(hex);
             }
-            
             // Devolver el hash en formato hexadecimal
             return hashHex.toString();
         } catch (Exception e) {
@@ -1141,10 +1128,7 @@ txtid_usuario.setEnabled(false);
             Connection cn2 = con2.getConnection();
 
             // Preparar la consulta SQL
-            String query = "SELECT o.nombre AS sucursal " +
-                           "FROM usuarios u " +
-                           "LEFT JOIN origenes o ON o.idorigen = u.idorigen " +
-                           "WHERE u.idusuario = ?";
+            String query = "SELECT o.nombre AS sucursal FROM usuarios u LEFT JOIN origenes o ON o.idorigen = u.idorigen WHERE u.idusuario = ?";
 
             // Preparar el PreparedStatement
             PreparedStatement ps = cn2.prepareStatement(query);
@@ -1154,11 +1138,8 @@ txtid_usuario.setEnabled(false);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) { 
-              
                 String SucursalUsuarioNuevo = rs.getString("sucursal");
-
                 return SucursalUsuarioNuevo;
-                
             } else {
                 return null;
             }
@@ -1177,10 +1158,7 @@ txtid_usuario.setEnabled(false);
             Connection cn2 = con2.getConnection();
 
             // Preparar la consulta SQL
-            String query = "SELECT o.nombre AS sucursal " +
-                           "FROM usuarios u " +
-                           "LEFT JOIN origenes o ON o.idorigen = u.idorigen " +
-                           "WHERE u.idusuario = ?";
+            String query = "SELECT o.nombre AS sucursal FROM usuarios u LEFT JOIN origenes o ON o.idorigen = u.idorigen WHERE u.idusuario = ?";
 
             // Preparar el PreparedStatement
             PreparedStatement ps = cn2.prepareStatement(query);
@@ -1190,11 +1168,8 @@ txtid_usuario.setEnabled(false);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) { 
-              
                 String SucursalUsuarioNuevo = rs.getString("sucursal");
-
                 return SucursalUsuarioNuevo;
-                
             } else {
                 return null;
             }
@@ -1213,10 +1188,7 @@ txtid_usuario.setEnabled(false);
             Connection cn2 = con2.getConnection();
 
             // Preparar la consulta SQL
-            String query = "SELECT o.nombre AS sucursal " +
-                           "FROM usuarios u " +
-                           "LEFT JOIN origenes o ON o.idorigen = u.idorigen " +
-                           "WHERE u.idusuario = ?";
+            String query = "SELECT o.nombre AS sucursal FROM usuarios u LEFT JOIN origenes o ON o.idorigen = u.idorigen WHERE u.idusuario = ?";
 
             // Preparar el PreparedStatement
             PreparedStatement ps = cn2.prepareStatement(query);
@@ -1226,11 +1198,8 @@ txtid_usuario.setEnabled(false);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) { 
-              
                 String SucursalUsuarioNuevo = rs.getString("sucursal");
-
                 return SucursalUsuarioNuevo;
-                
             } else {
                 return null;
             }
@@ -1253,13 +1222,12 @@ txtid_usuario.setEnabled(false);
     private void configurarTabla() {
         // Definir un array con los anchos deseados para cada columna
         int[] anchos = {100, 350, 200, 200}; 
-
         
         // Configurar los anchos de las columnas con un for
         for (int i = 0; i < jTablaDatos.getColumnCount(); i++) {
             jTablaDatos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
-
+        
         // Habilitar scroll horizontal
         jTablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 

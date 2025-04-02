@@ -196,6 +196,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jmiSesiones = new javax.swing.JMenuItem();
         jmiLimiteVentaBoleto = new javax.swing.JMenuItem();
         jmiEstadoSillas = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -316,6 +317,16 @@ public class frmMenuSistemas extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmiEstadoSillas);
+
+        jMenuItem11.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-enviar.png"))); // NOI18N
+        jMenuItem11.setText("Envío de Reporte por Correo");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem11);
 
         jMenuItem10.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Bitacoras.png"))); // NOI18N
@@ -526,6 +537,12 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jmiEstadoSillasActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        frmEnvioPDF estado = new frmEnvioPDF();
+        estado.setLocationRelativeTo(null);
+        estado.setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -548,6 +565,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -565,6 +583,4 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    
-    
 }
