@@ -252,7 +252,7 @@ public class ActualizarData {
         }
 
         String actualizarMesa = "UPDATE tbl_mesas SET estatus = 'Disponible' WHERE idMesa IN (" + mesasPlaceholders.toString() + ") AND Estatus = 'Ocupado';";
-        String actualizarSillas = "UPDATE tbl_sillas SET idEstado = 1 WHERE idSilla IN (" + sillasPlaceholders.toString() + ");";
+        String actualizarSillas = "UPDATE tbl_sillas SET idEstado = 1 WHERE idSilla IN (" + sillasPlaceholders.toString() + ") AND (idEstado = 2 OR idEstado = 3);";
 
         // Declarar objetos de conexión, PreparedStatement y ResultSet
         Connection con = null;

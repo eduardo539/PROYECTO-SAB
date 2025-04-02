@@ -167,13 +167,57 @@ public class SillasData {
         } catch (SQLException e) {
             // Mostrar error en un cuadro de diálogo
             JOptionPane.showMessageDialog(null, 
-                    "Error al ejecutar la consulta: \nDetalles: " + e.getMessage(), 
+                    "Error al ejecutar la consulta de vigencias: \nDetalles: " + e.getMessage(), 
                     "Error de Base de Datos", 
                     JOptionPane.ERROR_MESSAGE);
         }
         
         
         return sv;
+        
+    }
+    
+    
+    public SillasEstatusVigenciaComprobar vigenciaSillasxBoletoComprobar(){
+        
+        SillasEstatusVigenciaComprobar svc = SillasEstatusVigenciaComprobar.getInstancia();
+        
+        String datoSilla = "SELECT idMesa, idSilla, FechaCompra, FechaVigencia " +
+                            "FROM tbl_boletos " +
+                            "WHERE FechaVigencia >= CURDATE();";
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(datoSilla); // Preparar consulta
+            rs= ps.executeQuery();
+
+            // Limpiar lista antes de agregar nuevas (si es necesario)
+            svc.getListaVigenciaBol().clear();
+
+            // Iterar sobre el resultado de la consulta
+            while (rs.next()) {
+                // Crear objeto con los datos obtenidos
+                int idMesa = rs.getInt("idMesa");
+                int idSilla = rs.getInt("idSilla");
+                String vigencia = rs.getString("FechaVigencia");
+
+                // Agregar datos a la lista en la instancia de SillasEsatusVigencia
+                svc.agregarSilla(idMesa, idSilla, vigencia);
+            }
+            
+            cn.closeConnection();
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al ejecutar la consulta de vigencias2: \nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        return svc;
         
     }
     
