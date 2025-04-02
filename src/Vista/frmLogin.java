@@ -10,6 +10,7 @@ import Modelo.LoginData;
 import Modelo.Sillas;
 import Modelo.SillasData;
 import Modelo.SillasEstatusVigencia;
+import Modelo.SillasEstatusVigenciaComprobar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -88,29 +90,65 @@ public class frmLogin extends javax.swing.JFrame {
         
         ActualizarData acD = new ActualizarData();
         
+        //Instancia para obtener las vigencias pasadas
         SillasEstatusVigencia sv = SillasEstatusVigencia.getInstancia();
         sid.vigenciaSillasxBoleto();
+        
+        //Instancia para obtener las proximas vigencias
+        SillasEstatusVigenciaComprobar svc = SillasEstatusVigenciaComprobar.getInstancia();
+        sid.vigenciaSillasxBoletoComprobar();
+        
 
         // Obtener la lista de vigencia de boletos
         List<SillasEstatusVigencia.VigenciaBoleto> listaVigencia = sv.getListaVigenciaBol();
+        List<SillasEstatusVigenciaComprobar.VigenciaComprobar> listaVigenciaComprobar = svc.getListaVigenciaBol();
+        
 
         // Usar un Set para almacenar idMesa sin duplicados
         Set<Integer> idMesaSet = new HashSet<>();
         List<Integer> idSillaList = new ArrayList<>();
+        
+        // Usar un set para almacenar la segunda lista de IDs sin duplicados
+        Set<Integer> idMesaCompSet = new HashSet<>();
+        List<Integer> idSillaCompList = new ArrayList<>();
 
         for (SillasEstatusVigencia.VigenciaBoleto vb : listaVigencia) {
             idMesaSet.add(vb.getIdMesa()); // Agrega idMesa al Set (evita duplicados)
             idSillaList.add(vb.getIdSilla()); // Agrega todos los idSilla
+        }
+        
+        for (SillasEstatusVigenciaComprobar.VigenciaComprobar vbc : listaVigenciaComprobar) {
+            idMesaCompSet.add(vbc.getIdMesa()); // Agrega idMesa al Set (evita duplicados)
+            idSillaCompList.add(vbc.getIdSilla()); // Agrega todos los idSilla
         }
 
         // Convertir el Set y la Lista a arreglos primitivos
         int[] idMesas = idMesaSet.stream().mapToInt(Integer::intValue).toArray();
         int[] idSillas = idSillaList.stream().mapToInt(Integer::intValue).toArray();
 
+        int[] idSillasComprobar =  idSillaCompList.stream().mapToInt(Integer::intValue).toArray();
         
-        acD.actualizarMesaSillaxVigenciaBoleto(idMesas, idSillas);
+        
+        // Usamos streams para filtrar los elementos
+        int[] newIdSillas = Arrays.stream(idSillas)
+            .filter(id -> !contains(idSillasComprobar, id)) // Solo incluye los que no están en idSillasComprobar
+            .toArray();
+        
+        
+        acD.actualizarMesaSillaxVigenciaBoleto(idMesas, newIdSillas);
         sv.borrarDatos();
         
+    }
+    
+    
+    // Método para verificar si un elemento está en el arreglo idSillasComprobar
+    public static boolean contains(int[] array, int value) {
+        for (int num : array) {
+            if (num == value) {
+                return true;
+            }
+        }
+        return false;
     }
    
     

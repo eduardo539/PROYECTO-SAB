@@ -446,7 +446,7 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         consultaSQL.append("SUM(b.Costo) AS Monto_Total ");
         consultaSQL.append("FROM tbl_boletos b ");
         consultaSQL.append("INNER JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario ");
-        consultaSQL.append("WHERE YEAR(b.FechaVigencia) = ? ");
+        consultaSQL.append("WHERE YEAR(b.FechaCompra) = ? ");
 
         if (sucursalSeleccionada != null && !sucursalSeleccionada.equals("Seleccione una sucursal")) {
             consultaSQL.append("AND b.OrigenUsuario = ? ");

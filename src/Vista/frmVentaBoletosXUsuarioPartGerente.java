@@ -570,7 +570,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                     "LEFT JOIN " +
                     "    tbl_sillas s ON b.idSilla = s.idSilla " +
                     "WHERE " +
-                    "    b.OrigenUsuario = ? AND YEAR(b.FechaVigencia) = ? " + // Filtrar por la sucursal del gerente y ek año seleccionado
+                    "    b.OrigenUsuario = ? AND YEAR(b.FechaCompra) = ? " + // Filtrar por la sucursal del gerente y ek año seleccionado
                     "GROUP BY " +
                     "    b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
                     "    u.Nombre, b.Costo " +
@@ -651,7 +651,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
                     "LEFT JOIN tbl_zonas z ON b.idZona = z.idZona " +
                     "LEFT JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
                     "LEFT JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-                    "WHERE b.OrigenUsuario = ? AND b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? AND YEAR(b.FechaVigencia) = ? " +
+                    "WHERE b.OrigenUsuario = ? AND b.Origen = ? AND b.Grupo = ? AND b.NumSocio = ? AND YEAR(b.FechaCompra) = ? " +
                     "GROUP BY b.OrigenUsuario, b.OrigenSocio, b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, b.Invitado, b.Telefono, u.Nombre, b.Costo " +
                     "ORDER BY b.Folio";
         
@@ -695,7 +695,6 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
             if (!hayResultados) {
                 JOptionPane.showMessageDialog(this, "No se encontraron boletos para ese socio en el año seleccionado.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
             }
-            
             btnExportarPDF.setEnabled(tblReporteXSucursal.getRowCount() > 0);
             
         } catch (SQLException e) {
@@ -816,7 +815,6 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
             while (rs.next()) {
                 modelo.addElement(String.valueOf(rs.getInt("anio")));
             }
-
             jComboBox1.setModel(modelo);
 
         } catch (SQLException e) {
