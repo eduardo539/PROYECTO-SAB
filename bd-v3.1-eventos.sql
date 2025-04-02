@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.11 (64 bit)
 MySQL - 5.5.5-10.4.32-MariaDB : Database - eventos
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -304,7 +305,7 @@ DELIMITER $$
     IN p_perfil_usuario_sistema INT
 )
 BEGIN
-    -- 1. Declarar una variable en donde se guardará el nombre y el perfil del usuario.
+    -- 1. Declarar una variable en donde se guardará el :wqnombre y el perfil del usuario.
     DECLARE p_id_perfil_usuario INT;
     DECLARE p_nombre_usuario VARCHAR(255);
     
