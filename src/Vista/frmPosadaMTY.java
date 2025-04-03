@@ -292,7 +292,6 @@ public class frmPosadaMTY extends javax.swing.JFrame {
                         List<Silla> listaSillas = s.getListaSillas(); // Obtener la lista de sillas
                         int sillasDisponibles = 0;
                         
-                        System.out.println(listaSillas);
                         
                         // Contar cuántas sillas están disponibles
                         for (Silla silla : listaSillas) {  
