@@ -24,7 +24,7 @@ public class ConsultasData {
     Conexion cn = new Conexion();
     
     Conexion2 cn2 = new Conexion2();
-    
+
     
     public ConsultaBoleto boletosSeleccionados(int[] folios) {
         
