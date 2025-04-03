@@ -138,96 +138,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     public void datosTabla(){
         apart = apartD.cajeroBoleto();
         
-        // Obtener el modelo de la tabla
-        DefaultTableModel modelo = new DefaultTableModel();
-
-        // Limpiar solo las filas sin tocar las columnas
-        modelo.setRowCount(0);
-
-        modelo.addColumn("Folio");
-        modelo.addColumn("Origen");
-        modelo.addColumn("Grupo");
-        modelo.addColumn("Socio");
-        modelo.addColumn("Nombre Completo");
-        modelo.addColumn("Zona");
-        modelo.addColumn("Mesa");
-        modelo.addColumn("Silla");
-        modelo.addColumn("Costo c/u");
-        modelo.addColumn("Importe");
-        modelo.addColumn("Vigencia Boleto");
-        
-        // Obtener los datos en forma de lista o colección
-        List<Boleto> listaDatos = apart.getListaBoletos(); // Ajusta según cómo obtienes los datos
-
-        // Arreglo para almacenar temporalmente los datos de cada fila
-        String data[] = new String[11];
-
-        // Filtrar los datos según el socio ingresado y agregarlos a la tabla
-        for (Boleto dato : listaDatos) {
-            data[0] = String.valueOf(dato.getFolio());
-            data[1] = String.valueOf(dato.getOrigen());
-            data[2] = String.valueOf(dato.getGrupo());
-            data[3] = String.valueOf(dato.getNumSocio());
-            data[4] = dato.getNombre();
-            data[5] = dato.getZona();
-            data[6] = dato.getMesa();
-            data[7] = dato.getSilla();
-            data[8] = String.valueOf(dato.getCosto());
-            data[9] = String.valueOf(dato.getImporte());
-            data[10] = String.valueOf(dato.getVigencia());
-
-            // Agregar la fila al modelo de la tabla
-            modelo.addRow(data);
-        }
-
-        // Asignar el modelo actualizado a la tabla
-        tblBoletos.setModel(modelo);
-        
-        // Permitir la selección múltiple de filas
-        tblBoletos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
-        
-        // Asignar el tamaño específico a cada columna
-        tblBoletos.getColumnModel().getColumn(0).setPreferredWidth(70); // "Folio"
-        tblBoletos.getColumnModel().getColumn(1).setPreferredWidth(70); // "Origen"
-        tblBoletos.getColumnModel().getColumn(2).setPreferredWidth(70); // "Grupo"
-        tblBoletos.getColumnModel().getColumn(3).setPreferredWidth(70); // "Núm. Socio"
-        tblBoletos.getColumnModel().getColumn(4).setPreferredWidth(250); // "Nombre Completo"
-        tblBoletos.getColumnModel().getColumn(5).setPreferredWidth(70);  // "Zona"
-        tblBoletos.getColumnModel().getColumn(6).setPreferredWidth(70);  // "Mesa"
-        tblBoletos.getColumnModel().getColumn(7).setPreferredWidth(70);  // "Silla"
-        tblBoletos.getColumnModel().getColumn(8).setPreferredWidth(90);  // "Costo c/u"
-        tblBoletos.getColumnModel().getColumn(9).setPreferredWidth(90);  // "Importe"
-        tblBoletos.getColumnModel().getColumn(10).setPreferredWidth(100); // "Vigencia Boleto"
-
-        
-        // Centrar todos los datos en la tabla
-        DefaultTableCellRenderer centro = new DefaultTableCellRenderer();
-        centro.setHorizontalAlignment(SwingConstants.CENTER);
-
-        // Centrar el contenido de cada celda
-        for (int i = 0; i < tblBoletos.getColumnCount(); i++) {
-            tblBoletos.getColumnModel().getColumn(i).setCellRenderer(centro);
-        }
-        
-        
-        // Agregar un MouseListener al contenedor donde se encuentra la tabla y las cajas de texto
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // Verificar si el clic fue fuera de la tabla (en cualquier lugar que no sea la tabla)
-                if (!tblBoletos.getBounds().contains(e.getPoint())) {
-                    // Limpiar las cajas de texto si el clic fue fuera de la tabla
-                    txtSillas.setText("");
-                    txtTotal.setText("");
-                    txtTotalImporte.setText("");
-                    txtAdeudo.setText("");
-                    
-                    // Deseleccionar cualquier fila seleccionada en la tabla
-                    tblBoletos.clearSelection();
-                }
-            }
-        });
+        tablaDatosMostrar();
     
     }
     
@@ -235,6 +146,14 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         
         apart = apartD.datosxSocioBoleto(ori, grupo, socio);
 
+        tablaDatosMostrar();
+        
+    }
+    
+    
+    
+    public void tablaDatosMostrar(){
+        
         // Obtener el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
 
