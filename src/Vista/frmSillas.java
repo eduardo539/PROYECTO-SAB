@@ -13,6 +13,8 @@ import Modelo.SillasData;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -69,6 +71,7 @@ public class frmSillas extends javax.swing.JFrame {
         datos();
         actualizaTimeRealSillas();
         
+
     }
     
     
@@ -319,6 +322,70 @@ public class frmSillas extends javax.swing.JFrame {
         return false;
     }
     
+    
+    public void botonContinuar(){
+        
+        List<tempDataSillas> listaDeSillas = numSillas.getListaDatSilla();
+        
+        // Crear un ArrayList para almacenar los IDs de las sillas
+        List<Integer> listaDeIds = new ArrayList<>();
+
+        // Recorrer la lista de sillas y obtener los IDs
+        for (tempDataSillas silla : listaDeSillas) {
+            listaDeIds.add(silla.getIdSilla());  // Guardamos el ID de cada silla en la lista
+        }
+        
+        // Convertir la lista de IDs a un arreglo de enteros (int[])
+        idSillasArray = listaDeIds.stream().mapToInt(Integer::intValue).toArray();
+        
+        // Verificar si el arreglo idSillasArray está vacío
+        if (idSillasArray == null || idSillasArray.length == 0) {
+            // Mostrar la alerta si no hay elementos en el arreglo
+            JOptionPane.showMessageDialog(null, "Aun no has seleccionado ninguna silla disponible.", 
+                                          "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        boolean rest = cons.obtenerReservandoSilla(idSillasArray);
+        
+        if(rest == true){
+            JOptionPane.showMessageDialog(null, "Algunas de las sillas seleccionadas ya estan siendo reservadas.\nPorfavor seleccione otras sillas que esten disponibles",
+                    "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
+            
+            cancelar();
+            
+            return;
+            
+        }
+        
+        int sillasSeleccionadas = numSillas.getListaDatSilla().size();
+        int sillasRequeridas = numSillas.getCantidadSillas();
+
+        if (sillasSeleccionadas == sillasRequeridas) {
+            
+            //El número 4 representa el estado "Reservando" para la silla
+            actualiza.actualizarEstadoSilla(4, idSillasArray);
+            
+            numSillas.setCostoSilla(sumaCosto);
+            frmBoleto boleto = new frmBoleto();
+            
+            boleto.setLocationRelativeTo(null);
+            boleto.setVisible(true);
+            
+            this.dispose();
+        } else {
+            int faltantes = sillasRequeridas - sillasSeleccionadas;
+            JOptionPane.showMessageDialog(
+                null,
+                "Debes seleccionar " + sillasRequeridas + " sillas.\n" +
+                "Actualmente has seleccionado " + sillasSeleccionadas + ".\n" +
+                "Faltan " + faltantes + " sillas.",
+                "Selección incompleta",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
+        
+    }
     
     
     @SuppressWarnings("unchecked")
@@ -681,57 +748,7 @@ public class frmSillas extends javax.swing.JFrame {
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
 
-        List<tempDataSillas> listaDeSillas = numSillas.getListaDatSilla();
-        
-        // Crear un ArrayList para almacenar los IDs de las sillas
-        List<Integer> listaDeIds = new ArrayList<>();
-
-        // Recorrer la lista de sillas y obtener los IDs
-        for (tempDataSillas silla : listaDeSillas) {
-            listaDeIds.add(silla.getIdSilla());  // Guardamos el ID de cada silla en la lista
-        }
-        
-        // Convertir la lista de IDs a un arreglo de enteros (int[])
-        idSillasArray = listaDeIds.stream().mapToInt(Integer::intValue).toArray();
-        
-        boolean rest = cons.obtenerReservandoSilla(idSillasArray);
-        
-        if(rest == true){
-            JOptionPane.showMessageDialog(null, "Algunas de las sillas seleccionadas ya esta siendo reservada.\nPor favor seleccione otras sillas que esten disponibles",
-                    "Estado de la Silla", JOptionPane.WARNING_MESSAGE);
-            
-            cancelar();
-            
-            return;
-            
-        }
-        
-        int sillasSeleccionadas = numSillas.getListaDatSilla().size();
-        int sillasRequeridas = numSillas.getCantidadSillas();
-
-        if (sillasSeleccionadas == sillasRequeridas) {
-            
-            //El número 4 representa el estado "Reservando" para la silla
-            actualiza.actualizarEstadoSilla(4, idSillasArray);
-            
-            numSillas.setCostoSilla(sumaCosto);
-            frmBoleto boleto = new frmBoleto();
-            
-            boleto.setLocationRelativeTo(null);
-            boleto.setVisible(true);
-            
-            this.dispose();
-        } else {
-            int faltantes = sillasRequeridas - sillasSeleccionadas;
-            JOptionPane.showMessageDialog(
-                null,
-                "Debes seleccionar " + sillasRequeridas + " sillas.\n" +
-                "Actualmente has seleccionado " + sillasSeleccionadas + ".\n" +
-                "Faltan " + faltantes + " sillas.",
-                "Selección incompleta",
-                JOptionPane.WARNING_MESSAGE
-            );
-        }
+        botonContinuar();
 
         
     }//GEN-LAST:event_btnContinuarActionPerformed

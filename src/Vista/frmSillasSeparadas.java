@@ -63,7 +63,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     double saldoSocioMySQL = 0.0;
     double saldoDisponible = 0.0;
 
-    double saldoPostgress1 = 999999999999999999999999.0;
+    double saldoPostgress1 = 999999999999.0;
     
     TimeGoogle fechaGoogle = new TimeGoogle();
     
@@ -658,7 +658,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
                         actualiza.actualizarSillasSeparadas(Folios, estado2, importeDividido, newVigencia);
                         actualiza.actualizaEstaSillaxFila(estado2, idSillas);
                         actualiza.actualizarSaldoSocio(sumaSaldoMySQL, origen, grupo, socio);
-                        pdf = consulta.datosGenerarBoleto(origen, grupo, socio, idSillas);
+                        pdf = consulta.datosGenerarBoleto(origen, grupo, socio, dateValidFecha, idSillas);
                         GenerarBoleto bol = new GenerarBoleto();
                         bol.boletoPDF();
                         limpiarCamposCompra();
