@@ -27,21 +27,7 @@ public class SillasApartadasData {
         
         SillasApartadas bol = SillasApartadas.getInstancia();
         
-        String datosBoletos = "SELECT tbl_boletos.Folio, tbl_boletos.Origen, tbl_boletos.Grupo, tbl_boletos.NumSocio, tbl_boletos.Nombre, " +
-                                "tbl_boletos.OrigenSocio,tbl_boletos.Invitado, tbl_boletos.Telefono, tbl_boletos.Correo, tbl_boletos.id_usuario, " +
-                                "tbl_usuarios.Nombre AS NombreUsuario, tbl_boletos.OrigenUsuario, " +
-                                "tbl_boletos.idZona, tbl_zonas.Zona, tbl_boletos.idMesa, tbl_mesas.DescMesa, " +
-                                "tbl_boletos.idSilla, tbl_sillas.vchDescripcion, " +
-                                "tbl_boletos.Costo, tbl_boletos.idEstado, tbl_estado_sillas.EstadoSilla, " +
-                                "tbl_boletos.Importe, tbl_boletos.FechaCompra, tbl_boletos.FechaVigencia " +
-                                "FROM tbl_boletos " +
-                                "JOIN tbl_usuarios ON tbl_boletos.id_usuario = tbl_usuarios.id_usuario " +
-                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
-                                "JOIN tbl_mesas ON tbl_boletos.idMesa = tbl_mesas.idMesa " +
-                                "JOIN tbl_sillas ON tbl_boletos.idSilla = tbl_sillas.idSilla " +
-                                "JOIN tbl_estado_sillas ON tbl_boletos.idEstado = tbl_estado_sillas.idEstado " +
-                                "WHERE tbl_estado_sillas.EstadoSilla = 'Separado' AND tbl_boletos.OrigenUsuario = ? " +
-                                "ORDER BY tbl_boletos.Folio ASC;";
+        String datosBoletos = "{CALL boletos_sillas_separadas(?)}";
         
         
         
@@ -116,35 +102,20 @@ public class SillasApartadasData {
     
     public SillasApartadas datosxSocioBoleto(int ori, int grup, int socio){
         
-        //String sucursalCajero = lg.getSucursal();
+        String sucursalCajero = lg.getSucursal();
         
         SillasApartadas bol = SillasApartadas.getInstancia();
         
-        String datosBoletos = "SELECT tbl_boletos.Folio, tbl_boletos.Origen, tbl_boletos.Grupo, tbl_boletos.NumSocio, tbl_boletos.Nombre, " +
-                                "tbl_boletos.OrigenSocio,tbl_boletos.Invitado, tbl_boletos.Telefono, tbl_boletos.Correo, tbl_boletos.id_usuario, " +
-                                "tbl_usuarios.Nombre AS NombreUsuario, tbl_boletos.OrigenUsuario, " +
-                                "tbl_boletos.idZona, tbl_zonas.Zona, tbl_boletos.idMesa, tbl_mesas.DescMesa, " +
-                                "tbl_boletos.idSilla, tbl_sillas.vchDescripcion, " +
-                                "tbl_boletos.Costo, tbl_boletos.idEstado, tbl_estado_sillas.EstadoSilla, " +
-                                "tbl_boletos.Importe, tbl_boletos.FechaCompra, tbl_boletos.FechaVigencia " +
-                                "FROM tbl_boletos " +
-                                "JOIN tbl_usuarios ON tbl_boletos.id_usuario = tbl_usuarios.id_usuario " +
-                                "JOIN tbl_zonas ON tbl_boletos.idZona = tbl_zonas.idZona " +
-                                "JOIN tbl_mesas ON tbl_boletos.idMesa = tbl_mesas.idMesa " +
-                                "JOIN tbl_sillas ON tbl_boletos.idSilla = tbl_sillas.idSilla " +
-                                "JOIN tbl_estado_sillas ON tbl_boletos.idEstado = tbl_estado_sillas.idEstado " +
-                                "WHERE tbl_boletos.NumSocio = ? AND tbl_boletos.Grupo = ? AND tbl_boletos.Origen = ? " + 
-                                "AND tbl_estado_sillas.EstadoSilla = 'Separado' " +
-                                "ORDER BY tbl_boletos.Costo DESC;";
-                                //AND tbl_boletos.OrigenUsuario = ?
+        String datosBoletos = "{CALL datos_socio_boleto(?, ?, ?, ?)}";
+                                
         
         try {
             con = cn.getConnection(); // Obtener conexión
             ps = con.prepareStatement(datosBoletos); // Preparar consulta
-            ps.setInt(1, socio);
+            ps.setInt(1, ori);
             ps.setInt(2, grup);
-            ps.setInt(3, ori);
-            //ps.setString(4, sucursalCajero);
+            ps.setInt(3, socio);
+            ps.setString(4, sucursalCajero);
             rs = ps.executeQuery(); // Ejecutar consulta
 
             // Limpiar lista de mesas antes de agregar nuevas (si es necesario)

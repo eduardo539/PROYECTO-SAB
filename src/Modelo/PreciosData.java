@@ -22,9 +22,7 @@ public class PreciosData {
     public Precios pr(){
         Precios p = Precios.getInstancia();
         
-        String sql = "SELECT tbl_zonas.idZona, tbl_zonas.Zona, tbl_costo.Costo " +
-                        "FROM tbl_zonas " +
-                        "INNER JOIN tbl_costo ON tbl_zonas.idCosto = tbl_costo.idCosto;";
+        String sql = "SELECT * FROM vista_zonas_costo;";
         
         try{
             con = cn.getConnection();

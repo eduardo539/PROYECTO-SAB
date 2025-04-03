@@ -1,9 +1,11 @@
 package Modelo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -156,8 +158,7 @@ public class ConsultasData {
        
     public int sillasDisponibles(int idEstado, int idMesa) {
         
-        String sql = "SELECT COUNT(*) AS Total FROM tbl_sillas " +
-                     "WHERE idEstado = ? AND idMesa = ?";
+        String sql = "{CALL sillas_disponibles(?, ?)}";
 
         int totalSillas = 0; // Inicializa con 0 en caso de error
 
@@ -197,7 +198,10 @@ public class ConsultasData {
     }
 
     
-    public DatosBoletosPDF datosGenerarBoleto(int origen, int grupo, int socio, int[] idsSillas) {
+    public DatosBoletosPDF datosGenerarBoleto(int origen, int grupo, int socio, LocalDate fechaActual, int[] idsSillas) {
+        
+         // Convertir LocalDate a java.sql.Date
+        Date sqlDate = Date.valueOf(fechaActual);
         
         // Se crea un nuevo objeto para realizar la consulta
         DatosBoletosPDF pdf = DatosBoletosPDF.getInstancia();
@@ -213,7 +217,8 @@ public class ConsultasData {
             "JOIN tbl_mesas ON tbl_sillas.idMesa = tbl_mesas.idMesa " +
             "JOIN tbl_zonas ON tbl_mesas.idZona = tbl_zonas.idZona " +
             "WHERE tbl_boletos.Origen = ? AND tbl_boletos.Grupo = ? " +
-            "AND tbl_boletos.NumSocio = ? AND tbl_sillas.idSilla IN (");
+            "AND tbl_boletos.NumSocio = ? AND tbl_boletos.FechaVigencia >= ? " +
+            "AND tbl_sillas.idSilla IN (");
 
         // Agregar parámetros "?" dinámicamente según la cantidad de sillas
         for (int i = 0; i < idsSillas.length; i++) {
@@ -232,10 +237,11 @@ public class ConsultasData {
             ps.setInt(1, origen);
             ps.setInt(2, grupo);
             ps.setInt(3, socio);
+            ps.setDate(4, sqlDate);
 
             // Asignar valores dinámicos de idSillas
             for (int i = 0; i < idsSillas.length; i++) {
-                ps.setInt(i + 4, idsSillas[i]);
+                ps.setInt(i + 5, idsSillas[i]);
             }
 
             rs = ps.executeQuery(); // Ejecutar consulta
@@ -350,11 +356,7 @@ public class ConsultasData {
         
         SaldoDisponible saldo = SaldoDisponible.getInstancia();
         
-        String obtenerData = "SELECT Origen, Grupo, Socio, Saldo " +
-                                "FROM saldosocio " +
-                                "WHERE Origen = ? AND " +
-                                "Grupo = ? AND " +
-                                "Socio = ?;";
+        String obtenerData = "{CALL saldo_disponible_socio(?, ?, ?)}";
         
         saldo.limpiarDatos2();
         
@@ -420,8 +422,7 @@ public class ConsultasData {
         
         SaldoSocios saldoSocio = SaldoSocios.getInstancia();
         
-        String consultaSaldo = "SELECT Origen, Grupo, Socio, Saldo " +
-                                "FROM saldosocio;";
+        String consultaSaldo = "SELECT * FROM saldo_socio";
                
         
         try {
@@ -471,8 +472,7 @@ public class ConsultasData {
     public String fechaLimite(int anio){
 
         
-        String consultaFechaLimite = "SELECT fechaLimite FROM fechalimite " +
-                                        "WHERE YEAR(fechaLimite) = ?;";
+        String consultaFechaLimite = "{CALL fecha_limite(?)}";
         
         String limiteFecha = "";
         
@@ -637,15 +637,7 @@ public class ConsultasData {
         
         GenerarNewBoleto genBol = GenerarNewBoleto.getInstancia();
         
-        String consulta = "SELECT b.Folio, b.Origen, b.Grupo, b.NumSocio, b.Nombre, " +
-                            "b.OrigenSocio, b.Invitado, b.Telefono, " +
-                            "z.Zona, m.DescMesa, s.vchDescripcion, b.FechaVigencia " +
-                            "FROM tbl_boletos b " +
-                            "JOIN tbl_zonas z ON b.idZona = z.idZona " +
-                            "JOIN tbl_mesas m ON b.idMesa = m.idMesa " +
-                            "JOIN tbl_sillas s ON b.idSilla = s.idSilla " +
-                            "WHERE b.idEstado = 3 " +
-                            "ORDER BY b.Folio DESC;";
+        String consulta = "SELECT * FROM boletos_vendidos_copia_boleto;";
         
         
         try {
