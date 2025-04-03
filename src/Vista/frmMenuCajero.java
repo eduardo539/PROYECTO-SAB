@@ -3,6 +3,7 @@ package Vista;
 import FormulariosAyuda.Cajero.AyudaHomeCajero;
 import Modelo.CerrarSesion;
 import Modelo.Login;
+import Modelo.LoginData;
 import Modelo.TimeGoogle;
 import java.awt.Window;
 import java.awt.event.ActionListener;
@@ -170,6 +171,9 @@ public class frmMenuCajero extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
