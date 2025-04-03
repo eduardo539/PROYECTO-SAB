@@ -192,7 +192,7 @@ public class ActualizarData {
 
     
     public void actualizaEstadoMesa(int idMesa) {
-        String actualizaMesa = "UPDATE tbl_mesas SET Estatus = 'Ocupado' WHERE idMesa = ?";
+        String actualizaMesa = "{CALL actualiza_estado_mesa(?)}";
 
         try {
             con = cn.getConnection();
@@ -308,11 +308,7 @@ public class ActualizarData {
     
     public boolean actualizarSaldoSocio(double saldo, int origen, int grupo, int socio){
         
-        String actualizar = "UPDATE saldosocio " +
-                                "SET Saldo = ?" +
-                                "WHERE Origen = ? AND " +
-                                "Grupo = ? AND " +
-                                "Socio = ?;";
+        String actualizar = "{CALL actualizar_saldo_socio(?, ?, ?, ?)}";
         
         int filasAfectadas = 0;
         
@@ -437,9 +433,7 @@ public class ActualizarData {
     
     public void actualizaEstadoUser(int user){
         
-        String actualizar = "UPDATE tbl_usuarios " +
-                                "SET estado = 'bloqueado' " +
-                                "WHERE id_usuario = ?;";
+        String actualizar = "{CALL bloquear_user(?)}";
         
         try {
             // Obtener conexión

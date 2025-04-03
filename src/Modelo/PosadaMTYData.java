@@ -22,9 +22,7 @@ public class PosadaMTYData {
         
         //Se crea un nuevo objeto para realizar la consulta
         PosadaMTY psMTY = PosadaMTY.getInstancia();
-        String sql = "SELECT * " +
-                        "FROM tbl_mesas " +
-                        "WHERE tbl_mesas.idMesa = ?";
+        String sql = "{CALL estado_mesa(?)}";
         
         try {
             con = cn.getConnection();

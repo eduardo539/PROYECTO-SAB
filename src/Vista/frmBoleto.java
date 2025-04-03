@@ -379,7 +379,7 @@ public class frmBoleto extends javax.swing.JFrame {
 
         double sumaSaldoMySQL = saldoMySQL + importe;
         importeDividido = importe / cantidadSillas;
-        double saldoPostgress1 = 99999999.00;//Borrar para activar la validacion
+        double saldoPostgress1 = 99999999.0;//Borrar para activar la validacion
         
         if (confirmacion == JOptionPane.YES_OPTION) {
             
@@ -467,11 +467,17 @@ public class frmBoleto extends javax.swing.JFrame {
             }
 
             if(estatusSilla == 3){
-                pdf = consulta.datosGenerarBoleto(origen, grupo, socio, idsSillas);
+                pdf = consulta.datosGenerarBoleto(origen, grupo, socio, dateValidFecha, idsSillas);
                 GenerarBoleto bol = new GenerarBoleto();
                 bol.boletoPDF();
             }
 
+            //System.out.println("origen: " + origen + " grup: " + grupo + " Socio: " + socio);
+            //List<DatosBoletosPDF.DataPDF> listaDatos = pdf.getListaDataPDF();
+
+            //for (DataPDF dato : listaDatos) {
+            //    System.out.println(dato);
+            //}
 
             // Aquí se va a agregar la función para enviar el PDF automáticamente
             String nomBoleto = nomB.getNomBoleto();

@@ -22,10 +22,7 @@ public class SesionesData {
     public Sesiones s(){
         Sesiones se = Sesiones.getInstancia();
         
-        String consul = "SELECT s.idSesion, u.id_usuario, u.Nombre, p.tipo_perfil " +
-                            "FROM sesiones s " +
-                            "JOIN tbl_usuarios u ON s.id_usuario = u.id_usuario " +
-                            "JOIN tbl_perfil p ON u.id_perfil = p.id_perfil;";
+        String consul = "SELECT * FROM sesiones_activas;";
         
         
         try {

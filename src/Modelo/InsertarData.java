@@ -141,7 +141,7 @@ public class InsertarData {
     
     public void insertarSesion(int idUsuario) {
         
-        String insertQuery = "INSERT INTO sesiones (id_usuario, token) VALUES (?, ?)";
+        String insertQuery = "{CALL insertar_sesion(?, ?)}";
 
         // Generar un token único para la sesión
         String token = UUID.randomUUID().toString();

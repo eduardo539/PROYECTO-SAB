@@ -22,17 +22,7 @@ public class SillasData {
         
         Sillas s = Sillas.getInstancia();// Obtener instancia única de las Sillas
         
-        String consulta = "SELECT tbl_sillas.idSilla, tbl_sillas.vchDescripcion,tbl_estado_sillas.idEstado, " +
-                            "tbl_estado_sillas.EstadoSilla, " +
-                            "tbl_mesas.idMesa, tbl_mesas.DescMesa, tbl_mesas.Estatus, " +
-                            "tbl_zonas.idZona, tbl_zonas.Zona, tbl_costo.Costo " +
-                            "FROM tbl_sillas " +
-                            "INNER JOIN tbl_estado_sillas ON tbl_sillas.idEstado = tbl_estado_sillas.idEstado " +
-                            "INNER JOIN tbl_mesas ON tbl_sillas.idMesa = tbl_mesas.idMesa " +
-                            "INNER JOIN tbl_zonas ON tbl_mesas.idZona = tbl_zonas.idZona " +
-                            "INNER JOIN tbl_costo ON tbl_zonas.idCosto = tbl_costo.idCosto " +
-                            "WHERE tbl_mesas.idMesa = ? " +
-                            "ORDER BY tbl_sillas.idSilla ASC;";
+        String consulta = "{CALL obtener_estado_sillas(?)}";
         
         s.borrarDatos();
         
@@ -82,17 +72,7 @@ public class SillasData {
     public SillaEstado siE(int idS){
         SillaEstado se = SillaEstado.getInstancia();
         
-        String consult = "SELECT tbl_sillas.idSilla, tbl_sillas.vchDescripcion, " +
-                            "tbl_estado_sillas.idEstado, tbl_estado_sillas.EstadoSilla, " +
-                            "tbl_mesas.idMesa, tbl_mesas.DescMesa, tbl_mesas.Estatus, " +
-                            "tbl_zonas.idZona, tbl_zonas.Zona, " +
-                            "tbl_costo.idCosto, tbl_costo.Costo " +
-                            "FROM tbl_sillas " +
-                            "INNER JOIN tbl_estado_sillas ON tbl_sillas.idEstado = tbl_estado_sillas.idEstado " +
-                            "INNER JOIN tbl_mesas ON tbl_sillas.idMesa = tbl_mesas.idMesa " +
-                            "INNER JOIN tbl_zonas ON tbl_mesas.idZona = tbl_zonas.idZona " +
-                            "INNER JOIN tbl_costo ON tbl_zonas.idCosto = tbl_costo.idCosto " +
-                            "WHERE tbl_sillas.idSilla = ?";
+        String consult = "{CALL estado_sillas_id(?)}";
         
         
         try{
@@ -138,9 +118,7 @@ public class SillasData {
         SillasEstatusVigencia sv = SillasEstatusVigencia.getInstancia();
         
         //Consulta para actualizar sillas despues de la vigencia
-        String datoSilla = "SELECT idMesa, idSilla, FechaCompra, FechaVigencia " +
-                            "FROM tbl_boletos " +
-                            "WHERE FechaVigencia BETWEEN CURDATE() - INTERVAL 10 DAY AND CURDATE() - INTERVAL 1 DAY;";
+        String datoSilla = "{CALL vigenciaSillasxBoleto()}";
         
         
         try {
@@ -182,9 +160,7 @@ public class SillasData {
         
         SillasEstatusVigenciaComprobar svc = SillasEstatusVigenciaComprobar.getInstancia();
         
-        String datoSilla = "SELECT idMesa, idSilla, FechaCompra, FechaVigencia " +
-                            "FROM tbl_boletos " +
-                            "WHERE FechaVigencia >= CURDATE();";
+        String datoSilla = "{CALL vigenciaSillasxBoletoComprobar()}";
         
         
         try {

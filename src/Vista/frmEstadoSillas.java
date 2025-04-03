@@ -369,6 +369,7 @@ public class frmEstadoSillas extends javax.swing.JFrame {
                     // Limpiar las cajas de texto si el clic fue fuera de la tabla
                     txtNumSilla.setText("");
                     txtSillas.setText("");
+                    txtNumMesa.setText("");
                     datosTabla();
                     
                     if (timer == null || !timer.isRunning()) {
@@ -452,7 +453,7 @@ public class frmEstadoSillas extends javax.swing.JFrame {
         
         // Mensaje de confirmación antes de actualizar
         int confirmacion = JOptionPane.showConfirmDialog(this, 
-                "¿Está seguro de que desea actualizar el estado de las sillas seleccionadas?", 
+                "¿Está seguro que desea actualizar el estado de las sillas seleccionadas?", 
                 "Confirmación de actualización", 
                 JOptionPane.YES_NO_OPTION, 
                 JOptionPane.QUESTION_MESSAGE);
@@ -745,6 +746,8 @@ public class frmEstadoSillas extends javax.swing.JFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtNumMesa.setText("");
+        txtSillas.setText("");
+        txtNumSilla.setText("");
         timer.start(); // Inicia el Timer
         datosTabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
