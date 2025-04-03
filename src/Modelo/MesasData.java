@@ -20,11 +20,7 @@ public class MesasData {
     
     public Mesas m() { 
         Mesas m = Mesas.getInstancia(); // Obtener instancia única de Mesas 
-        String consulta = "SELECT tbl_mesas.idMesa, tbl_mesas.descMesa, tbl_mesas.Estatus, " + 
-                            "tbl_zonas.Zona, tbl_costo.Costo " + 
-                            "FROM tbl_mesas " + 
-                            "INNER JOIN tbl_zonas ON tbl_mesas.idZona = tbl_zonas.idZona " + 
-                            "INNER JOIN tbl_costo ON tbl_zonas.idCosto = tbl_costo.idCosto;"; 
+        String consulta = "SELECT * FROM vista_estado_mesas;"; 
 
         try {
             con = cn.getConnection(); // Obtener conexión

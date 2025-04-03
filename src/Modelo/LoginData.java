@@ -30,12 +30,7 @@ public class LoginData {
         //Se crea un nuevo objeto para realizar la consulta
         Login l = Login.getInstancia();
         
-        String sql = "SELECT tbl_usuarios.id_usuario, tbl_usuarios.Nombre, tbl_usuarios.dtVigencia, " +
-                        "tbl_usuarios.id_perfil, tbl_perfil.tipo_perfil, tbl_usuarios.estado " +
-                        "FROM tbl_usuarios " +
-                        "JOIN tbl_perfil ON tbl_usuarios.id_perfil = tbl_perfil.id_perfil " +
-                        "AND tbl_usuarios.id_usuario = ? " +
-                        "AND tbl_usuarios.vchPass = MD5(?);";
+        String sql = "{CALL iniciar_sesion(?, ?)}";
         
         String sql2 = "SELECT o.nombre AS sucursal " +
                         "FROM usuarios u " +
@@ -104,9 +99,7 @@ public class LoginData {
     
     public boolean comprobarUser(int user){
         
-        String consult = "SELECT COUNT(*) " +
-                            "FROM tbl_usuarios " +
-                            "WHERE id_usuario = ?;";
+        String consult = "{CALL comprobar_user(?)}";
         
         
         try {
@@ -151,10 +144,7 @@ public class LoginData {
     
     public boolean comprobarPass(int user, String pass){
         
-        String consultaUser = "SELECT COUNT(*) " +
-                                "FROM tbl_usuarios " +
-                                "WHERE id_usuario = ? " +
-                                "AND vchPass = MD5(?);";
+        String consultaUser = "{CALL login_user(?, ?)}";
         
         
         try {
@@ -201,9 +191,7 @@ public class LoginData {
         
         String estado = "";
         
-        String intentUser = "SELECT estado " +
-                                "FROM tbl_usuarios " +
-                                "WHERE id_usuario = ?;";
+        String intentUser = "{CALL comprueba_estado(?)}";
         
         
         try {
@@ -246,7 +234,7 @@ public class LoginData {
         boolean flag = false;
 
         // Consulta SQL para contar el número de sesiones activas del usuario
-        String sesiones = "SELECT COUNT(*) FROM sesiones WHERE id_usuario = ?";
+        String sesiones = "{CALL sesiones_activas(?)}";
 
         // Usar try-with-resources para cerrar automáticamente los recursos
         try (Connection con = cn.getConnection(); 

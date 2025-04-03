@@ -24,10 +24,7 @@ public class EstadoSillasData {
         
         EstadoSillas es = EstadoSillas.getInstancia();
         
-        String consulta = "SELECT m.idMesa, m.DescMesa, s.idSilla, s.vchDescripcion, es.idEstado, es.EstadoSilla FROM tbl_sillas s " +
-                            "JOIN tbl_estado_sillas es ON s.idEstado = es.idEstado " +
-                            "JOIN tbl_mesas m ON s.idMesa = m.idMesa " +
-                            "ORDER BY s.idSilla ASC";
+            String consulta = "SELECT * FROM vista__estado_sillas;";
         
         try {
             con = cn.getConnection(); // Obtener conexión

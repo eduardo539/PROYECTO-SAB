@@ -36,8 +36,7 @@ public class CerrarSesion {
     
     public void EliminarSesion(int user){
         
-        String elimina = "DELETE FROM sesiones " +
-                            "WHERE id_usuario = ?;";
+        String elimina = "{CALL eliminar_sesion(?)}";
         
         try {
             // Obtener la conexión a la base de datos
