@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  * 
  */
 
-public class formMenuAdmin extends javax.swing.JFrame {
+public class frmMenuUsuarios extends javax.swing.JFrame {
     
     Conexion con = new Conexion();  // Crear una instancia de la clase Conexion
     Connection cn1 = con.getConnection();  // Llamar a getConnection() desde la instancia creada
@@ -47,7 +47,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     
     TimeGoogle fechaGoogle = new TimeGoogle();
     
-    public formMenuAdmin() {
+    public frmMenuUsuarios() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
@@ -193,11 +193,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/crear_usuarios_sistemas.png"))); // NOI18N
         btnRegistrar.setText("Registrar Usuario");
-        btnRegistrar.setBackground(new java.awt.Color(76, 175, 80));
         btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -289,11 +289,11 @@ public class formMenuAdmin extends javax.swing.JFrame {
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnActualizar.setBackground(new java.awt.Color(76, 175, 80));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/actualizar_usuarios.png"))); // NOI18N
         btnActualizar.setText("Actualizar Usuario");
-        btnActualizar.setBackground(new java.awt.Color(76, 175, 80));
         btnActualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 102)));
-        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -930,7 +930,7 @@ public class formMenuAdmin extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new formMenuAdmin().setVisible(true);
+                new frmMenuUsuarios().setVisible(true);
             }
         });
     }
