@@ -5,10 +5,6 @@ import Modelo.CerrarSesion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,7 +29,7 @@ public class frmMenuGerente extends javax.swing.JFrame {
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
-        tiempoReal();
+        fechaActual();
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
@@ -67,56 +63,17 @@ public class frmMenuGerente extends javax.swing.JFrame {
     }
     
     
-    public void tiempoReal() {
-        // Crear un Timer que se ejecute cada 1000 milisegundos (1 segundo)
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                google.dateTime();  // Llama al método que obtiene la hora de Google
+    public void fechaActual() {
+        
+        google.timeGoogle();  // Llama al método que obtiene la hora de Google
 
-                String fechaHora = google.getDateTime();
-                
-                // Convertimos la fecha y hora a un formato más legible
-                String fechaFormatActual = formatearFechaHora(fechaHora);
-                
-                //Actualiza el JLabel con la nueva hora
-                lblFechaHora.setText("Fecha y Hora: " + fechaFormatActual);
-            }
-        });
+        String fecha = google.getFechaActualGoogle();
 
-        // Inicia el Timer
-        timer.start();
+        //Actualiza el JLabel con la nueva hora
+        lblFechaHora.setText("Fecha Actual: " + fecha);
+        
     }
-    
-    
-    @Override
-    public void dispose() {
-        // Detener el Timer si está en ejecución
-        if (timer != null && timer.isRunning()) {
-            timer.stop();
-            //System.out.println("El Timer ha sido detenido.");
-        }
 
-        // Llamar al método dispose() de la superclase (JFrame) para asegurarse de que la ventana se cierre correctamente
-        super.dispose();
-    }
-    
-    private String formatearFechaHora(String fechaHora){
-        try {
-            // La fecha recibida de google se espera en formato "yyyy-MM-dd HH:mm:ss"
-            SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date fecha = formatoEntrada.parse(fechaHora);  // Parseamos la fecha de entrada
-            
-            // Definir el nuevo formato para la fecha
-            SimpleDateFormat formatoSalida = new SimpleDateFormat("d MMMM yyyy hh:mm:ss a");
-            
-            // Obtener la fecha formateada
-            return formatoSalida.format(fecha);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return fechaHora;  // Si hay un error en el formato, devolvemos la cadena original
-        }
-    }
     
     private void abrirLogin() {
         java.awt.EventQueue.invokeLater(new Runnable() {

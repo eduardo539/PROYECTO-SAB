@@ -6,10 +6,6 @@ import Modelo.Login;
 import Modelo.TimeGoogle;
 import java.awt.Toolkit;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,7 +29,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         actualizarMensajeBienvenida();  // Método para actualizar la interfaz con los datos del usuario
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         
-        tiempoReal();
+        fechaActual();
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);  // Permite cerrar solo la ventana
 
@@ -68,55 +64,15 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }
     
     
-    public void tiempoReal() {
-        // Crear un Timer que se ejecute cada 1000 milisegundos (1 segundo)
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                google.dateTime();  // Llama al método que obtiene la hora de Google
+    public void fechaActual() {
+        
+        google.timeGoogle();  // Llama al método que obtiene la hora de Google
 
-                String fechaHora = google.getDateTime();
-                
-                // Convertimos la fecha y hora a un formato más legible
-                String fechaFormatActual = formatearFechaHora(fechaHora);
-                
-                //Actualiza el JLabel con la nueva hora
-                lblFechaHora.setText("Fecha y Hora: " + fechaFormatActual);
-            }
-        });
+        String fecha = google.getFechaActualGoogle();
 
-        // Inicia el Timer
-        timer.start();
-    }
-    
-    
-    @Override
-    public void dispose() {
-        // Detener el Timer si está en ejecución
-        if (timer != null && timer.isRunning()) {
-            timer.stop();
-            //System.out.println("El Timer ha sido detenido.");
-        }
-
-        // Llamar al método dispose() de la superclase (JFrame) para asegurarse de que la ventana se cierre correctamente
-        super.dispose();
-    }
-    
-    private String formatearFechaHora(String fechaHora){
-        try {
-            // La fecha recibida de google se espera en formato "yyyy-MM-dd HH:mm:ss"
-            SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date fecha = formatoEntrada.parse(fechaHora);  // Parseamos la fecha de entrada
-            
-            // Definir el nuevo formato para la fecha
-            SimpleDateFormat formatoSalida = new SimpleDateFormat("d MMMM yyyy hh:mm:ss a");
-            
-            // Obtener la fecha formateada
-            return formatoSalida.format(fecha);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return fechaHora;  // Si hay un error en el formato, devolvemos la cadena original
-        }
+        //Actualiza el JLabel con la nueva hora
+        lblFechaHora.setText("Fecha Actual: " + fecha);
+        
     }
     
     
@@ -167,6 +123,14 @@ public class frmMenuSistemas extends javax.swing.JFrame {
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    
+    public void abrirVentanaUsuarios(){
+        frmMenuUsuarios Usuarios = new frmMenuUsuarios();
+        Usuarios.setLocationRelativeTo(null);
+        Usuarios.setVisible(true);
+        this.dispose();
     }
 
 
@@ -452,12 +416,8 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        formMenuAdmin sistemas = new formMenuAdmin();
-        sistemas.setLocationRelativeTo(null);
-        sistemas.setVisible(true);
-        this.dispose();     
+        abrirVentanaUsuarios();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         frmAcercaDe acercade = new frmAcercaDe();
@@ -470,6 +430,7 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         Sistemas.setLocationRelativeTo(null);
         Sistemas.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
