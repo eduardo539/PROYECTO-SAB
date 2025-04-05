@@ -111,16 +111,23 @@ public class frmCajero extends javax.swing.JFrame {
 
         // Usar un Set para la comprobación
         Set<Integer> idSillasComprobarSet = new HashSet<>(idSillaCompList);
+        Set<Integer> idMesasComprobarSet = new HashSet<>(idMesaCompSet);
 
+        
         // Usar streams para filtrar los elementos
         // Verifica si el id no está en el Set de idSillasComprobarSet
         int[] newIdSillas = Arrays.stream(idSillas)
             .filter(id -> !idSillasComprobarSet.contains(id)) // Solo incluye los que no están en idSillasComprobar
             .toArray();
+        
+        int[] newIdMesas = Arrays.stream(idMesas)
+                .filter(id -> !idMesasComprobarSet.contains(id))
+                .toArray();
 
+        
         // Actualizar los datos con los nuevos idSillas
-        acD.actualizarMesaSillaxVigenciaBoleto(idMesas, newIdSillas);
-
+        acD.actualizarMesaSillaxVigenciaBoleto(newIdMesas, newIdSillas);
+        
         // Borrar los datos viejos de la instancia
         sv.borrarDatos();
     }
