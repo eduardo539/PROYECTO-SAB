@@ -125,15 +125,13 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         }
     }
     
-    
     public void abrirVentanaUsuarios(){
-        frmMenuUsuarios Usuarios = new frmMenuUsuarios();
+        frmUsuariosXSistemas Usuarios = new frmUsuariosXSistemas();
         Usuarios.setLocationRelativeTo(null);
         Usuarios.setVisible(true);
         this.dispose();
     }
-
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
