@@ -72,9 +72,8 @@ public class frmMenuSistemas extends javax.swing.JFrame {
 
         //Actualiza el JLabel con la nueva hora
         lblFechaHora.setText("Fecha Actual: " + fecha);
-        
+     
     }
-    
     
     private void abrirLogin() {
         java.awt.EventQueue.invokeLater(new Runnable() {
