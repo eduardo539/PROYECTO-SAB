@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -89,6 +90,16 @@ public class InsertarData {
             JOptionPane.showMessageDialog(null, "Hubo un error en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
             return false;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close(); 
+                if (ps != null) ps.close(); 
+                if (con != null) con.close(); 
+                if (cn != null) cn.closeConnection();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
         }
     }
 
@@ -129,8 +140,10 @@ public class InsertarData {
         } finally {
             // Cerrar recursos
             try {
-                if (ps != null) ps.close();
-                if (con != null) con.close();
+                if (rs != null) rs.close(); 
+                if (ps != null) ps.close(); 
+                if (con != null) con.close(); 
+                if (cn != null) cn.closeConnection();
             } catch (SQLException e) {
                 System.out.println("Error al cerrar recursos: " + e.getMessage());
             }
@@ -171,9 +184,79 @@ public class InsertarData {
                 "Hubo un error al iniciar la sesión. Intenta nuevamente.", 
                 "Error", 
                 JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close(); 
+                if (ps != null) ps.close(); 
+                if (con != null) con.close(); 
+                if (cn != null) cn.closeConnection();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
         }
     }
 
+    
+    
+    public void agregarNuevoUsuario(int usuario, String nombre, String pass, Date vigencia, int perfil, String sucursal, String estado, int idUsuarioLog, String nomUserLog, int perfilUserLog, String sucursalUserLog){
+
+        
+        String insert = "{CALL insertXUsuariosXBitacXAccionInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(insert); // Preparar consulta
+            ps.setInt(1, usuario);
+            ps.setString(2, nombre);
+            ps.setString(3, pass);
+            ps.setDate(4, vigencia); // Establecer el valor del parámetro (fecha) en el PreparedStatement
+            ps.setInt(5, perfil);
+            ps.setString(6, sucursal);
+            ps.setString(7, estado);
+            
+            ps.setInt(8, idUsuarioLog);
+            ps.setString(9, nomUserLog);
+            ps.setInt(10, perfilUserLog);
+            ps.setString(11, sucursalUserLog);
+
+            int rowsAffected = ps.executeUpdate(); // Ejecutar la consulta de inserción
+
+            // Verificar si la inserción fue exitosa
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, 
+                        "El usuario se registro de forma exitosa.", 
+                        "Inserción Exitosa", 
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                        "No fue posible registrar el usuario, error inesperado.", 
+                        "Error de Inserción", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al insertar datos en la base de datos.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close(); 
+                if (ps != null) ps.close(); 
+                if (con != null) con.close(); 
+                if (cn != null) cn.closeConnection();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+    }
+    
     
     
 }

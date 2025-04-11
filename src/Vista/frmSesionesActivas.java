@@ -615,10 +615,6 @@ public class frmSesionesActivas extends javax.swing.JFrame {
         String input3 = txtNombre.getText().trim();
         String input4 = txtPerfil.getText().trim();
         
-        System.out.println(input1);
-        System.out.println(input2);
-        System.out.println(input3);
-        System.out.println(input4);
         
         // Validar si algún campo está vacío
         if (input1.isEmpty() || input2.isEmpty() || input3.isEmpty() || input4.isEmpty()) {

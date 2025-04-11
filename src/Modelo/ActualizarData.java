@@ -716,4 +716,59 @@ public class ActualizarData {
     
     
     
+    public void actualizarUsuario(int idUser, int idPerfil, String estado, String sucursal, String sucursalUserLog, int idUsuarioLog, String nombreUserLog, int perfilUserLog){
+        
+        String actualiza = "{CALL updateXUsuariosXBitacXAccionUpdate(?, ?, ?, ?, ?, ?, ? ,?)}";
+        
+        
+        try {
+            // Obtener conexión
+            con = cn.getConnection();
+
+            // Preparar la sentencia SQL
+            ps = con.prepareStatement(actualiza);
+            ps.setInt(1, idUser);
+            ps.setInt(2, idPerfil);
+            ps.setString(3, estado);
+            ps.setString(4, sucursal);
+            
+            
+            ps.setString(5, sucursalUserLog);
+            ps.setInt(6, idUsuarioLog);
+            ps.setString(7, nombreUserLog);
+            ps.setInt(8, perfilUserLog);
+
+            // Ejecutar la actualización
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Datos actualizados correctamente.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudieron realizar los cambios del usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+
+        } catch (SQLException e) {
+            // Mostrar error en un cuadro de diálogo
+            JOptionPane.showMessageDialog(null, 
+                    "Error al actualizar los datos del usuario, Contactar al administrador.\nDetalles: " + e.getMessage(), 
+                    "Error de Base de Datos", 
+                    JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close(); 
+                if (ps != null) ps.close(); 
+                if (con != null) con.close(); 
+                if (cn != null) cn.closeConnection();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos: " + e.getMessage());
+            }
+        }
+        
+        
+    }
+    
+    
+    
 }
