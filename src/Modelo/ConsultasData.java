@@ -913,6 +913,126 @@ public class ConsultasData {
     
     
     
+    public String comprobarExistenciaUsuario(int id){
+        
+        String nombre = null;
+        
+        String comprobar = "SELECT Nombre FROM usuarios u WHERE u.idusuario = ?";
+        
+        try {
+            con = cn2.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(comprobar); // Preparar consulta
+            ps.setInt(1, id);
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            if (rs.next()) {
+                nombre = rs.getString("Nombre"); // Obtener el nombre si hay resultado
+            }
+
+            
+        } catch (SQLException e) { 
+            JOptionPane.showMessageDialog(null, 
+                        "Error al obtener el usuario de base de datos postgreSQL.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
+        } finally { 
+            try { 
+                if (rs != null) rs.close(); 
+                if (ps != null) ps.close(); 
+                if (con != null) con.close(); 
+                if (cn2 != null) cn2.closeConnection();
+            } catch (SQLException e) { 
+                System.out.println("Error al cerrar recursos: " + e.getMessage()); 
+            } 
+        }
+        
+        return nombre; // Retorna el nombre o null si no encontró nada
+        
+    }
+    
+    
+    public boolean existeUserMySQL(int usuario){
+        
+        boolean existe = false;
+        
+        String consulta = "SELECT COUNT(*) AS Total " +
+                            "FROM tbl_usuarios " +
+                            "WHERE id_usuario = ?;";
+        
+        
+        
+        try {
+            con = cn.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consulta); // Preparar consulta
+            ps.setInt(1, usuario);
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            if (rs.next()) {
+                int total = rs.getInt("Total");
+                existe = total > 0; // Si hay al menos un registro, existe = true
+            }
+
+            
+        } catch (SQLException e) { 
+            JOptionPane.showMessageDialog(null, 
+                        "Error al obtener el usuario de base de datos postgreSQL.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
+        } finally { 
+            try { 
+                if (rs != null) rs.close(); 
+                if (ps != null) ps.close(); 
+                if (con != null) con.close();
+                if (cn != null) cn.closeConnection();
+            } catch (SQLException e) { 
+                System.out.println("Error al cerrar recursos: " + e.getMessage()); 
+            } 
+        }
+        
+        return existe;
+        
+    }
+    
+    
+    public String obtenerSucursal(int user){
+        
+        String sucursal = null;
+        
+        String consulta = "SELECT o.nombre AS sucursal FROM usuarios u LEFT JOIN origenes o ON o.idorigen = u.idorigen WHERE u.idusuario = ?";
+        
+        try {
+            con = cn2.getConnection(); // Obtener conexión
+            ps = con.prepareStatement(consulta); // Preparar consulta
+            ps.setInt(1, user);
+            rs = ps.executeQuery(); // Ejecutar consulta
+
+            if (rs.next()) {
+                sucursal = rs.getString("sucursal"); // Obtener el nombre si hay resultado
+            }
+
+            
+        } catch (SQLException e) { 
+            JOptionPane.showMessageDialog(null, 
+                        "Error al obtener la sucursal de base de datos postgreSQL.\nDetalles: " + e.getMessage(), 
+                        "Error de Conexión", 
+                        JOptionPane.ERROR_MESSAGE);
+        } finally { 
+            try { 
+                if (rs != null) rs.close(); 
+                if (ps != null) ps.close(); 
+                if (con != null) con.close(); 
+                if (cn2 != null) cn2.closeConnection();
+            } catch (SQLException e) { 
+                System.out.println("Error al cerrar recursos: " + e.getMessage()); 
+            } 
+        }
+        
+        return sucursal; // Retorna el nombre o null si no encontró nada
+        
+    }
+    
+    
+    
 }
 
 
