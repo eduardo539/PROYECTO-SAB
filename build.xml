@@ -10,8 +10,6 @@
 <project name="SAB" default="default" basedir=".">
     <description>Builds, tests, and runs the project SAB.</description>
     <import file="nbproject/build-impl.xml"/>	
-        
-    
 
     <target name="-post-jar">
         <property name="store.jar.name" value="SAB"/>
@@ -25,6 +23,9 @@
             <zipgroupfileset dir="dist" includes="*.jar"/>
             <zipgroupfileset dir="dist/lib" includes="*.jar"/>
 
+            <!-- Incluye las librerías externas personalizadas -->
+            <zipgroupfileset dir="librerias" includes="*.jar"/>
+            
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
             </manifest>
