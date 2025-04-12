@@ -135,7 +135,7 @@ public class frmEnvioPDF extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Enviar Boleto");
+        setTitle("Enviar Boleto / Reporte");
 
         jPanel1.setBackground(new java.awt.Color(220, 231, 237));
 

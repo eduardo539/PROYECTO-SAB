@@ -88,6 +88,7 @@ public class frmVentaPorSucursal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ventas Totales");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione Sucursal:"));
 
