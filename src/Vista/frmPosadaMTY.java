@@ -96,7 +96,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     
     private void iniciarActualizacionAutomatica() {
         // Crea un Timer que ejecuta una acción cada 3 segundos (3000 ms)
-        timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //System.out.println("Actualizando datos en tiempo real...");

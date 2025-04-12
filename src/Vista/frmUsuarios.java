@@ -29,12 +29,15 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+
+
 /**
  *
  * @author Eduardo`s
  * 
  */
 public class frmUsuarios extends javax.swing.JFrame {
+    
     
     UsuariosData userDat = new UsuariosData();
     Usuarios user = Usuarios.getInstancia();
@@ -53,7 +56,6 @@ public class frmUsuarios extends javax.swing.JFrame {
     String nombreUsuarioSistema = lg.getNombre();
     String sucursalUsuarioSistema = lg.getSucursal();
     int perfilUsuarioSistema = lg.getIdperfil();
-    
     
         
     int idUser;
@@ -82,7 +84,6 @@ public class frmUsuarios extends javax.swing.JFrame {
         desactivarBotones();
         barraEstado();
     }
-    
     
     
     public void barraEstado(){
@@ -116,15 +117,15 @@ public class frmUsuarios extends javax.swing.JFrame {
     
      private void cerrarVentanaX() {
         // Aquí ejecutas las funciones que quieres antes de cerrar la ventana
+        user.borrarDatos();
         frmMenuSistemas menu = new frmMenuSistemas();
         menu.setLocationRelativeTo(null);
         menu.setVisible(true);
-        
-        user.borrarDatos();
     }
      
     
     public void datosTabla(){
+        
         user.borrarDatos();
         user = userDat.obtenerUsuarios();
         
@@ -237,124 +238,7 @@ public class frmUsuarios extends javax.swing.JFrame {
                 }
             }
         });
-
         
-    }
-    
-    
-    public void desactivarBotones(){
-        btnActualizar.setEnabled(false);
-        btnReset.setEnabled(false);
-    }
-    
-    
-    public void agregarUsuario(int idUsuario, int idPerfil, String estado){
-        
-        int USER = idUsuario;
-        String dataName;
-        String pass = "cambio";
-        java.sql.Date dtvigencia;
-        int IDperfil = idPerfil;
-        String sucursal;
-        String nomEstado = estado;
-        
-        
-        int userLog = lg.getIdusuario();
-        String nomUserLog = lg.getNombre();
-        String sucursalUserLog = lg.getSucursal();
-        int perfilUserLog = lg.getIdperfil();
-        
-        
-        // Obtener la fecha desde el servidor de Google
-        TimeGoogle fechaGoogle = new TimeGoogle();
-        fechaGoogle.newFormatTimeGoogle();
-        
-        // Convertir la fecha obtenida a java.sql.Date
-        dtvigencia = java.sql.Date.valueOf(fechaGoogle.getFechaNewFormatGoogle());
-        dataName = consulta.comprobarExistenciaUsuario(USER);
-        sucursal = consulta.obtenerSucursal(USER);
-        
-        if (dataName == null) {
-            JOptionPane.showMessageDialog(null, 
-                "El ID del usuario ingresado no existe o es incorrecto.", 
-                "Advertencia", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        if (sucursal == null) {
-            JOptionPane.showMessageDialog(null, 
-                "Hubo un error al obtener la sucursal del usuario.", 
-                "Advertencia", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        
-        boolean value = consulta.existeUserMySQL(USER);
-        
-        if (value) {
-            JOptionPane.showMessageDialog(null,
-                "El usuario ya está registrado en el sistema.",
-                "Advertencia",
-                JOptionPane.WARNING_MESSAGE);
-            return; // Detiene la ejecución si ya está registrado
-        }
-        
-        
-        inserta.agregarNuevoUsuario(idUsuario, dataName, pass, dtvigencia, IDperfil, sucursal, nomEstado, userLog, nomUserLog, perfilUserLog, sucursalUserLog);
-        datosTabla();
-        limpiarDatos();
-                
-    }
-    
-    
-    private void abrirLogin() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                user.borrarDatos();
-                frmLogin lg = new frmLogin();
-                lg.setLocationRelativeTo(null);
-                lg.setVisible(true);
-            }
-        });
-    }
-    
-    
-    public void cerrarSesionUsuario(){
-        try {
-            // Confirmar cierre de sesión
-            int confirm = JOptionPane.showConfirmDialog(this,
-                    "¿Estás seguro de que deseas cerrar sesión?",
-                    "Cerrar Sesión",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Limpiar datos de la sesión del usuario
-                CerrarSesion closeSesion = new CerrarSesion();
-                int user = lg.getIdusuario();
-                
-                closeSesion.EliminarSesion(user);
-                closeSesion.cerrarSession();
-
-                // Cerrar todas las ventanas abiertas excepto el login
-                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-                for (Window window : Window.getWindows()) {
-                    if (window != topFrame) {
-                        window.dispose();
-                    }
-                }
-                // Redirigir a la ventana de inicio de sesión
-                abrirLogin();
-            }
-        } catch (Exception e) {
-            // Manejo de errores en caso de fallo
-            JOptionPane.showMessageDialog(this, 
-                "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE); 
-        }
     }
     
     
@@ -437,6 +321,61 @@ public class frmUsuarios extends javax.swing.JFrame {
     }
     
     
+    public void desactivarBotones(){
+        btnActualizar.setEnabled(false);
+        btnReset.setEnabled(false);
+    }
+
+    
+    private void abrirLogin() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                user.borrarDatos();
+                frmLogin lg = new frmLogin();
+                lg.setLocationRelativeTo(null);
+                lg.setVisible(true);
+            }
+        });
+    }
+    
+    
+    public void cerrarSesionUsuario(){
+        try {
+            // Confirmar cierre de sesión
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "¿Estás seguro de que deseas cerrar sesión?",
+                    "Cerrar Sesión",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Limpiar datos de la sesión del usuario
+                CerrarSesion closeSesion = new CerrarSesion();
+                int user = lg.getIdusuario();
+                
+                closeSesion.EliminarSesion(user);
+                closeSesion.cerrarSession();
+
+                // Cerrar todas las ventanas abiertas excepto el login
+                JFrame topFrame = (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                for (Window window : Window.getWindows()) {
+                    if (window != topFrame) {
+                        window.dispose();
+                    }
+                }
+                // Redirigir a la ventana de inicio de sesión
+                abrirLogin();
+            }
+        } catch (Exception e) {
+            // Manejo de errores en caso de fallo
+            JOptionPane.showMessageDialog(this, 
+                "Ocurrió un error al cerrar sesión: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE); 
+        }
+    }
+    
+    
     private String encriptarMD5(String contrasenia) {
         try {
             // Crear el objeto MessageDigest para MD5
@@ -461,6 +400,7 @@ public class frmUsuarios extends javax.swing.JFrame {
             return null; // En caso de error
         }
     }
+    
     
     
     private String TraerSucursaldelusuarioAactualizarPassword (int id_usuario3) {
@@ -492,6 +432,7 @@ public class frmUsuarios extends javax.swing.JFrame {
             return null;
         }
     }
+
     
     
     public void limpiarDatos(){
@@ -501,6 +442,68 @@ public class frmUsuarios extends javax.swing.JFrame {
         comboPerfil.setSelectedIndex(0);
         comboEstado.setSelectedIndex(0);
         
+    }
+    
+    
+    
+    public void agregarUsuario(int idUsuario, int idPerfil, String estado){
+        
+        int USER = idUsuario;
+        String dataName;
+        String pass = "cambio";
+        java.sql.Date dtvigencia;
+        int IDperfil = idPerfil;
+        String sucursal;
+        String nomEstado = estado;
+        
+        
+        int userLog = lg.getIdusuario();
+        String nomUserLog = lg.getNombre();
+        String sucursalUserLog = lg.getSucursal();
+        int perfilUserLog = lg.getIdperfil();
+        
+        
+        // Obtener la fecha desde el servidor de Google
+        TimeGoogle fechaGoogle = new TimeGoogle();
+        fechaGoogle.newFormatTimeGoogle();
+        
+        // Convertir la fecha obtenida a java.sql.Date
+        dtvigencia = java.sql.Date.valueOf(fechaGoogle.getFechaNewFormatGoogle());
+        dataName = consulta.comprobarExistenciaUsuario(USER);
+        sucursal = consulta.obtenerSucursal(USER);
+        
+        if (dataName == null) {
+            JOptionPane.showMessageDialog(null, 
+                "El ID del usuario ingresado no existe o es incorrecto.", 
+                "Advertencia", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (sucursal == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Hubo un error al obtener la sucursal del usuario.", 
+                "Advertencia", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
+        boolean value = consulta.existeUserMySQL(USER);
+        
+        if (value) {
+            JOptionPane.showMessageDialog(null,
+                "El usuario ya está registrado en el sistema.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+            return; // Detiene la ejecución si ya está registrado
+        }
+        
+        
+        inserta.agregarNuevoUsuario(idUsuario, dataName, pass, dtvigencia, IDperfil, sucursal, nomEstado, userLog, nomUserLog, perfilUserLog, sucursalUserLog);
+        datosTabla();
+        limpiarDatos();
+                
     }
     
     
@@ -683,8 +686,8 @@ public class frmUsuarios extends javax.swing.JFrame {
         btnReset.setBackground(new java.awt.Color(76, 175, 80));
         btnReset.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
-        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/restaurar_contraseña.png"))); // NOI18N
-        btnReset.setText("Restablecer Contraseña");
+        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-restablecer.png"))); // NOI18N
+        btnReset.setText("Restablecer Password");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResetActionPerformed(evt);
@@ -709,7 +712,7 @@ public class frmUsuarios extends javax.swing.JFrame {
                 .addComponent(btnActualizar)
                 .addGap(18, 18, 18)
                 .addComponent(btnReset)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N
@@ -849,7 +852,7 @@ public class frmUsuarios extends javax.swing.JFrame {
 
     private void jmiRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegresarActionPerformed
         
-        user.borrarDatos();
+        //user.borrarDatos();
         
         frmMenuSistemas Sistemas = new frmMenuSistemas();
         Sistemas.setLocationRelativeTo(null);
@@ -875,7 +878,6 @@ public class frmUsuarios extends javax.swing.JFrame {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         
         
-    
         try {
             // Validación si se ha seleccionado un usuario
             if (txtID.getText().trim().isEmpty()) {
@@ -982,14 +984,13 @@ public class frmUsuarios extends javax.swing.JFrame {
             );
         }
         
+        
     }//GEN-LAST:event_btnResetActionPerformed
 
     
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmUsuarios().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frmUsuarios().setVisible(true);
         });
     }
 
