@@ -139,6 +139,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ventas por Socios");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingrese Datos de Socio:"));
 
