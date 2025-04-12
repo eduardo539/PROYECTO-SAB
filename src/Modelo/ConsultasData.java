@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -927,6 +928,7 @@ public class ConsultasData {
 
             if (rs.next()) {
                 nombre = rs.getString("Nombre"); // Obtener el nombre si hay resultado
+
             }
 
             

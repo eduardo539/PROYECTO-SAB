@@ -21,7 +21,6 @@ public class frmMenuCajero extends javax.swing.JFrame {
 
     TimeGoogle google = new TimeGoogle();
     
-    private Timer timer;
     
     CerrarSesion closeSesion = new CerrarSesion();
     
