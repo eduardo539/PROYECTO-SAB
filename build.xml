@@ -10,42 +10,35 @@
 <project name="SAB" default="default" basedir=".">
     <description>Builds, tests, and runs the project SAB.</description>
     <import file="nbproject/build-impl.xml"/>	
-        
-    <target name="package-for-store" depends="jar">
-        <property name="store.jar.name" value="SAB"/> 
+
+    <target name="-post-jar">
+        <property name="store.jar.name" value="SAB"/>
+
         <property name="store.dir" value="store"/>
         <property name="store.jar" value="${store.dir}/${store.jar.name}.jar"/>
 
         <echo message="Packaging ${application.title} into a single JAR at ${store.jar}"/>
 
-        <!-- Limpia y crea el directorio de almacenamiento temporal -->
-        <delete dir="${store.dir}"/>
-        <mkdir dir="${store.dir}"/>
-
-        <!-- Empaqueta los JARs de las dependencias en el archivo final -->
         <jar destfile="${store.dir}/temp_final.jar" filesetmanifest="skip">
-            <!-- Incluir todos los JARs de dist -->
             <zipgroupfileset dir="dist" includes="*.jar"/>
-            <!-- Incluir todos los JARs de lib -->
             <zipgroupfileset dir="dist/lib" includes="*.jar"/>
-            <!-- Incluir JARs desde la carpeta "librerias" (si la tienes) -->
-            <zipgroupfileset dir="librerias" includes="*.jar"/>
 
-            <!-- Manifiesto con la clase principal -->
+            <!-- Incluye las librerías externas personalizadas -->
+            <zipgroupfileset dir="librerias" includes="*.jar"/>
+            
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
             </manifest>
         </jar>
 
-        <!-- Empaque en un archivo .zip final -->
         <zip destfile="${store.jar}">
             <zipfileset src="${store.dir}/temp_final.jar"
             excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
         </zip>
 
-        <!-- Limpia el archivo temporal -->
         <delete file="${store.dir}/temp_final.jar"/>
-        
+        <delete dir="${store.dir}/lib"/>
+        <delete file="${store.dir}/README.TXT"/>
     </target>
 
         

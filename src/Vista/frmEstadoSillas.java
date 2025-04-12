@@ -111,7 +111,7 @@ public class frmEstadoSillas extends javax.swing.JFrame {
     public void estadoSillasTimeReal(){
         
         // Crea un Timer que ejecuta una acción cada segundo
-        timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 

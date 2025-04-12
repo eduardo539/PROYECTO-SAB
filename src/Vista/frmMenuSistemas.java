@@ -124,12 +124,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         }
     }
     
-    public void abrirVentanaUsuarios(){
-        frmUsuariosXSistemas Usuarios = new frmUsuariosXSistemas();
-        Usuarios.setLocationRelativeTo(null);
-        Usuarios.setVisible(true);
-        this.dispose();
-    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -149,17 +143,17 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         lblFechaHora = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmiUsuarios = new javax.swing.JMenuItem();
+        jmiVentasSucursal = new javax.swing.JMenuItem();
+        jmiVentasTotales = new javax.swing.JMenuItem();
+        jmiVentasSocios = new javax.swing.JMenuItem();
+        jmiSaldos = new javax.swing.JMenuItem();
         jmiSesiones = new javax.swing.JMenuItem();
-        jmiLimiteVentaBoleto = new javax.swing.JMenuItem();
-        jmiEstadoSillas = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmiLimite = new javax.swing.JMenuItem();
+        jmiEstasoSillas = new javax.swing.JMenuItem();
+        jmiEnvio = new javax.swing.JMenuItem();
+        jmiBitacora = new javax.swing.JMenuItem();
+        jmiCerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -199,55 +193,55 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenu1.setText("Menu");
         jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/usuarios_generales.png"))); // NOI18N
-        jMenuItem3.setText("Usuarios");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmiUsuarios.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/usuarios_generales.png"))); // NOI18N
+        jmiUsuarios.setText("Agregar Usuario");
+        jmiUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmiUsuariosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jmiUsuarios);
 
-        jMenuItem8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes_p_sucursal.png"))); // NOI18N
-        jMenuItem8.setText("Ventas por sucursales");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        jmiVentasSucursal.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiVentasSucursal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes_p_sucursal.png"))); // NOI18N
+        jmiVentasSucursal.setText("Ventas por sucursales");
+        jmiVentasSucursal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                jmiVentasSucursalActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem8);
+        jMenu1.add(jmiVentasSucursal);
 
-        jMenuItem7.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_p_sucursal.png"))); // NOI18N
-        jMenuItem7.setText("Ventas totales");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        jmiVentasTotales.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiVentasTotales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_p_sucursal.png"))); // NOI18N
+        jmiVentasTotales.setText("Ventas totales");
+        jmiVentasTotales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                jmiVentasTotalesActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        jMenu1.add(jmiVentasTotales);
 
-        jMenuItem9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_por_socio.png"))); // NOI18N
-        jMenuItem9.setText("Ventas por socios");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        jmiVentasSocios.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiVentasSocios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/venta_por_socio.png"))); // NOI18N
+        jmiVentasSocios.setText("Ventas por socios");
+        jmiVentasSocios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                jmiVentasSociosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem9);
+        jMenu1.add(jmiVentasSocios);
 
-        jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-efectivo.png"))); // NOI18N
-        jMenuItem4.setText("Saldo Utilizado por Socio");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jmiSaldos.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiSaldos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-efectivo.png"))); // NOI18N
+        jmiSaldos.setText("Saldo Utilizado por Socio");
+        jmiSaldos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jmiSaldosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(jmiSaldos);
 
         jmiSesiones.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiSesiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-sesion.png"))); // NOI18N
@@ -259,55 +253,55 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         });
         jMenu1.add(jmiSesiones);
 
-        jmiLimiteVentaBoleto.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jmiLimiteVentaBoleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-limite.png"))); // NOI18N
-        jmiLimiteVentaBoleto.setText("Limite Venta Boleto");
-        jmiLimiteVentaBoleto.addActionListener(new java.awt.event.ActionListener() {
+        jmiLimite.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiLimite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-limite.png"))); // NOI18N
+        jmiLimite.setText("Limite Venta Boleto");
+        jmiLimite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiLimiteVentaBoletoActionPerformed(evt);
+                jmiLimiteActionPerformed(evt);
             }
         });
-        jMenu1.add(jmiLimiteVentaBoleto);
+        jMenu1.add(jmiLimite);
 
-        jmiEstadoSillas.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jmiEstadoSillas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar-datos.png"))); // NOI18N
-        jmiEstadoSillas.setText("Estado Sillas");
-        jmiEstadoSillas.addActionListener(new java.awt.event.ActionListener() {
+        jmiEstasoSillas.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiEstasoSillas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar-datos.png"))); // NOI18N
+        jmiEstasoSillas.setText("Estado Sillas");
+        jmiEstasoSillas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiEstadoSillasActionPerformed(evt);
+                jmiEstasoSillasActionPerformed(evt);
             }
         });
-        jMenu1.add(jmiEstadoSillas);
+        jMenu1.add(jmiEstasoSillas);
 
-        jMenuItem11.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-enviar.png"))); // NOI18N
-        jMenuItem11.setText("Envío de Reporte por Correo");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+        jmiEnvio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-enviar.png"))); // NOI18N
+        jmiEnvio.setText("Envío de Reporte por Correo");
+        jmiEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
+                jmiEnvioActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem11);
+        jMenu1.add(jmiEnvio);
 
-        jMenuItem10.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Bitacoras.png"))); // NOI18N
-        jMenuItem10.setText("Bitacoras");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        jmiBitacora.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiBitacora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Bitacoras.png"))); // NOI18N
+        jmiBitacora.setText("Bitacoras");
+        jmiBitacora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                jmiBitacoraActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem10);
+        jMenu1.add(jmiBitacora);
 
-        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
-        jMenuItem1.setText("Cerrar Sesión");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmiCerrarSesion.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jmiCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-exit.png"))); // NOI18N
+        jmiCerrarSesion.setText("Cerrar Sesión");
+        jmiCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiCerrarSesionActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jmiCerrarSesion);
 
         jMenuBar1.add(jMenu1);
 
@@ -408,13 +402,16 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
         cerrarSesionUsuario();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmiCerrarSesionActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        abrirVentanaUsuarios();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void jmiUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuariosActionPerformed
+        frmUsuarios Usuarios = new frmUsuarios();
+        Usuarios.setLocationRelativeTo(null);
+        Usuarios.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jmiUsuariosActionPerformed
     
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         frmAcercaDe acercade = new frmAcercaDe();
@@ -422,27 +419,27 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         acercade.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void jmiVentasSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVentasSucursalActionPerformed
         frmVentaXSucursalesPartSistemas Sistemas = new frmVentaXSucursalesPartSistemas();
         Sistemas.setLocationRelativeTo(null);
         Sistemas.setVisible(true);
         this.dispose();
-        
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_jmiVentasSucursalActionPerformed
+
+    private void jmiVentasSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVentasSociosActionPerformed
         frmVentaXSociosPartSistemas Sistemas = new frmVentaXSociosPartSistemas();
         Sistemas.setLocationRelativeTo(null);
         Sistemas.setVisible(true);
         this.dispose(); // Cierra la ventana actual
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_jmiVentasSociosActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void jmiVentasTotalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVentasTotalesActionPerformed
         frmVentaXSucursalPartSistemas Sistemas = new frmVentaXSucursalPartSistemas();
         Sistemas.setLocationRelativeTo(null);
         Sistemas.setVisible(true);
         this.dispose(); // Cierra la ventana actual
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_jmiVentasTotalesActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         AyudaHomeSistemas Ayuda = new AyudaHomeSistemas();
@@ -459,19 +456,19 @@ public class frmMenuSistemas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jmiSaldosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSaldosActionPerformed
         frmSaldoXSocio saldo = new frmSaldoXSocio();
         saldo.setLocationRelativeTo(null);
         saldo.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jmiSaldosActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void jmiBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBitacoraActionPerformed
         frmBitacorasUsuariosSistemas saldo = new frmBitacorasUsuariosSistemas();
         saldo.setLocationRelativeTo(null);
         saldo.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
+    }//GEN-LAST:event_jmiBitacoraActionPerformed
 
     private void jmiSesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSesionesActionPerformed
         frmSesionesActivas sesiones = new frmSesionesActivas();
@@ -480,26 +477,26 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jmiSesionesActionPerformed
 
-    private void jmiLimiteVentaBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiLimiteVentaBoletoActionPerformed
+    private void jmiLimiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiLimiteActionPerformed
         
         frmFechaLimiteVenta limite = new frmFechaLimiteVenta();
         limite.setLocationRelativeTo(null);
         limite.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jmiLimiteVentaBoletoActionPerformed
+    }//GEN-LAST:event_jmiLimiteActionPerformed
 
-    private void jmiEstadoSillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEstadoSillasActionPerformed
+    private void jmiEstasoSillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEstasoSillasActionPerformed
         frmEstadoSillas estado = new frmEstadoSillas();
         estado.setLocationRelativeTo(null);
         estado.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jmiEstadoSillasActionPerformed
+    }//GEN-LAST:event_jmiEstasoSillasActionPerformed
 
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+    private void jmiEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEnvioActionPerformed
         frmEnvioPDF estado = new frmEnvioPDF();
         estado.setLocationRelativeTo(null);
         estado.setVisible(true);
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
+    }//GEN-LAST:event_jmiEnvioActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -521,22 +518,22 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;
-    private javax.swing.JMenuItem jmiEstadoSillas;
-    private javax.swing.JMenuItem jmiLimiteVentaBoleto;
+    private javax.swing.JMenuItem jmiBitacora;
+    private javax.swing.JMenuItem jmiCerrarSesion;
+    private javax.swing.JMenuItem jmiEnvio;
+    private javax.swing.JMenuItem jmiEstasoSillas;
+    private javax.swing.JMenuItem jmiLimite;
+    private javax.swing.JMenuItem jmiSaldos;
     private javax.swing.JMenuItem jmiSesiones;
+    private javax.swing.JMenuItem jmiUsuarios;
+    private javax.swing.JMenuItem jmiVentasSocios;
+    private javax.swing.JMenuItem jmiVentasSucursal;
+    private javax.swing.JMenuItem jmiVentasTotales;
     private javax.swing.JLabel lblFechaHora;
     // End of variables declaration//GEN-END:variables
 
