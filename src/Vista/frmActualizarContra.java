@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 
 import Modelo.Login;
 import Modelo.TimeGoogle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -16,7 +18,8 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Stock 2 Sistemas
+ * @author Eduardo´s
+ * 
  */
 
 public class frmActualizarContra extends javax.swing.JFrame {
@@ -32,15 +35,106 @@ public class frmActualizarContra extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/Iconos/Logo.png")).getImage());
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         
+        funcionTeclaEnter();
         //Evitar maximizar la ventana
         setResizable(false);
+        
     }
 
-    /**
-     * Constructor con argumentos.
-     * Recibe el ID del usuario para personalizar el formulario.
-     * @param idUsuario
-     */
+    public void funcionTeclaEnter(){
+        txtContrasenia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Llamar la función cuando presione Enter
+                actualizarPass();
+            }
+        });
+
+        txtConfirmaContrasenia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Llamar la función cuando presione Enter
+                actualizarPass();
+            }
+        });
+    }
+    
+    
+    public void actualizarPass(){
+        String nuevaContrasena = String.valueOf(txtContrasenia.getPassword()).trim();
+        String confirmaContrasena = String.valueOf(txtConfirmaContrasenia.getPassword()).trim();
+
+        if (nuevaContrasena.isEmpty() || confirmaContrasena.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!nuevaContrasena.equals(confirmaContrasena)) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!validarContrasenia(nuevaContrasena)) {
+            return;
+        }
+
+        try {
+            connection = conexion.getConnection();
+            if (connection == null) {
+                JOptionPane.showMessageDialog(this, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String consultaQuery = "SELECT vchPass FROM tbl_usuarios WHERE id_usuario = ?";
+            PreparedStatement consultaPs = connection.prepareStatement(consultaQuery);
+            consultaPs.setInt(1, idUsuario);
+            ResultSet rs = consultaPs.executeQuery();
+
+            if (rs.next()) {
+                String contrasenaActual = rs.getString("vchPass");
+                String nuevaContrasenaMD5 = calcularMD5(nuevaContrasena);
+                if (nuevaContrasenaMD5.equals(contrasenaActual)) {
+                    JOptionPane.showMessageDialog(this, "La nueva contraseña no puede ser igual a la actual.", "Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Obtener fecha desde TimeGoogle y calcular la vigencia
+            TimeGoogle fechaGoogle = new TimeGoogle();
+            fechaGoogle.newFormatTimeGoogle();
+            String fechaDesdeGoogle = fechaGoogle.getFechaNewFormatGoogle();
+
+            LocalDate fechaBase = LocalDate.parse(fechaDesdeGoogle);
+            LocalDate fechaVigencia = fechaBase.plusMonths(1);
+            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            String query = "UPDATE tbl_usuarios SET vchPass = MD5(?), dtVigencia = ? WHERE id_usuario = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, nuevaContrasena);
+            ps.setString(2, fechaVigenciaStr);
+            ps.setInt(3, idUsuario);
+
+            int rowsUpdated = ps.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(this, "Contraseña actualizada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                lg.limpiarDatos();
+                abrirFormularioLogin();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar la contraseña: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (connection != null) {
+                conexion.closeConnection();
+            }
+        }
+    }
     
     public frmActualizarContra(int idUsuario) {
         this.idUsuario = idUsuario; // Asigna el ID del usuario
@@ -179,79 +273,7 @@ public class frmActualizarContra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        String nuevaContrasena = String.valueOf(txtContrasenia.getPassword()).trim();
-        String confirmaContrasena = String.valueOf(txtConfirmaContrasenia.getPassword()).trim();
-
-        if (nuevaContrasena.isEmpty() || confirmaContrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!nuevaContrasena.equals(confirmaContrasena)) {
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!validarContrasenia(nuevaContrasena)) {
-            return;
-        }
-
-        try {
-            connection = conexion.getConnection();
-            if (connection == null) {
-                JOptionPane.showMessageDialog(this, "No se pudo establecer conexión con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            String consultaQuery = "SELECT vchPass FROM tbl_usuarios WHERE id_usuario = ?";
-            PreparedStatement consultaPs = connection.prepareStatement(consultaQuery);
-            consultaPs.setInt(1, idUsuario);
-            ResultSet rs = consultaPs.executeQuery();
-
-            if (rs.next()) {
-                String contrasenaActual = rs.getString("vchPass");
-                String nuevaContrasenaMD5 = calcularMD5(nuevaContrasena);
-                if (nuevaContrasenaMD5.equals(contrasenaActual)) {
-                    JOptionPane.showMessageDialog(this, "La nueva contraseña no puede ser igual a la actual.", "Error", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Obtener fecha desde TimeGoogle y calcular la vigencia
-            TimeGoogle fechaGoogle = new TimeGoogle();
-            fechaGoogle.newFormatTimeGoogle();
-            String fechaDesdeGoogle = fechaGoogle.getFechaNewFormatGoogle();
-
-            LocalDate fechaBase = LocalDate.parse(fechaDesdeGoogle);
-            LocalDate fechaVigencia = fechaBase.plusMonths(1);
-            String fechaVigenciaStr = fechaVigencia.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-            String query = "UPDATE tbl_usuarios SET vchPass = MD5(?), dtVigencia = ? WHERE id_usuario = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, nuevaContrasena);
-            ps.setString(2, fechaVigenciaStr);
-            ps.setInt(3, idUsuario);
-
-            int rowsUpdated = ps.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(this, "Contraseña actualizada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                lg.limpiarDatos();
-                abrirFormularioLogin();
-            } else {
-                JOptionPane.showMessageDialog(this, "No se pudo actualizar la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar la contraseña: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            if (connection != null) {
-                conexion.closeConnection();
-            }
-        }
+        actualizarPass();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void lblVerPass1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerPass1MouseClicked
