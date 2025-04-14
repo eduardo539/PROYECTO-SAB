@@ -1173,9 +1173,7 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAdeudoActionPerformed
 
     private void jmiInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInfoActionPerformed
-        AyudaSillasSeparadasCajero Cajero = new AyudaSillasSeparadasCajero();
-        Cajero.setLocationRelativeTo(null);
-        Cajero.setVisible(true);
+        
     }//GEN-LAST:event_jmiInfoActionPerformed
 
     private void cerrarSesion() {
