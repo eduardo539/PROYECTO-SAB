@@ -24,10 +24,7 @@ public class UsuariosData {
         
         Usuarios us = Usuarios.getInstancia();
         
-        String consulta = "SELECT u.id_usuario, u.Nombre, p.id_perfil ,p.tipo_perfil, u.estado " +
-                            "FROM tbl_usuarios u " +
-                            "JOIN tbl_perfil p ON u.id_perfil = p.id_perfil " +
-                            "ORDER BY u.id_usuario ASC;";
+        String consulta = "SELECT * FROM vista_usuarios_registrados;";
         
         
         try {
