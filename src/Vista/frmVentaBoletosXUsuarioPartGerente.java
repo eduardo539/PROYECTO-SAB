@@ -481,9 +481,7 @@ public class frmVentaBoletosXUsuarioPartGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltrarXUsuarioActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        AyudaVentasXSocios Gerente = new AyudaVentasXSocios();
-        Gerente.setLocationRelativeTo(null);
-        Gerente.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void btnExportarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPDFActionPerformed

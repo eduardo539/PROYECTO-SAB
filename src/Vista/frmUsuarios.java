@@ -686,7 +686,6 @@ public class frmUsuarios extends javax.swing.JFrame {
         btnReset.setBackground(new java.awt.Color(76, 175, 80));
         btnReset.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
-        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-restablecer.png"))); // NOI18N
         btnReset.setText("Restablecer Password");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -710,9 +709,9 @@ public class frmUsuarios extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(btnActualizar)
-                .addGap(18, 18, 18)
-                .addComponent(btnReset)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-menu.png"))); // NOI18N

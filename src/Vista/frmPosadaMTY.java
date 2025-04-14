@@ -2255,9 +2255,7 @@ public class frmPosadaMTY extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        AyudaPosadaMonterrey Cajero = new AyudaPosadaMonterrey();
-        Cajero.setLocationRelativeTo(null);
-        Cajero.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jmiEnvioBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEnvioBoletoActionPerformed

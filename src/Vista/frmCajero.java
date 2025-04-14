@@ -598,9 +598,7 @@ public class frmCajero extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jmiInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInfoActionPerformed
-        AyudaEventos Cajero = new AyudaEventos();
-        Cajero.setLocationRelativeTo(null);
-        Cajero.setVisible(true);
+        
     }//GEN-LAST:event_jmiInfoActionPerformed
 
     private void jmiEnvioBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEnvioBoletoActionPerformed

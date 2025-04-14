@@ -469,9 +469,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        AyudaVentasXSucursal Gerente = new AyudaVentasXSucursal();
-        Gerente.setLocationRelativeTo(null);
-        Gerente.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnExportarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPDFActionPerformed
