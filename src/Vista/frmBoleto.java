@@ -912,9 +912,7 @@ public class frmBoleto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOrigenActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        AyudaComprarBoletos Cajero = new AyudaComprarBoletos();
-        Cajero.setLocationRelativeTo(null);
-        Cajero.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     
