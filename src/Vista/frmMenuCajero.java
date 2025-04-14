@@ -325,9 +325,7 @@ public class frmMenuCajero extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        AyudaHomeCajero Cajero = new AyudaHomeCajero();
-        Cajero.setLocationRelativeTo(null);
-        Cajero.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public static void main(String args[]) {
