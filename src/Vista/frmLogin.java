@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author Eduardo´s SAB
@@ -570,7 +571,6 @@ public class frmLogin extends javax.swing.JFrame {
                     return true; // Contraseña vencida
                 }
             }
-
             rs.close();
             ps.close();
         } catch (SQLException e) {
