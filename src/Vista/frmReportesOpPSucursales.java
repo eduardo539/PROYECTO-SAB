@@ -13,8 +13,6 @@ import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import java.awt.BorderLayout;
-import java.awt.Toolkit;
 import java.awt.Window;
 import java.io.File;
 import java.io.FileOutputStream;
