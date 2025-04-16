@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Gerente.AyudaVentasXSucursal;
 import Modelo.CerrarSesion;
 import Modelo.Login;
 import Modelo.Conexion;
@@ -129,8 +128,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ventas por Sucursal");
@@ -333,22 +330,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
-        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jMenuItem1.setText("Info...");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -468,10 +449,6 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void btnExportarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPDFActionPerformed
         exportarTablaAPDF();
     }//GEN-LAST:event_btnExportarPDFActionPerformed
@@ -489,9 +466,7 @@ public class frmReporteVentaPSucursal extends javax.swing.JFrame {
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnMostrarTodo;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;

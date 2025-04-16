@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Gerente.AyudaHomeGerente;
 import Modelo.CerrarSesion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
@@ -146,7 +145,6 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
 
         jRadioButton1.setText("jRadioButton1");
@@ -232,18 +230,8 @@ public class frmMenuGerente extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
+        jMenu2.setText("Info.");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jMenuItem4.setText("Info...");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem4);
 
         jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
@@ -353,10 +341,6 @@ public class frmMenuGerente extends javax.swing.JFrame {
         acercade.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         frmVentaSoloSucursalPartGerente Gerente = new frmVentaSoloSucursalPartGerente();
         Gerente.setLocationRelativeTo(null);
@@ -387,7 +371,6 @@ public class frmMenuGerente extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JRadioButton jRadioButton1;

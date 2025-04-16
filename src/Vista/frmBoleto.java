@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Cajero.AyudaComprarBoletos;
 import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
 import Modelo.CantidadSillasSelect.tempDataSillas;
@@ -599,8 +598,6 @@ public class frmBoleto extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         txtSaldoDisponible = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Datos para los Boletos");
@@ -831,23 +828,6 @@ public class frmBoleto extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
-        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jMenuItem1.setText("Info..");
-        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -911,10 +891,6 @@ public class frmBoleto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOrigenActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -933,9 +909,7 @@ public class frmBoleto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

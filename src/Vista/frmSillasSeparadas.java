@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Cajero.AyudaSillasSeparadasCajero;
 import Modelo.ActualizarData;
 import Modelo.CerrarSesion;
 import Modelo.ConsultaBoleto;
@@ -698,8 +697,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmiVolverInicio = new javax.swing.JMenuItem();
         jmiCerrarSesion = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jmiInfo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sillas Separadas");
@@ -970,23 +967,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
-        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jmiInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jmiInfo.setText("Info...");
-        jmiInfo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jmiInfo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiInfoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jmiInfo);
-
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1172,10 +1152,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAdeudoActionPerformed
 
-    private void jmiInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInfoActionPerformed
-        
-    }//GEN-LAST:event_jmiInfoActionPerformed
-
     private void cerrarSesion() {
        // Si tienes una clase Singleton para manejar la sesión
        Login sesion = Login.getInstancia();
@@ -1241,7 +1217,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private javax.swing.JButton btnSeleccionar;
     private com.github.lgooddatepicker.components.DatePicker dtNewVigencia;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1249,7 +1224,6 @@ public class frmSillasSeparadas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem jmiCerrarSesion;
-    private javax.swing.JMenuItem jmiInfo;
     private javax.swing.JMenuItem jmiVolverInicio;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblNombre;

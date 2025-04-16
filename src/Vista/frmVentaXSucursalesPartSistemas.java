@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Sistemas.AyudaVentasXSucursales;
 import Modelo.CerrarSesion;
 import Modelo.Conexion;
 import Modelo.Conexion2;
@@ -118,8 +117,6 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ventas por Sucursal");
@@ -325,22 +322,6 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
-        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jMenuItem3.setText("Info...");
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -474,18 +455,6 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtlMesesActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        AyudaVentasXSucursales Ayuda = new AyudaVentasXSucursales();
-        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
-        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
-        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
-        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
-        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
-        // Establece la posición de la ventana en la esquina superior derecha
-        Ayuda.setLocation(screenWidth - windowWidth, 0);
-        Ayuda.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void btnExportarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPDFActionPerformed
         exportarTablaAPDF();
     }//GEN-LAST:event_btnExportarPDFActionPerformed
@@ -503,11 +472,9 @@ public class frmVentaXSucursalesPartSistemas extends javax.swing.JFrame {
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnMostrarTodo;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

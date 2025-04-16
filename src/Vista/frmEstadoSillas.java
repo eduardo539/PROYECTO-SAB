@@ -512,7 +512,6 @@ public class frmEstadoSillas extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jmiMenu = new javax.swing.JMenu();
         jmiRegresar = new javax.swing.JMenuItem();
-        jmiAyuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Estado Actual de las Sillas");
@@ -702,12 +701,6 @@ public class frmEstadoSillas extends javax.swing.JFrame {
 
         jMenuBar1.add(jmiMenu);
 
-        jmiAyuda.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jmiAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jmiAyuda.setText("Ayuda");
-        jmiAyuda.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuBar1.add(jmiAyuda);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -816,7 +809,6 @@ public class frmEstadoSillas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenu jmiAyuda;
     private javax.swing.JMenu jmiMenu;
     private javax.swing.JMenuItem jmiRegresar;
     private javax.swing.JLabel lblFecha;
