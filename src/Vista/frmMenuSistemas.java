@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Sistemas.AyudaHomeSistemas;
 import Modelo.CerrarSesion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
@@ -155,7 +154,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jmiBitacora = new javax.swing.JMenuItem();
         jmiCerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
@@ -263,9 +261,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         });
         jMenu1.add(jmiLimite);
 
-        jmiEstasoSillas.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiEstasoSillas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-actualizar-datos.png"))); // NOI18N
         jmiEstasoSillas.setText("Estado Sillas");
+        jmiEstasoSillas.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiEstasoSillas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiEstasoSillasActionPerformed(evt);
@@ -273,9 +271,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         });
         jMenu1.add(jmiEstasoSillas);
 
-        jmiEnvio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-enviar.png"))); // NOI18N
         jmiEnvio.setText("Envío de Reporte por Correo");
+        jmiEnvio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiEnvio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiEnvioActionPerformed(evt);
@@ -283,9 +281,9 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         });
         jMenu1.add(jmiEnvio);
 
-        jmiBitacora.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiBitacora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Bitacoras.png"))); // NOI18N
         jmiBitacora.setText("Bitacoras");
+        jmiBitacora.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jmiBitacora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiBitacoraActionPerformed(evt);
@@ -306,18 +304,8 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
+        jMenu2.setText("Info.");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jMenuItem5.setText("Info...");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem5);
 
         jMenuItem6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
@@ -441,21 +429,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
         this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_jmiVentasTotalesActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        AyudaHomeSistemas Ayuda = new AyudaHomeSistemas();
-        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
-        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
-        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
-        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
-        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
-
-        // Establece la posición de la ventana en la esquina superior derecha
-        Ayuda.setLocation(screenWidth - windowWidth, 0);
-
-        Ayuda.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
     private void jmiSaldosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSaldosActionPerformed
         frmSaldoXSocio saldo = new frmSaldoXSocio();
         saldo.setLocationRelativeTo(null);
@@ -519,7 +492,6 @@ public class frmMenuSistemas extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JLabel jlUsuario;

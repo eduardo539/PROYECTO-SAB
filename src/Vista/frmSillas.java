@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Cajero.AyudaSeleccionSillas;
 import Modelo.ActualizarData;
 import Modelo.CantidadSillasSelect;
 import Modelo.CantidadSillasSelect.tempDataSillas;
@@ -432,8 +431,6 @@ public class frmSillas extends javax.swing.JFrame {
         lblCostoUnit = new javax.swing.JLabel();
         lblCantiSillas = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Selección de Sillas");
@@ -638,11 +635,11 @@ public class frmSillas extends javax.swing.JFrame {
         });
         jPanel2.add(txtSillasSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 200, -1));
 
+        btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-continuar.png"))); // NOI18N
+        btnContinuar.setText("Continuar");
         btnContinuar.setBackground(new java.awt.Color(0, 153, 0));
         btnContinuar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnContinuar.setForeground(new java.awt.Color(255, 255, 255));
-        btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-continuar.png"))); // NOI18N
-        btnContinuar.setText("Continuar");
         btnContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContinuarActionPerformed(evt);
@@ -657,23 +654,6 @@ public class frmSillas extends javax.swing.JFrame {
         lblCantiSillas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCantiSillas.setText("Label-Cantidad-Sillas");
         jPanel2.add(lblCantiSillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
-
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu1.setText("Ayuda");
-        jMenu1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jMenuItem1.setText("Info..");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -755,10 +735,6 @@ public class frmSillas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSillasSelectActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -817,9 +793,7 @@ public class frmSillas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollBar jScrollBar1;

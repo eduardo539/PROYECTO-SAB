@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Operaciones.AyudaHomeOperaciones;
 import Modelo.CerrarSesion;
 import Modelo.Login;
 import Modelo.TimeGoogle;
@@ -154,7 +153,6 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -259,18 +257,8 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
+        jMenu2.setText("Info.");
         jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jMenuItem4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jMenuItem4.setText("Info...");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem4);
 
         jMenuItem5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/direccion_proyecto.png"))); // NOI18N
@@ -386,18 +374,6 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
         acercade.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        AyudaHomeOperaciones Operaciones = new AyudaHomeOperaciones();
-        Operaciones.setLocationRelativeTo(null);  // Esto centra la ventana
-        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
-        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
-        int windowWidth = Operaciones.getWidth();  // Obtiene el ancho de la ventana
-        int windowHeight = Operaciones.getHeight();  // Obtiene el alto de la ventana
-        // Establece la posición de la ventana en la esquina superior derecha
-        Operaciones.setLocation(screenWidth - windowWidth, 0);
-        Operaciones.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jmiBoletosVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBoletosVendidosActionPerformed
         frmGenerarBoleto genBoleto = new frmGenerarBoleto();
         genBoleto.setLocationRelativeTo(null);
@@ -435,7 +411,6 @@ public class frmMenuOperaciones extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

@@ -534,7 +534,6 @@ public class frmUsuarios extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmiRegresar = new javax.swing.JMenuItem();
         jmiCerrarSesion = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Usuarios");
@@ -740,11 +739,6 @@ public class frmUsuarios extends javax.swing.JFrame {
         jMenu1.add(jmiCerrarSesion);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
-        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -1001,7 +995,6 @@ public class frmUsuarios extends javax.swing.JFrame {
     private javax.swing.JComboBox comboEstado;
     private javax.swing.JComboBox comboPerfil;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

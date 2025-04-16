@@ -1,6 +1,5 @@
 package Vista;
 
-import FormulariosAyuda.Sistemas.AyudaVentasTotales;
 import Modelo.CerrarSesion;
 import Modelo.Conexion;
 import Modelo.Login;
@@ -83,8 +82,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ventas Totales");
@@ -241,22 +238,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-ayuda.png"))); // NOI18N
-        jMenu2.setText("Ayuda");
-        jMenu2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icon-info.png"))); // NOI18N
-        jMenuItem3.setText("Info...");
-        jMenuItem3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu2);
-
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -268,18 +249,6 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
         Sistemas.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        AyudaVentasTotales Ayuda = new AyudaVentasTotales();
-        Ayuda.setLocationRelativeTo(null);  // Esto centra la ventana
-        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;  // Obtiene el ancho de la pantalla
-        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;  // Obtiene el alto de la pantalla
-        int windowWidth = Ayuda.getWidth();  // Obtiene el ancho de la ventana
-        int windowHeight = Ayuda.getHeight();  // Obtiene el alto de la ventana
-        // Establece la posición de la ventana en la esquina superior derecha
-        Ayuda.setLocation(screenWidth - windowWidth, 0);
-        Ayuda.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jtlSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtlSucursalesActionPerformed
         int selectedIndex = jtlAnio.getSelectedIndex();
@@ -368,11 +337,9 @@ public class frmVentaXSucursalPartSistemas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
