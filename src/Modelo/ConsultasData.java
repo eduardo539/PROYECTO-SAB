@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.Normalizer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -297,6 +296,9 @@ public class ConsultasData {
     }
 
     
+    /*
+    //Consulta para obtener el saldo disponible del socio para los boletos
+    */
     public SaldoDisponible saldoDisponibleXSocio(int origen, int grupo, int socio){
         
         SaldoDisponible sd = SaldoDisponible.getInstancia();
@@ -306,7 +308,7 @@ public class ConsultasData {
                     "where idorigen = ? and " +
                     "idgrupo = ? and " +
                     "idsocio = ? and " +
-                    "idproducto = 709 and " +
+                    "idproducto = 709 and " + //Cambiar el ID del producto en caso que haya cambiado
                     "saldo >= 0;";
         
         sd.limpiarDatos();
@@ -384,7 +386,7 @@ public class ConsultasData {
                 //System.out.println("No se encontró ningún registro");
 
                 // Preparar la consulta de inserción
-                String insertarData = "INSERT INTO saldoSocio (Origen, Grupo, Socio, Saldo) VALUES (?, ?, ?, ?)";
+                String insertarData = "INSERT INTO saldosocio (Origen, Grupo, Socio, Saldo) VALUES (?, ?, ?, ?)";
                 ps = con.prepareStatement(insertarData);
                 ps.setInt(1, origen);
                 ps.setInt(2, grupo);

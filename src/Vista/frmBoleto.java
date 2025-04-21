@@ -253,7 +253,7 @@ public class frmBoleto extends javax.swing.JFrame {
         int idMesa = sE.getIdMesa();
         String Mesa = sE.getNomMesa();
         double Costo = sE.getCosto();
-        double saldoPostgress = saldoDisp.getSaldo();
+        double saldoPostgress = saldoDisp.getSaldo(); //Saldo obtenido de postgree
         double saldoMySQL = saldoDisp.getSaldoL();
         int estatusSilla = 0;
         double importe = 0.00;
@@ -648,6 +648,7 @@ public class frmBoleto extends javax.swing.JFrame {
             }
         });
 
+        txtCorreo.setEditable(false);
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder("Correo"));
 
         txtZona.setEditable(false);
