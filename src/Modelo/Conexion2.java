@@ -19,8 +19,8 @@ public class Conexion2 {
     private Connection con;
     
     // Datos de conexión a la base de datos PostgreSQL
-    private static final String URL = "jdbc:postgresql://133.145.50.139:5432/";  // Puerto predeterminado de PostgreSQL es 5432
-    private static final String DATABASE = "cerro_280225";  // Nombre de la base de datos en PostgreSQL
+    private static final String URL = "jdbc:postgresql://133.145.4.1:5432/";  // Puerto predeterminado de PostgreSQL es 5432
+    private static final String DATABASE = "cerro";  // Nombre de la base de datos en PostgreSQL
     private static final String USER = "admin2";  // Tu usuario de PostgreSQL
     private static final String PASSWORD = "admin2";  // Tu contraseña de PostgreSQL
 
