@@ -432,7 +432,8 @@ public class frmBoleto extends javax.swing.JFrame {
                         "Alerta", JOptionPane.WARNING_MESSAGE);
                     return;
             }
-
+            
+            
             // Enviar los datos a la base de datos
             boolean datInsert = insert.insertarBoletos(origen, grupo, socio, nombre, sucursalSocio, rInvitado, telefono, correo,
                                                             idusuario, sucursalUsuario, idZona, idMesa, idsSillas, Costo, estatusSilla, importeDividido, fechaActualGoogle, vigencia);
@@ -445,6 +446,7 @@ public class frmBoleto extends javax.swing.JFrame {
                         "Alerta", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
             
             boolean actualizarSaldo = actualiza.actualizarSaldoSocio(sumaSaldoMySQL, origen, grupo, socio);
 
@@ -471,18 +473,10 @@ public class frmBoleto extends javax.swing.JFrame {
                 bol.boletoPDF();
             }
 
-            //System.out.println("origen: " + origen + " grup: " + grupo + " Socio: " + socio);
-            //List<DatosBoletosPDF.DataPDF> listaDatos = pdf.getListaDataPDF();
-
-            //for (DataPDF dato : listaDatos) {
-            //    System.out.println(dato);
-            //}
+            
 
             // Aquí se va a agregar la función para enviar el PDF automáticamente
             String nomBoleto = nomB.getNomBoleto();
-            //System.out.println("PDF generado: " + nomBoleto);
-
-            //String correoDestino = txtCorreo.getText().trim();
 
             //Enviar el PDF automaticamente en caso de Comprar el boleto
             if("Comprar".equals(comboBox)){
@@ -648,7 +642,6 @@ public class frmBoleto extends javax.swing.JFrame {
             }
         });
 
-        txtCorreo.setEditable(false);
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder("Correo"));
 
         txtZona.setEditable(false);
